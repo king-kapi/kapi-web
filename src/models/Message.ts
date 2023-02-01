@@ -4,7 +4,7 @@ type Message = {
 	_id: ObjectId;
 	chat_id: ObjectId;
 	sender: ObjectId;
-	message: string;
+	content: string;
 	timestamp: number;
 	metadata: {any: any};
 }

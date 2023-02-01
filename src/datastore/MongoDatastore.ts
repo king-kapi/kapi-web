@@ -1,5 +1,5 @@
 import { Collection, Db, MongoClient } from "mongodb";
-import User from "../models/User";
+import User, { newUser } from "../models/User";
 import Collections from "./Collections";
 
 class MongoDatastore {
@@ -19,29 +19,41 @@ class MongoDatastore {
     }
 
     static async getInstance() {
-        if (!MongoDatastore.instance) {
+        if (MongoDatastore.instance === undefined) {
             // initialize new client
             let client = new MongoClient(process.env.MONGODB_CONNECTION_URI || "mongodb://localhost:27017/");
             try {
-                await client.connect();
+                console.log(`Attempting to connect to ${process.env.MONGODB_CONNECTION_URI}`)
+                client = await client.connect();
+
+                console.log("Successfully connected to MongoDB!");
 
                 MongoDatastore.instance = new MongoDatastore(client);
-            } finally {
+            } catch (exception) {
                 console.error("Something went wrong with MongoDB!");
+                console.error(exception);
                 await client.close();
             }
         }
         return MongoDatastore.instance;
     }
 
-    async getUsers() : Promise<User[]> {
-        let users: User[] = [];
+    async getUsers(): Promise<User[]> {
+        return await this.usersCol.find({}).toArray() as User[];
+    }
 
-        let results = await this.usersCol.find({}).toArray() as User[];
+    async registerUsers(email: string, username: string): Promise<User> {
+        // check valid input
+        if (email.length == 0 || username.length == 0)
+            throw Error("Email or username invalid!");
 
-        console.log(results);
+        // check if user already exists
+        if (await this.usersCol.findOne({ email })) {
+            throw Error("User already registered!");
+        }
+        let insertedId = (await this.usersCol.insertOne(newUser(email, username))).insertedId;
 
-        return results;
+        return await this.usersCol.findOne({ "_id": insertedId }) as User;
     }
 };
 

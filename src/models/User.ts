@@ -1,8 +1,9 @@
 import { ObjectId } from "mongodb";
 import InterestTag from "./InterestTag";
+import GenerateRandomTag from "../utils/GenerateRandomTag";
 
 type User = {
-	_id: ObjectId;
+	_id?: ObjectId;
 	email: string; // or whatever connects to Google Auth
 	username: string;
 	tag: string; // don't know if we want this, but talk with designers!
@@ -10,6 +11,18 @@ type User = {
 	interests: InterestTag[];
 	avatar: string; // or base64 don't know!
 	friends: User[]; // might need an additional model to also hold relevant chats!
+}
+
+export function newUser(email: string, username: string): User {
+	return {
+		email,
+		username: username,
+		tag: GenerateRandomTag(),
+		bio: "placeholder",
+		interests: [],
+		avatar: "placeholder",
+		friends: []
+	}
 }
 
 export default User;
