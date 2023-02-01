@@ -1,4 +1,5 @@
 import MongoDatastore from "@/src/datastore/MongoDatastore";
+<<<<<<< HEAD
 import User from "@/src/models/User";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -19,4 +20,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     else { // return list of users
         res.status(200).json(await ds.getUsers() || []);
     }
+=======
+import { NextApiRequest, NextApiResponse } from "next";
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    res.status(200).send((await MongoDatastore.getInstance()).getUsers());
+>>>>>>> 2f14e2b (added basic user functionality and various models)
 }

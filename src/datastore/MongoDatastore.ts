@@ -19,19 +19,15 @@ class MongoDatastore {
     }
 
     static async getInstance() {
-        if (MongoDatastore.instance === undefined) {
+        if (!MongoDatastore.instance) {
             // initialize new client
             let client = new MongoClient(process.env.MONGODB_CONNECTION_URI || "mongodb://localhost:27017/");
             try {
-                console.log(`Attempting to connect to ${process.env.MONGODB_CONNECTION_URI}`)
-                client = await client.connect();
-
-                console.log("Successfully connected to MongoDB!");
+                await client.connect();
 
                 MongoDatastore.instance = new MongoDatastore(client);
-            } catch (exception) {
+            } finally {
                 console.error("Something went wrong with MongoDB!");
-                console.error(exception);
                 await client.close();
             }
         }
