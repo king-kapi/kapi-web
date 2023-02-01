@@ -23,11 +23,14 @@ class MongoDatastore {
             // initialize new client
             let client = new MongoClient(process.env.MONGODB_CONNECTION_URI || "mongodb://localhost:27017/");
             try {
-                await client.connect();
+                console.log(`Attempting to connect to ${process.env.MONGODB_CONNECTION_URI}`)
+                client = await client.connect();
 
+                console.log("Successfully connected to MongoDB!");
                 MongoDatastore.instance = new MongoDatastore(client);
-            } finally {
+            } catch (exception) {
                 console.error("Something went wrong with MongoDB!");
+                console.error(exception);
                 await client.close();
             }
         }
