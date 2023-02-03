@@ -7,7 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (req.method === 'POST') { // register a user
         try {
-            let createdUser: User = await ds.registerUsers(req.body.email, req.body.username);
+            let createdUser: User = await ds.users.register(req.body.email, req.body.username);
 
             res.status(201).json(createdUser);
         } catch (exception) {
@@ -17,6 +17,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
     }
     else { // return list of users
-        res.status(200).json(await ds.getUsers() || []);
+        res.status(200).json(await ds.users.all() || []);
     }
 }

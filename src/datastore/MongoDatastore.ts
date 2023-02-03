@@ -1,19 +1,20 @@
 import { Collection, Db, MongoClient } from "mongodb";
 import User, { newUser } from "../models/User";
 import Collections from "./Collections";
+import UserCollection from "./UserCollection";
 
 class MongoDatastore {
     private static instance: MongoDatastore;
     private client: MongoClient;
     private datastore: Db;
-    private usersCol: Collection;
+    public users: UserCollection;
     private chatsCol: Collection;
     private messagesCol: Collection;
 
     constructor(client: MongoClient) {
         this.client = client;
         this.datastore = this.client.db(process.env.MONGO_DB_NAME || "designthriving");
-        this.usersCol = this.datastore.collection(Collections.USERS);
+        this.users = new UserCollection(this.datastore.collection(Collections.USERS));
         this.chatsCol = this.datastore.collection(Collections.CHATS);
         this.messagesCol = this.datastore.collection(Collections.MESSAGES);
     }
@@ -35,24 +36,6 @@ class MongoDatastore {
             }
         }
         return MongoDatastore.instance;
-    }
-
-    async getUsers(): Promise<User[]> {
-        return await this.usersCol.find({}).toArray() as User[];
-    }
-
-    async registerUsers(email: string, username: string): Promise<User> {
-        // check valid input
-        if (email.length == 0 || username.length == 0)
-            throw Error("Email or username invalid!");
-
-        // check if user already exists
-        if (await this.usersCol.findOne({ email })) {
-            throw Error("User already registered!");
-        }
-        let insertedId = (await this.usersCol.insertOne(newUser(email, username))).insertedId;
-
-        return await this.usersCol.findOne({ "_id": insertedId }) as User;
     }
 };
 
