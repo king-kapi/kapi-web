@@ -11,14 +11,14 @@ class UserCollection {
   async register(email: string, username: string): Promise<User> {
     // check valid input
     // TODO: Validate email string either inside the component or do it here
-    // Do NOT try to use custom regex here, it will be incorrect
+    // Use an external library. Do NOT try to write custom regex here
     if (email.length === 0 || username.length === 0) {
       throw Error('Email or username invalid!');
     }
 
     // check if user already exists
     if (await this.col.findOne({ email })) {
-      throw Error('User already registered!');
+      throw Error('User already registered!'); // TODO: is this caught?
     }
     const insertedId = (await this.col.insertOne(newUser(email, username))).insertedId;
 

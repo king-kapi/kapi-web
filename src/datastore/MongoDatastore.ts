@@ -1,14 +1,14 @@
-import { Collection, Db, MongoClient } from 'mongodb';
+import { MongoClient } from 'mongodb';
 import Collections from './Collections';
 import UserCollection from './UserCollection';
 
 class MongoDatastore {
   private static instance: MongoDatastore;
-  private datastore: Db = this.client.db(process.env.MONGO_DB_NAME ?? 'designthriving');
-  public users: UserCollection = new UserCollection(this.datastore.collection(Collections.USERS));
+  private datastore = this.client.db(process.env.MONGO_DB_NAME ?? 'designthriving');
+  public users = new UserCollection(this.datastore.collection(Collections.USERS));
   // TODO: Add type parameter to the following fields (Collection<?>)
-  private chatsCol: Collection = this.datastore.collection(Collections.CHATS);
-  private messagesCol: Collection = this.datastore.collection(Collections.MESSAGES);
+  private chatsCol = this.datastore.collection(Collections.CHATS);
+  private messagesCol = this.datastore.collection(Collections.MESSAGES);
 
   private constructor(private client: MongoClient) {}
 
@@ -29,6 +29,7 @@ class MongoDatastore {
       } catch (exception) {
         console.error('Something went wrong with MongoDB!');
         console.error(exception);
+        // TODO: Error handling? should we just throw uncaught exception or retry?
         await client.close();
       }
     }

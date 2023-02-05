@@ -1,6 +1,5 @@
 import { ObjectId } from 'mongodb';
 import InterestTag from './InterestTag';
-import ServerUser from './ServerUser';
 
 type ServerCommunity = {
   _id: ObjectId;
