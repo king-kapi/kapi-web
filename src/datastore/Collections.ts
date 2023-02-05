@@ -1,7 +1,7 @@
 enum Collections {
-    USERS = "users",
-    CHATS = "chats",
-    MESSAGES = "messages"
+  USERS = 'users',
+  CHATS = 'chats',
+  MESSAGES = 'messages',
 }
 
 export default Collections;
