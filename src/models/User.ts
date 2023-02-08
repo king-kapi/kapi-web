@@ -10,7 +10,10 @@ type User = {
   bio: string;
   interests: InterestTag[];
   avatar: string; // or base64 don't know!
-  friends: User[]; // might need an additional model to also hold relevant chats!
+  friends: {
+    id: ObjectId,
+    username: string
+  }[];
 };
 
 export function newUser(email: string, username: string): User {
