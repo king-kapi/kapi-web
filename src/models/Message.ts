@@ -2,11 +2,11 @@ import { ObjectId } from 'mongodb';
 
 type Message = {
   _id: ObjectId;
-  chat_id: ObjectId; // TODO: use camel case
+  chatId: ObjectId;
   sender: ObjectId;
   content: string;
   timestamp: number;
-  metadata: { any: any };
+  metadata: { unknown: unknown };
 };
 
 export default Message;
