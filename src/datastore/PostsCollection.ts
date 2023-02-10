@@ -1,6 +1,7 @@
 import { Collection } from 'mongodb';
+import Post from '../models/Post';
 
-class UserCollection {
+class PostsCollection {
   constructor(private col: Collection) { }
 
   async all(): Promise<Post[]> {
@@ -8,4 +9,4 @@ class UserCollection {
   }
 }
 
-export default UserCollection;
+export default PostsCollection;

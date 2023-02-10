@@ -1,7 +1,7 @@
 import { Collection } from 'mongodb';
 import Message from '../models/Message';
 
-class MessageCollection {
+class MessagesCollection {
   constructor(private col: Collection) { }
 
   async all(): Promise<Message[]> {
@@ -9,4 +9,4 @@ class MessageCollection {
   }
 }
 
-export default MessageCollection;
+export default MessagesCollection;

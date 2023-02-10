@@ -1,5 +1,8 @@
 import { MongoClient } from 'mongodb';
+import ChatsCollection from './ChatsCollection';
 import Collections from './Collections';
+import MessagesCollection from './MessagesCollection';
+import PostsCollection from './PostsCollection';
 import UserCollection from './UserCollection';
 
 class MongoDatastore {
@@ -7,8 +10,9 @@ class MongoDatastore {
   private datastore = this.client.db(process.env.MONGO_DB_NAME ?? 'designthriving');
   public users = new UserCollection(this.datastore.collection(Collections.USERS));
   // TODO: Add type parameter to the following fields (Collection<?>)
-  private chatsCol = this.datastore.collection(Collections.CHATS);
-  private messagesCol = this.datastore.collection(Collections.MESSAGES);
+  private chats = new ChatsCollection(this.datastore.collection(Collections.CHATS));
+  private messages = new MessagesCollection(this.datastore.collection(Collections.MESSAGES));
+  private posts = new PostsCollection(this.datastore.collection(Collections.POSTS));
 
   private constructor(private client: MongoClient) {}
 
