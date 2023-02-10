@@ -1,0 +1,38 @@
+.SearchBarContainer {
+    display: flex;
+    width: 354px;
+}
+
+.SearchBar {
+    display: flex;
+    padding: 1px;
+    border-radius: 12px;
+    background-color: #F0F0F0;
+    height: 43px;
+    width: 315px;
+}
+
+.SearchBar:focus-within {
+    outline: 1px solid rgb(78, 153, 250);
+}
+
+.SearchBar_logo,
+.SearchBar_filter {
+    height: 26px;
+    width: 26px;
+    padding-top: 9px;
+    padding-left: 15px;
+    cursor: pointer;
+}
+
+.SearchBar input {
+    flex-grow: 2;
+    border: none;
+    background-color: #F0F0F0;
+    border-radius: 12px;
+    font-size: 1rem;
+}
+
+.SearchBar input:focus {
+    outline: none;
+}
