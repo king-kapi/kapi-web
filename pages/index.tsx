@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { SideNavTest } from './sidenav-test'
+import { SideNav } from './sidenav'
 import styles from '@/styles/Home.module.css'
 import App from './_app'
 
@@ -13,7 +13,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <SideNavTest></SideNavTest>
+        <SideNav></SideNav>
       </main>
     </>
   )

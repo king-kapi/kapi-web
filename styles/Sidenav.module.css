@@ -1,0 +1,153 @@
+.Sidenav {
+  height: 1080px;
+  width: 280px;
+}
+
+.Sidenav_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 29px;
+  margin-top: 31px;
+}
+
+.Sidenav_header h1 {
+  padding-left: 21px;
+}
+
+.Sidenav_menuwords {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.Sidenav_bell {
+  width: 24px;
+  height: 24px;
+}
+
+.Sidenav_avatardiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 50%;
+}
+
+.Sidenav_avatar {
+  width: 64px;
+  height: 64px;
+  background-color: #D9D9D9;
+  border-radius: 20px;
+}
+
+.Sidenav_menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-grow: 1;
+}
+
+.Sidenav_menu a {
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+}
+
+.Sidenav_menu a span {
+  padding-left: 20px;
+}
+
+.Sidenav_icon {
+  width: 40px;
+  height: 40px;
+}
+
+
+.Sidenav_whitesection {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 516px;
+}
+
+.Sidenav_graysection {
+  color: #FEFEFE;
+  background-color: #616161;
+  height: 516px;
+  display: flex;
+  flex-direction: column;
+}
+
+.Sidenav_graysection h1 {
+  padding-left: 29px;
+  padding-top: 39px;
+  margin: 0;
+  font-size: 20px;
+  display: flex;
+  align-items: baseline;
+}
+
+.Sidenav_graysection h1 span {
+  padding-left: 10px;
+  font-size: 16px;
+}
+
+.Sidenav_graysection ul {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-evenly;
+  list-style: none;
+  padding: 0;
+}
+
+.Sidenav_graysection ul li {
+  display: flex;
+  align-items: center;
+  padding-left: 29px;
+}
+
+.Sidenav_graysection ul li span {
+  padding-left: 10px;
+}
+
+.Sidenav_friendsavatar {
+  height: 59px;
+  width: 59px;
+}
+
+.Sidenav_useravatar {
+  height: 59px;
+  width: 59px;
+}
+
+.Sidenav_blacksection {
+  color: #FFFFFF;
+  background-color: #272727;
+  height: 48px;
+}
+
+.Sidenav_blacksection div {
+  padding-left: 29px;
+}
+
+.Sidenav_blacksection div div {
+  padding-left: 10px;
+}
+
+.Sidenav_expand {
+  width: 24px;
+  height: 24px;
+}
+
+.Sidenav_statuscontainer {
+  display: flex;
+  align-items: center;
+}
+
+.Sidenav_statuscontainer div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
