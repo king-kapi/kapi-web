@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb';
 import InterestTag from './InterestTag';
 import GenerateRandomTag from '../utils/GenerateRandomTag';
+import Friend from './Friend';
 
 type User = {
   _id?: ObjectId;
@@ -10,10 +11,7 @@ type User = {
   bio: string;
   interests: InterestTag[];
   avatar: string; // or base64 don't know!
-  friends: {
-    id: ObjectId,
-    username: string
-  }[];
+  friends: Friend[];
 };
 
 export function newUser(email: string, username: string): User {

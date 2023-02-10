@@ -1,6 +1,6 @@
-import { Collection, ObjectId } from 'mongodb';
+import { Collection, FindOptions, ObjectId } from 'mongodb';
 import ErrorTypes from '../ErrorTypes';
-import DatastoreErrorTypes from '../ErrorTypes';
+import Friend from '../models/Friend';
 import User, { newUser } from '../models/User';
 
 class UserCollection {
@@ -28,8 +28,9 @@ class UserCollection {
     return (await this.col.findOne({ _id: insertedId })) as User;
   }
 
-  async getUser(userId: ObjectId) : Promise<User> {
-    const user = await this.col.findOne({ _id: userId });
+  async getUser(userId: ObjectId, options: FindOptions<Document> = {}): Promise<User> {
+    const user = await this.col.findOne({ _id: userId }, options);
+    console.log(user);
     if (user) {
       return user as User;
     }
@@ -41,18 +42,51 @@ class UserCollection {
     };
   }
 
-  async addFriend(userId: ObjectId, newFriendId: ObjectId): Promise<void> {
+  async getFriends(userId: ObjectId): Promise<Friend[]> {
+    const user = await this.getUser(userId);
+    const friends: Friend[] = [];
+    for (const { _id } of user.friends) {
+      friends.push(await this.getUser(_id, {
+        projection: {
+          username: 1,
+          tag: 1,
+          status: 1
+        }
+      }) as Friend);
+    }
+
+    return friends;
+  }
+
+  async addFriend(userId: ObjectId, friendId: ObjectId): Promise<void> {
     // verify user exists
     await this.getUser(userId);
-    const newFriend = await this.getUser(newFriendId);
-    
+    const newFriend = await this.getUser(friendId);
+
     await this.col.updateOne({
       _id: userId,
     }, {
       $push: {
         friends: {
-          id: newFriendId,
+          _id: friendId,
           username: newFriend.username
+        }
+      }
+    });
+  }
+
+  async removeFriend(userId: ObjectId, friendId: ObjectId): Promise<void> {
+    // verify user exists
+    await this.getUser(userId);
+    // verify friend exists
+    await this.getUser(friendId);
+
+    await this.col.updateOne({
+      _id: userId,
+    }, {
+      $pull: {
+        friends: {
+          _id: friendId,
         }
       }
     });
