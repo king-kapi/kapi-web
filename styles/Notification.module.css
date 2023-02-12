@@ -2,8 +2,8 @@
 
 .notificationContainer {
   font-family: 'Poppins', sans-serif;
-  width: 362px;
-  height: 74px;
+  width: 22.625rem;
+  height: 4.625rem;
   background-color: #bfbfbf;
   border-radius: 20px;
   margin: 20px;
@@ -21,9 +21,9 @@
 
 .icon {
   color: black;
-  height: 30px;
-  width: 31px;
-  margin-right: 5px;
+  height: 1.875rem;
+  width: 1.875rem;
+  margin-right: 0.313rem;
 }
 
 .messageContainer {
@@ -32,7 +32,7 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 130%;
 }
 
@@ -42,6 +42,7 @@
 
 .timestamp {
   color: #434343;
+  font-size: 0.875rem;
 }
 
 .partyContainer {
@@ -55,4 +56,5 @@
 .party {
   color: black;
   font-weight: 600;
+  font-size: 0.875rem;
 }
