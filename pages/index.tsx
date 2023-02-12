@@ -1,22 +1,10 @@
 import Head from 'next/head';
-import Image from 'next/image';
-import { Inter } from '@next/font/google';
 import styles from '@/styles/Home.module.css';
 import { NotificationBubble } from './notificationBubble';
-
-const inter = Inter({ subsets: ['latin'] });
+import { Notification } from '@/src/models/Notification';
 
 export default function Home() {
-  interface Notifications {
-    icon: string; // icon code
-    messageHighlight: string; // bolded message
-    mainMessage: string; // remaining message
-    timestamp: number; // minutes since notification was sent
-    partySize: number | undefined; // number of people in party
-    maxPartySize: number | undefined; // max number of people for party
-  }
-
-  const notifcations: Array<Notifications> = [
+  const notifications: Notification[] = [
     {
       icon: 'mingcute:trophy-fill',
       messageHighlight: 'Wowow you just got a trophy!',
@@ -51,8 +39,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        {notifcations.map(x => (
-          <NotificationBubble notification={x} />
+        {notifications.map((notification, index) => (
+          <NotificationBubble key={index} notification={notification} />
         ))}
       </main>
     </>
