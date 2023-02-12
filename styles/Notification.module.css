@@ -1,58 +1,58 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 .notificationContainer {
-    font-family: 'Poppins', sans-serif;
-    width: 362px;
-    height: 74px;
-    background-color: #BFBFBF;
-    border-radius: 20px;
-    margin: 20px;
-    display: flex;
-    justify-content: space-between;
+  font-family: 'Poppins', sans-serif;
+  width: 362px;
+  height: 74px;
+  background-color: #bfbfbf;
+  border-radius: 20px;
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .iconContainer {
-    width: 15%;
-    height: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+  width: 15%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .icon {
-    color: black;
-    height: 30px;
-    width: 31px;
-    margin-right: 5px;
+  color: black;
+  height: 30px;
+  width: 31px;
+  margin-right: 5px;
 }
 
 .messageContainer {
-    width: 70%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    font-size: 14px;
-    line-height: 130%;
+  width: 70%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 14px;
+  line-height: 130%;
 }
 
 .message {
-    color: black;
+  color: black;
 }
 
 .timestamp {
-    color: #434343;
+  color: #434343;
 }
 
 .partyContainer {
-    width: 12%;
-    height: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+  width: 12%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .party {
-    color: black;
-    font-weight: 600;
+  color: black;
+  font-weight: 600;
 }

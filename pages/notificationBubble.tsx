@@ -2,6 +2,9 @@ import { Icon } from '@iconify/react';
 import styles from '../styles/Notification.module.css';
 
 function NotificationBubble(notifications) {
+
+  // timestamp logic //
+  //////////////////////////////////
   let timestamp = notifications.notification.timestamp;
   let timestampMessage;
   if (timestamp >= 1440) {
