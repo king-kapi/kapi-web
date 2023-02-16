@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { SearchBar } from './searchbar';
+import { SearchBar } from './SearchBar';
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <SearchBar/>
+        <SearchBar />
       </main>
     </>
   );
