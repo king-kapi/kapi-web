@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap%27');
+
+.achievementsWidgetContainer {
+  font-family: 'Poppins', sans-serif;
+  height: 25rem;
+  width: 22.5rem;
+  background-color: #fdfdfd;
+  margin: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.titleContainer {
+  color: black;
+  width: 17.5rem;
+}
+
+.titleContainer h1 {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.titleContainer h2 {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.achievement {
+  height: 4.313rem;
+  width: 4.313rem;
+}
