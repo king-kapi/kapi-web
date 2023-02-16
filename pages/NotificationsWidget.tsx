@@ -1,6 +1,6 @@
 import styles from '../styles/NotificationsWidget.module.css';  
 import { Notification } from '@/src/models/Notification';
-import { NotificationBubble } from './NotificationBubble';
+import { NotificationBubble } from './notificationBubble';
 
 type NotificationsWidgetProps = {
   notifications: Notification[];
@@ -8,7 +8,7 @@ type NotificationsWidgetProps = {
 
 function NotificationsWidget({ notifications }: NotificationsWidgetProps) {
   return (
-    <div className={styles.widget1Container}>
+    <div className={styles.notificationsWidgetContainer}>
       <div className={styles.contentContainer}>
         <div className={styles.serverContentContainer}>
           <div className={styles.serverContainer}>
