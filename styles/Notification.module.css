@@ -6,9 +6,10 @@
   height: 4.625rem;
   background-color: #bfbfbf;
   border-radius: 20px;
-  margin: 20px;
+  margin-bottom: .75rem;
   display: flex;
   justify-content: space-between;
+
 }
 
 .iconContainer {

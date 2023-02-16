@@ -1,7 +1,8 @@
 import Head from 'next/head';
 import styles from '@/styles/Home.module.css';
-import { NotificationBubble } from './notificationBubble';
 import { Notification } from '@/src/models/Notification';
+import { NotificationsWidget } from './NotificationsWidget';
+
 
 export default function Home() {
   const notifications: Notification[] = [
@@ -39,9 +40,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        {notifications.map((notification, index) => (
-          <NotificationBubble key={index} notification={notification} />
-        ))}
+        <NotificationsWidget notifications={notifications} />
       </main>
     </>
   );
