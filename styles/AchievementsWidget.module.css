@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap%27');
 
-.achievementsWidgetContainer {
+.AchievementsWidgetContainer {
   font-family: 'Poppins', sans-serif;
   height: 25rem;
   width: 22.5rem;
@@ -9,7 +9,7 @@
   border-radius: 20px;
 }
 
-.achievementsWidgetContentContainer {
+.AchievementsWidgetContentContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,28 +18,28 @@
   height: 100%;
 }
 
-.titleContainer {
+.TitleContainer {
   color: black;
   width: 17.5rem;
   line-height: 1.5rem;
 }
 
-.titleContainer h1 {
+.TitleContainer h1 {
   font-weight: 700;
   font-size: 1.5rem;
 }
 
-.titleContainer h2 {
+.TitleContainer h2 {
   font-weight: 600;
   font-size: 0.875rem;
 }
 
-.achievement {
+.Achievement {
   height: 4.313rem;
   width: 4.313rem;
 }
 
-.mySwiper{
+.MySwiper{
     color: black;
     width: 16.75rem;
     height: 13.75rem;
@@ -48,7 +48,7 @@
     --swiper-pagination-bullet-size: 5px;
 }
 
-.achievementSlide  {
+.AchievementSlide  {
     height: 4.313rem !important; 
     width: 4.313rem !important;
 }

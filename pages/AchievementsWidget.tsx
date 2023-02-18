@@ -10,27 +10,27 @@ const achievements = [{}, {}, {}, {}, {}, {}, {}, {}, {}];
 
 function AchievementsWidget() {
   return (
-    <div className={styles.achievementsWidgetContainer}>
-      <div className={styles.achievementsWidgetContentContainer}>
-        <div className={styles.titleContainer}>
+    <div className={styles.AchievementsWidgetContainer}>
+      <div className={styles.AchievementsWidgetContentContainer}>
+        <div className={styles.TitleContainer}>
           <h1>ACHIEVEMENTS</h1>
           <h2>looks like you're super cool</h2>
         </div>
         <Swiper
           modules={[Pagination, Grid, Navigation]}
           navigation={{
-            prevEl: '.prevArrow',
-            nextEl: '.nextArrow',
+            prevEl: '.PrevArrow',
+            nextEl: '.NextArrow',
           }}
           spaceBetween={30}
           slidesPerView={3}
           grid={{ rows: 2 }}
-          className={styles.mySwiper}
+          className={styles.MySwiper}
           pagination={{ clickable: true }}
         >
           {achievements.map((x, index) => {
             return (
-              <SwiperSlide key={index} className={styles.achievementSlide}>
+              <SwiperSlide key={index} className={styles.AchievementSlide}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="69"
@@ -49,7 +49,7 @@ function AchievementsWidget() {
           })}
         </Swiper>
       </div>
-      <div className="prevArrow">
+      <div className="PrevArrow">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="10"
@@ -64,7 +64,7 @@ function AchievementsWidget() {
           />
         </svg>
       </div>
-      <div className="nextArrow">
+      <div className="NextArrow">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="9"
@@ -76,7 +76,7 @@ function AchievementsWidget() {
         </svg>
       </div>
       <style>{`
-        .prevArrow {
+        .PrevArrow {
           position: relative;
           bottom: 50%;
           left: 1.313rem;
@@ -90,7 +90,7 @@ function AchievementsWidget() {
           cursor: default;
         }
 
-        .nextArrow {
+        .NextArrow {
           position: relative;
           bottom: 55%;
           right: 1.313rem;
