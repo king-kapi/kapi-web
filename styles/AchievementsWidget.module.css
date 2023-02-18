@@ -7,11 +7,15 @@
   background-color: #fdfdfd;
   margin: 20px;
   border-radius: 20px;
+}
+
+.achievementsWidgetContentContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 2rem;
+  height: 100%;
 }
 
 .titleContainer {
@@ -51,6 +55,6 @@
 .achievementSlide  {
     height: 4.313rem !important; 
     width: 4.313rem !important;
-
 }
+
 
