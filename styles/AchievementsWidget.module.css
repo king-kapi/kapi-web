@@ -48,10 +48,6 @@
     --swiper-pagination-bullet-size: 5px;
 }
 
-.swiper-button-disabled {
-    opacity: 0 !important;
-}
-
 .achievementSlide  {
     height: 4.313rem !important; 
     width: 4.313rem !important;

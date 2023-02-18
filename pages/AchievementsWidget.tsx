@@ -82,10 +82,12 @@ function AchievementsWidget() {
           left: 1.313rem;
           width: 0.313rem;
           transition: .5s;
+          cursor: pointer;
         }
 
         .swiper-button-disabled {
           opacity: 0;
+          cursor: default;
         }
 
         .nextArrow {
@@ -95,6 +97,7 @@ function AchievementsWidget() {
           width: 0.313rem;
           float: right;
           transition: .5s;
+          cursor: pointer;
         }
       `}</style>
     </div>
