@@ -23,20 +23,20 @@ function NotificationBubble({ notification }: NotificationBubbleProps) {
   } else timestampMessage = timestamp + ' minutes ago';
 
   return (
-    <div className={styles.notificationContainer}>
-      <div className={styles.iconContainer}>
-        <Icon icon={notification.icon} className={styles.icon} />
+    <div className={styles.Container}>
+      <div className={styles.IconContainer}>
+        <Icon icon={notification.icon} className={styles.Icon} />
       </div>
-      <div className={styles.messageContainer}>
-        <p className={styles.message}>
+      <div className={styles.MessageContainer}>
+        <p className={styles.Message}>
           <span style={{ fontWeight: '600' }}>{notification.messageHighlight}</span>
           {' ' + notification.mainMessage}
         </p>
-        <p className={styles.timestamp}>{timestampMessage}</p>
+        <p className={styles.Timestamp}>{timestampMessage}</p>
       </div>
-      <div className={styles.partyContainer}>
+      <div className={styles.PartySizeContainer}>
         {notification.partySize && (
-          <p className={styles.party}>
+          <p className={styles.PartySize}>
             {notification.partySize + '/' + notification.maxPartySize}
           </p>
         )}

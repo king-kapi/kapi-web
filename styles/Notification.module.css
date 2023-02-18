@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-.notificationContainer {
+.Container {
   font-family: 'Poppins', sans-serif;
   width: 22.625rem;
   height: 4.625rem;
@@ -11,7 +11,7 @@
   justify-content: space-between;
 }
 
-.iconContainer {
+.IconContainer {
   width: 15%;
   height: 100%;
   display: flex;
@@ -19,14 +19,14 @@
   align-items: center;
 }
 
-.icon {
+.Icon {
   color: black;
   height: 1.875rem;
   width: 1.875rem;
   margin-right: 0.313rem;
 }
 
-.messageContainer {
+.MessageContainer {
   width: 70%;
   height: 100%;
   display: flex;
@@ -36,16 +36,16 @@
   line-height: 130%;
 }
 
-.message {
+.Message {
   color: black;
 }
 
-.timestamp {
+.Timestamp {
   color: #434343;
   font-size: 0.875rem;
 }
 
-.partyContainer {
+.PartySizeContainer {
   width: 12%;
   height: 100%;
   display: flex;
@@ -53,7 +53,7 @@
   align-items: center;
 }
 
-.party {
+.PartySize {
   color: black;
   font-weight: 600;
   font-size: 0.875rem;
