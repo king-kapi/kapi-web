@@ -6,6 +6,7 @@ type User = {
   _id?: ObjectId;
   email: string; // or whatever connects to Google Auth
   username: string;
+  displayName:string;
   tag: string; // don't know if we want this, but talk with designers!
   bio: string;
   interests: InterestTag[];
@@ -25,6 +26,7 @@ export function newUser(email: string, username: string): User {
     interests: [],
     avatar: 'placeholder',
     friends: [],
+    displayName: 'Display Name'
   };
 }
 
