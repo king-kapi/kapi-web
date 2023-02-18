@@ -27,7 +27,7 @@ function CustomizeDashboard() {
                 <path
                   d="M1.79883 1.04297L121.318 87.3739M1.79883 1.04297V87.3739M1.79883 1.04297H121.318M121.318 87.3739V1.04297M121.318 87.3739H1.79883M121.318 1.04297L1.79883 87.3739"
                   stroke="#777777"
-                  stroke-width="2"
+                  strokeWidth="2"
                 />
               </svg>
               <p className={styles.WidgetName}>Widget/Section</p>
@@ -44,7 +44,7 @@ function CustomizeDashboard() {
                 <path
                   d="M1.79883 1.04297L121.318 87.3739M1.79883 1.04297V87.3739M1.79883 1.04297H121.318M121.318 87.3739V1.04297M121.318 87.3739H1.79883M121.318 1.04297L1.79883 87.3739"
                   stroke="#777777"
-                  stroke-width="2"
+                  strokeWidth="2"
                 />
               </svg>
               <p className={styles.WidgetName}>Widget/Section</p>
@@ -61,7 +61,7 @@ function CustomizeDashboard() {
                 <path
                   d="M1.79883 1.04297L121.318 87.3739M1.79883 1.04297V87.3739M1.79883 1.04297H121.318M121.318 87.3739V1.04297M121.318 87.3739H1.79883M121.318 1.04297L1.79883 87.3739"
                   stroke="#777777"
-                  stroke-width="2"
+                  strokeWidth="2"
                 />
               </svg>
               <p className={styles.WidgetName}>Widget/Section</p>
@@ -78,7 +78,7 @@ function CustomizeDashboard() {
                 <path
                   d="M1.79883 1.04297L121.318 87.3739M1.79883 1.04297V87.3739M1.79883 1.04297H121.318M121.318 87.3739V1.04297M121.318 87.3739H1.79883M121.318 1.04297L1.79883 87.3739"
                   stroke="#777777"
-                  stroke-width="2"
+                  strokeWidth="2"
                 />
               </svg>
               <p className={styles.WidgetName}>Widget/Section</p>
@@ -95,7 +95,7 @@ function CustomizeDashboard() {
                 <path
                   d="M1.79883 1.04297L121.318 87.3739M1.79883 1.04297V87.3739M1.79883 1.04297H121.318M121.318 87.3739V1.04297M121.318 87.3739H1.79883M121.318 1.04297L1.79883 87.3739"
                   stroke="#777777"
-                  stroke-width="2"
+                  strokeWidth="2"
                 />
               </svg>
               <p className={styles.WidgetName}>Widget/Section</p>
@@ -112,7 +112,7 @@ function CustomizeDashboard() {
                 <path
                   d="M1.79883 1.04297L121.318 87.3739M1.79883 1.04297V87.3739M1.79883 1.04297H121.318M121.318 87.3739V1.04297M121.318 87.3739H1.79883M121.318 1.04297L1.79883 87.3739"
                   stroke="#777777"
-                  stroke-width="2"
+                  strokeWidth="2"
                 />
               </svg>
               <p className={styles.WidgetName}>Widget/Section</p>
@@ -129,7 +129,7 @@ function CustomizeDashboard() {
                 <path
                   d="M1.79883 1.04297L121.318 87.3739M1.79883 1.04297V87.3739M1.79883 1.04297H121.318M121.318 87.3739V1.04297M121.318 87.3739H1.79883M121.318 1.04297L1.79883 87.3739"
                   stroke="#777777"
-                  stroke-width="2"
+                  strokeWidth="2"
                 />
               </svg>
               <p className={styles.WidgetName}>Widget/Section</p>
@@ -146,7 +146,7 @@ function CustomizeDashboard() {
                 <path
                   d="M1.79883 1.04297L121.318 87.3739M1.79883 1.04297V87.3739M1.79883 1.04297H121.318M121.318 87.3739V1.04297M121.318 87.3739H1.79883M121.318 1.04297L1.79883 87.3739"
                   stroke="#777777"
-                  stroke-width="2"
+                  strokeWidth="2"
                 />
               </svg>
               <p className={styles.WidgetName}>Widget/Section</p>
