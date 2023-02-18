@@ -8,11 +8,11 @@ type NotificationsWidgetProps = {
 
 function NotificationsWidget({ notifications }: NotificationsWidgetProps) {
   return (
-    <div className={styles.notificationsWidgetContainer}>
-      <div className={styles.contentContainer}>
-        <div className={styles.serverContentContainer}>
-          <div className={styles.serverContainer}>
-            <div className={styles.serverImg}>
+    <div className={styles.NotificationsWidgetContainer}>
+      <div className={styles.ContentContainer}>
+        <div className={styles.ServerContentContainer}>
+          <div className={styles.ServerContainer}>
+            <div className={styles.ServerImg}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="123"
@@ -28,11 +28,11 @@ function NotificationsWidget({ notifications }: NotificationsWidgetProps) {
                 />
               </svg>
             </div>
-            <div className={styles.serverName}>Server Name</div>
-            <div className={styles.serverUpdate}># new posts</div>
+            <div className={styles.ServerName}>Server Name</div>
+            <div className={styles.ServerUpdate}># new posts</div>
           </div>
-          <div className={styles.serverContainer}>
-            <div className={styles.serverImg}>
+          <div className={styles.ServerContainer}>
+            <div className={styles.ServerImg}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="123"
@@ -48,11 +48,11 @@ function NotificationsWidget({ notifications }: NotificationsWidgetProps) {
                 />
               </svg>
             </div>
-            <div className={styles.serverName}>Server Name</div>
-            <div className={styles.serverUpdate}># new posts</div>
+            <div className={styles.ServerName}>Server Name</div>
+            <div className={styles.ServerUpdate}># new posts</div>
           </div>
-          <div className={styles.serverContainer}>
-            <div className={styles.serverImg}>
+          <div className={styles.ServerContainer}>
+            <div className={styles.ServerImg}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="123"
@@ -68,17 +68,17 @@ function NotificationsWidget({ notifications }: NotificationsWidgetProps) {
                 />
               </svg>
             </div>
-            <div className={styles.serverName}>Server Name</div>
-            <div className={styles.serverUpdate}># new posts</div>
+            <div className={styles.ServerName}>Server Name</div>
+            <div className={styles.ServerUpdate}># new posts</div>
           </div>
         </div>
-        <div className={styles.notificationContentContainer}>
+        <div className={styles.NotificationContentContainer}>
           {notifications.map((notification, index) => (
             <NotificationBubble key={index} notification={notification} />
           ))}
         </div>
       </div>
-      <a className={styles.titleContainer}>
+      <a className={styles.TitleContainer}>
         <h1>WHAT YOU MISSED WHILE YOU WERE GONE {'>'}</h1>
         <h2>Notifications</h2>
       </a>

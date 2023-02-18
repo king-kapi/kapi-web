@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 
-.notificationsWidgetContainer {
+.NotificationsWidgetContainer {
     font-family: 'Poppins', sans-serif;
     width: 46.563rem;
     height: 25rem;
@@ -15,68 +15,68 @@
     margin: 20px;
 }
 
-.contentContainer {
+.ContentContainer {
     height: 16.75rem;
     width: 40.625rem;
     display: flex;
     justify-content: space-between;
 }
 
-.serverContentContainer {
+.ServerContentContainer {
     display: flex;
     flex-wrap: wrap;
     width: 16.25rem;
     justify-content: space-between;
 }
 
-.serverContainer {
+.ServerContainer {
     transition: .8s;
     margin-bottom: .313rem;
 }
 
-.serverContainer:hover {
+.ServerContainer:hover {
     transform: scale(1.02);
 }
 
-.serverImg {
+.ServerImg {
     width: 7.5rem;
     height: 5.375rem;
 }
 
-.serverName {
+.ServerName {
     color: black;
     font-weight: 600;
     margin-top: .4rem;
     font-size: 1rem;
 }
 
-.serverUpdate {
+.ServerUpdate {
     color: black;
     font-size: .75rem;
     line-height: .625rem;
 }
 
-.notificationContentContainer {
+.NotificationContentContainer {
     
 }
 
-.titleContainer {
+.TitleContainer {
     color: black;
     width: 40.625rem;
     cursor: pointer;
     transition: .8s;
 }
 
-.titleContainer:hover {
+.TitleContainer:hover {
     transform: scale(1.02);
 }
 
-.titleContainer h1 {
+.TitleContainer h1 {
     font-weight: 700;
     font-size: 1.5rem;
 }
 
-.titleContainer h2 {
+.TitleContainer h2 {
     font-weight: 600;
     font-size: 1rem;
 }
