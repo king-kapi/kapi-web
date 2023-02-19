@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+.body {
+    background-color: #D9D9D9;
+    width: 56.5em;
+    height: 39.875em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 1.25em;
+}
+
+.Container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 46.125em;
+}
+
+.Banner {
+    display: flex;
+    padding-top: 3.563em;
+}
+
+.Heading {
+    font-size: 2em;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.Subheading {
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    text-transform: lowercase;
+    margin: 0;
+}
+
+.Skip {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    margin-left: 11.25em;
+    font-size: 1em;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.WidgetContainer {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-top: 2.625em;
+    justify-content: space-between;
+}
+
+.Widget {
+    width: 10.188em;
+}
+
+.WidgetName {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.Done{
+    font-size: 1em;
+    font-weight: 600;
+    font-size: 1em;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin-top: 1em;
+    padding: 1.125em 6.313em;
+    background-color: #AAAAAA;
+    border-radius: 1.25em;
+}

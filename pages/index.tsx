@@ -1,7 +1,37 @@
+import CustomizeDashboard from '@/components/CustomizeDashboard';
+import { Notification } from '@/src/models/Notification';
+import styles from '@/styles/Home.module.css';
 import Head from 'next/head';
+import { NotificationBubble } from './notificationBubble';
 import { SearchBar } from './SearchBar';
 
 export default function Home() {
+  const notifications: Notification[] = [
+    {
+      icon: 'mingcute:trophy-fill',
+      messageHighlight: 'Wowow you just got a trophy!',
+      mainMessage: '',
+      timestamp: 25,
+      partySize: undefined,
+      maxPartySize: undefined,
+    },
+    {
+      icon: 'mdi:thumb-up',
+      messageHighlight: '@thisandthat',
+      mainMessage: 'from liked your post',
+      timestamp: 62,
+      partySize: undefined,
+      maxPartySize: undefined,
+    },
+    {
+      icon: 'icon-park-solid:game-handle',
+      messageHighlight: '@soandso',
+      mainMessage: 'joined your game lobby',
+      timestamp: 134,
+      partySize: 3,
+      maxPartySize: 4,
+    },
+  ];
   return (
     <>
       <Head>
@@ -10,8 +40,12 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <main className={styles.main}>
         <SearchBar />
+        <CustomizeDashboard />
+        {notifications.map((notification, index) => (
+          <NotificationBubble key={index} notification={notification} />
+        ))}
       </main>
     </>
   );
