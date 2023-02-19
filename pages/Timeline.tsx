@@ -20,13 +20,13 @@ import styles from '@/styles/Timeline.module.css';
 /**
  * Type alias that omits all the id's
  */
-type MockUser = {
-  [K in keyof User]: User[K] extends unknown[]
-    ? Omit<User[K][number], 'id' | '_id'>[]
-    : Omit<User[K], 'id' | '_id'>;
+type Mock<T extends object> = {
+  [K in keyof T]: T[K] extends unknown[]
+    ? Omit<T[K][number], 'id' | '_id'>[]
+    : Omit<T[K], 'id' | '_id'>;
 };
 type PostProps = {
-  user: MockUser;
+  user: Mock<User>;
   body: string;
   imageURLs: string[];
   timestamp: Date;
