@@ -44,4 +44,5 @@ function NotificationBubble({ notification }: NotificationBubbleProps) {
     </div>
   );
 }
-export { NotificationBubble };
+
+export default NotificationBubble;

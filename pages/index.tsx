@@ -1,8 +1,8 @@
 import CustomizeDashboard from '@/components/CustomizeDashboard';
 import { Notification } from '@/src/models/Notification';
 import Head from 'next/head';
-import { NotificationBubble } from './notificationBubble';
-import SearchBar from './searchbar';
+import NotificationBubble from '../components/NotificationBubble';
+import SearchBar from '../components/SearchBar';
 
 export default function Home() {
   const notifications: Notification[] = [
