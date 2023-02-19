@@ -1,8 +1,8 @@
-import Head from 'next/head';
-import CustomizeDashboard from '../components/CustomizeDashboard';
-import styles from '@/styles/Home.module.css';
-import { NotificationBubble } from './notificationBubble';
+import CustomizeDashboard from '@/components/CustomizeDashboard';
 import { Notification } from '@/src/models/Notification';
+import Head from 'next/head';
+import NotificationBubble from '../components/NotificationBubble';
+import SearchBar from '../components/SearchBar';
 
 export default function Home() {
   const notifications: Notification[] = [
@@ -39,7 +39,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
+      <main>
+        <SearchBar />
         <CustomizeDashboard />
         {notifications.map((notification, index) => (
           <NotificationBubble key={index} notification={notification} />
