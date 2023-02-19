@@ -80,4 +80,4 @@ function SideNav() {
   )
 }
 
-export { SideNav }
+export default SideNav;
