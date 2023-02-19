@@ -1,6 +1,18 @@
 import type User from '@/src/models/User';
-import { Unstable_Grid2 as Grid2, Paper, Avatar, Button, Box, Stack } from '@mui/material';
+import {
+  Unstable_Grid2 as Grid2,
+  Paper,
+  Avatar,
+  Button,
+  Box,
+  Stack,
+  Tabs,
+  Tab,
+} from '@mui/material';
 import { useState } from 'react';
+import { deepOrange } from '@mui/material/colors';
+import Image from 'next/image';
+import styles from '@/styles/Timeline.module.css';
 
 /**
  * Type alias that omits all the id's
@@ -35,9 +47,29 @@ const mockProps: PostProps = {
   timestamp: new Date(2023, 2, 17),
 };
 
-function fromDateToRelativeTime(date: Date): Intl.RelativeTimeFormat {
-  const relativeTime = new Intl.RelativeTimeFormat('en', { style: 'short' });
-  return relativeTime;
+const listOfMockProps = new Array(20).fill(mockProps);
+
+function TabPanel({
+  children,
+  value,
+  index,
+  ...other
+}: {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}) {
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+    </div>
+  );
 }
 
 /**
@@ -47,36 +79,80 @@ function fromDateToRelativeTime(date: Date): Intl.RelativeTimeFormat {
  */
 function Post({ user, body, imageURLs }: PostProps) {
   return (
-    <Grid2 container spacing={1}>
-      <Grid2 xs={1}>
-        <Avatar>AA</Avatar>
+    <Grid2
+      container
+      spacing={2}
+      columns={12}
+      //   sx={{
+      //     '--Grid-borderWidth': '1px',
+      //     borderTop: 'var(--Grid-borderWidth) solid',
+      //     borderLeft: 'var(--Grid-borderWidth) solid',
+      //     borderColor: 'divider',
+      //     '& > div': {
+      //       borderRight: 'var(--Grid-borderWidth) solid',
+      //       borderBottom: 'var(--Grid-borderWidth) solid',
+      //       borderColor: 'divider',
+      //     },
+      //   }}
+    >
+      <Grid2 display="flex" xs={1} justifyContent={'center'}>
+        <Avatar sx={{ bgcolor: deepOrange[500] }}>JD</Avatar>
       </Grid2>
       <Grid2 xs={11}>
-        <div>
+        <div className={styles.bodyText}>
           <b>{user.displayName}</b> @{user.username} • 2 days ago
         </div>
         <div>This server name</div>
       </Grid2>
 
-      <Grid2 xs={12}>
-        <Paper sx={{ p: 2 }}>{body}</Paper>
+      <Grid2 xs={1}></Grid2>
+      <Grid2 xs={11} display="flex">
+        <Box>{body}</Box>
       </Grid2>
 
       <Grid2 xs={12}>
         <Stack direction="row-reverse" spacing={2}>
-          <Button variant="outlined">Comment</Button>
-          <Button variant="outlined">Like</Button>
+          <Button
+            variant="outlined"
+            startIcon={<Image src="/pixel_bubble.svg" alt="bruh" width={20} height={20} />}
+          >
+            Comment
+          </Button>
+          <Button
+            variant="outlined"
+            startIcon={<Image src="/pixel_heart.svg" alt="bruh" width={20} height={20} />}
+          >
+            Like
+          </Button>
         </Stack>
       </Grid2>
     </Grid2>
   );
 }
 
+// TODO: this technically isn't the timeline, it has the timeline tab
 function TimeLine() {
+  const [currentTab, setCurrentTab] = useState<number>(0);
+
   return (
-    <Box style={{ width: '50vw' }}>
-      <Post {...mockProps} />
-    </Box>
+    <>
+      <Tabs value={currentTab} onChange={(event, newValue) => setCurrentTab(newValue)}>
+        <Tab label="Timeline" value={0} />
+        <Tab label="Explore" value={1} />
+      </Tabs>
+      <TabPanel index={0} value={currentTab}>
+        {listOfMockProps.map((prop, index) => (
+          <Box key={index} sx={{ pb: 2 }}>
+            <Post {...prop} />
+          </Box>
+        ))}
+      </TabPanel>
+      <TabPanel index={1} value={currentTab}>
+        <Paper elevation={2} sx={{ p: 3 }}>
+          Explore Tab, Nothing yet
+        </Paper>
+      </TabPanel>
+    </>
   );
 }
 
