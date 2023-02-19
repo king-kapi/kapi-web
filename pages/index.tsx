@@ -1,6 +1,5 @@
 import CustomizeDashboard from '@/components/CustomizeDashboard';
 import { Notification } from '@/src/models/Notification';
-import styles from '@/styles/Home.module.css';
 import Head from 'next/head';
 import NotificationBubble from '../components/NotificationBubble';
 import SearchBar from '../components/SearchBar';
