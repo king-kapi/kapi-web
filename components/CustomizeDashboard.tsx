@@ -159,4 +159,4 @@ function CustomizeDashboard() {
   );
 }
 
-export { CustomizeDashboard };
+export default CustomizeDashboard;

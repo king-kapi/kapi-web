@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { CustomizeDashboard } from './CustomizeDashboard';
+import CustomizeDashboard from '../components/CustomizeDashboard';
 
 export default function Home() {
   return (
