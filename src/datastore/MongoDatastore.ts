@@ -11,7 +11,7 @@ class MongoDatastore {
   public users = new UserCollection(this.datastore.collection(Collections.USERS));
   public chats = new ChatsCollection(this.datastore.collection(Collections.CHATS));
   public messages = new MessagesCollection(this.datastore.collection(Collections.MESSAGES));
-  public posts = new PostsCollection(this.datastore.collection(Collections.POSTS));
+  public posts = new PostsCollection(this.datastore.collection(Collections.POSTS), this);
 
   private constructor(private client: MongoClient) {}
 
