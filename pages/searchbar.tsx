@@ -1,4 +1,4 @@
-import styles from '@/styles/SearchBar.module.css'
+import styles from '@/styles/Searchbar.module.css';
 import { Icon } from '@iconify/react';
 
 export default function SearchBar() {
