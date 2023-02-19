@@ -19,9 +19,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const body = req.body as UserCreatePostBody;
     const instance = await MongoDatastore.getInstance();
 
-    res.status(201).send(await instance.posts.create({
-        _id: ObjectId(body.)
-    }));
+    // res.status(201).send(await instance.posts.create({
+    //     _id: ObjectId(body.)
+    // }));
+    res.status(201).send("asdkjfhalsdkjfhasdjlkf");
   } else {
     res.status(405).send("405 Method Not Allowed.");
   }
