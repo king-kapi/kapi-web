@@ -29,25 +29,21 @@ type PostProps = {
   timestamp: Date;
 };
 
-const mockUser: MockUser = {
-  email: 'someEmail@mail.com',
-  username: 'johndoe66222',
-  tag: '@LMAO',
-  bio: 'Some bio',
-  interests: [{ name: 'interest 1' }, { name: 'interest 2' }],
-  avatar: 'https://wallpapers-clan.com/wp-content/uploads/2022/07/funny-cat-1.jpg', // cat pfp
-  friends: [{ username: 'Jane Doe' }],
-  displayName: 'John Doe',
-};
-
-const mockProps: PostProps = {
-  user: mockUser,
+const listOfMockProps: PostProps[] = new Array(20).fill({
+  user: {
+    email: 'someEmail@mail.com',
+    username: 'johndoe66222',
+    tag: '@LMAO',
+    bio: 'Some bio',
+    interests: [{ name: 'interest 1' }, { name: 'interest 2' }],
+    avatar: 'https://wallpapers-clan.com/wp-content/uploads/2022/07/funny-cat-1.jpg', // cat pfp
+    friends: [{ username: 'Jane Doe' }],
+    displayName: 'John Doe',
+  },
   body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
   imageURLs: [],
   timestamp: new Date(2023, 2, 17),
-};
-
-const listOfMockProps = new Array(20).fill(mockProps);
+});
 
 function TabPanel({
   children,
@@ -60,13 +56,7 @@ function TabPanel({
   value: number;
 }) {
   return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
+    <div hidden={value !== index} {...other}>
       {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   );
@@ -79,22 +69,7 @@ function TabPanel({
  */
 function Post({ user, body, imageURLs }: PostProps) {
   return (
-    <Grid2
-      container
-      spacing={2}
-      columns={12}
-      //   sx={{
-      //     '--Grid-borderWidth': '1px',
-      //     borderTop: 'var(--Grid-borderWidth) solid',
-      //     borderLeft: 'var(--Grid-borderWidth) solid',
-      //     borderColor: 'divider',
-      //     '& > div': {
-      //       borderRight: 'var(--Grid-borderWidth) solid',
-      //       borderBottom: 'var(--Grid-borderWidth) solid',
-      //       borderColor: 'divider',
-      //     },
-      //   }}
-    >
+    <Grid2 container spacing={2} columns={12}>
       <Grid2 display="flex" xs={1} justifyContent={'center'}>
         <Avatar sx={{ bgcolor: deepOrange[500] }}>JD</Avatar>
       </Grid2>
@@ -133,26 +108,33 @@ function Post({ user, body, imageURLs }: PostProps) {
 // TODO: this technically isn't the timeline, it has the timeline tab
 function TimeLine() {
   const [currentTab, setCurrentTab] = useState<number>(0);
-
   return (
-    <>
-      <Tabs value={currentTab} onChange={(event, newValue) => setCurrentTab(newValue)}>
+    // TODO: remove this css when other components are ready
+    <div style={{ width: '50vw', height: '100vh', overflow: 'scroll' }}>
+      <Tabs
+        // TODO: dynamically set backgroundColor
+        sx={{ position: 'sticky', top: '0', backgroundColor: 'white', zIndex: 1 }}
+        value={currentTab}
+        onChange={(_, newValue) => setCurrentTab(newValue)}
+      >
         <Tab label="Timeline" value={0} />
         <Tab label="Explore" value={1} />
       </Tabs>
-      <TabPanel index={0} value={currentTab}>
-        {listOfMockProps.map((prop, index) => (
-          <Box key={index} sx={{ pb: 2 }}>
-            <Post {...prop} />
-          </Box>
-        ))}
-      </TabPanel>
-      <TabPanel index={1} value={currentTab}>
-        <Paper elevation={2} sx={{ p: 3 }}>
-          Explore Tab, Nothing yet
-        </Paper>
-      </TabPanel>
-    </>
+      <Box sx={{ position: 'relative' }}>
+        <TabPanel index={0} value={currentTab}>
+          {listOfMockProps.map((prop, index) => (
+            <Box key={index} sx={{ pb: 2 }}>
+              <Post {...prop} />
+            </Box>
+          ))}
+        </TabPanel>
+        <TabPanel index={1} value={currentTab}>
+          <Paper elevation={2} sx={{ p: 3 }}>
+            Explore Tab, Nothing yet
+          </Paper>
+        </TabPanel>
+      </Box>
+    </div>
   );
 }
 
