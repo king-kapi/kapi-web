@@ -1,29 +1,40 @@
 import { ObjectId } from 'mongodb';
 import InterestTag from './InterestTag';
-import GenerateRandomTag from '../utils/GenerateRandomTag';
 import Friend from './Friend';
 
-type User = {
-  _id?: ObjectId;
-  email: string; // or whatever connects to Google Auth
-  username: string;
-  tag: string; // don't know if we want this, but talk with designers!
-  bio: string;
-  interests: InterestTag[];
-  avatar: string; // or base64 don't know!
-  friends: Friend[];
-};
+interface UserJson {
+    _id?: string | ObjectId;
+    email: string;
+    username: string;
+    tag: string;
+    bio: string;
+    interests: InterestTag[];
+    avatar: string;
+    friends: Friend[];
+}
 
-export function newUser(email: string, username: string): User {
-  return {
-    email,
-    username: username,
-    tag: GenerateRandomTag(),
-    bio: 'placeholder',
-    interests: [],
-    avatar: 'placeholder',
-    friends: [],
-  };
+class User implements UserJson {
+  _id?: ObjectId;
+  email = ""; // or whatever connects to Google Auth
+  username = "";
+  tag = ""; // don't know if we want this, but talk with designers!
+  bio = "";
+  interests: InterestTag[] = [];
+  avatar = ""; // or base64 don't know!
+  friends: Friend[] = [];
+
+  constructor(init?:Partial<User>) {
+    Object.assign(this, init);
+  }
+
+  static fromJson(json: UserJson) {
+    return new User({
+      ...json,
+      _id: new ObjectId(json._id),
+      interests: json.interests.map(interest => InterestTag.fromJson(interest)),
+      friends: json.friends.map(friend => Friend.fromJson(friend)),
+    });
+  }
 }
 
 export default User;

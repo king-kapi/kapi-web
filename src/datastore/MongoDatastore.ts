@@ -9,10 +9,9 @@ class MongoDatastore {
   private static instance: MongoDatastore;
   private datastore = this.client.db(process.env.MONGO_DB_NAME ?? 'designthriving');
   public users = new UserCollection(this.datastore.collection(Collections.USERS));
-  // TODO: Add type parameter to the following fields (Collection<?>)
-  private chats = new ChatsCollection(this.datastore.collection(Collections.CHATS));
-  private messages = new MessagesCollection(this.datastore.collection(Collections.MESSAGES));
-  private posts = new PostsCollection(this.datastore.collection(Collections.POSTS));
+  public chats = new ChatsCollection(this.datastore.collection(Collections.CHATS));
+  public messages = new MessagesCollection(this.datastore.collection(Collections.MESSAGES));
+  public posts = new PostsCollection(this.datastore.collection(Collections.POSTS));
 
   private constructor(private client: MongoClient) {}
 

@@ -1,7 +1,8 @@
 import { Collection, FindOptions, ObjectId } from 'mongodb';
 import ErrorTypes from '../ErrorTypes';
 import Friend from '../models/Friend';
-import User, { newUser } from '../models/User';
+import User from '../models/User';
+import GenerateRandomTag from '../utils/GenerateRandomTag';
 
 class UserCollection {
   constructor(private col: Collection) { }
@@ -22,7 +23,11 @@ class UserCollection {
     if (await this.col.findOne({ email })) {
       throw Error('User already registered!'); // TODO: is this caught?
     }
-    const insertedId = (await this.col.insertOne(newUser(email, username))).insertedId;
+    const insertedId = (await this.col.insertOne(new User({
+      email,
+      username,
+      tag: GenerateRandomTag()
+    }))).insertedId;
 
     // TODO: Validate schema instead of casting, or wrap this inside a getter
     return (await this.col.findOne({ _id: insertedId })) as User;
