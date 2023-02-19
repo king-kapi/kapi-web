@@ -8,9 +8,12 @@ import {
   Stack,
   Tabs,
   Tab,
+  createTheme,
+  Typography,
 } from '@mui/material';
 import { useState } from 'react';
 import { deepOrange } from '@mui/material/colors';
+import { ThemeProvider } from '@mui/material';
 import Image from 'next/image';
 import styles from '@/styles/Timeline.module.css';
 
@@ -28,6 +31,29 @@ type PostProps = {
   imageURLs: string[];
   timestamp: Date;
 };
+
+const postTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#434343',
+    },
+    secondary: {
+      main: '#434343',
+    },
+  },
+  typography: {
+    allVariants: {
+      fontFamily: 'Poppins, Open Sans, Helvetica',
+    },
+    body1: {
+      fontWeight: 300,
+    },
+    body2: {
+      fontWeight: 300,
+      color: '#666666',
+    },
+  },
+});
 
 const listOfMockProps: PostProps[] = new Array(20).fill({
   user: {
@@ -74,27 +100,34 @@ function Post({ user, body, imageURLs }: PostProps) {
         <Avatar sx={{ bgcolor: deepOrange[500] }}>JD</Avatar>
       </Grid2>
       <Grid2 xs={11}>
-        <div className={styles.bodyText}>
-          <b>{user.displayName}</b> @{user.username} • 2 days ago
+        <div>
+          <Typography variant="body1" sx={{ display: 'inline', fontWeight: 700 }}>
+            {user.displayName}
+          </Typography>{' '}
+          <Typography sx={{ display: 'inline' }} variant="body2">
+            @{user.username} • 2 days ago
+          </Typography>
         </div>
-        <div>This server name</div>
+        <Typography variant="body2">This server name</Typography>
       </Grid2>
 
       <Grid2 xs={1}></Grid2>
       <Grid2 xs={11} display="flex">
-        <Box>{body}</Box>
+        <Typography variant="body1">{body}</Typography>
       </Grid2>
 
       <Grid2 xs={12}>
         <Stack direction="row-reverse" spacing={2}>
           <Button
-            variant="outlined"
+            variant="text"
+            sx={{ p: 1 }}
             startIcon={<Image src="/pixel_bubble.svg" alt="bruh" width={20} height={20} />}
           >
             Comment
           </Button>
           <Button
-            variant="outlined"
+            variant="text"
+            sx={{ p: 1 }}
             startIcon={<Image src="/pixel_heart.svg" alt="bruh" width={20} height={20} />}
           >
             Like
@@ -110,31 +143,33 @@ function TimeLine() {
   const [currentTab, setCurrentTab] = useState<number>(0);
   return (
     // TODO: remove this css when other components are ready
-    <div style={{ width: '50vw', height: '100vh', overflow: 'scroll' }}>
-      <Tabs
-        // TODO: dynamically set backgroundColor
-        sx={{ position: 'sticky', top: '0', backgroundColor: 'white', zIndex: 1 }}
-        value={currentTab}
-        onChange={(_, newValue) => setCurrentTab(newValue)}
-      >
-        <Tab label="Timeline" value={0} />
-        <Tab label="Explore" value={1} />
-      </Tabs>
-      <Box sx={{ position: 'relative' }}>
-        <TabPanel index={0} value={currentTab}>
-          {listOfMockProps.map((prop, index) => (
-            <Box key={index} sx={{ pb: 2 }}>
-              <Post {...prop} />
-            </Box>
-          ))}
-        </TabPanel>
-        <TabPanel index={1} value={currentTab}>
-          <Paper elevation={2} sx={{ p: 3 }}>
-            Explore Tab, Nothing yet
-          </Paper>
-        </TabPanel>
-      </Box>
-    </div>
+    <ThemeProvider theme={postTheme}>
+      <div style={{ width: '50vw', height: '100vh', overflow: 'scroll' }}>
+        <Tabs
+          // TODO: dynamically set backgroundColor
+          sx={{ position: 'sticky', top: '0', backgroundColor: 'white', zIndex: 1 }}
+          value={currentTab}
+          onChange={(_, newValue) => setCurrentTab(newValue)}
+        >
+          <Tab label="Timeline" value={0} />
+          <Tab label="Explore" value={1} />
+        </Tabs>
+        <Box sx={{ position: 'relative' }}>
+          <TabPanel index={0} value={currentTab}>
+            {listOfMockProps.map((prop, index) => (
+              <Box key={index} sx={{ pb: 2 }}>
+                <Post {...prop} />
+              </Box>
+            ))}
+          </TabPanel>
+          <TabPanel index={1} value={currentTab}>
+            <Paper elevation={2} sx={{ p: 3 }}>
+              Explore Tab, Nothing yet
+            </Paper>
+          </TabPanel>
+        </Box>
+      </div>
+    </ThemeProvider>
   );
 }
 
