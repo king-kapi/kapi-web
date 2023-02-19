@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "npx prettier --write ."
+    "format": "npx prettier --write .",
+    "dump": "mongodump -d designthriving -o mock_data_dump",
+    "restore": "mongorestore mock_data_dump"
   },
   "dependencies": {
     "@next/font": "13.1.5",
