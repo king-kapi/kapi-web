@@ -1,40 +1,28 @@
 import { ObjectId } from 'mongodb';
 import InterestTag from './InterestTag';
 import Friend from './Friend';
+import UserStatus from '../enums/UserStatus';
 
-interface UserJson {
-    _id?: string | ObjectId;
-    email: string;
-    username: string;
-    tag: string;
-    bio: string;
-    interests: InterestTag[];
-    avatar: string;
-    friends: Friend[];
-}
+class User {
 
-class User implements UserJson {
-  _id?: ObjectId;
-  email = ""; // or whatever connects to Google Auth
-  username = "";
-  tag = ""; // don't know if we want this, but talk with designers!
-  bio = "";
-  interests: InterestTag[] = [];
-  avatar = ""; // or base64 don't know!
-  friends: Friend[] = [];
+  constructor(public email: string,
+    public username: string,
+    public tag: string,
+    public bio?: string,
+    public interests?: InterestTag[],
+    public avatar?: string,
+    public friends?: Friend[],
+    public status?: UserStatus,
+    public _id?: ObjectId) { }
 
-  constructor(init?:Partial<User>) {
-    Object.assign(this, init);
-  }
-
-  static fromJson(json: UserJson) {
-    return new User({
-      ...json,
-      _id: new ObjectId(json._id),
-      interests: json.interests.map(interest => InterestTag.fromJson(interest)),
-      friends: json.friends.map(friend => Friend.fromJson(friend)),
-    });
-  }
+  // static fromJson(json: UserModel) {
+  //   return new User({
+  //     ...json,
+  //     _id: new ObjectId(json._id),
+  //     interests: json.interests.map(interest => InterestTag.fromJson(interest)),
+  //     friends: json.friends.map(friend => Friend.fromJson(friend)),
+  //   });
+  // }
 }
 
 export default User;

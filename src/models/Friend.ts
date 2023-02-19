@@ -1,24 +1,13 @@
 import { ObjectId } from "mongodb";
 import UserStatus from "../enums/UserStatus";
 
-interface FriendModel {
-    _id?: string | ObjectId;
-    username?: string;
-    tag?: string;
-    status?: UserStatus;
-}
+class Friend {
 
-class Friend implements FriendModel {
-    constructor(init?:Partial<Friend>) {
-        Object.assign(this, init);
-    }
+    constructor(public username: string, public tag: string, public _id: ObjectId, public status?: UserStatus) { }
 
-    static fromJson(json: FriendModel) {
-        return new Friend({
-            ...json,
-            _id: new ObjectId(json._id)
-        });
-    }
+    // static fromJson(json: FriendModel) {
+    //     return new Friend(json.username, json.tag, json._id, json.tag);
+    // }
 }
 
 export default Friend;

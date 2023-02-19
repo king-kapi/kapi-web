@@ -23,35 +23,32 @@ class UserCollection {
     if (await this.col.findOne({ email })) {
       throw Error('User already registered!'); // TODO: is this caught?
     }
-    const insertedId = (await this.col.insertOne(new User({
-      email,
-      username,
-      tag: GenerateRandomTag()
-    }))).insertedId;
+    const insertedId = (await this.col.insertOne(new User(username, email, GenerateRandomTag()))).insertedId;
 
     // TODO: Validate schema instead of casting, or wrap this inside a getter
     return (await this.col.findOne({ _id: insertedId })) as User;
   }
 
-  async getUser(userId: ObjectId, options: FindOptions<Document> = {}): Promise<User> {
-    const user = await this.col.findOne({ _id: userId }, options);
-    console.log(user);
+  async getUser(userId: ObjectId | undefined, options: FindOptions<Document> = {}): Promise<User> {
+
+    const user = await this.col.findOne({ _id: userId }, options) as User;
     if (user) {
-      return user as User;
+      return user;
     }
 
     // user not found
     throw {
       type: ErrorTypes.USER_NOT_FOUND,
-      message: userId.toString()
+      message: userId?.toString()
     };
   }
 
   async getFriends(userId: ObjectId): Promise<Friend[]> {
     const user = await this.getUser(userId);
     const friends: Friend[] = [];
-    for (const { _id } of user.friends) {
-      friends.push(await this.getUser(_id, {
+    
+    for (const friend of user.friends || []) {
+      friends.push(await this.getUser(friend._id, {
         projection: {
           username: 1,
           tag: 1,
