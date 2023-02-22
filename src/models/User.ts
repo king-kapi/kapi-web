@@ -1,31 +1,28 @@
 import { ObjectId } from 'mongodb';
 import InterestTag from './InterestTag';
-import GenerateRandomTag from '../utils/GenerateRandomTag';
+import Friend from './Friend';
+import UserStatus from '../enums/UserStatus';
 
-type User = {
-  _id?: ObjectId;
-  email: string; // or whatever connects to Google Auth
-  username: string;
-  tag: string; // don't know if we want this, but talk with designers!
-  bio: string;
-  interests: InterestTag[];
-  avatar: string; // or base64 don't know!
-  friends: {
-    id: ObjectId,
-    username: string
-  }[];
-};
+class User {
 
-export function newUser(email: string, username: string): User {
-  return {
-    email,
-    username: username,
-    tag: GenerateRandomTag(),
-    bio: 'placeholder',
-    interests: [],
-    avatar: 'placeholder',
-    friends: [],
-  };
+  constructor(public email: string,
+    public username: string,
+    public tag: string,
+    public bio?: string,
+    public interests?: InterestTag[],
+    public avatar?: string,
+    public friends?: Friend[],
+    public status?: UserStatus,
+    public _id?: ObjectId) { }
+
+  // static fromJson(json: UserModel) {
+  //   return new User({
+  //     ...json,
+  //     _id: new ObjectId(json._id),
+  //     interests: json.interests.map(interest => InterestTag.fromJson(interest)),
+  //     friends: json.friends.map(friend => Friend.fromJson(friend)),
+  //   });
+  // }
 }
 
 export default User;
