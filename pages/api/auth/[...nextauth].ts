@@ -1,4 +1,4 @@
-import { protectedGetServerSideProps } from "@/components/ProtectedRoute";
+import { protectedGetServerSideProps } from "@/src/utils/protectRoute";
 import MongoDatastore from "@/src/datastore/MongoDatastore";
 import User from "@/src/models/User";
 import { GetServerSideProps } from "next";

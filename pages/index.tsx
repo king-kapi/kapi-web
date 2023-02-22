@@ -1,7 +1,7 @@
 import CustomizeDashboard from '@/components/CustomizeDashboard';
 import LoginStatus from '@/components/LoginStatus';
-import { protectedGetServerSideProps } from '@/components/ProtectedRoute';
 import { Notification } from '@/src/models/Notification';
+import protectedGetServerSideProps from '@/src/utils/protectRoute';
 import Head from 'next/head';
 import NotificationBubble from '../components/NotificationBubble';
 import SearchBar from '../components/SearchBar';
