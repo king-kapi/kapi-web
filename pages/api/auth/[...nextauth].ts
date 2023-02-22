@@ -1,11 +1,8 @@
-import { protectedGetServerSideProps } from "@/src/utils/protectRoute";
 import MongoDatastore from "@/src/datastore/MongoDatastore";
 import User from "@/src/models/User";
-import { GetServerSideProps } from "next";
 import NextAuth, { Session } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-
-export const getServerSideProps: GetServerSideProps = protectedGetServerSideProps;
+import DiscordProvider from "next-auth/providers/discord";
 
 export const authOptions = {
   providers: [
@@ -13,6 +10,10 @@ export const authOptions = {
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
     }),
+    DiscordProvider({
+      clientId: process.env.DISCORD_ID,
+      clientSecret: process.env.DISCORD_SECRET
+    })
   ],
   callbacks: {
     session: async ({ session }: {session: Session}) => {
