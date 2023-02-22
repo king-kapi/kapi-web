@@ -1,5 +1,6 @@
-import { useSession } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
 import Link from "next/link";
+import React from "react";
 import Card from "./Card";
 
 export default function LoginStatus() {
@@ -19,11 +20,12 @@ export default function LoginStatus() {
         </button>
       </Link>
       <br />
-      <Link href={"/logout"}>
-        <button>
-          Logout
-        </button>
-      </Link>
+      <button onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        signOut();
+      }}>
+        Logout
+      </button>
     </Card >
   )
 }

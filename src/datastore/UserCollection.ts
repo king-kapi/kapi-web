@@ -43,10 +43,24 @@ class UserCollection {
     };
   }
 
+  async getUserByEmail(email: string, options: FindOptions<Document> = {}): Promise<User> {
+
+    const user = await this.col.findOne({ email }, options) as User;
+    if (user) {
+      return user;
+    }
+
+    // user not found
+    throw {
+      type: ErrorTypes.USER_NOT_FOUND,
+      message: email?.toString()
+    };
+  }
+
   async getFriends(userId: ObjectId): Promise<Friend[]> {
     const user = await this.getUser(userId);
     const friends: Friend[] = [];
-    
+
     for (const friend of user.friends || []) {
       friends.push(await this.getUser(friend._id, {
         projection: {

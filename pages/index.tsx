@@ -1,10 +1,13 @@
 import CustomizeDashboard from '@/components/CustomizeDashboard';
 import LoginStatus from '@/components/LoginStatus';
+import { protectedGetServerSideProps } from '@/components/ProtectedRoute';
 import { Notification } from '@/src/models/Notification';
 import Head from 'next/head';
 import NotificationBubble from '../components/NotificationBubble';
 import SearchBar from '../components/SearchBar';
 import SideNav from '../components/SideNav';
+
+export const getServerSideProps = protectedGetServerSideProps;
 
 export default function Home() {
   const notifications: Notification[] = [
@@ -42,7 +45,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <LoginStatus/>
+        <LoginStatus />
         <SideNav />
         <SearchBar />
         <CustomizeDashboard />
