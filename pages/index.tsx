@@ -1,4 +1,5 @@
 import CustomizeDashboard from '@/components/CustomizeDashboard';
+import LoginStatus from '@/components/LoginStatus';
 import { Notification } from '@/src/models/Notification';
 import Head from 'next/head';
 import NotificationBubble from '../components/NotificationBubble';
@@ -41,6 +42,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        <LoginStatus/>
         <SideNav />
         <SearchBar />
         <CustomizeDashboard />
