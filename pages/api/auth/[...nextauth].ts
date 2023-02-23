@@ -3,6 +3,7 @@ import User from "@/src/models/User";
 import NextAuth, { Session } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import DiscordProvider from "next-auth/providers/discord";
+import UserNotFoundError from "@/src/errors/UserNotFoundError";
 
 export const authOptions = {
   providers: [
@@ -20,14 +21,14 @@ export const authOptions = {
       if (session) {
         const instance = await MongoDatastore.getInstance();
 
-        let user: User;
         try {
-          user = await instance.users.getUserByEmail(session.user.email);
-        } catch { // if not registered
-          user = await instance.users.register(session.user.email, session.user.email);
+          session.user = await instance.users.getUserByEmail(session.user.email);
+        } catch (error) { // if not registered
+          if (error instanceof UserNotFoundError)
+          session.user = await instance.users.register(session.user.email, session.user.email);
+          else
+            throw error
         }
-
-        session.user = Object.assign(session.user, user);
       }
       return session;
     }

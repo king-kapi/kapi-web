@@ -4,8 +4,7 @@ import protectApiRoute from '@/src/utils/protectApiRoute';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const session = await protectApiRoute(req, res);
-  if (!session) return;
+  await protectApiRoute(req, res);
 
   const dataStore = await MongoDatastore.getInstance();
 
