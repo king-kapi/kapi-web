@@ -1,10 +1,12 @@
 import '@/styles/globals.css';
-import { getServerSession } from 'next-auth';
+import { GetServerSidePropsContext } from 'next';
+import { getServerSession } from 'next-auth/next';
 import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
 import { authOptions } from './api/auth/[...nextauth]';
 
-export async function getServerSideProps(context: any) {
+// todo: this context is any pls don't do this ;-;
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getServerSession(context.req, context.res, authOptions);
 
   console.log('hi');
