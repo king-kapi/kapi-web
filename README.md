@@ -25,3 +25,36 @@ pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+# Development Notes
+
+## Authentication
+
+Authentication is handled with the `next-auth` library. You will need to set the `GOOGLE_ID` and `GOOGLE_SECRET` environment variables, and create your own secret with `openssl rand -base64 32` and put into `NEXTAUTH_SECRET`.
+
+### Protecting Page Route
+
+Page routes are protected *server side*, which means we utilize the `getServerSideProps` to check if the user is logged in and redirect accordingly.
+
+Insert this code to protect a page (example: see `index.tsx`):
+
+```tsx
+import protectedGetServerSideProps from '@/src/utils/protectRoute';
+
+export const getServerSideProps = protectedGetServerSideProps;
+
+// ... your page
+```
+
+### Protecting API Route
+
+API routes are protected with a function that will not only fetch the session, but will return the correct 401 error response with message.
+
+Insert this code at the beginning of your handler function (example: see `api/users.tsx`):
+
+```typescript
+const session = await protectApiRoute(req, res);
+if (!session) return;
+
+// ... your handler
+```

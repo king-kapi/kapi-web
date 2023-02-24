@@ -1,5 +1,5 @@
 import { Collection, FindOptions, ObjectId } from 'mongodb';
-import ErrorTypes from '../ErrorTypes';
+import UserNotFoundError from '../errors/UserNotFoundError';
 import Friend from '../models/Friend';
 import User from '../models/User';
 import GenerateRandomTag from '../utils/GenerateRandomTag';
@@ -37,25 +37,31 @@ class UserCollection {
     }
 
     // user not found
-    throw {
-      type: ErrorTypes.USER_NOT_FOUND,
-      message: userId?.toString()
-    };
+    throw new UserNotFoundError(userId);
+  }
+
+  async getUserByEmail(email: string, options: FindOptions<Document> = {}): Promise<User> {
+
+    const user = await this.col.findOne({ email }, options) as User;
+    if (user) {
+      return user;
+    }
+
+    // user not found
+    throw new UserNotFoundError(email);
   }
 
   async getFriends(userId: ObjectId): Promise<Friend[]> {
     const user = await this.getUser(userId);
-    const friends: Friend[] = [];
-    
-    for (const friend of user.friends || []) {
-      friends.push(await this.getUser(friend._id, {
+    console.log("user", user);
+    const friends = await Promise.all(user.friends.map(async (friend) =>
+      await this.getUser(friend._id, {
         projection: {
           username: 1,
           tag: 1,
           status: 1
         }
-      }) as Friend);
-    }
+      }) as Friend));
 
     return friends;
   }
