@@ -5,6 +5,8 @@ import Head from 'next/head';
 import NotificationBubble from '../components/NotificationBubble';
 import SearchBar from '../components/SearchBar';
 import SideNav from '../components/SideNav';
+import PartyFinderWidget from '@/components/PartyFinderWidget';
+import { Party } from '@/src/models/Party';
 
 export default function Components() {
   const notifications: Notification[] = [
@@ -33,6 +35,36 @@ export default function Components() {
       maxPartySize: 4,
     },
   ];
+
+  const parties:Party[] = [
+    {
+      icon: 'mdi:picture-360-outline',
+      game: 'genshin impact',
+      partyOwner: 'User',
+      partySize: 3,
+      maxPartySize: 4,
+      role: 'roles',
+      partySource: 'friend'
+    },
+    {
+      icon: 'mdi:picture-360-outline',
+      game: 'valorant',
+      partyOwner: 'User',
+      partySize: 1,
+      maxPartySize: 2,
+      role: 'roles',
+      partySource: 'community'
+    },
+    {
+      icon: 'mdi:picture-360-outline',
+      game: 'league of legends',
+      partyOwner: 'User',
+      partySize: 2,
+      maxPartySize: 3,
+      role: 'roles',
+      partySource: 'community'
+    }
+  ]
   return (
     <>
       <Head>
@@ -49,6 +81,7 @@ export default function Components() {
         {notifications.map((notification, index) => (
           <NotificationBubble key={index} notification={notification} />
         ))}
+        <PartyFinderWidget parties={parties}/>
       </main>
     </>
   );
