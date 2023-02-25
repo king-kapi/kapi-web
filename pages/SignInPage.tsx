@@ -1,5 +1,6 @@
 import styles from '../styles/SignInPage.module.css'
 import { Icon } from '@iconify/react'
+import { signIn } from 'next-auth/react'
 
 export default function SignInPage() {
     return (
@@ -14,11 +15,11 @@ export default function SignInPage() {
                     <h3>Discover safe and inclusive gaming communities for you</h3>
                 </div>
                 <div className={styles.SignInButtons}>
-                    <button type='submit'>
+                    <button onClick={() => signIn('google', {callbackUrl: '/'})}>
                         <Icon icon='logos:google-icon'/>
                         Sign in with Google
                     </button>
-                    <button type='submit'>
+                    <button onClick={() => signIn('discord', {callbackUrl: '/'})}>
                         <Icon icon='logos:discord-icon'/>
                         Sign in with Discord
                     </button>
