@@ -16,6 +16,9 @@ export const authOptions = {
       clientSecret: process.env.DISCORD_SECRET
     })
   ],
+  pages: {
+    signIn: '/SignInPage',
+  },
   callbacks: {
     session: async ({ session }: {session: Session}) => {
       if (session) {
