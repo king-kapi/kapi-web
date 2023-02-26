@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 
 .Sidenav {
   height: 1080px;
   width: 280px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .Sidenav_header {
@@ -18,20 +18,45 @@
   padding-left: 21px;
 }
 
-.Sidenav_menuwords {
+.homeTabWord {
+  font-size: 16px;
+  font-weight: 600;
+  padding-left: 29px;
+}
+
+.partyFinderTabWord {
+  font-size: 16px;
+  font-weight: 600;
+  padding-left: 29px;
+}
+
+.communityTabWord {
+  font-size: 16px;
+  font-weight: 600;
+  padding-left: 29px;
+}
+
+.forYouTabWord {
+  font-size: 16px;
+  font-weight: 600;
+  padding-left: 29px;
+}
+
+.logoWord {
   font-size: 16px;
   font-weight: 600;
 }
 
 .Sidenav_bell {
+  cursor: pointer;
   width: 24px;
   height: 24px;
+  padding-right: 23px;
 }
 
 .Sidenav_avatardiv {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
   width: 50%;
 }
 
@@ -43,22 +68,76 @@
 }
 
 .Sidenav_menu {
+  padding-top: 25px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   flex-grow: 1;
 }
 
-.Sidenav_menu a {
-  padding-left: 20px;
+.homeTab {
+  cursor: pointer;
+  padding-left: 29px;
   display: flex;
   align-items: center;
   text-decoration: none;
   color: black;
 }
 
-.Sidenav_menu a span {
-  padding-left: 20px;
+.partyFinderTab {
+  cursor: pointer;
+  padding-left: 29px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+}
+
+.communityTab {
+  cursor: pointer;
+  padding-left: 29px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+}
+
+.forYouTab {
+  cursor: pointer;
+  padding-left: 29px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+}
+
+.home_icon,
+.partyFinder_icon,
+.community_icon,
+.forYou_icon {
+  width: 40px;
+  height: 40px;
+}
+
+
+.selected {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 56px;
+  height: 56px;
+  background-color: #272727;
+  border-radius: 100px;
+}
+
+.notSelected {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 56px;
+  height: 56px;
+  background-color: white;
+  border-radius: 100px;
 }
 
 .Sidenav_icon {
@@ -71,21 +150,22 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 516px;
+  height: 478px;
 }
 
 .Sidenav_graysection {
   color: #FEFEFE;
   background-color: #616161;
-  height: 516px;
   display: flex;
   flex-direction: column;
+  overflow-y: hidden;
 }
 
 .Sidenav_graysection h1 {
-  padding-left: 29px;
-  padding-top: 39px;
   margin: 0;
+  margin-left: 29px;
+  margin-top: 39px;
+  margin-bottom: 34px;
   font-size: 20px;
   display: flex;
   align-items: baseline;
@@ -100,43 +180,42 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  justify-content: space-evenly;
   list-style: none;
   padding: 0;
+  margin: 0;
+  overflow-y: scroll;
+  height: 400px;
 }
 
 .Sidenav_graysection ul li {
   display: flex;
   align-items: center;
   padding-left: 29px;
+  padding-bottom: 20px;
 }
 
 .Sidenav_graysection ul li span {
   padding-left: 10px;
 }
 
-.Sidenav_friendsavatar {
+.friendsAvatar {
+  background-color: white;
+  border-radius: 50%;
   height: 59px;
   width: 59px;
 }
 
-.Sidenav_useravatar {
+.userAvatar {
+  background-color: white;
+  border-radius: 50%;
   height: 59px;
   width: 59px;
+  margin: 0px 24px;
 }
 
 .Sidenav_blacksection {
   color: #FFFFFF;
   background-color: #272727;
-  height: 48px;
-}
-
-.Sidenav_blacksection div {
-  padding-left: 29px;
-}
-
-.Sidenav_blacksection div div {
-  padding-left: 10px;
 }
 
 .Sidenav_expand {
@@ -149,8 +228,56 @@
   align-items: center;
 }
 
-.Sidenav_statuscontainer div {
+.userNameContainer {
   display: flex;
+  margin: 24px 0px;
   flex-direction: column;
-  justify-content: center;
+  align-items: flex-start;
+}
+
+.userName {
+  text-indent: 4px;
+}
+
+.status {
+  cursor: pointer;
+  outline: none;
+  color: #FFFFFF;
+  background-color: #272727;
+  border: none;
+  border-style: none;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  text-indent: 0px;
+  width: 80px;
+}
+
+.statusOnline{
+  width: 17px;
+  height: 17px;
+  background-color: #23A55A;
+  border-radius: 50%;
+  position: relative;
+  top: 40px;
+  left: 45px;
+}
+
+.statusIdle{
+  width: 17px;
+  height: 17px;
+  background-color: #F0B232;
+  border-radius: 50%;
+  position: relative;
+  top: 40px;
+  left: 45px;
+}
+
+.statusOffline{
+  width: 17px;
+  height: 17px;
+  background-color: #81848E;
+  border-radius: 50%;
+  position: relative;
+  top: 40px;
+  left: 45px;
 }
