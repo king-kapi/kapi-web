@@ -10,8 +10,9 @@ import {
   Tab,
   createTheme,
   Typography,
+  Slide,
 } from '@mui/material';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { deepOrange } from '@mui/material/colors';
 import { ThemeProvider } from '@mui/material';
 import Image from 'next/image';
@@ -44,7 +45,6 @@ type PostProps = {
    */
   timestamp: Date;
 };
-
 
 const postTheme = createTheme({
   palette: {
@@ -83,7 +83,9 @@ const listOfMockProps: PostProps[] = new Array(20).fill({
     displayName: 'John Doe',
   },
   body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  imageURLs: [],
+  imageURLs: [
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcudcK_sBKxRNk00XALZ-GyDVvFol1iO0e6Q&usqp=CAU',
+  ],
   timestamp: new Date(2023, 2, 17),
 });
 
@@ -117,7 +119,7 @@ function Post({ user, body, imageURLs }: PostProps) {
       <Grid2 xs={11}>
         <div>
           <Typography variant="body1" sx={{ display: 'inline', fontWeight: 700 }}>
-            {user.displayName}
+            {user.username}
           </Typography>{' '}
           <Typography sx={{ display: 'inline' }} variant="body2">
             @{user.username} • 2 days ago
@@ -125,12 +127,16 @@ function Post({ user, body, imageURLs }: PostProps) {
         </div>
         <Typography variant="body2">This server name</Typography>
       </Grid2>
-
       <Grid2 xs={1}></Grid2>
       <Grid2 xs={11} display="flex">
         <Typography variant="body1">{body}</Typography>
       </Grid2>
-
+      <Grid2 xs={1}></Grid2>
+      <Grid2 xs={11}>
+        {imageURLs.map((url, index) => (
+          <img key={index} loading="lazy" src={url} alt="postImage" />
+        ))}
+      </Grid2>
       <Grid2 xs={12}>
         <Stack direction="row-reverse" spacing={2}>
           <Button
@@ -154,12 +160,14 @@ function Post({ user, body, imageURLs }: PostProps) {
 }
 
 // TODO: this technically isn't the timeline, it has the timeline tab
-function TimeLine() {
+function TimeLineAndExploreTabGroup() {
   const [currentTab, setCurrentTab] = useState<number>(0);
+  // have to use null here, ref prop expects null not undefined for some reason
+  const containerRef = useRef<HTMLDivElement | null>(null);
   return (
     // TODO: remove this css when other components are ready
     <ThemeProvider theme={postTheme}>
-      <div style={{ width: '50vw', height: '100vh', overflow: 'scroll' }}>
+      <div style={{ width: '50vw', height: '100vh', overflow: 'scroll' }} ref={containerRef}>
         <Tabs
           // TODO: dynamically set backgroundColor
           sx={{ position: 'sticky', top: '0', backgroundColor: 'white', zIndex: 1 }}
@@ -170,22 +178,31 @@ function TimeLine() {
           <Tab label="Explore" value={1} />
         </Tabs>
         <Box sx={{ position: 'relative' }}>
-          <TabPanel index={0} value={currentTab}>
-            {listOfMockProps.map((prop, index) => (
-              <Box key={index} sx={{ pb: 2 }}>
-                <Post {...prop} />
-              </Box>
-            ))}
-          </TabPanel>
-          <TabPanel index={1} value={currentTab}>
-            <Paper elevation={2} sx={{ p: 3 }}>
-              <Typography variant="body1">Explore Tab, Nothing yet</Typography>
-            </Paper>
-          </TabPanel>
+          <Slide direction="right" in={currentTab === 0} container={containerRef.current}>
+            <div>
+              <TabPanel index={0} value={currentTab}>
+                {listOfMockProps.map((prop, index) => (
+                  <Box key={index} sx={{ pb: 2 }}>
+                    <Post {...prop} />
+                  </Box>
+                ))}
+              </TabPanel>
+            </div>
+          </Slide>
+          <Slide direction="left" in={currentTab === 1} container={containerRef.current}>
+            <div>
+              {/**div is required because it can hold a ref */}
+              <TabPanel index={1} value={currentTab}>
+                <Paper elevation={2} sx={{ p: 3 }}>
+                  <Typography variant="body1">Explore Tab, Nothing yet</Typography>
+                </Paper>
+              </TabPanel>
+            </div>
+          </Slide>
         </Box>
       </div>
     </ThemeProvider>
   );
 }
 
-export default TimeLine;
+export default TimeLineAndExploreTabGroup;
