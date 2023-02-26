@@ -15,8 +15,8 @@ import { useState } from 'react';
 import { deepOrange } from '@mui/material/colors';
 import { ThemeProvider } from '@mui/material';
 import Image from 'next/image';
-import styles from '@/styles/Timeline.module.css';
 
+// TODO: Remove in production
 /**
  * Type alias that omits all the id's
  */
@@ -25,12 +25,26 @@ type Mock<T extends object> = {
     ? Omit<T[K][number], 'id' | '_id'>[]
     : Omit<T[K], 'id' | '_id'>;
 };
+
+/**
+ * Props for a single post
+ */
 type PostProps = {
   user: Mock<User>;
+  /**
+   * The main body of the post, displayed above the image
+   */
   body: string;
-  imageURLs: string[];
+  /**
+   * List of images, this should be limited to a finite number but we don't know yet
+   */
+  imageURLs: string[]; // TODO: Change to string tuple
+  /**
+   * When is this posted
+   */
   timestamp: Date;
 };
+
 
 const postTheme = createTheme({
   palette: {
@@ -43,6 +57,7 @@ const postTheme = createTheme({
   },
   typography: {
     allVariants: {
+      // note that Poppins require global css import
       fontFamily: 'Poppins, Open Sans, Helvetica',
     },
     body1: {
@@ -55,6 +70,7 @@ const postTheme = createTheme({
   },
 });
 
+// TODO: Remove in production
 const listOfMockProps: PostProps[] = new Array(20).fill({
   user: {
     email: 'someEmail@mail.com',
@@ -88,10 +104,9 @@ function TabPanel({
   );
 }
 
+// TODO: where will the timeline be? this is needed for routing
 /**
- * A post inside the user's timeline TODO: where will the timeline be? this is needed for routing
- * @param props
- * @returns
+ * A post inside the user's timeline
  */
 function Post({ user, body, imageURLs }: PostProps) {
   return (
@@ -164,7 +179,7 @@ function TimeLine() {
           </TabPanel>
           <TabPanel index={1} value={currentTab}>
             <Paper elevation={2} sx={{ p: 3 }}>
-              Explore Tab, Nothing yet
+              <Typography variant="body1">Explore Tab, Nothing yet</Typography>
             </Paper>
           </TabPanel>
         </Box>
