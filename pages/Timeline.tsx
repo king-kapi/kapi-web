@@ -134,6 +134,7 @@ function Post({ user, body, imageURLs }: PostProps) {
       <Grid2 xs={1}></Grid2>
       <Grid2 xs={11}>
         {imageURLs.map((url, index) => (
+          // TODO: Change this to <Image/>
           <img key={index} loading="lazy" src={url} alt="postImage" />
         ))}
       </Grid2>
