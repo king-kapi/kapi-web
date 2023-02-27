@@ -46,6 +46,8 @@ type PostProps = {
   timestamp: Date;
 };
 
+type PossibleTabIndex = 0 | 1;
+
 const postTheme = createTheme({
   palette: {
     primary: {
@@ -96,7 +98,7 @@ function TabPanel({
   ...other
 }: {
   children?: React.ReactNode;
-  index: number;
+  index: PossibleTabIndex;
   value: number;
 }) {
   return (
@@ -162,7 +164,7 @@ function Post({ user, body, imageURLs }: PostProps) {
 
 // TODO: this technically isn't the timeline, it has the timeline tab
 function TimeLineAndExploreTabGroup() {
-  const [currentTab, setCurrentTab] = useState<number>(0);
+  const [currentTab, setCurrentTab] = useState<PossibleTabIndex>(0);
   // have to use null here, ref prop expects null not undefined for some reason
   const containerRef = useRef<HTMLDivElement | null>(null);
   return (
