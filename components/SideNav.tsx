@@ -23,6 +23,26 @@ function SideNav() {
 
   return (
     <div className={styles.Sidenav}>
+      <style>{`/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #1a1b1e;;
+  border-radius: 10px
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #333333;
+}`}</style>
       <section className={styles.Sidenav_whitesection}>
         <span className={styles.Sidenav_header}>
           <div className={styles.Sidenav_avatardiv}>
