@@ -5,10 +5,45 @@ import { useQuery } from 'react-query';
 
 function SideNav() {
   const [activeTab, setActiveTab] = useState(1); // TOOD: useRouter to get path name to check current tab
-  const [onlineStatus, setOnlineStatus] = useState(1);
+  const [onlineStatus, setOnlineStatus] = useState('1');
   const { data, isLoading, isError, error } = useQuery('userInfo', () =>
     fetch(`http://localhost:3000/api/users/63f1762157a47ee3ab2337ae`).then(res => res.json())
   );
+
+  const handleChange = (e: any) => {
+    setOnlineStatus(e.target.value);
+  };
+
+  function getCurrentStatus() {
+    if (onlineStatus === '1') {
+      return styles.statusOnline;
+    } else if (onlineStatus === '2') {
+      return styles.statusIdle;
+    } else {
+      return styles.statusOffline;
+    }
+  }
+
+  function fetchFriends() {
+    const friends = data.friends;
+    const friendsList = friends.map((friend: { username: string }) => (
+      <li>
+        <div className={styles.friendsAvatar}>
+          <div className={styles.statusOnline}></div>
+        </div>
+        <span>{friend.username}</span>
+      </li>
+    ));
+    return (
+      <div>
+        <h1>
+          Friends - <span>{friends.length}/26</span>
+        </h1>
+        <ul>{friendsList}</ul>
+      </div>
+    );
+  }
+
   if (isLoading) {
     return (
       <div className={styles.sidenav}>
@@ -117,41 +152,6 @@ function SideNav() {
     return <span>Error fetching data</span>;
   }
 
-  const handleChange = (e: any) => {
-    setOnlineStatus(e.target.value);
-  };
-
-  function getCurrentStatus() {
-    if (onlineStatus == 1) {
-      return styles.statusOnline;
-    } else if (onlineStatus == 2) {
-      return styles.statusIdle;
-    } else {
-      return styles.statusOffline;
-    }
-  }
-
-  function fetchFriends() {
-    const friends = data.friends;
-    const friendsList = friends.map((friend: { username: string }) => (
-      <li>
-        <div className={styles.friendsAvatar}>
-          <div className={styles.statusOnline}></div>
-        </div>
-        <span>{friend.username}</span>
-      </li>
-    ));
-    return (
-      <div>
-        <h1>
-          Friends - <span>{friends.length}/26</span>
-        </h1>
-        <ul>{friendsList}</ul>
-      </div>
-    );
-  }
-
-  
   return (
     <div className={styles.sidenav}>
       <style>{`/* width */
