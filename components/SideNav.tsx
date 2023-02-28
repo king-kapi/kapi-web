@@ -22,26 +22,43 @@ function SideNav() {
   }
 
   return (
-    <div className={styles.Sidenav}>
-      <section className={styles.Sidenav_whitesection}>
-        <span className={styles.Sidenav_header}>
-          <div className={styles.Sidenav_avatardiv}>
+    <div className={styles.sidenav}>
+      <style>{`/* width */
+        ::-webkit-scrollbar {
+          width: 10px;
+        }
+        /* Track */
+        ::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+          background: #1a1b1e;;
+          border-radius: 10px
+        }
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+          background: #333333;
+        }`}</style>
+      <section className={styles.whiteSection}>
+        <span className={styles.header}>
+          <div className={styles.avatarDiv}>
             <div>
-              <div className={styles.Sidenav_avatar}></div>
+              <div className={styles.avatar}></div>
             </div>
             <h1 className={styles.logoWord}>Logo</h1>
           </div>
           <div>
-            <Icon icon="mdi:bell" className={styles.Sidenav_bell} />
+            <Icon icon="mdi:bell" className={styles.bell} />
           </div>
         </span>
-        <div className={styles.Sidenav_menu}>
+        <div className={styles.menu}>
           <div onClick={() => setActiveTab(1)} className={styles.homeTab}>
             <div className={activeTab === 1 ? styles.selected : styles.notSelected}>
               <Icon
                 icon="mdi:house"
                 color={activeTab === 1 ? '#FFFFFF' : '#939393'}
-                className={styles.home_icon}
+                className={styles.homeIcon}
               />
             </div>
             <span className={styles.homeTabWord}>Home</span>
@@ -51,7 +68,7 @@ function SideNav() {
               <Icon
                 icon="mdi:sword-cross"
                 color={activeTab === 2 ? '#FFFFFF' : '#939393'}
-                className={styles.partyFinder_icon}
+                className={styles.partFinderIcon}
               />
             </div>
             <span className={styles.partyFinderTabWord}>Party Finder</span>
@@ -61,7 +78,7 @@ function SideNav() {
               <Icon
                 icon="fa-solid:user-friends"
                 color={activeTab === 3 ? '#FFFFFF' : '#939393'}
-                className={styles.community_icon}
+                className={styles.communityIcon}
               />
             </div>
             <span className={styles.communityTabWord}>Community</span>
@@ -71,46 +88,58 @@ function SideNav() {
               <Icon
                 icon="ph:sparkle-fill"
                 color={activeTab === 4 ? '#FFFFFF' : '#939393'}
-                className={styles.forYou_icon}
+                className={styles.forYouIcon}
               />
             </div>
             <span className={styles.forYouTabWord}>For You</span>
           </div>
         </div>
       </section>
-      <section className={styles.Sidenav_graysection}>
+      <section className={styles.graySection}>
         <h1>
           Friends - <span>9/26</span>
         </h1>
         <ul>
           <li>
-            <div className={styles.friendsAvatar}><div className={getCurrentStatus()}></div></div>
+            <div className={styles.friendsAvatar}>
+              <div className={getCurrentStatus()}></div>
+            </div>
             <span>Jane Doe</span>
           </li>
           <li>
-            <div className={styles.friendsAvatar}><div className={getCurrentStatus()}></div></div>
+            <div className={styles.friendsAvatar}>
+              <div className={getCurrentStatus()}></div>
+            </div>
             <span>Jane Doe</span>
           </li>
           <li>
-            <div className={styles.friendsAvatar}><div className={getCurrentStatus()}></div></div>
+            <div className={styles.friendsAvatar}>
+              <div className={getCurrentStatus()}></div>
+            </div>
             <span>Jane Doe</span>
           </li>
           <li>
-            <div className={styles.friendsAvatar}><div className={getCurrentStatus()}></div></div>
+            <div className={styles.friendsAvatar}>
+              <div className={getCurrentStatus()}></div>
+            </div>
             <span>Jane Doe</span>
           </li>
           <li>
-            <div className={styles.friendsAvatar}><div className={getCurrentStatus()}></div></div>
+            <div className={styles.friendsAvatar}>
+              <div className={getCurrentStatus()}></div>
+            </div>
             <span>Jane Doe</span>
           </li>
           <li>
-            <div className={styles.friendsAvatar}><div className={getCurrentStatus()}></div></div>
+            <div className={styles.friendsAvatar}>
+              <div className={getCurrentStatus()}></div>
+            </div>
             <span>Jane Doe</span>
           </li>
         </ul>
       </section>
-      <section className={styles.Sidenav_blacksection}>
-        <div className={styles.Sidenav_statuscontainer}>
+      <section className={styles.blackSection}>
+        <div className={styles.statusContainer}>
           <div className={styles.userAvatar}>
             <div className={getCurrentStatus()}></div>
           </div>
@@ -120,7 +149,7 @@ function SideNav() {
               name="status"
               className={styles.status}
               id="status"
-              onChange={(e) => handleChange(e)}
+              onChange={e => handleChange(e)}
             >
               <option value="1">Online</option>
               <option value="2">Idle</option>
