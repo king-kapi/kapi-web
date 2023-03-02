@@ -1,6 +1,6 @@
 import styles from '../styles/NotificationsWidget.module.css';  
 import { Notification } from '@/src/models/Notification';
-import { NotificationBubble } from './notificationBubble';
+import NotificationBubble from './NotificationBubble';
 
 type NotificationsWidgetProps = {
   notifications: Notification[];
