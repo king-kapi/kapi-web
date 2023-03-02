@@ -2,15 +2,17 @@ import MongoDatastore from '@/src/datastore/MongoDatastore';
 import { ObjectId } from 'mongodb';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+type GetFriendsQueries = {
+  userId: string,
+}
+
+// responds with an array of friends and their status
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === "POST") {
+  if (req.method === "GET") {
+    const { userId } = req.query as GetFriendsQueries;
     const instance = await MongoDatastore.getInstance();
-    const userId = new ObjectId(req.query.userId as string);
-    const friendId = new ObjectId(req.query.friendId as string);
 
-    await instance.users.addFriend(userId, friendId);
-
-    res.json(await instance.users.getUser(userId));
+    res.json(await instance.users.getFriends(new ObjectId(userId)));
   } else {
     res.status(405).send("405 Method Not Allowed.");
   }
