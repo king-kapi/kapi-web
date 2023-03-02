@@ -1,8 +1,11 @@
 import MongoDatastore from '@/src/datastore/MongoDatastore';
 import User from '@/src/models/User';
+import protectApiRoute from '@/src/utils/protectApiRoute';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  await protectApiRoute(req, res);
+
   const dataStore = await MongoDatastore.getInstance();
 
   if (req.method === 'POST') {
