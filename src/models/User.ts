@@ -4,9 +4,8 @@ import Friend from './Friend';
 import UserStatus from '../enums/UserStatus';
 
 class User {
-  
-
-  constructor(public email: string,
+  constructor(
+    public email: string,
     public username: string,
     public tag: string,
     public friends: Friend[] = [],
@@ -14,16 +13,8 @@ class User {
     public interests?: InterestTag[],
     public avatar?: string,
     public status?: UserStatus,
-    public _id?: ObjectId) { }
-
-  // static fromJson(json: UserModel) {
-  //   return new User({
-  //     ...json,
-  //     _id: new ObjectId(json._id),
-  //     interests: json.interests.map(interest => InterestTag.fromJson(interest)),
-  //     friends: json.friends.map(friend => Friend.fromJson(friend)),
-  //   });
-  // }
+    public _id?: ObjectId
+  ) {}
 }
 
 export default User;

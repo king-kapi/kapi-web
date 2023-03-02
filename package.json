@@ -12,6 +12,9 @@
     "restore": "mongorestore mock_data_dump"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.11.9",
     "@iconify/react": "^4.1.0",
     "@next/font": "13.1.5",
     "@types/node": "18.11.18",
