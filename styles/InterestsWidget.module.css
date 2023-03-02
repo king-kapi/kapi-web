@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+.InterestsWidgetContainer {
+  font-family: 'Poppins', sans-serif;
+  height: 25rem;
+  width: 46.563rem;
+  background-color: #fdfdfd;
+  color: black;
+  margin: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.TitleContainer {
+  width: 39.188rem;
+  line-height: 1.65rem;
+  margin-top: 1.2rem;
+}
+
+.TitleContainer h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.TitleContainer h2 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.ServersContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 39.188rem;
+}
+
+.ServerName {
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.25rem;
+}
+
+.Members {
+  font-size: 0.75rem;
+  line-height: 0.65rem;
+}
+
+.RandomizeButton {
+  width: 22rem;
+  height: 3.3rem;
+  border-radius: 20px;
+  background-color: #aaaaaa;
+  border: none;
+  color: black;
+  font-size: 1rem;
+  font-weight: 600;
+}
