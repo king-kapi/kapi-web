@@ -78,7 +78,7 @@ function AchievementsWidget() {
       <style>{`
         .PrevArrow {
           position: relative;
-          bottom: 50%;
+          bottom: 11rem;
           left: 1.313rem;
           width: 0.313rem;
           transition: .5s;
@@ -92,7 +92,7 @@ function AchievementsWidget() {
 
         .NextArrow {
           position: relative;
-          bottom: 55%;
+          bottom: 12.5rem;
           right: 1.313rem;
           width: 0.313rem;
           float: right;
