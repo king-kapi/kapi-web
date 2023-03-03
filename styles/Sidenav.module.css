@@ -1,156 +1,244 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 
-.Sidenav {
-  height: 1080px;
-  width: 280px;
-  font-family: 'Poppins', sans-serif;
+.sidenav {
+  height: 67.5em;
+  width: 17.5em;
+  font-family: 'Montserrat', sans-serif;
 }
 
-.Sidenav_header {
+.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-left: 29px;
-  margin-top: 31px;
+  margin-left: 1.813em;
+  margin-top: 1.938em;
 }
 
-.Sidenav_header h1 {
-  padding-left: 21px;
+.header h1 {
+  padding-left: 1.313em;
 }
 
-.Sidenav_menuwords {
-  font-size: 16px;
+.homeTabWord,
+.partyFinderTabWord,
+.communityTabWord,
+.forYouTabWord {
+  font-size: 1em;
+  font-weight: 600;
+  padding-left: 1.813em;
+}
+
+.logoWord {
+  font-size: 1em;
   font-weight: 600;
 }
 
-.Sidenav_bell {
-  width: 24px;
-  height: 24px;
+.bell {
+  cursor: pointer;
+  width: 1.5em;
+  height: 1.5em;
+  padding-right: 1.438em;
 }
 
-.Sidenav_avatardiv {
+.avatarDiv {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
   width: 50%;
 }
 
-.Sidenav_avatar {
-  width: 64px;
-  height: 64px;
+.avatar {
+  width: 4em;
+  height: 4em;
   background-color: #D9D9D9;
-  border-radius: 20px;
+  border-radius: 1.25em;
 }
 
-.Sidenav_menu {
+.menu {
+  padding-top: 1.563em;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   flex-grow: 1;
 }
 
-.Sidenav_menu a {
-  padding-left: 20px;
+.homeTab,
+.partyFinderTab,
+.communityTab,
+.forYouTab {
+  cursor: pointer;
+  padding-left: 1.813em;
   display: flex;
   align-items: center;
   text-decoration: none;
   color: black;
 }
 
-.Sidenav_menu a span {
-  padding-left: 20px;
+.homeIcon,
+.partFinderIcon,
+.communityIcon,
+.forYouIcon {
+  width: 2.5em;
+  height: 2.5em;
+}
+
+
+.selected {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.5em;
+  height: 3.5em;
+  background-color: #272727;
+  border-radius: 6.25em;
+}
+
+.notSelected {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.5em;
+  height: 3.5em;
+  background-color: white;
+  border-radius: 6.25em;
 }
 
 .Sidenav_icon {
-  width: 40px;
-  height: 40px;
+  width: 2.5em;
+  height: 2.5em;
 }
 
 
-.Sidenav_whitesection {
+.whiteSection {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 516px;
+  height: 29.875em;
 }
 
-.Sidenav_graysection {
+.graySection {
   color: #FEFEFE;
   background-color: #616161;
-  height: 516px;
   display: flex;
   flex-direction: column;
+  overflow-y: hidden;
 }
 
-.Sidenav_graysection h1 {
-  padding-left: 29px;
-  padding-top: 39px;
+.graySection h1 {
   margin: 0;
-  font-size: 20px;
+  margin-left: 1.813em;
+  margin-top: 2.438em;
+  margin-bottom: 2.125em;
+  font-size: 1.25em;
   display: flex;
   align-items: baseline;
 }
 
-.Sidenav_graysection h1 span {
-  padding-left: 10px;
-  font-size: 16px;
+.graySection h1 span {
+  padding-left: 0.625em;
+  font-size: 1em;
 }
 
-.Sidenav_graysection ul {
+.graySection ul {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  justify-content: space-evenly;
   list-style: none;
   padding: 0;
+  margin: 0;
+  overflow-y: scroll;
+  height: 25em;
 }
 
-.Sidenav_graysection ul li {
+.graySection ul li {
   display: flex;
   align-items: center;
-  padding-left: 29px;
+  padding-left: 1.813em;
+  padding-bottom: 1.25em;
 }
 
-.Sidenav_graysection ul li span {
-  padding-left: 10px;
+.graySection ul li span {
+  padding-left: 0.625em;
 }
 
-.Sidenav_friendsavatar {
-  height: 59px;
-  width: 59px;
+.friendsAvatar {
+  background-color: white;
+  border-radius: 50%;
+  height: 3.688em;
+  width: 3.688em;
 }
 
-.Sidenav_useravatar {
-  height: 59px;
-  width: 59px;
+.userAvatar {
+  background-color: white;
+  border-radius: 50%;
+  height: 3.688em;
+  width: 3.688em;
+  margin: 0em 1.5em;
 }
 
-.Sidenav_blacksection {
+.blackSection {
   color: #FFFFFF;
   background-color: #272727;
-  height: 48px;
-}
-
-.Sidenav_blacksection div {
-  padding-left: 29px;
-}
-
-.Sidenav_blacksection div div {
-  padding-left: 10px;
 }
 
 .Sidenav_expand {
-  width: 24px;
-  height: 24px;
+  width: 1.5em;
+  height: 1.5em;
 }
 
-.Sidenav_statuscontainer {
+.statusContainer {
   display: flex;
   align-items: center;
 }
 
-.Sidenav_statuscontainer div {
+.userNameContainer {
   display: flex;
+  margin: 1.5em 0em;
   flex-direction: column;
-  justify-content: center;
+  align-items: flex-start;
+}
+
+.userName {
+  text-indent: 0.25em;
+}
+
+.status {
+  cursor: pointer;
+  outline: none;
+  color: #FFFFFF;
+  background-color: #272727;
+  border: none;
+  border-style: none;
+  font-size: 1em;
+  font-family: 'Montserrat', sans-serif;
+  text-indent: 0em;
+  width: 5em;
+}
+
+.statusOnline {
+  width: 1.063em;
+  height: 1.063em;
+  background-color: #23A55A;
+  border-radius: 50%;
+  position: relative;
+  top: 2.5em;
+  left: 2.813em;
+}
+
+.statusIdle {
+  width: 1.063em;
+  height: 1.063em;
+  background-color: #F0B232;
+  border-radius: 50%;
+  position: relative;
+  top: 2.5em;
+  left: 2.813em;
+}
+
+.statusOffline {
+  width: 1.063em;
+  height: 1.063em;
+  background-color: #81848E;
+  border-radius: 50%;
+  position: relative;
+  top: 2.5em;
+  left: 2.813em;
 }
