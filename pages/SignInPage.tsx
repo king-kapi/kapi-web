@@ -5,9 +5,6 @@ import { signIn } from 'next-auth/react'
 export default function SignInPage() {
     return (
         <div className={styles.SignInPage}>
-            <style>{`body {
-                margin: 0;
-            }`}</style>
             <div className={styles.Logo}></div>
             <div className={styles.SignInContainer}>
                 <div className={styles.SignInHeader}>
