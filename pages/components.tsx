@@ -4,6 +4,7 @@ import { InterestsWidget } from '@/components/InterestsWidget';
 import LoginStatus from '@/components/LoginStatus';
 import { NotificationsWidget } from '@/components/NotificationsWidget';
 import { Notification } from '@/src/models/Notification';
+import { GameWidget } from '@/components/GameWidget';
 import Head from 'next/head';
 import NotificationBubble from '../components/NotificationBubble';
 import SearchBar from '../components/SearchBar';
@@ -49,12 +50,13 @@ export default function Components() {
         <SideNav />
         <SearchBar />
         <AchievementsWidget />
-        <InterestsWidget/>
+        <InterestsWidget />
         <CustomizeDashboard />
         <NotificationsWidget notifications={notifications} />
         {notifications.map((notification, index) => (
           <NotificationBubble key={index} notification={notification} />
         ))}
+        <GameWidget />
       </main>
     </>
   );
