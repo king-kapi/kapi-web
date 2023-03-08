@@ -84,7 +84,7 @@ class UserCollection {
     });
   }
 
-  async setStatus(userId: ObjectId, status: UserStatus) {
+  async setStatus(userId: ObjectId, status: UserStatus): Promise<void> {
     // verify user exists
     await this.getUser(userId);
 
