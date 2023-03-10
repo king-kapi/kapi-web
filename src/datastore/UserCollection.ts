@@ -1,4 +1,5 @@
 import { Collection, FindOptions, ObjectId } from 'mongodb';
+import UserStatus from '../enums/UserStatus';
 import UserNotFoundError from '../errors/UserNotFoundError';
 import Friend from '../models/Friend';
 import User from '../models/User';
@@ -80,6 +81,18 @@ class UserCollection {
           username: newFriend.username
         }
       }
+    });
+  }
+
+  async setStatus(userId: ObjectId, status: UserStatus): Promise<void> {
+    // verify user exists
+    await this.getUser(userId);
+
+    // update user
+    await this.col.updateOne({
+      _id: userId,
+    }, {
+      $set: { status }
     });
   }
 

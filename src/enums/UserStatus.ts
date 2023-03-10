@@ -1,6 +1,7 @@
 enum UserStatus {
     ACTIVE = "ACTIVE",
-    BUSY = "BUSY",
+    IDLE = "IDLE",
+    DO_NOT_DISTURB = "DO_NOT_DISTURB",
     OFFLINE = "OFFLINE"
 }
 
