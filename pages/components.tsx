@@ -8,6 +8,7 @@ import Head from 'next/head';
 import NotificationBubble from '../components/NotificationBubble';
 import SearchBar from '../components/SearchBar';
 import SideNav from '../components/SideNav';
+import PartyOption from '@/components/PartyOptions';
 
 export default function Components() {
   const notifications: Notification[] = [
@@ -49,12 +50,13 @@ export default function Components() {
         <SideNav />
         <SearchBar />
         <AchievementsWidget />
-        <InterestsWidget/>
+        <InterestsWidget />
         <CustomizeDashboard />
         <NotificationsWidget notifications={notifications} />
         {notifications.map((notification, index) => (
           <NotificationBubble key={index} notification={notification} />
         ))}
+        <PartyOption />
       </main>
     </>
   );
