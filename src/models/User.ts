@@ -13,7 +13,7 @@ class User {
     public interests?: InterestTag[],
     public avatar?: string,
     public status?: UserStatus,
-    public id?: ObjectId
+    public _id?: ObjectId
   ) {}
 }
 
