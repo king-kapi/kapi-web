@@ -1,4 +1,23 @@
-import { Paper, Grid, Stack, Button, Typography, createTheme, ThemeProvider } from '@mui/material';
+import {
+  Paper,
+  Grid,
+  Stack,
+  Button,
+  Typography,
+  createTheme,
+  ThemeProvider,
+  Card,
+  Box,
+} from '@mui/material';
+
+// TODO: Both of the following types depends on what the designers want in these cards
+type ChoiceViewModel = {
+  something: unknown;
+};
+
+type Interest = {
+  name: string;
+};
 
 const dashboardTheme = createTheme({
   palette: {
@@ -24,21 +43,37 @@ const dashboardTheme = createTheme({
   },
 });
 
+function CustomizationChoice(props: ChoiceViewModel): JSX.Element {
+  return <Card sx={{ width: '25%', height: '50px' }}>
+    <Typography variant='body1'>
+        Some interest
+    </Typography>
+  </Card>;
+}
+
 function CustomizeYourDashboard(): JSX.Element {
+  const mockInterests: Interest[] = new Array(20).fill({ name: 'bruh' });
   return (
     <ThemeProvider theme={dashboardTheme}>
       <Paper elevation={1} sx={{ p: 2 }}>
         <Stack direction="row" justifyContent="space-between" alignItems="center">
           <Typography variant="h4">Customize Your Dashboard!</Typography>
-          <Button variant="contained">Next {">"}</Button>
+          <Button variant="contained">Next {'>'}</Button>
         </Stack>
-        <Typography variant="h5">what are you interested in seeing on your home page?</Typography>
+        <Typography variant="h5">What are you interested in seeing on your home page?</Typography>
 
-        <Grid container>
-          <Grid xs={4} item>
-            lskjalksj
+        <Box mt={2}>
+          <Grid container columns={20} spacing={2}>
+            {
+              // xs= 5, since grid has 20 width, 4 cards are displayed on each row
+              mockInterests.map((interest, index) => (
+                <Grid key={index} xs={5} item>
+                  <CustomizationChoice something={1} />
+                </Grid>
+              ))
+            }
           </Grid>
-        </Grid>
+        </Box>
       </Paper>
     </ThemeProvider>
   );
