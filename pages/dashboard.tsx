@@ -8,6 +8,7 @@ import {
   ThemeProvider,
   Card,
   Box,
+  styled,
 } from '@mui/material';
 
 // TODO: Both of the following types depends on what the designers want in these cards
@@ -44,11 +45,11 @@ const dashboardTheme = createTheme({
 });
 
 function CustomizationChoice(props: ChoiceViewModel): JSX.Element {
-  return <Card sx={{ width: '25%', height: '50px' }}>
-    <Typography variant='body1'>
-        Some interest
-    </Typography>
-  </Card>;
+  return (
+    <Card sx={{ textAlign: 'center' }}>
+      <Typography variant="body1">Some interest</Typography>
+    </Card>
+  );
 }
 
 function CustomizeYourDashboard(): JSX.Element {
@@ -69,6 +70,7 @@ function CustomizeYourDashboard(): JSX.Element {
               mockInterests.map((interest, index) => (
                 <Grid key={index} xs={5} item>
                   <CustomizationChoice something={1} />
+                  {/* <Item>Some Interest</Item> */}
                 </Grid>
               ))
             }
