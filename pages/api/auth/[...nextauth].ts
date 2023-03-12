@@ -1,12 +1,12 @@
-import MongoDatastore from "@/src/datastore/MongoDatastore";
-import User from "@/src/models/User";
-import NextAuth, { Session } from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
-import DiscordProvider from "next-auth/providers/discord";
-import CredentialsProvider from "next-auth/providers/credentials";
-import UserNotFoundError from "@/src/errors/UserNotFoundError";
-import { ObjectId } from "mongodb";
-import { env } from "process";
+import MongoDatastore from '@/src/datastore/MongoDatastore';
+import User from '@/src/models/User';
+import NextAuth, { Awaitable, Session } from 'next-auth';
+import GoogleProvider from 'next-auth/providers/google';
+import DiscordProvider from 'next-auth/providers/discord';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import UserNotFoundError from '@/src/errors/UserNotFoundError';
+import { ObjectId } from 'mongodb';
+import { env } from 'process';
 
 export const authOptions = {
   providers: [
@@ -16,25 +16,27 @@ export const authOptions = {
     }),
     DiscordProvider({
       clientId: process.env.DISCORD_ID,
-      clientSecret: process.env.DISCORD_SECRET
+      clientSecret: process.env.DISCORD_SECRET,
     }),
     CredentialsProvider({
       name: 'DevCredentials',
       credentials: {
         email: {
-          label: "Email",
-          type: "text"
-        }
+          label: 'Email',
+          type: 'text',
+        },
       },
-      async authorize(credentials, req) { // I have no clue why typescript returns an error here
-        if (process.env.NODE_ENV !== "development") return null;
+      async authorize(credentials, req): Promise<User | null> {
+        // I have no clue why typescript returns an error here
+        if (process.env.NODE_ENV !== 'development') return null;
 
-        const user = await (await MongoDatastore.getInstance()).users.getUserByEmail(credentials?.email || "");
-        if (user)
-          return user;
+        const user = await (
+          await MongoDatastore.getInstance()
+        ).users.getUserByEmail(credentials?.email || '');
+        if (user) return user;
         return null;
-      }
-    })
+      },
+    }),
   ],
   pages: {
     signIn: '/SignInPage',
@@ -46,16 +48,16 @@ export const authOptions = {
 
         try {
           session.user = await instance.users.getUserByEmail(session.user.email);
-        } catch (error) { // if not registered
+        } catch (error) {
+          // if not registered
           if (error instanceof UserNotFoundError)
             session.user = await instance.users.register(session.user.email, session.user.email);
-          else
-            throw error
+          else throw error;
         }
       }
       return session;
-    }
-  }
-}
+    },
+  },
+};
 
 export default NextAuth(authOptions);
