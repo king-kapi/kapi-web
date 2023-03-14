@@ -9,7 +9,7 @@ class MongoDatastore {
   private static instance: MongoDatastore;
   private datastore = this.client.db(process.env.MONGO_DB_NAME ?? 'designthriving');
   public users = new UserCollection(this.datastore.collection(Collections.USERS));
-  public chats = new ChatsCollection(this.datastore.collection(Collections.CHATS));
+  public chats = new ChatsCollection(this.datastore.collection(Collections.CHATS), this);
   public messages = new MessagesCollection(this.datastore.collection(Collections.MESSAGES));
   public posts = new PostsCollection(this.datastore.collection(Collections.POSTS), this);
 

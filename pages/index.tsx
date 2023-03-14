@@ -18,8 +18,16 @@ export default function Home() {
       <main>
         <LoginStatus />
         <h1>Hello! You are currently looking at a protected route</h1>
+        
         <Link href={"/components"}>
           <button>See components page</button>
+        </Link>
+        
+        <br/>
+        <br/>
+
+        <Link href={"/chat-demo"}>
+          <button>See chat demo</button>
         </Link>
       </main>
     </>

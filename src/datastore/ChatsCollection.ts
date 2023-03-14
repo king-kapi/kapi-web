@@ -1,34 +1,32 @@
 import { Collection, ObjectId } from 'mongodb';
-import Chat from '../models/Chat';
+import Chat, { ChatBuilder } from '../models/Chat';
 import Message from '../models/Message';
+import User from '../models/User';
+import MongoDatastore from './MongoDatastore';
 
 class ChatsCollection {
-  constructor(private col: Collection) { }
+  constructor(private col: Collection, private instance: MongoDatastore) { }
 
   async all(): Promise<Chat[]> {
     return await this.col.find({}).toArray() as Chat[];
   }
 
-  async getMessages(chatId: ObjectId, count = 20): Promise<Message[]> {
-    return await this.col.find({
-      chatId
-    }).toArray() as Message[];
-  }
+  async createChat(users: User[]): Promise<Chat> {
+    const builder = new ChatBuilder();
 
-  async getMessage(messageId: ObjectId): Promise<Message> {
-    return await this.col.findOne({ _id: messageId }) as Message;
-  }
+    // verify every user
+    for (const user of users) {
+      
+      await this.instance.users.getUser(user._id);
+      builder.addUser(user);
+    }
 
-  async pushMessage(message: Message): Promise<ObjectId> {
-    const { insertedId } = await this.col.insertOne(message);
+    const chat = builder.build();
 
-    return insertedId;
-  }
+    const {insertedId} = await this.col.insertOne(chat);
+    chat._id = insertedId;
 
-  async deleteMessage(messageId: Message): Promise<void> {
-    await this.col.deleteOne({
-      _id: messageId
-    });
+    return builder.build();
   }
 }
 

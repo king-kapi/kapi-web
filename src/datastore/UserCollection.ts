@@ -52,7 +52,7 @@ class UserCollection {
     throw new UserNotFoundError(email);
   }
 
-  async getFriends(userId: ObjectId): Promise<Friend[]> {
+  async getFriends(userId: ObjectId | undefined): Promise<Friend[]> {
     const user = await this.getUser(userId);
     console.log("user", user);
     const friends = await Promise.all(user.friends.map(async (friend) =>
