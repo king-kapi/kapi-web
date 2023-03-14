@@ -2,7 +2,7 @@ import { Collection, FindOptions, ObjectId } from 'mongodb';
 import UserStatus from '../enums/UserStatus';
 import UserNotFoundError from '../errors/UserNotFoundError';
 import Friend from '../models/Friend';
-import User from '../models/User';
+import User, { UserWithoutId } from '../models/User';
 import GenerateRandomTag from '../utils/GenerateRandomTag';
 
 class UserCollection {
@@ -24,7 +24,7 @@ class UserCollection {
     if (await this.col.findOne({ email })) {
       throw Error('User already registered!'); // TODO: is this caught?
     }
-    const insertedId = (await this.col.insertOne(new User(username, email, GenerateRandomTag()))).insertedId;
+    const insertedId = (await this.col.insertOne(new UserWithoutId(username, email, GenerateRandomTag()))).insertedId;
 
     // TODO: Validate schema instead of casting, or wrap this inside a getter
     return (await this.col.findOne({ _id: insertedId })) as User;

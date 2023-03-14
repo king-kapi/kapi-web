@@ -12,6 +12,7 @@ const ChatDemo = () => {
   const { data } = useSession();
   const [chatId, setChatId] = useState<ObjectID | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [message, setMessage] = useState("");
   const socketRef = useRef<Socket | null>(null);
   const chatIdRef = useRef(chatId);
 
@@ -76,6 +77,8 @@ const ChatDemo = () => {
       timestamp: Date.now(),
       metadata: {}
     } as Message);
+
+    setMessage(""); // clear input
   }
 
   return (
@@ -96,21 +99,19 @@ const ChatDemo = () => {
         <h3>Chat</h3>
 
         <div style={{ padding: 8, background: "#eee" }}>
-          {messages.map(message => { // TODO: extract this to message component
-            return <div key={message._id?.toString()}>
-              <>
-                {/* Some tell me why a div expects one child and I have to use a fragment? */}
-                <b>From: </b>{message.sender.email}<br />
-                {message.content}
-              </>
-            </div>;
-          })}
+          {messages.map(message => ( // TODO: extract this to message component
+            <div key={message._id?.toString()}>
+              <b>From: </b>{message.sender.email}<br />
+              {message.content}
+            </div>
+          ))}
         </div>
 
         <br />
 
         <form onSubmit={handleSendMessage}>
-          <input name="content" type="text" />
+          <input name="content" type="text" value={message}
+            onInput={(e: React.FormEvent<HTMLInputElement>) => setMessage(e.currentTarget.value)} />
           <button type="submit">Send</button>
         </form>
       </> : <></>}
