@@ -1,10 +1,10 @@
+import { globalTheme } from '@/styles/MuiThemes';
 import {
   Paper,
   Grid,
   Stack,
   Button,
   Typography,
-  createTheme,
   ThemeProvider,
   Card,
   CardMedia,
@@ -13,36 +13,12 @@ import {
 
 // TODO: Both of the following types depends on what the designers want in these cards
 type ChoiceViewModel = {
-  something: unknown;
+  something: unknown; // placeholder
 };
 
 type Interest = {
   name: string;
 };
-
-const dashboardTheme = createTheme({
-  palette: {
-    primary: {
-      main: '#434343',
-    },
-    secondary: {
-      main: '#434343',
-    },
-  },
-  typography: {
-    allVariants: {
-      // note that Poppins require global css import
-      fontFamily: 'Poppins, Open Sans, Helvetica',
-    },
-    body1: {
-      fontWeight: 300,
-    },
-    body2: {
-      fontWeight: 300,
-      color: '#666666',
-    },
-  },
-});
 
 function CustomizationChoice(props: ChoiceViewModel): JSX.Element {
   return (
@@ -60,9 +36,9 @@ function CustomizationChoice(props: ChoiceViewModel): JSX.Element {
 
 function CustomizeYourDashboard(): JSX.Element {
   // TODO: this is mock data, remove when api is ready
-  const mockInterests: Interest[] = new Array(8).fill({ name: 'bruh' });
+  const mockInterests: Interest[] = new Array(8).fill({ name: 'Interest Name' });
   return (
-    <ThemeProvider theme={dashboardTheme}>
+    <ThemeProvider theme={globalTheme}>
       <Paper elevation={1} sx={{ p: 2 }}>
         <Stack direction="row" justifyContent="space-between" alignItems="center">
           <Typography variant="h4">Customize Your Dashboard!</Typography>
