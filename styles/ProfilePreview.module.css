@@ -17,10 +17,28 @@
 }
 
 .TitleContainer {
-  width: 39.188rem;
-  line-height: 1.65rem;
-  margin-top: 200px;
+  display: flex;
+  padding-top: 375px;
+  width: 800px;
+  margin-left: 175px;
 }
+
+.Reroll{
+
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 24px;
+  flex: none;
+  margin-left: 80px;
+  order: 0;
+  flex-grow: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
 
 .TitleContainer h1 {
   font-size: 2rem;
@@ -36,6 +54,7 @@
   display: flex;
   justify-content: space-between;
   width: 39.188rem;
+  margin-bottom:200px;
 }
 
 .UserName {
@@ -52,15 +71,20 @@
 }
 
 .ProfileButton {
-  width: 22rem;
-  height: 3.3rem;
-  border-radius: 20px;
-  background-color: #aaaaaa;
-  border: none;
-  color: black;
-  font-size: 1rem;
-  font-weight: 600;
-  position: absolute;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 5px;
+gap: 10px;
+width: 176px;
+height: 30px;
+background: #FFFFFF;
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+cursor: pointer;
 
 }
 
@@ -81,11 +105,11 @@
   flex-direction: column;
   align-items: center;
   padding: 61px 39px 20px;
-  gap: 50px;
+  gap: 15px;
   margin-right: 42px;
   margin-bottom: 100px;;
   width: 396px;
-  height: 300px;
+  height: 350px;
 
   background: #D9D9D9;
   border-radius: 20px;
@@ -96,15 +120,27 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 10px;
-  gap: 10px;
-
-  position: absolute;
-  width: 151px;
-  height: 37px;
-  left: 39px;
-  top: 388px;
-
+  padding: 5px;
+  gap: 5px;
+  width: 78px;
+  height: 15px;
+  font-size: 8px;
   background: #FFFFFF;
   border-radius: 10px;
+  font-weight: bold;
+  text-align:center;
+  display:inline-block;
+}
+
+.IconGroup {
+  width: 176px;
+  height: 100px;
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+  padding: 3px;
+}
+
+.Vector {
+  margin-left: 10px;
 }
