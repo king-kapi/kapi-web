@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+.ProfilePreviewContainer {
+  font-family: 'Poppins', sans-serif;
+  height: 25rem;
+  width: 46.563rem;
+  background-color: #fdfdfd;
+  color: black;
+  margin: 20px;
+  margin-bottom: 120px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.TitleContainer {
+  width: 39.188rem;
+  line-height: 1.65rem;
+  margin-top: 200px;
+}
+
+.TitleContainer h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.TitleContainer h2 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.ServersContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 39.188rem;
+}
+
+.UserName {
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  font-style:oblique;
+  
+}
+
+.Members {
+  font-size: 0.75rem;
+  line-height: 0.65rem;
+}
+
+.ProfileButton {
+  width: 22rem;
+  height: 3.3rem;
+  border-radius: 20px;
+  background-color: #aaaaaa;
+  border: none;
+  color: black;
+  font-size: 1rem;
+  font-weight: 600;
+  position: absolute;
+
+}
+
+.ProfilePicture {
+  box-sizing: border-box;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: #777777;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.profileBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 61px 39px 20px;
+  gap: 50px;
+  margin-right: 42px;
+  margin-bottom: 100px;;
+  width: 396px;
+  height: 300px;
+
+  background: #D9D9D9;
+  border-radius: 20px;
+  
+}
+
+.DisplayIcon {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 10px;
+  gap: 10px;
+
+  position: absolute;
+  width: 151px;
+  height: 37px;
+  left: 39px;
+  top: 388px;
+
+  background: #FFFFFF;
+  border-radius: 10px;
+}
