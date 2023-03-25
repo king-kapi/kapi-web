@@ -9,6 +9,7 @@ import NotificationBubble from '../components/NotificationBubble';
 import SearchBar from '../components/SearchBar';
 import SideNav from '../components/SideNav';
 import { ProfilePreview } from '@/components/ProfilePreview';
+import ProfileCard from '@/components/ProfileCard';
 
 export default function Components() {
   const notifications: Notification[] = [
@@ -57,6 +58,7 @@ export default function Components() {
         {notifications.map((notification, index) => (
           <NotificationBubble key={index} notification={notification} />
         ))}
+        <ProfileCard />
       </main>
     </>
   );
