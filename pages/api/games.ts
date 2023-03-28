@@ -1,8 +1,5 @@
-import MongoDatastore from "@/src/datastore/MongoDatastore";
 import { GamesList } from "@/src/models/Game";
-import User from "@/src/models/User";
 import protectApiRoute from "@/src/utils/protectApiRoute";
-import { ObjectId } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
