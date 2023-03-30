@@ -133,35 +133,7 @@
     background: #D9D9D9;
 
 }
-.badgeImage2{
-    position: absolute;
-    width: 89px;
-    height: 93px;
-    left: 1317px;
-    top: 666px;
 
-    background: #D9D9D9;
-
-}
-.badgeImage3{
-    position: absolute;
-    width: 89px;
-    height: 93px;
-    left: 1317px;
-    top: 776px;
-
-    background: #D9D9D9;
-
-}
-.badgeImage4{
-    position: absolute;
-    width: 93px;
-    height: 93px;
-    left: 1047px;
-    top: 782px;
-    background: #D9D9D9;
-
-}
 .badgeNames{
     position: absolute;
     width: 145px;
@@ -176,48 +148,7 @@
     top: 683px;
     
 }
-.badgeNames2{
-    position: absolute;
-    width: 145px;
-    height: 47px;
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 17px;
-    color: #000000;
-    left: 1421px;
-    top: 683px;
-    
-}
-.badgeNames3{
-    position: absolute;
-    width: 145px;
-    height: 47px;
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 17px;
-    color: #000000;
-    left: 1421px;
-    top: 793px;
-    
-}
-.badgeNames4{
-    position: absolute;
-    width: 145px;
-    height: 47px;
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 17px;
-    color: #000000;
-    left: 1156px;
-    top: 799px;
-    
-}
+
 .line{
     position: absolute;
     width: 982px;
@@ -227,3 +158,81 @@
     border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
+.communities{
+    position: absolute;
+    width: 351px;
+    height: 214px;
+
+    background: #D9D9D9;
+}
+
+.h4 {
+    position: absolute;
+    width: 140px;
+    height: 24px;
+    left: 456px;
+    top: 956px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+
+}
+.socialBadge{ 
+    position: absolute;
+    width: 74px;
+    height: 74px;
+    background: #D9D9D9;
+    border-radius: 10px;
+}
+
+.socialHeader{
+    position: absolute;
+    width: 121px;
+    height: 24px;
+    left: 456px;
+    top: 1293px;
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+
+    color: #000000;
+
+}
+
+.requestButton{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 10px;
+    gap: 10px;
+
+    position: absolute;
+    width: 162px;
+    height: 50px;
+    left: 1422px;
+    top: 1456px;
+
+    background: #7A7A7A;
+    border-radius: 10px;
+    }
+
+.request {
+    width: 142px;
+    height: 30px;
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 150%;
+    color: #FFFFFF;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
