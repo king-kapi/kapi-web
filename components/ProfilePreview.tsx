@@ -30,6 +30,8 @@ function ProfilePreview() {
       </div>
     </div>
   );
+  
 }
+
 
 export { ProfilePreview };

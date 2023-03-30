@@ -1,4 +1,5 @@
 import styles from '../styles/ProfileCard.module.css'
+import Link from 'next/link';
 
 export default function ProfileCard() {
     return (
@@ -13,7 +14,7 @@ export default function ProfileCard() {
                     <h3 className={styles.Tag}>NA Region</h3>
                     <h3 className={styles.Tag}>PST - Time Zone</h3>
             </div>
-            <button className={styles.Button}>View Profile</button>
+            <Link href={"/UserProfile"}><button className={styles.Button}>View Profile</button></Link>
         </div>
     )
 }

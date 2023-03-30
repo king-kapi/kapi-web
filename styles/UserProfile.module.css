@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+
+.UserProfileContainer{
+    position: absolute;
+    width: 1256px;
+    height: 1384px;
+    left: 397px;
+    top: 154px;
+
+    background: #F4F4F4;
+    border-radius: 20px;
+}
+
+.profilePicture{
+    position: absolute;
+    width: 264px;
+    height: 264px;
+    left: 445px;
+    top: 254px;
+    border-radius: 100%;
+    background-color: #FFFFFF;
+}
+
+.header1{
+    position: absolute;
+    width: 267px;
+    height: 44px;
+    left: 818px;
+    top: 270px;
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 44px;
+    /* identical to box height */
+
+
+    color: #000000;
+}
+
+.description{
+    position: absolute;
+    width: 528px;
+    height: 149px;
+    left: 818px;
+    top: 364px;
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 150%;
+    /* or 30px */
+
+
+    color: #000000;
+}
+
+.header2{
+    position: absolute;
+    width: 190px;
+    height: 24px;
+    left: 451px;
+    top: 582px;
+    white-space: nowrap;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 24px;
+
+    color: #000000;
+}
+
+.header3{
+    position: absolute;
+    width: 121px;
+    height: 24px;
+    left: 1004px;
+    top: 582px;
+    
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    
+    color: #000000;
+}
+
+.Tags {
+    width: 27rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.Tag {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    color: #000000;
+    flex: none;
+
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: .625rem;
+    display: inline-block;
+    margin-bottom: .875rem;
+    margin-top: 0;
+}
+
+.badgeContainer{
+    position: absolute;
+    width: 599px;
+    height: 277px;
+    left: 1004px;
+    top: 629px;
+
+    background: #FFFFFF;
+    border-radius: 20px;
+    z-index: auto;
+}
+.badgeImage{
+    position: absolute;
+    width: 93px;
+    height: 93px;
+    left: 1047px;
+    top: 666px;
+    background: #D9D9D9;
+
+}
+.badgeImage2{
+    position: absolute;
+    width: 89px;
+    height: 93px;
+    left: 1317px;
+    top: 666px;
+
+    background: #D9D9D9;
+
+}
+.badgeImage3{
+    position: absolute;
+    width: 89px;
+    height: 93px;
+    left: 1317px;
+    top: 776px;
+
+    background: #D9D9D9;
+
+}
+.badgeImage4{
+    position: absolute;
+    width: 93px;
+    height: 93px;
+    left: 1047px;
+    top: 782px;
+    background: #D9D9D9;
+
+}
+.badgeNames{
+    position: absolute;
+    width: 145px;
+    height: 47px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+    left: 1156px;
+    top: 683px;
+    
+}
+.badgeNames2{
+    position: absolute;
+    width: 145px;
+    height: 47px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+    left: 1421px;
+    top: 683px;
+    
+}
+.badgeNames3{
+    position: absolute;
+    width: 145px;
+    height: 47px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+    left: 1421px;
+    top: 793px;
+    
+}
+.badgeNames4{
+    position: absolute;
+    width: 145px;
+    height: 47px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+    left: 1156px;
+    top: 799px;
+    
+}
+.line{
+    position: absolute;
+    width: 982px;
+    height: 0px;
+    left: 617px;
+    top: 969px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
