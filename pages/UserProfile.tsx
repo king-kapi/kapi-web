@@ -42,8 +42,9 @@ export default function UserProfile() {
                 <div className={styles.socialBadge} style={{top: 1362, left: 744}}></div>
                 
                 <div className={styles.requestButton}>
-                    <h4 className={styles.request}>Send Request</h4>
+                <h4 className={styles.request}>Send Request</h4>
                 </div>
+                
         </div>
     );
   }
