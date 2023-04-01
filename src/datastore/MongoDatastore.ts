@@ -18,7 +18,7 @@ class MongoDatastore {
   /**
    * Gets the MongoDatastore singleton
    */
-  static async getInstance() {
+  static async getInstance(): Promise<MongoDatastore> {
     if (!MongoDatastore.instance) {
       // initialize new client
       const client = new MongoClient(
