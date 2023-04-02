@@ -19,6 +19,7 @@ type CreationPreferences = {
 };
 
 type Lobby = {
+  /** name of the lobby */
   name: string;
   /** Creator of the lobby, for now we don't consider transferring ownerships */
   owner: LobbyMember;
@@ -26,7 +27,8 @@ type Lobby = {
   members: LobbyMember[];
   /** What game are they playing? */
   game: GameResolvable;
-  description: string;
+  /** Description of the lobby, optional */
+  description?: string;
 } & CreationPreferences;
 
 type LobbyMember = {
@@ -39,4 +41,31 @@ type LobbyMember = {
   experienceLevel?: number;
 };
 
-export type { Lobby, CreationPreferences, LobbyMember };
+type UnixTimestamp = number;
+
+type JoinRequestState = 'approved' | 'deny' | 'pending';
+
+// The request here is analogous to 'request' in 'friend request'
+// not an http request
+type JoinLobbyRequest<StateT extends JoinRequestState> = {
+  /** Id of this request */
+  id: ObjectId;
+  /** Who made the join request */
+  applicant: User;
+  /** When the request is made, unix timestamp */
+  applyTimestamp: UnixTimestamp;
+  /** The application message, optional  */
+  message?: string;
+  /** which lobby to join */
+  targetLobby: Lobby;
+  /** Decision by the lobby owner or an admin */
+  state: StateT;
+  /** Optional welcome message to display, or reason of rejection */
+  reasonOrWelcome?: string;
+  /** who approved/denied the request */
+  decisionMaker?: User;
+  /** when the request is approved, unix timestamp */
+  approvalTimestamp: UnixTimestamp;
+};
+
+export type { Lobby, CreationPreferences, LobbyMember, JoinLobbyRequest, JoinRequestState };

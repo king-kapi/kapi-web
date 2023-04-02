@@ -13,6 +13,11 @@ class MongoDatastore {
   public messages = new MessagesCollection(this.datastore.collection(Collections.MESSAGES));
   public posts = new PostsCollection(this.datastore.collection(Collections.POSTS), this);
 
+  joinLobbyRequests = new PostsCollection(
+    this.datastore.collection(Collections.LOBBY_JOIN_REQUESTS),
+    this
+  );
+
   private constructor(private client: MongoClient) {}
 
   /**
