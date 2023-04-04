@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon ./server/index.ts",
-    "next-dev": "next dev",
+    "server-dev": "nodemon ./server/index.ts",
+    "dev": "NODE_ENV=development ts-node ./server/index.ts",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
