@@ -3,21 +3,35 @@ dotenv.config({
   path: "./.env.local"
 });
 
-import express, { Express } from 'express';
+import next from 'next';
+import express, { Express, Request, Response } from 'express';
 import bodyParser from 'body-parser';
+import { NextServer } from 'next/dist/server/next';
 // import UserRoutes from './users/user-routes';
 
-const app: Express = express();
-const port = process.env.PORT;
+// prepare next app then start express server
+(async () => {
+  const app: NextServer = next({ dev: process.env.NODE_ENV !== "production" });
+  const handle = app.getRequestHandler();
 
-// middleware setup
-app.use(bodyParser.json());
+  console.log('Launching next server');
+  await app.prepare();
 
-// UserRoutes(app);
+  console.log('Staring express server')
+  const server: Express = express();
+  const port = process.env.PORT;
 
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
+  // middleware setup
+  server.use(bodyParser.json());
 
-// make it a module
-export {};
+  // UserRoutes(app);
+
+  // nextjs handler
+  server.all("*", (req: Request, res: Response) => {
+    return handle(req, res);
+  });
+
+  server.listen(port, () => {
+    console.log(`Server is running at http://localhost:${port}`);
+  });
+})();
