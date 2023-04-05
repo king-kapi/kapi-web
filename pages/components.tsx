@@ -8,6 +8,7 @@ import Head from 'next/head';
 import NotificationBubble from '../components/NotificationBubble';
 import SearchBar from '../components/SearchBar';
 import SideNav from '../components/SideNav';
+import PartyOption from '@/components/PartyOptions';
 import { ProfilePreview } from '@/components/ProfilePreview';
 import ProfileCard from '@/components/ProfileCard';
 
@@ -58,6 +59,7 @@ export default function Components() {
         {notifications.map((notification, index) => (
           <NotificationBubble key={index} notification={notification} />
         ))}
+        <PartyOption />
         <ProfileCard />
       </main>
     </>
