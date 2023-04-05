@@ -4,7 +4,7 @@ import { getServerSession, Session } from "next-auth";
 import NotAuthenticatedError from "../errors/NotAuthenticatedError";
 
 // todo: maybe better name haha
-export default async function protectApiRoute(req: NextApiRequest, res: NextApiResponse): Promise<Session | null> {
+export default async function protectApiRoute(req: NextApiRequest, res: NextApiResponse): Promise<Session> {
     const session = await getServerSession(req, res, authOptions);
 
     if (!session) {
