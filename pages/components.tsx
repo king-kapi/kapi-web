@@ -8,6 +8,7 @@ import Head from 'next/head';
 import NotificationBubble from '../components/NotificationBubble';
 import SearchBar from '../components/SearchBar';
 import SideNav from '../components/SideNav';
+import { HonorOfConduct } from '@/components/HonorOfConduct';
 import PartyOption from '@/components/PartyOptions';
 import { ProfilePreview } from '@/components/ProfilePreview';
 import ProfileCard from '@/components/ProfileCard';
@@ -52,13 +53,14 @@ export default function Components() {
         <SideNav />
         <SearchBar />
         <AchievementsWidget />
-        <InterestsWidget/>
+        <InterestsWidget />
         <ProfilePreview/>
         <CustomizeDashboard />
         <NotificationsWidget notifications={notifications} />
         {notifications.map((notification, index) => (
           <NotificationBubble key={index} notification={notification} />
-        ))}
+          ))}
+          <HonorOfConduct />
         <PartyOption />
         <ProfileCard />
       </main>
