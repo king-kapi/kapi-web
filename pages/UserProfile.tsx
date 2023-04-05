@@ -1,9 +1,11 @@
 import styles from '../styles/UserProfile.module.css';
-
+import SideNav from '../components/SideNav';
 
 export default function UserProfile() {
     return (
+
         <div>
+            <SideNav/>
             <h1 className={styles.UserProfileContainer}></h1>
                 <h1 className={styles.profilePicture}></h1>
                 <h1 className={styles.header1}>WowPlayer123</h1>
