@@ -1,9 +1,10 @@
 import { ObjectId } from 'mongodb';
+import User from './User';
 
 type Message = {
-  _id: ObjectId;
+  _id?: ObjectId;
   chatId: ObjectId;
-  sender: ObjectId;
+  sender: User;
   content: string;
   timestamp: number;
   metadata: { unknown: unknown };

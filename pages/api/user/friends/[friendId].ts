@@ -1,15 +1,17 @@
 import MongoDatastore from '@/src/datastore/MongoDatastore';
+import protectApiRoute from '@/src/utils/protectApiRoute';
 import { ObjectId } from 'mongodb';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 type AddFriendQueries = {
-  userId: string,
   friendId: string
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { userId, friendId } = req.query as AddFriendQueries;
+  const userId = (await protectApiRoute(req, res)).user._id;
+  const { friendId } = req.query as AddFriendQueries;
   const instance = await MongoDatastore.getInstance();
+
   if (req.method === "POST") {
 
     await instance.users.addFriend(new ObjectId(userId), new ObjectId(friendId));
