@@ -1,5 +1,6 @@
 import PartyOption from '@/components/PartyOptions';
 import GameSelect from '@/components/GameSelect';
+import InterestMatch from '@/components/InterestMatch';
 import SideNav from '@/components/SideNav';
 import styles from '../styles/PartyFinderPage.module.css';
 import { Icon } from '@iconify/react';
@@ -36,6 +37,7 @@ export default function PartyFinderPage() {
         </div>
         {pageNumber === 1 && <PartyOption />}
         {pageNumber === 2 && <GameSelect />}
+        {pageNumber === 3 && <InterestMatch />}
         <a className={styles.Next} onClick={() => {setPageNumber(pageNumber + 1)}}>Next</a>
         {pageNumber != 1 && <a className={styles.Back} onClick={() => {setPageNumber(pageNumber - 1)}}>Back</a>}
         

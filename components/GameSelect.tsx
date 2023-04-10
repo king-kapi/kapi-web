@@ -20,11 +20,13 @@ export default function GameSelect() {
         We want to ask you a few questions to find people based on your preferences.
       </h3>
       <h2 className={styles.Question}>1. What games do you play?</h2>
-      <div className={styles.Games}> {games.map(label => createCheckbox(label))}
-      <label className={styles.Game}>
-        <input type="checkbox" />
-        <input type="text" placeholder='Search other games' />
-      </label></div>
+      <div className={styles.Games}>
+        {games.map(label => createCheckbox(label))}
+        <label className={styles.Game}>
+          <input type="checkbox" />
+          <input type="text" placeholder="Search other games" />
+        </label>
+      </div>
     </div>
   );
 }
