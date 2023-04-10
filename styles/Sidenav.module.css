@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 
 .sidenav {
-  height: 67.5em;
+  height: 100vh;
   width: 17.5em;
   font-family: 'Montserrat', sans-serif;
 }
