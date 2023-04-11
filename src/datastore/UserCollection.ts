@@ -1,8 +1,9 @@
-import { Collection, FindOptions, ObjectId } from 'mongodb';
+import { Collection, FindOptions, ObjectId, WithId } from 'mongodb';
 import UserStatus from '../enums/UserStatus';
 import UserNotFoundError from '../errors/UserNotFoundError';
 import Friend from '../models/Friend';
-import User, { UserWithoutId } from '../models/User';
+import { PartyRequestWithParty } from '../models/PartyRequest';
+import User from '../models/User';
 import GenerateRandomTag from '../utils/GenerateRandomTag';
 
 class UserCollection {
@@ -12,7 +13,7 @@ class UserCollection {
     return (await this.col.find({}).toArray()) as User[];
   }
 
-  async register(email: string, username: string): Promise<User> {
+  async register(email: string, username: string): Promise<WithId<User>> {
     // check valid input
     // TODO: Validate email string either inside the component or do it here
     // Use an external library. Do NOT try to write custom regex here
@@ -24,10 +25,19 @@ class UserCollection {
     if (await this.col.findOne({ email })) {
       throw Error('User already registered!'); // TODO: is this caught?
     }
-    const insertedId = (await this.col.insertOne(new UserWithoutId(username, email, GenerateRandomTag()))).insertedId;
+
+    const newUser: User = {
+      email: username,
+      username: username,
+      tag: GenerateRandomTag(),
+      friends: [],
+      partyRequests: [],
+      friendRequests: []
+    }
+    const { insertedId } = (await this.col.insertOne(newUser));
 
     // TODO: Validate schema instead of casting, or wrap this inside a getter
-    return (await this.col.findOne({ _id: insertedId })) as User;
+    return (await this.col.findOne({ _id: insertedId })) as WithId<User>;
   }
 
   async getUser(userId: ObjectId | undefined, options: FindOptions<Document> = {}): Promise<User> {
@@ -108,6 +118,30 @@ class UserCollection {
       $pull: {
         friends: {
           _id: friendId,
+        }
+      }
+    });
+  }
+
+  // add a request
+  async addPartyRequest(userId: ObjectId, request: PartyRequestWithParty): Promise<void> {
+    await this.col.updateOne({
+      _id: userId
+    }, {
+      $push: {
+        partyRequests: request
+      }
+    });
+  }
+
+  // add a request
+  async removePartyRequest(userId: ObjectId, partyId: ObjectId): Promise<void> {
+    await this.col.updateOne({
+      _id: userId
+    }, {
+      $pull: {
+        "partyRequests": {
+          "party._id": partyId
         }
       }
     });

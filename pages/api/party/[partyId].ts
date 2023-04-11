@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(200).json(party);
   } else if (req.method === "DELETE") {
     // confirm user is host
-    if (party.host._id?.toString() != user._id.toString())
+    if (party.host._id?.toString() !== user._id.toString())
       res.status(400).json(new NotHostError(partyId, user._id));
     else {
       await instance.parties.delete(partyId);
