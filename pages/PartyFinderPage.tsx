@@ -1,6 +1,7 @@
 import PartyOption from '@/components/PartyOptions';
 import GameSelect from '@/components/GameSelect';
 import InterestMatch from '@/components/InterestMatch';
+import InvitationMessage from '@/components/InvitationMessage';
 import TimeZone from '@/components/TimeZone';
 import SideNav from '@/components/SideNav';
 import styles from '../styles/PartyFinderPage.module.css';
@@ -40,6 +41,7 @@ export default function PartyFinderPage() {
         {pageNumber === 2 && <GameSelect />}
         {pageNumber === 3 && <InterestMatch />}
         {pageNumber === 4 && <TimeZone />}
+        {pageNumber === 5 && <InvitationMessage />}
         <a className={styles.Next} onClick={() => {setPageNumber(pageNumber + 1)}}>Next</a>
         {pageNumber != 1 && <a className={styles.Back} onClick={() => {setPageNumber(pageNumber - 1)}}>Back</a>}
         

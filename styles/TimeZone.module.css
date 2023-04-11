@@ -50,6 +50,7 @@
     background-color: #EFEFEF;
     border: none;
     padding-left: 1.25rem;
+    font-size: 1rem;
 }
 
 .TimeZone input[type=text]::placeholder {

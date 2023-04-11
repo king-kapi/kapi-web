@@ -46,6 +46,7 @@
 .Game input[type=text] {
     width: 26.75rem;
     height: 2.5rem;
+    font-size: 1rem;
     border-radius: 20px;
     background-color: #EFEFEF;
     border: none;
