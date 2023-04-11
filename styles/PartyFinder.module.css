@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 
-.PartyFinderPage {
+.PartyFinderContainer {
   display: flex;
   font-family: 'Montserrat', sans-serif;
 }
@@ -21,25 +21,5 @@
 
 .BackArrow {
     margin-right: .75rem;
-    cursor: pointer;
-}
-
-.Next {
-    position: absolute;
-    font-size: 1.5rem;
-    font-weight: 600;
-    text-decoration: underline;
-    left: 82.875rem;
-    bottom: 4.5rem;
-    cursor: pointer;
-}
-
-.Back {
-    position: absolute;
-    font-size: 1.5rem;
-    font-weight: 600;
-    text-decoration: underline;
-    left: 38.5rem;
-    bottom: 4.5rem;
     cursor: pointer;
 }

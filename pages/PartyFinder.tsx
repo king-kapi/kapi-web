@@ -1,11 +1,6 @@
-import PartyOption from '@/components/PartyOptions';
-import GameSelect from '@/components/GameSelect';
-import InterestMatch from '@/components/InterestMatch';
-import InvitationMessage from '@/components/InvitationMessage';
-import TimeZone from '@/components/TimeZone';
-import { ProfilePreview } from '@/components/ProfilePreview';
+import PartyOptions from '@/components/PartyOptions';
 import SideNav from '@/components/SideNav';
-import styles from '../styles/PartyFinderPage.module.css';
+import styles from '../styles/PartyFinder.module.css';
 import { Icon } from '@iconify/react';
 import { useState } from 'react';
 
@@ -14,10 +9,10 @@ export default function PartyFinderPage() {
   const [pageNumber, setPageNumber] = useState(1)
 
   return (
-    <div className={styles.PartyFinderPage}>
+    <div className={styles.PartyFinderContainer}>
       <style>{`body {margin: 0;}`}</style>
       <SideNav />
-      <div className={styles.PartyOptionsContainer}>
+      <div>
         <div className={styles.PartyFinder}>
           <span className={styles.BackArrow}>
             <svg
@@ -38,15 +33,7 @@ export default function PartyFinderPage() {
           </span>
           <span>Party Finder</span>
         </div>
-        {pageNumber === 1 && <PartyOption />}
-        {pageNumber === 2 && <GameSelect />}
-        {pageNumber === 3 && <InterestMatch />}
-        {pageNumber === 4 && <TimeZone />}
-        {pageNumber === 5 && <InvitationMessage />}
-        {pageNumber === 6 && <ProfilePreview />}
-        {pageNumber < 6 && <a className={styles.Next} onClick={() => {setPageNumber(pageNumber + 1)}}>Next</a>}
-        {pageNumber != 1 && pageNumber < 6 && <a className={styles.Back} onClick={() => {setPageNumber(pageNumber - 1)}}>Back</a>}
-        
+        <PartyOptions />
       </div>
     </div>
   );

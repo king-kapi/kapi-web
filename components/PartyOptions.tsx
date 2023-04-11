@@ -6,7 +6,7 @@ export default function PartyOptions() {
     <div className={styles.PartyOptionsContainer}>
       <h1 className={styles.Header}>1. What are you looking for?</h1>
       <div className={styles.ButtonsContainer}>
-        <button className={styles.PartyOption}>
+        <a className={styles.PartyOption} href='./BuddyFinder'>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="94"
@@ -34,8 +34,8 @@ export default function PartyOptions() {
               fill="white"
             />
           </svg>
-        </button>
-        <button className={styles.PartyOption}>
+        </a>
+        <a className={styles.PartyOption}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="100"
@@ -63,8 +63,8 @@ export default function PartyOptions() {
               fill="white"
             />
           </svg>
-        </button>
-        <button className={styles.PartyOption}>
+        </a>
+        <a className={styles.PartyOption}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="76"
@@ -118,7 +118,7 @@ export default function PartyOptions() {
               fill="white"
             />
           </svg>
-        </button>
+        </a>
       </div>
     </div>
   );
