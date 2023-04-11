@@ -3,7 +3,7 @@ import styles from '../styles/GameSelect.module.css';
 export default function GameSelect() {
   const games = ['League of Legends', 'Valorant', 'Overwatch', 'Genshin Impact', 'Dota 2'];
 
-  const createCheckbox = label => {
+  const createCheckbox = (label:any) => {
     return (
       <label className={styles.Game}>
         <input type="checkbox" />
