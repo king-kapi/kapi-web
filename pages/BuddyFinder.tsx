@@ -17,7 +17,7 @@ export default function BuddyFinder() {
       <style>{`body {margin: 0;}`}</style>
       <SideNav />
       <div>
-        <div className={styles.BuddyFinder}>
+        <a className={styles.PartyFinder} href='./PartyFinder'>
           <span className={styles.BackArrow}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +36,7 @@ export default function BuddyFinder() {
             <Icon icon="mdi:sword-cross" color="#939393" width="33" height="33" />
           </span>
           <span>Party Finder</span>
-        </div>
+        </a>
         {pageNumber === 1 && <GameSelect />}
         {pageNumber === 2 && <InterestMatch />}
         {pageNumber === 3 && <TimeZone />}
