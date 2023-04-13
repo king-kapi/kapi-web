@@ -21,7 +21,7 @@ const ChatDemo = () => {
 
   // initialize socket
   const socketInitializer = async () => {
-    await fetch('/api/chat/socket')
+    // await fetch('/api/chat/socket')
 
     const socket = io();
 
