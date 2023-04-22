@@ -14,7 +14,7 @@ interface UserProfile extends User {
   email: string;
   username: string;
   tag: string;
-  avatar: string;
+  image: string;
   bio: string;
   interests: InterestTag[];
   games: Game[];
@@ -23,13 +23,14 @@ interface UserProfile extends User {
   status: UserStatus;
   partyRequests: PartyRequest[];
   communities: Community[];
+  newUser: boolean;
 }
 
 export const BLANK_USER_PROFILE: OmitId<UserProfile> = {
   email: "",
   username: "",
   tag: "",
-  avatar: "",
+  image: "",
   bio: "",
   interests: [],
   games: [],
@@ -37,7 +38,8 @@ export const BLANK_USER_PROFILE: OmitId<UserProfile> = {
   friends: [],
   status: UserStatus.OFFLINE,
   partyRequests: [],
-  communities: []
+  communities: [],
+  newUser: true
 }
 
 export default UserProfile;

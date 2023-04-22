@@ -1,8 +1,7 @@
 import { Collection, FindOptions, ObjectId } from 'mongodb';
 import UserStatus from '../enums/UserStatus';
-import { UserAlreadyRegistered, UserInvalid, UserNotFoundError } from '../errors/UserErrors';
-import OmitId from '../types/OmitId';
-import PartyRequest, { PartyRequestWithParty } from '../types/PartyRequest';
+import { UserNotFoundError } from '../errors/UserErrors';
+import { PartyRequestWithParty } from '../types/PartyRequest';
 import User, { toUser } from '../types/User';
 import UserProfile, { BLANK_USER_PROFILE } from '../types/UserProfile';
 import GenerateRandomTag from '../utils/GenerateRandomTag';
@@ -14,45 +13,22 @@ class UserCollection {
     return (await this.col.find({}).toArray()) as User[];
   }
 
-  async register(email: string, username: string): Promise<UserProfile> {
-    // check valid input
-    // TODO: Validate email string either inside the component or do it here
-    // Use an external library. Do NOT try to write custom regex here
-    if (email.length === 0 || username.length === 0) {
-      throw new UserInvalid();
-    }
+  async register({ id, email, image }: { id: ObjectId, email: string, image: string }): Promise<UserProfile> {
+    // // check if user already exists
+    // if (!(await this.getUserProfile(id)).newUser ) {
+    //   throw new UserAlreadyRegistered(id);
+    // }
 
-    // check if user already exists
-    if (await this.col.findOne({ email })) {
-      throw new UserAlreadyRegistered(email);
-    }
-
-    const newUser: OmitId<UserProfile> = {
+    const newUser: UserProfile = {
       ...BLANK_USER_PROFILE,
-      email: username,
-      username: username,
+      _id: id,
+      email,
+      image,
       tag: GenerateRandomTag(),
     }
-    const { insertedId } = (await this.col.insertOne(newUser));
+    await this.col.updateOne({ _id: id }, { $set: newUser });
 
-    return {
-      _id: insertedId,
-      ...newUser
-    };
-  }
-
-  async getUser(userId: ObjectId, options: FindOptions<Document> = {}): Promise<User> {
-    return toUser(await this.getUserProfile(userId, options));
-  }
-
-  async getUserByEmail(email: string, options: FindOptions<Document> = {}): Promise<User> {
-    const user = await this.col.findOne({ email }, options) as UserProfile;
-    if (user) {
-      return toUser(user);
-    }
-
-    // user not found
-    throw new UserNotFoundError(email);
+    return newUser;
   }
 
   async getUserProfile(userId: ObjectId, options: FindOptions<Document> = {}): Promise<UserProfile> {
@@ -63,6 +39,24 @@ class UserCollection {
 
     // user not found
     throw new UserNotFoundError(userId);
+  }
+
+  async getUserProfileByEmail(email: string, options: FindOptions<Document> = {}): Promise<UserProfile> {
+    const user = await this.col.findOne({ email }, options) as UserProfile;
+    if (user) {
+      return user;
+    }
+
+    // user not found
+    throw new UserNotFoundError(email);
+  }
+
+  async getUser(userId: ObjectId, options: FindOptions<Document> = {}): Promise<User> {
+    return toUser(await this.getUserProfile(userId, options));
+  }
+
+  async getUserByEmail(email: string, options: FindOptions<Document> = {}): Promise<User> {
+    return toUser(await this.getUserProfileByEmail(email, options));
   }
 
   async getFriends(userId: ObjectId): Promise<User[]> {

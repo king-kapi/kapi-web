@@ -5,7 +5,7 @@ import UserProfile from './UserProfile';
 interface User {
   _id: ObjectId;
   username: string;
-  avatar: string;
+  image: string;
   tag: string;
   bio: string;
   status?: UserStatus;
@@ -16,7 +16,7 @@ export function toUser(profile: UserProfile): User {
     _id: profile._id,
     username: profile.username,
     tag: profile.tag,
-    avatar: profile.avatar,
+    image: profile.image,
     bio: profile.bio,
     status: profile.status
   }
