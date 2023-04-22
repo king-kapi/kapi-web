@@ -14,7 +14,9 @@ export default function SignInPage() {
                     <h3>Discover safe and inclusive gaming communities for you</h3>
                 </div>
                 <div className={styles.SignInButtons}>
-                    <button onClick={() => signIn('google', { callbackUrl: '/' })}>
+                    <button onClick={async () => {
+                        console.log(signIn('google', { callbackUrl: '/' }))
+                    }}>
                         <Icon icon='logos:google-icon' />
                         Sign in with Google
                     </button>

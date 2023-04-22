@@ -6,7 +6,6 @@ dotenv.config({
 import next from 'next';
 import http from 'http';
 import express, { Express, Request, Response } from 'express';
-import bodyParser from 'body-parser';
 import { NextServer } from 'next/dist/server/next';
 import { Server as IOServer } from 'socket.io';
 import chatHandler from './chat';
@@ -14,27 +13,26 @@ import chatHandler from './chat';
 const nextApp: NextServer = next({ dev: process.env.NODE_ENV !== "production" });
 const handle = nextApp.getRequestHandler();
 
-const expressApp: Express = express();
-const server = http.createServer(expressApp);
+const server: Express = express();
+const httpServer = http.createServer(server);
 const port = process.env.PORT;
 
-const io = new IOServer(server);
+const io = new IOServer(httpServer);
 
 // middleware setup
-expressApp.use(bodyParser.json());
 
 // chat handler
-// chatHandler(expressApp, io);
+chatHandler(server, io);
 
 // nextjs handler
-expressApp.all("*", (req: Request, res: Response) => {
+server.use(async (req: Request, res: Response) => {
   return handle(req, res);
-}); 
+});
 
 (async () => {
   await nextApp.prepare();
 
-  server.listen(port, () => {
+  httpServer.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
   });
 })();

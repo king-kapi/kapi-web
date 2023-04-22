@@ -51,23 +51,23 @@ export const authOptions: AuthOptions = {
       clientId: process.env.DISCORD_ID,
       clientSecret: process.env.DISCORD_SECRET
     }),
-    CredentialsProvider({
-      name: 'DevCredentials',
-      credentials: {
-        email: {
-          label: "Email",
-          type: "text"
-        }
-      },
-      async authorize(credentials, req) { // I have no clue why typescript returns an error here
-        if (process.env.NODE_ENV !== "development") return null;
+    // CredentialsProvider({
+    //   name: 'DevCredentials',
+    //   credentials: {
+    //     email: {
+    //       label: "Email",
+    //       type: "text"
+    //     }
+    //   },
+    //   async authorize(credentials, req) { // I have no clue why typescript returns an error here
+    //     if (process.env.NODE_ENV !== "development") return null;
 
-        const user = await (await MongoDatastore.getInstance()).users.getUserByEmail(credentials?.email || "");
-        if (user)
-          return user;
-        return null;
-      }
-    })
+    //     const user = await (await MongoDatastore.getInstance()).users.getUserByEmail(credentials?.email || "");
+    //     if (user)
+    //       return user;
+    //     return null;
+    //   }
+    // })
   ],
   pages: {
     signIn: '/signin',
