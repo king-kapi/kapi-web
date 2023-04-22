@@ -1,5 +1,5 @@
 import { Collection, ObjectId } from 'mongodb';
-import Post from '../models/Post';
+import Post from '../types/Post';
 import MongoDatastore from './MongoDatastore';
 
 class PostsCollection {

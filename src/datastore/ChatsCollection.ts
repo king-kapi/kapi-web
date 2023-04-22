@@ -1,7 +1,7 @@
 import { Collection, ObjectId } from 'mongodb';
-import Chat, { ChatBuilder } from '../models/Chat';
-import Message from '../models/Message';
-import User from '../models/User';
+import Chat, { ChatBuilder } from '../types/Chat';
+import Message from '../types/Message';
+import User from '../types/User';
 import MongoDatastore from './MongoDatastore';
 
 class ChatsCollection {

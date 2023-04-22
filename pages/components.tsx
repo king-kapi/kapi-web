@@ -3,7 +3,7 @@ import CustomizeDashboard from '@/components/CustomizeDashboard';
 import { InterestsWidget } from '@/components/InterestsWidget';
 import LoginStatus from '@/components/LoginStatus';
 import { NotificationsWidget } from '@/components/NotificationsWidget';
-import { Notification } from '@/src/models/Notification';
+import { Notification } from '@/src/types/Notification';
 import { GameWidget } from '@/components/GameWidget';
 import Head from 'next/head';
 import NotificationBubble from '../components/NotificationBubble';

@@ -1,5 +1,5 @@
 import MongoDatastore from "@/src/datastore/MongoDatastore";
-import User from "@/src/models/User";
+import User from "@/src/types/User";
 import NextAuth, { Session } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import DiscordProvider from "next-auth/providers/discord";

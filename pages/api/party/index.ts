@@ -1,6 +1,6 @@
 import MongoDatastore from "@/src/datastore/MongoDatastore";
-import Party from "@/src/models/Party";
-import User from "@/src/models/User";
+import Party from "@/src/types/Party";
+import User from "@/src/types/User";
 import protectApiRoute from "@/src/utils/protectApiRoute";
 import { NextApiRequest, NextApiResponse } from "next";
 

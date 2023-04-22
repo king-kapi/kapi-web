@@ -1,9 +1,10 @@
-import { Collection, FindOptions, ObjectId, WithId } from 'mongodb';
+import { Collection, FindOptions, ObjectId } from 'mongodb';
 import UserStatus from '../enums/UserStatus';
-import UserNotFoundError from '../errors/UserNotFoundError';
-import Friend from '../models/Friend';
-import { PartyRequestWithParty } from '../models/PartyRequest';
-import User from '../models/User';
+import { UserAlreadyRegistered, UserInvalid, UserNotFoundError } from '../errors/UserErrors';
+import OmitId from '../types/OmitId';
+import PartyRequest from '../types/PartyRequest';
+import User, { toUser } from '../types/User';
+import UserProfile, { BLANK_USER_PROFILE } from '../types/UserProfile';
 import GenerateRandomTag from '../utils/GenerateRandomTag';
 
 class UserCollection {
@@ -13,36 +14,49 @@ class UserCollection {
     return (await this.col.find({}).toArray()) as User[];
   }
 
-  async register(email: string, username: string): Promise<WithId<User>> {
+  async register(email: string, username: string): Promise<UserProfile> {
     // check valid input
     // TODO: Validate email string either inside the component or do it here
     // Use an external library. Do NOT try to write custom regex here
     if (email.length === 0 || username.length === 0) {
-      throw Error('Email or username invalid!');
+      throw new UserInvalid();
     }
 
     // check if user already exists
     if (await this.col.findOne({ email })) {
-      throw Error('User already registered!'); // TODO: is this caught?
+      throw new UserAlreadyRegistered(email);
     }
 
-    const newUser: User = {
+    const newUser: OmitId<UserProfile> = {
+      ...BLANK_USER_PROFILE,
       email: username,
       username: username,
       tag: GenerateRandomTag(),
-      friends: [],
-      partyRequests: [],
-      friendRequests: []
     }
     const { insertedId } = (await this.col.insertOne(newUser));
 
-    // TODO: Validate schema instead of casting, or wrap this inside a getter
-    return (await this.col.findOne({ _id: insertedId })) as WithId<User>;
+    return {
+      _id: insertedId,
+      ...newUser
+    };
   }
 
-  async getUser(userId: ObjectId | undefined, options: FindOptions<Document> = {}): Promise<User> {
+  async getUser(userId: ObjectId, options: FindOptions<Document> = {}): Promise<User> {
+    return toUser(await this.getUserProfile(userId, options));
+  }
 
-    const user = await this.col.findOne({ _id: userId }, options) as User;
+  async getUserByEmail(email: string, options: FindOptions<Document> = {}): Promise<User> {
+    const user = await this.col.findOne({ email }, options) as UserProfile;
+    if (user) {
+      return toUser(user);
+    }
+
+    // user not found
+    throw new UserNotFoundError(email);
+  }
+
+  async getUserProfile(userId: ObjectId, options: FindOptions<Document> = {}): Promise<UserProfile> {
+    const user = await this.col.findOne({ _id: userId }, options) as UserProfile;
     if (user) {
       return user;
     }
@@ -51,19 +65,8 @@ class UserCollection {
     throw new UserNotFoundError(userId);
   }
 
-  async getUserByEmail(email: string, options: FindOptions<Document> = {}): Promise<User> {
-
-    const user = await this.col.findOne({ email }, options) as User;
-    if (user) {
-      return user;
-    }
-
-    // user not found
-    throw new UserNotFoundError(email);
-  }
-
-  async getFriends(userId: ObjectId | undefined): Promise<Friend[]> {
-    const user = await this.getUser(userId);
+  async getFriends(userId: ObjectId): Promise<User[]> {
+    const user = await this.getUserProfile(userId);
     console.log("user", user);
     const friends = await Promise.all(user.friends.map(async (friend) =>
       await this.getUser(friend._id, {
@@ -72,7 +75,7 @@ class UserCollection {
           tag: 1,
           status: 1
         }
-      }) as Friend));
+      })));
 
     return friends;
   }
@@ -124,7 +127,7 @@ class UserCollection {
   }
 
   // add a request
-  async addPartyRequest(userId: ObjectId, request: PartyRequestWithParty): Promise<void> {
+  async addPartyRequest(userId: ObjectId, request: PartyRequest): Promise<void> {
     await this.col.updateOne({
       _id: userId
     }, {

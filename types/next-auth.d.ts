@@ -1,4 +1,4 @@
-import { UserWithId } from "@/src/models/User";
+import { UserWithId } from "@/src/types/User";
 import "next-auth";
 import { DiscordProfile } from "next-auth/providers/discord";
 import { GoogleProfile } from "next-auth/providers/google";

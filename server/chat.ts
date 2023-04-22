@@ -1,6 +1,6 @@
 import { Express } from 'express';
 import { Server } from 'socket.io';
-import Message from '../src/models/Message';
+import Message from '../src/types/Message';
 import MongoDatastore from '../src/datastore/MongoDatastore'
 
 export default async function chatHandler(app: Express, io: Server) {

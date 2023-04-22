@@ -1,9 +1,10 @@
-import { Collection, ObjectId, WithId } from 'mongodb';
+import { Collection, ObjectId } from 'mongodb';
 import Result, { Err, Ok } from '../Result';
 import { AlreadyInPartyError, NotInPartyError } from '../errors/PartyErrors';
-import Party from '../models/Party';
-import PartyRequest from '../models/PartyRequest';
-import User from '../models/User';
+import OmitId from '../types/OmitId';
+import Party from '../types/Party';
+import PartyRequest from '../types/PartyRequest';
+import User from '../types/User';
 import MongoDatastore from './MongoDatastore';
 
 class PartiesCollection {
@@ -11,19 +12,19 @@ class PartiesCollection {
 
   // list all parties that exist
   // TODO: consider adding filtering on server side
-  async all(): Promise<WithId<Party>[]> {
-    return (await this.col.find({}).toArray()) as WithId<Party>[];
+  async all(): Promise<Party[]> {
+    return (await this.col.find({}).toArray()) as Party[];
   }
 
   // get a specific party
-  async get(id: ObjectId): Promise<WithId<Party>> {
+  async get(id: ObjectId): Promise<Party> {
     return await this.col.findOne({
       _id: id
-    }) as WithId<Party>;
+    }) as Party;
   }
 
   // create a new party
-  async create(party: Party): Promise<WithId<Party>> {
+  async create(party: OmitId<Party>): Promise<Party> {
     const created = await this.col.insertOne(party);
 
     return {
@@ -91,8 +92,8 @@ class PartiesCollection {
   // TODO: check max party size
   async addRequest(partyId: ObjectId, senderId: ObjectId, receiverId: ObjectId): Promise<void> {
     const request: PartyRequest = {
-      sender: await this.instance.users.getUser(senderId) as WithId<User>, // TODO: refractor user model
-      receiver: await this.instance.users.getUser(receiverId) as WithId<User>,
+      sender: await this.instance.users.getUser(senderId) as User, // TODO: refractor user model
+      receiver: await this.instance.users.getUser(receiverId) as User,
       partyId
     }
 
