@@ -105,9 +105,12 @@ class PartiesCollection {
       }
     });
 
+    const party: Partial<Party> = await this.get(partyId);
+    delete party.requests;
+
     await this.instance.users.addPartyRequest(receiverId, {
       ...request,
-      party: await this.get(partyId)
+      party
     });
   }
 

@@ -1,10 +1,9 @@
 import { ObjectId } from "mongodb";
+import User from "./User";
 
 type Post = {
   _id: ObjectId;
-  authorId: ObjectId;
-  authorUsername: string;
-  authorTag: string;
+  author: User;
   tiemstamp: number;
   content: string;
   likes: number;

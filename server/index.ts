@@ -24,7 +24,7 @@ const io = new IOServer(server);
 expressApp.use(bodyParser.json());
 
 // chat handler
-chatHandler(expressApp, io);
+// chatHandler(expressApp, io);
 
 // nextjs handler
 expressApp.all("*", (req: Request, res: Response) => {

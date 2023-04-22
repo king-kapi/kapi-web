@@ -2,7 +2,7 @@ import { Collection, FindOptions, ObjectId } from 'mongodb';
 import UserStatus from '../enums/UserStatus';
 import { UserAlreadyRegistered, UserInvalid, UserNotFoundError } from '../errors/UserErrors';
 import OmitId from '../types/OmitId';
-import PartyRequest from '../types/PartyRequest';
+import PartyRequest, { PartyRequestWithParty } from '../types/PartyRequest';
 import User, { toUser } from '../types/User';
 import UserProfile, { BLANK_USER_PROFILE } from '../types/UserProfile';
 import GenerateRandomTag from '../utils/GenerateRandomTag';
@@ -127,7 +127,7 @@ class UserCollection {
   }
 
   // add a request
-  async addPartyRequest(userId: ObjectId, request: PartyRequest): Promise<void> {
+  async addPartyRequest(userId: ObjectId, request: PartyRequestWithParty): Promise<void> {
     await this.col.updateOne({
       _id: userId
     }, {

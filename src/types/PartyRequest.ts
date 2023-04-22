@@ -8,7 +8,7 @@ type PartyRequest = {
   partyId: ObjectId
 }
 
-export type PartyRequestWithParty = PartyRequest | {
+export type PartyRequestWithParty = PartyRequest & {
   party?: Partial<Party>
 }
 
