@@ -4,7 +4,7 @@ import InvitationMessage from '@/components/InvitationMessage';
 import TimeZone from '@/components/TimeZone';
 import { ProfilePreview } from '@/components/ProfilePreview';
 import SideNav from '@/components/SideNav';
-import styles from '../styles/BuddyFinder.module.css';
+import styles from '../../styles/BuddyFinder.module.css';
 import { Icon } from '@iconify/react';
 import { useState } from 'react';
 

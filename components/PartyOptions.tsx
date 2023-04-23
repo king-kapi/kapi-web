@@ -6,7 +6,7 @@ export default function PartyOptions() {
     <div className={styles.PartyOptionsContainer}>
       <h1 className={styles.Header}>1. What are you looking for?</h1>
       <div className={styles.ButtonsContainer}>
-        <a className={styles.PartyOption} href='./BuddyFinder'>
+        <a className={styles.PartyOption} href='./PartyFinder/BuddyFinder'>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="94"
