@@ -7,7 +7,7 @@ function SideNav() {
   const [activeTab, setActiveTab] = useState(1); // TOOD: useRouter to get path name to check current tab
   const [onlineStatus, setOnlineStatus] = useState('1');
   const { data, isLoading, isError, error } = useQuery('userInfo', () =>
-    fetch(`http://localhost:3000/api/users/63f1762157a47ee3ab2337ae`).then(res => res.json())
+    fetch(`http://localhost:3000/api/user/current-user`).then(res => res.json())
   );
 
   const handleChange = (e: any) => {

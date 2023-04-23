@@ -111,7 +111,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 29.875em;
+  height: 43%;
 }
 
 .graySection {
@@ -120,6 +120,7 @@
   display: flex;
   flex-direction: column;
   overflow-y: hidden;
+  height: 48%;
 }
 
 .graySection h1 {
@@ -145,7 +146,6 @@
   padding: 0;
   margin: 0;
   overflow-y: scroll;
-  height: 25em;
 }
 
 .graySection ul li {
@@ -177,6 +177,7 @@
 .blackSection {
   color: #FFFFFF;
   background-color: #272727;
+  height: 9%;
 }
 
 .Sidenav_expand {
