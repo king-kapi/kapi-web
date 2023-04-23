@@ -58,9 +58,17 @@ if (process.env.NODE_ENV === "development")
     async authorize(credentials, req) { // I have no clue why typescript returns an error here
       if (process.env.NODE_ENV !== "development") return null;
 
-      const user = await (await MongoDatastore.getInstance()).users.getUserByEmail(credentials?.email || "");
+      console.log(`Logging in with ${credentials?.email}`)
+
+      const user = await (await MongoDatastore.getInstance()).users.getUserProfileByEmail(credentials?.email || "");
+
       if (user)
-        return user;
+        return {
+          id: user._id.toString(),
+          email: user.email,
+          image: user.image,
+          name: user.username
+        };
       return null;
     }
   }))

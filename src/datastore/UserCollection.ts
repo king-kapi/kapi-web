@@ -1,10 +1,16 @@
 import { Collection, FindOptions, ObjectId } from 'mongodb';
 import UserStatus from '../enums/UserStatus';
+import InvalidError from '../errors/InvalidError';
 import { UserNotFoundError } from '../errors/UserErrors';
 import { PartyRequestWithParty } from '../types/PartyRequest';
 import User, { toUser } from '../types/User';
 import UserProfile, { BLANK_USER_PROFILE } from '../types/UserProfile';
 import GenerateRandomTag from '../utils/GenerateRandomTag';
+
+export type UpdateUser = {
+  username?: string;
+  bio?: string;
+}
 
 class UserCollection {
   constructor(private col: Collection) { }
@@ -142,6 +148,35 @@ class UserCollection {
         }
       }
     });
+  }
+
+  private async _update(userId: ObjectId, fields: Partial<UserProfile>) {
+    // verify user exists
+    if (!await this.getUserProfile(userId))
+      throw new UserNotFoundError(userId);
+
+    this.col.updateOne({
+      _id: userId
+    }, {
+      $set: fields
+    })
+  }
+
+  // update user
+  async update(userId: ObjectId, newFields: UpdateUser): Promise<void> {
+    // ensure that only the fields that are updatable can be modified
+    const fields: UpdateUser = {
+      username: newFields.username,
+      bio: newFields.bio,
+    }
+
+    console.log('got username', fields.username?.length);
+
+    if (fields.username)
+      if (fields.username.length < 3 || fields.username.length > 12)
+        throw new InvalidError("username", fields.username, "Username must be between 3 and 12 characters long.");
+
+    this._update(userId, fields);
   }
 }
 
