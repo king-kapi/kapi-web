@@ -19,7 +19,7 @@ function SideNav() {
     pathname,   // the value: "/question/[slug]"
   } = useRouter();
 
-  console.log(pathname)
+  const [mode, setMode] = useState('dark')
 
   function getCurrentStatus() {
     if (onlineStatus === '1') {
@@ -71,7 +71,7 @@ function SideNav() {
       ::-webkit-scrollbar-thumb:hover {
         background: #333333;
       }`}</style>
-        <section className={styles.whiteSection}>
+        <section className={[styles.whiteSection, 'bg-secondaryBg'].join(" ")}>
           <span className={styles.header}>
             <div className={styles.avatarDiv}>
               <div>
@@ -126,12 +126,12 @@ function SideNav() {
             </a>
           </div>
         </section>
-        <section className={styles.graySection}>
+        <section className={[styles.graySection, 'bg-neutralBg'].join(" ")}>
           <h1>
             Friends - <span>9/26</span>
           </h1>
         </section>
-        <section className={styles.blackSection}>
+        <section className={[styles.blackSection, 'bg-secondaryBg'].join(" ")}>
           <div className={styles.statusContainer}>
             <div className={styles.userAvatar}>
               <div className={getCurrentStatus()}></div>
@@ -160,7 +160,7 @@ function SideNav() {
   }
 
   return (
-    <div className={styles.sidenav}>
+    <div className={[styles.sidenav, `theme-${mode}`].join(" ")}>
       <style>{`/* width */
         ::-webkit-scrollbar {
           width: 10px;
@@ -178,7 +178,7 @@ function SideNav() {
         ::-webkit-scrollbar-thumb:hover {
           background: #333333;
         }`}</style>
-      <section className={styles.whiteSection}>
+      <section className={[styles.whiteSection, 'bg-secondaryBg'].join(" ")}>
         <span className={styles.header}>
           <div className={styles.avatarDiv}>
             <div>
@@ -187,7 +187,7 @@ function SideNav() {
             <h1 className={styles.logoWord}>Logo</h1>
           </div>
           <div>
-            <Icon icon="mdi:bell" className={styles.bell} />
+            <Icon icon="mdi:bell" color='#FFFFFF' className={styles.bell}/>
           </div>
         </span>
         <div className={styles.menu}>
@@ -195,17 +195,17 @@ function SideNav() {
             <div className={pathname.includes('Home') ? styles.selected : styles.notSelected}>
               <Icon
                 icon="mdi:house"
-                color={pathname.includes('Home') ? '#FFFFFF' : '#939393'}
+                color='#FFFFFF'
                 className={styles.homeIcon}
               />
             </div>
             <span className={styles.homeTabWord}>Home</span>
           </a>
           <a href='./PartyFinder' className={styles.partyFinderTab}>
-            <div className={pathname.includes('PartyFinder') ? styles.selected : styles.notSelected}>
+            <div className={[pathname.includes('PartyFinder') ? styles.selected : styles.notSelected, 'bg-blue-100'].join(" ")}>
               <Icon
                 icon="mdi:sword-cross"
-                color={pathname.includes('PartyFinder') ? '#FFFFFF' : '#939393'}
+                color='#FFFFFF'
                 className={styles.partFinderIcon}
               />
             </div>
@@ -215,7 +215,7 @@ function SideNav() {
             <div className={pathname.includes('Community') ? styles.selected : styles.notSelected}>
               <Icon
                 icon="fa-solid:user-friends"
-                color={pathname.includes('Community') ? '#FFFFFF' : '#939393'}
+                color='#FFFFFF'
                 className={styles.communityIcon}
               />
             </div>
@@ -225,7 +225,7 @@ function SideNav() {
             <div className={pathname.includes('ForYou') ? styles.selected : styles.notSelected}>
               <Icon
                 icon="ph:sparkle-fill"
-                color={pathname.includes('ForYou') ? '#FFFFFF' : '#939393'}
+                color='#FFFFFF'
                 className={styles.forYouIcon}
               />
             </div>
@@ -233,8 +233,8 @@ function SideNav() {
           </a>
         </div>
       </section>
-      <section className={styles.graySection}>{fetchFriends()}</section>
-      <section className={styles.blackSection}>
+      <section className={[styles.graySection, 'bg-neutralBg'].join(" ")}>{fetchFriends()}</section>
+      <section className={[styles.blackSection, 'bg-secondaryBg'].join(" ")}>
         <div className={styles.statusContainer}>
           <div className={styles.userAvatar}>
             <div className={getCurrentStatus()}></div>
@@ -243,7 +243,7 @@ function SideNav() {
             <span className={styles.userName}>{`${data.username}#${data.tag}`}</span>
             <select
               name="status"
-              className={styles.status}
+              className={[styles.status, 'bg-secondaryBg'].join(" ")}
               id="status"
               onChange={e => handleChange(e)}
             >
