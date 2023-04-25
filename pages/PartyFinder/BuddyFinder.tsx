@@ -17,12 +17,12 @@ export default function BuddyFinder() {
       <style>{`body {margin: 0;}`}</style>
       <SideNav />
       <div>
-        <a className={styles.PartyFinder} href='./PartyFinder'>
+        <a className={styles.PartyFinder} href='/PartyFinder'>
           <span className={styles.BackArrow}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="41"
-              height="41"
+              width="30"
+              height="30"
               viewBox="0 0 41 41"
               fill="none"
             >

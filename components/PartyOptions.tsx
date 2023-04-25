@@ -35,7 +35,7 @@ export default function PartyOptions() {
             />
           </svg>
         </a>
-        <a className={styles.PartyOption}>
+        <a className={styles.PartyOption} href='./PartyFinder/LobbyFinder'>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="100"

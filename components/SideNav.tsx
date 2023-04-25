@@ -201,7 +201,7 @@ function SideNav() {
             </div>
             <span className={styles.homeTabWord}>Home</span>
           </a>
-          <a href='./PartyFinder' className={styles.partyFinderTab}>
+          <a href='/PartyFinder' className={styles.partyFinderTab}>
             <div className={[pathname.includes('PartyFinder') ? styles.selected : styles.notSelected, 'bg-blue-100'].join(" ")}>
               <Icon
                 icon="mdi:sword-cross"
