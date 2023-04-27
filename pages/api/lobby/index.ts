@@ -1,11 +1,11 @@
 import MongoDatastore from "@/src/datastore/MongoDatastore";
-import Party from "@/src/types/Party";
-import User from "@/src/types/User";
+import Game from "@/src/types/Games";
+import Lobby from "@/src/types/Lobby";
 import protectApiRoute from "@/src/utils/protectApiRoute";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export type CreatePartyBody = {
-  game: string,
+export type CreateLobbyBody = {
+  game: Game,
   maxSize: number
 }
 
@@ -16,16 +16,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const instance = await MongoDatastore.getInstance();
 
   if (req.method === "GET") {
-    res.status(200).json(await instance.parties.all())
+    res.status(200).json(await instance.lobbies.all())
   } else if (req.method === "POST") {
-    const party: Party = {
-      game: (req.body as CreatePartyBody).game,
+    const lobby: Omit<Lobby, "_id" | "chatId"> = {
+      game: (req.body as CreateLobbyBody).game,
       host: user,
       users: [],
-      maxSize: (req.body as CreatePartyBody).maxSize
+      maxSize: (req.body as CreateLobbyBody).maxSize,
+      resolvedRequests: [],
+      requests: []
     }
 
-    res.status(200).json(await instance.parties.create(party));
+    res.status(200).json(await instance.lobbies.create(lobby));
   } else {
     res.status(405).send("405 Method Not Allowed.");
   }

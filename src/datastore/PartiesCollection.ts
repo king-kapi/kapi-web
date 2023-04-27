@@ -2,38 +2,45 @@ import { Collection, ObjectId } from 'mongodb';
 import Result, { Err, Ok } from '../Result';
 import { AlreadyInPartyError, NotInPartyError } from '../errors/PartyErrors';
 import OmitId from '../types/OmitId';
-import Party from '../types/Party';
-import PartyRequest from '../types/PartyRequest';
+import Lobby from '../types/Lobby';
+import LobbyRequest from '../types/LobbyRequest';
 import User from '../types/User';
 import MongoDatastore from './MongoDatastore';
 
-class PartiesCollection {
+class LobbyCollection {
   constructor(private col: Collection, private instance: MongoDatastore) { }
 
-  // list all parties that exist
+  // list all lobbies that exist
   // TODO: consider adding filtering on server side
-  async all(): Promise<Party[]> {
-    return (await this.col.find({}).toArray()) as Party[];
+  async all(): Promise<Lobby[]> {
+    return (await this.col.find({}).toArray()) as Lobby[];
   }
 
-  // get a specific party
-  async get(id: ObjectId): Promise<Party> {
+  // get a specific lobby
+  async get(id: ObjectId): Promise<Lobby> {
     return await this.col.findOne({
       _id: id
-    }) as Party;
+    }) as Lobby;
   }
 
-  // create a new party
-  async create(party: OmitId<Party>): Promise<Party> {
-    const created = await this.col.insertOne(party);
+  // create a new lobby
+  async create(party: Omit<Lobby, "_id" | "chatId">): Promise<Lobby> {
+    // create a chat
+    const chatId = (await this.instance.chats.createChat([party.host]))._id;
+
+    const newLobby = {
+      ...party,
+      chatId
+    }
+    const { insertedId } = await this.col.insertOne(newLobby);
 
     return {
-      ...party,
-      _id: created.insertedId
+      ...newLobby,
+      _id: insertedId
     }
   }
 
-  // join a party
+  // join a lobby
   async join(partyId: ObjectId, userId: ObjectId): Promise<Result<null, AlreadyInPartyError>> {
     const party = await this.get(partyId);
 
@@ -53,7 +60,7 @@ class PartiesCollection {
     return Ok(null);
   }
 
-  // leave a party
+  // leave a lobby
   async leave(partyId: ObjectId, userId: ObjectId): Promise<Result<null, NotInPartyError>> {
     const party = await this.get(partyId);
 
@@ -81,7 +88,7 @@ class PartiesCollection {
     return Ok(null);
   }
 
-  // delete a party
+  // delete a lobby
   async delete(partyId: ObjectId): Promise<void> {
     await this.col.deleteOne({
       _id: partyId
@@ -89,9 +96,9 @@ class PartiesCollection {
   }
 
   // add a request
-  // TODO: check max party size
+  // TODO: check max lobby size
   async addRequest(partyId: ObjectId, senderId: ObjectId, receiverId: ObjectId): Promise<void> {
-    const request: PartyRequest = {
+    const request: LobbyRequest = {
       sender: await this.instance.users.getUser(senderId) as User, // TODO: refractor user model
       receiver: await this.instance.users.getUser(receiverId) as User,
       partyId
@@ -105,7 +112,7 @@ class PartiesCollection {
       }
     });
 
-    const party: Partial<Party> = await this.get(partyId);
+    const party: Partial<Lobby> = await this.get(partyId);
     delete party.requests;
 
     await this.instance.users.addPartyRequest(receiverId, {
@@ -131,4 +138,4 @@ class PartiesCollection {
   }
 }
 
-export default PartiesCollection;
+export default LobbyCollection;

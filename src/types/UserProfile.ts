@@ -2,7 +2,7 @@ import { ObjectId, WithId } from "mongodb";
 import UserStatus from "../enums/UserStatus";
 import InterestTag from "./InterestTag";
 import User from "./User";
-import PartyRequest from "./PartyRequest";
+import LobbyRequest from "./LobbyRequest";
 import Game from "./Games";
 import Community from "./Community";
 import OmitId from "./OmitId";
@@ -17,11 +17,14 @@ interface UserProfile extends User {
   image: string;
   bio: string;
   interests: InterestTag[];
-  games: Game[];
+  games: {
+    [n: Game]: object
+  };
   friendRequests: [];
   friends: User[];
   status: UserStatus;
-  partyRequests: PartyRequest[];
+  currentLobby: ObjectId | undefined;
+  partyRequests: LobbyRequest[];
   communities: Community[];
   newUser: boolean;
 }
@@ -33,7 +36,7 @@ export const BLANK_USER_PROFILE: OmitId<UserProfile> = {
   image: "",
   bio: "",
   interests: [],
-  games: [],
+  games: {},
   friendRequests: [],
   friends: [],
   status: UserStatus.OFFLINE,

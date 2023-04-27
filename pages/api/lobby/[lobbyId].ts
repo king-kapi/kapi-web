@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const instance = await MongoDatastore.getInstance();
   const partyId = new ObjectId((req.query as PartyParams).partyId);;
-  const party = await instance.parties.get(partyId);
+  const party = await instance.lobbies.get(partyId);
 
   if (req.method === "GET") {
     res.status(200).json(party);
@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (party.host._id?.toString() !== user._id.toString())
       res.status(400).json(new NotHostError(partyId, user._id));
     else {
-      await instance.parties.delete(partyId);
+      await instance.lobbies.delete(partyId);
       res.status(200).send("Party deleted.");
     }
   } else {

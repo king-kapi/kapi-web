@@ -3,7 +3,7 @@ const Collections = {
   CHATS: 'chats',
   MESSAGES: 'messages',
   POSTS: 'posts',
-  PARTIES: 'parties'
+  LOBBIES: 'lobbies'
 }
 
 export default Collections;

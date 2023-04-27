@@ -2,24 +2,22 @@ import MongoDatastore from "@/src/datastore/MongoDatastore";
 import protectApiRoute from "@/src/utils/protectApiRoute";
 import { ObjectId } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
-import { PartyParams } from "../[partyId]";
+import { PartyParams } from "../[lobbyId]";
 
-type SendRequestBody = {
-  receiverId: string
-}
-
+// body takes in a party
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { user } = await protectApiRoute(req, res);
 
   const instance = await MongoDatastore.getInstance();
 
-  if (req.method === "POST") {
+  if (req.method === "DELETE") {
     const partyId = new ObjectId((req.query as PartyParams).partyId);
-    const receiverId = new ObjectId((req.body as SendRequestBody).receiverId);
+    const result = await instance.lobbies.leave(partyId, user._id);
 
-    await instance.parties.addRequest(partyId, user._id, receiverId);
-
-    res.status(200).send("Request sent.");
+    if (result.ok)
+      res.status(200).send("Left party.");
+    else
+      res.status(400).send(result.error);
   } else {
     res.status(405).send("405 Method Not Allowed.");
   }
