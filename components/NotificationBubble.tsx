@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import styles from '../styles/Notification.module.css';
-import { Notification } from '@/src/models/Notification';
+import { Notification } from '@/src/types/Notification';
 
 type NotificationBubbleProps = {
   notification: Notification

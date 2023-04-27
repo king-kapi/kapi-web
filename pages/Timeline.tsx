@@ -1,4 +1,4 @@
-import type User from '@/src/models/User';
+import type User from '@/src/types/User';
 import {
   Unstable_Grid2 as Grid2,
   Paper,

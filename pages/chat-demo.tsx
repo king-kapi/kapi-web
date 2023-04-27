@@ -1,5 +1,5 @@
-import Message from "@/src/models/Message";
-import User from "@/src/models/User";
+import Message from "@/src/types/Message";
+import User from "@/src/types/User";
 import protectedGetServerSideProps from "@/src/utils/protectRoute";
 import { ObjectID } from "bson";
 import { useSession } from "next-auth/react";

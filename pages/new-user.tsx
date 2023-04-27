@@ -1,8 +1,10 @@
-import styles from '../styles/SignInPage.module.css'
-import { Icon } from '@iconify/react'
-import { signIn } from 'next-auth/react'
+import { Icon } from '@iconify/react';
+import { signIn } from 'next-auth/react';
+import styles from '../styles/SignInPage.module.css';
 
 export default function SignInPage() {
+    // console.log(providers)
+
     return (
         <div className={styles.SignInPage}>
             <div className={styles.Logo}></div>
@@ -12,12 +14,14 @@ export default function SignInPage() {
                     <h3>Discover safe and inclusive gaming communities for you</h3>
                 </div>
                 <div className={styles.SignInButtons}>
-                    <button onClick={() => signIn('google', {callbackUrl: '/'})}>
-                        <Icon icon='logos:google-icon'/>
+                    <button onClick={async () => {
+                        console.log(signIn('google', { callbackUrl: '/' }))
+                    }}>
+                        <Icon icon='logos:google-icon' />
                         Sign in with Google
                     </button>
-                    <button onClick={() => signIn('discord', {callbackUrl: '/'})}>
-                        <Icon icon='logos:discord-icon'/>
+                    <button onClick={() => signIn('discord', { callbackUrl: '/' })}>
+                        <Icon icon='logos:discord-icon' />
                         Sign in with Discord
                     </button>
                 </div>

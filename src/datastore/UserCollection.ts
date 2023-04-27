@@ -1,9 +1,16 @@
 import { Collection, FindOptions, ObjectId } from 'mongodb';
 import UserStatus from '../enums/UserStatus';
-import UserNotFoundError from '../errors/UserNotFoundError';
-import Friend from '../models/Friend';
-import User, { UserWithoutId } from '../models/User';
+import InvalidError from '../errors/InvalidError';
+import { UserNotFoundError } from '../errors/UserErrors';
+import { PartyRequestWithParty } from '../types/PartyRequest';
+import User, { toUser } from '../types/User';
+import UserProfile, { BLANK_USER_PROFILE } from '../types/UserProfile';
 import GenerateRandomTag from '../utils/GenerateRandomTag';
+
+export type UpdateUser = {
+  username?: string;
+  bio?: string;
+}
 
 class UserCollection {
   constructor(private col: Collection) { }
@@ -12,27 +19,26 @@ class UserCollection {
     return (await this.col.find({}).toArray()) as User[];
   }
 
-  async register(email: string, username: string): Promise<User> {
-    // check valid input
-    // TODO: Validate email string either inside the component or do it here
-    // Use an external library. Do NOT try to write custom regex here
-    if (email.length === 0 || username.length === 0) {
-      throw Error('Email or username invalid!');
-    }
+  async register({ id, email, image }: { id: ObjectId, email: string, image: string }): Promise<UserProfile> {
+    // // check if user already exists
+    // if (!(await this.getUserProfile(id)).newUser ) {
+    //   throw new UserAlreadyRegistered(id);
+    // }
 
-    // check if user already exists
-    if (await this.col.findOne({ email })) {
-      throw Error('User already registered!'); // TODO: is this caught?
+    const newUser: UserProfile = {
+      ...BLANK_USER_PROFILE,
+      _id: id,
+      email,
+      image,
+      tag: GenerateRandomTag(),
     }
-    const insertedId = (await this.col.insertOne(new UserWithoutId(username, email, GenerateRandomTag()))).insertedId;
+    await this.col.updateOne({ _id: id }, { $set: newUser });
 
-    // TODO: Validate schema instead of casting, or wrap this inside a getter
-    return (await this.col.findOne({ _id: insertedId })) as User;
+    return newUser;
   }
 
-  async getUser(userId: ObjectId | undefined, options: FindOptions<Document> = {}): Promise<User> {
-
-    const user = await this.col.findOne({ _id: userId }, options) as User;
+  async getUserProfile(userId: ObjectId, options: FindOptions<Document> = {}): Promise<UserProfile> {
+    const user = await this.col.findOne({ _id: userId }, options) as UserProfile;
     if (user) {
       return user;
     }
@@ -41,9 +47,8 @@ class UserCollection {
     throw new UserNotFoundError(userId);
   }
 
-  async getUserByEmail(email: string, options: FindOptions<Document> = {}): Promise<User> {
-
-    const user = await this.col.findOne({ email }, options) as User;
+  async getUserProfileByEmail(email: string, options: FindOptions<Document> = {}): Promise<UserProfile> {
+    const user = await this.col.findOne({ email }, options) as UserProfile;
     if (user) {
       return user;
     }
@@ -52,8 +57,16 @@ class UserCollection {
     throw new UserNotFoundError(email);
   }
 
-  async getFriends(userId: ObjectId | undefined): Promise<Friend[]> {
-    const user = await this.getUser(userId);
+  async getUser(userId: ObjectId, options: FindOptions<Document> = {}): Promise<User> {
+    return toUser(await this.getUserProfile(userId, options));
+  }
+
+  async getUserByEmail(email: string, options: FindOptions<Document> = {}): Promise<User> {
+    return toUser(await this.getUserProfileByEmail(email, options));
+  }
+
+  async getFriends(userId: ObjectId): Promise<User[]> {
+    const user = await this.getUserProfile(userId);
     console.log("user", user);
     const friends = await Promise.all(user.friends.map(async (friend) =>
       await this.getUser(friend._id, {
@@ -62,7 +75,7 @@ class UserCollection {
           tag: 1,
           status: 1
         }
-      }) as Friend));
+      })));
 
     return friends;
   }
@@ -111,6 +124,59 @@ class UserCollection {
         }
       }
     });
+  }
+
+  // add a request
+  async addPartyRequest(userId: ObjectId, request: PartyRequestWithParty): Promise<void> {
+    await this.col.updateOne({
+      _id: userId
+    }, {
+      $push: {
+        partyRequests: request
+      }
+    });
+  }
+
+  // add a request
+  async removePartyRequest(userId: ObjectId, partyId: ObjectId): Promise<void> {
+    await this.col.updateOne({
+      _id: userId
+    }, {
+      $pull: {
+        "partyRequests": {
+          "party._id": partyId
+        }
+      }
+    });
+  }
+
+  private async _update(userId: ObjectId, fields: Partial<UserProfile>) {
+    // verify user exists
+    if (!await this.getUserProfile(userId))
+      throw new UserNotFoundError(userId);
+
+    this.col.updateOne({
+      _id: userId
+    }, {
+      $set: fields
+    })
+  }
+
+  // update user
+  async update(userId: ObjectId, newFields: UpdateUser): Promise<void> {
+    // ensure that only the fields that are updatable can be modified
+    const fields: UpdateUser = {
+      username: newFields.username,
+      bio: newFields.bio,
+    }
+
+    console.log('got username', fields.username?.length);
+
+    if (fields.username)
+      if (fields.username.length < 3 || fields.username.length > 12)
+        throw new InvalidError("username", fields.username, "Username must be between 3 and 12 characters long.");
+
+    this._update(userId, fields);
   }
 }
 
