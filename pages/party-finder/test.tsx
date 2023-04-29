@@ -2,15 +2,30 @@ import LoginStatus from '@/components/LoginStatus';
 import UserProfile from '@/src/types/UserProfile';
 import protectedGetServerSideProps from '@/src/utils/protectRoute';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export const getServerSideProps = protectedGetServerSideProps;
 
 export default function PartyFinderTest({ user }: { user: UserProfile }) {
+  const router = useRouter()
+
+  async function handleLeaveLobby() {
+    await fetch(`/api/lobby/${user.currentLobby?.toString()}/leave`, {
+      method: 'DELETE'
+    });
+
+    router.reload()
+  }
 
   return (
     <>
       <main>
         <LoginStatus />
+
+        <Link href="/">
+          <button>Back</button>
+        </Link>
+
         <h1>Requests</h1>
 
         {user.lobbyRequests.length === 0 ? "Currently no requests." :
@@ -26,22 +41,30 @@ export default function PartyFinderTest({ user }: { user: UserProfile }) {
             </div>
           ))}
 
-        <h1>Create lobby</h1>
+        {!user.currentLobby ? (
+          <>
+            <h1>Create lobby</h1>
 
-        <Link href={"/party-finder/create"}>
-          <button>
-            Create!
-          </button>
-        </Link>
+            <Link href={"/party-finder/create"}>
+              <button>
+                Create!
+              </button>
+            </Link>
+          </>
+        ) : (
+          <>
+            <h1>Current lobby</h1>
 
-        <h1>Current lobby</h1>
+            <div>
+              {JSON.stringify(user.currentLobby)}
+              <Link href={`/party-finder/${user.currentLobby}`}>
+                <button>See Party</button>
+              </Link>
+            </div>
 
-        {user.currentLobby ? <div>
-          {JSON.stringify(user.currentLobby)}
-          <Link href={`/party-finder/${user.currentLobby}`}>
-            <button>See Party</button>
-          </Link>
-        </div> : "No lobby atm."}
+            <button onClick={handleLeaveLobby}>Leave Lobby</button>
+          </>
+        )}
       </main>
     </>
   );

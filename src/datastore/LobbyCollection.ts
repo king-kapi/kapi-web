@@ -72,28 +72,38 @@ class LobbyCollection {
 
   // leave a lobby
   async leave(partyId: ObjectId, userId: ObjectId): Promise<Result<null, NotInPartyError>> {
-    const party = await this.get(partyId);
+    const lobby = await this.get(partyId);
 
-    let userFound = false;
-    for (const user of party.users) {
-      if (user._id?.toString() === userId.toString()) {
-        userFound = true;
+    let userIndex = -1;
+    for (let i = 0; i < lobby.users.length; i++) {
+      if (lobby.users[i]._id.toString() === userId.toString()) {
+        userIndex = i;
         break;
       }
     }
 
-    if (!userFound)
+    console.log(userIndex);
+
+    if (userIndex < 0)
       return Err(new NotInPartyError(partyId, userId));
 
-    await this.col.updateOne({
-      _id: partyId
-    }, {
-      $pull: {
-        "users": {
-          _id: userId
+    const newUsers = [...lobby.users];
+    newUsers.splice(userIndex);
+
+    // if no more users left, remove
+    if (newUsers.length === 0)
+      await this.delete(partyId);
+    else {
+      await this.col.updateOne({
+        _id: partyId
+      }, {
+        $set: {
+          "users": newUsers
         }
-      }
-    });
+      });
+    }
+
+    await this.instance.users.leaveLobby(userId);
 
     return Ok(null);
   }

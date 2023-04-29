@@ -16,8 +16,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (result.ok)
       res.status(200).send("Left lobby.");
-    else
+    else {
+      console.error(result.error);
       res.status(400).send(result.error);
+    }
   } else {
     res.status(405).send("405 Method Not Allowed.");
   }

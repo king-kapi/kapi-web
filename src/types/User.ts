@@ -3,7 +3,7 @@ import UserStatus from '../enums/UserStatus';
 import UserProfile from './UserProfile';
 
 interface User {
-  _id: ObjectId | string;
+  _id: ObjectId;
   username: string;
   image: string;
   tag: string;

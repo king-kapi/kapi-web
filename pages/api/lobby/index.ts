@@ -23,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const lobby: Omit<Lobby, "_id" | "chatId"> = {
       game: (req.body as CreateLobbyBody).game,
       host: toUser(user), 
-      users: [],
+      users: [toUser(user)],
       maxSize: (req.body as CreateLobbyBody).maxSize,
       resolvedRequests: [],
       requests: []

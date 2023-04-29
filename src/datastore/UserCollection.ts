@@ -6,6 +6,7 @@ import { LobbyRequestWithLobby } from '../types/LobbyRequest';
 import User, { toUser } from '../types/User';
 import UserProfile, { BLANK_USER_PROFILE } from '../types/UserProfile';
 import GenerateRandomTag from '../utils/GenerateRandomTag';
+import Result, { Ok } from '../Result';
 
 class UserCollection {
   constructor(private col: Collection) { }
@@ -151,7 +152,7 @@ class UserCollection {
     if (!await this.getUserProfile(userId))
       throw new UserNotFoundError(userId);
 
-    this.col.updateOne({
+    await this.col.updateOne({
       _id: userId
     }, {
       $set: fields
@@ -165,7 +166,20 @@ class UserCollection {
       if (fields.username.length < 3 || fields.username.length > 12)
         throw new InvalidError("username", fields.username, "Username must be between 3 and 12 characters long.");
 
-    this._update(userId, fields);
+    await this._update(userId, fields);
+  }
+
+  // leave lobby
+  async leaveLobby(userId: ObjectId): Promise<Result<null, Error>> {
+    await this.col.updateOne({
+      _id: userId
+    }, {
+      $unset: {
+        "currentLobby": ""
+      }
+    });
+
+    return Ok(null);
   }
 }
 

@@ -4,6 +4,7 @@ import Lobby from "@/src/types/Lobby";
 import { toUser } from "@/src/types/User";
 import UserProfile from "@/src/types/UserProfile";
 import protectedGetServerSideProps from "@/src/utils/protectRoute";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -25,6 +26,10 @@ const ViewLobby = ({ user }: { user: UserProfile }) => {
   return (
     <main>
       <LoginStatus />
+
+      <Link href="/party-finder/test">
+        <button>Back</button>
+      </Link>
 
       <h1>Lobby: {lobbyId.toString()}</h1>
 
