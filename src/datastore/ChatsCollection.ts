@@ -21,8 +21,9 @@ class ChatsCollection {
     // verify every user
     for (const user of users) {
       await this.instance.users.getUser(user._id);
-      users.push(user);
+      chat.users.push(user);
     }
+
 
     const {insertedId} = await this.col.insertOne(chat);
 

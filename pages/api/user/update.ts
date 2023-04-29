@@ -8,6 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === "PUT") {
     const instance = await MongoDatastore.getInstance();
     
+    // TODO: make sure this endpoitn can only update bio or username
     await instance.users.update(user._id, req.body);
     res.status(200).send("User Updated.");
   } else {

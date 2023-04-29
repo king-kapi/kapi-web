@@ -9,7 +9,7 @@ type LobbyRequest = {
 }
 
 export type LobbyRequestWithLobby = LobbyRequest & {
-  party?: Partial<Lobby>
+  party: Partial<Lobby>
 }
 
 export default LobbyRequest;

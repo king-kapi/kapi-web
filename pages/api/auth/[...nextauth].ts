@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === "development") {
 const providers: Provider[] = [
   GoogleProvider({
     clientId: process.env.GOOGLE_ID,
-    clientSecret: process.env.GOOGLE_SECRET
+    clientSecret: process.env.GOOGLE_SECRET,
   }),
   DiscordProvider({
     clientId: process.env.DISCORD_ID,

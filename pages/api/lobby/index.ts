@@ -1,6 +1,7 @@
 import MongoDatastore from "@/src/datastore/MongoDatastore";
 import Game from "@/src/types/Games";
 import Lobby from "@/src/types/Lobby";
+import { toUser } from "@/src/types/User";
 import protectApiRoute from "@/src/utils/protectApiRoute";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -18,9 +19,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === "GET") {
     res.status(200).json(await instance.lobbies.all())
   } else if (req.method === "POST") {
+    // TODO: verify that user hasn't created another party
     const lobby: Omit<Lobby, "_id" | "chatId"> = {
       game: (req.body as CreateLobbyBody).game,
-      host: user,
+      host: toUser(user), 
       users: [],
       maxSize: (req.body as CreateLobbyBody).maxSize,
       resolvedRequests: [],

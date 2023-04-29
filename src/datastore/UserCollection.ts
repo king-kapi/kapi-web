@@ -7,11 +7,6 @@ import User, { toUser } from '../types/User';
 import UserProfile, { BLANK_USER_PROFILE } from '../types/UserProfile';
 import GenerateRandomTag from '../utils/GenerateRandomTag';
 
-export type UpdateUser = {
-  username?: string;
-  bio?: string;
-}
-
 class UserCollection {
   constructor(private col: Collection) { }
 
@@ -30,6 +25,7 @@ class UserCollection {
       _id: id,
       email,
       image,
+      username: email.split('@')[0], // TODO: remove this!!! this is dev only
       tag: GenerateRandomTag(),
     }
     await this.col.updateOne({ _id: id }, { $set: newUser });
@@ -163,14 +159,7 @@ class UserCollection {
   }
 
   // update user
-  async update(userId: ObjectId, newFields: UpdateUser): Promise<void> {
-    // ensure that only the fields that are updatable can be modified
-    const fields: UpdateUser = {
-      username: newFields.username,
-      bio: newFields.bio,
-    }
-
-    console.log('got username', fields.username?.length);
+  async update(userId: ObjectId, fields: Partial<UserProfile>): Promise<void> {
 
     if (fields.username)
       if (fields.username.length < 3 || fields.username.length > 12)

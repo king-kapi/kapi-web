@@ -1,15 +1,16 @@
-import { ObjectId, WithId } from "mongodb";
+import { ObjectId } from "mongodb";
 import UserStatus from "../enums/UserStatus";
-import InterestTag from "./InterestTag";
-import User from "./User";
-import LobbyRequest from "./LobbyRequest";
-import Game from "./Games";
 import Community from "./Community";
+import Game from "./Games";
+import InterestTag from "./InterestTag";
+import { LobbyRequestWithLobby } from "./LobbyRequest";
 import OmitId from "./OmitId";
+import User from "./User";
 
+// TODO: change this to a class
 // UserProfile will hold ALL the information that is available about the user
 // and is intended to also contain much more private information
-interface UserProfile extends User {
+interface UserProfile {
   _id: ObjectId;
   email: string;
   username: string;
@@ -24,7 +25,7 @@ interface UserProfile extends User {
   friends: User[];
   status: UserStatus;
   currentLobby: ObjectId | undefined;
-  partyRequests: LobbyRequest[];
+  lobbyRequests: LobbyRequestWithLobby[];
   communities: Community[];
   newUser: boolean;
 }
@@ -40,7 +41,8 @@ export const BLANK_USER_PROFILE: OmitId<UserProfile> = {
   friendRequests: [],
   friends: [],
   status: UserStatus.OFFLINE,
-  partyRequests: [],
+  currentLobby: undefined,
+  lobbyRequests: [],
   communities: [],
   newUser: true
 }

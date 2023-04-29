@@ -1,7 +1,6 @@
 import { Collection, ObjectId } from 'mongodb';
 import Result, { Err, Ok } from '../Result';
 import { AlreadyInPartyError, NotInPartyError } from '../errors/PartyErrors';
-import OmitId from '../types/OmitId';
 import Lobby from '../types/Lobby';
 import LobbyRequest from '../types/LobbyRequest';
 import User from '../types/User';
@@ -26,13 +25,24 @@ class LobbyCollection {
   // create a new lobby
   async create(party: Omit<Lobby, "_id" | "chatId">): Promise<Lobby> {
     // create a chat
+
     const chatId = (await this.instance.chats.createChat([party.host]))._id;
 
-    const newLobby = {
+    const newLobby: Lobby = {
       ...party,
-      chatId
+      chatId,
+      _id: new ObjectId
     }
     const { insertedId } = await this.col.insertOne(newLobby);
+    const createdLobby = {
+      ...newLobby,
+      _id: insertedId,
+    }
+
+    // insert into the user
+    await this.instance.users.update(createdLobby.host._id, {
+      currentLobby: insertedId
+    });
 
     return {
       ...newLobby,

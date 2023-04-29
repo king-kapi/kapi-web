@@ -4,7 +4,7 @@ import Collections from './Collections';
 import MessagesCollection from './MessagesCollection';
 import PostsCollection from './PostsCollection';
 import UserCollection from './UserCollection';
-import LobbyCollection from './PartiesCollection';
+import LobbyCollection from './LobbyCollection';
 
 class MongoDatastore {
   private static instance: MongoDatastore;

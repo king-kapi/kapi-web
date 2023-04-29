@@ -33,7 +33,7 @@ export default function Home() {
         <br/>
         <br/>
 
-        <Link href={"/party-finder-backend-test"}>
+        <Link href={"/party-finder/test"}>
           <button>See Party Finder Backend Tests</button>
         </Link>
       </main>

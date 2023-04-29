@@ -2,7 +2,7 @@ import MongoDatastore from "@/src/datastore/MongoDatastore";
 import protectApiRoute from "@/src/utils/protectApiRoute";
 import { ObjectId } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
-import { PartyParams } from "../[lobbyId]";
+import { LobbyParams } from "../[lobbyId]";
 
 // body takes in a party
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -11,11 +11,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const instance = await MongoDatastore.getInstance();
 
   if (req.method === "DELETE") {
-    const partyId = new ObjectId((req.query as PartyParams).partyId);
-    const result = await instance.lobbies.leave(partyId, user._id);
+    const lobbyId = new ObjectId((req.query as LobbyParams).lobbyId);
+    const result = await instance.lobbies.leave(lobbyId, user._id);
 
     if (result.ok)
-      res.status(200).send("Left party.");
+      res.status(200).send("Left lobby.");
     else
       res.status(400).send(result.error);
   } else {
