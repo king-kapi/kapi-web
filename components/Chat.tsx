@@ -15,31 +15,30 @@ const Chat = ({ chatId, user }: { chatId: ObjectId; user: User }) => {
 
   // initialize socket
   useEffect(() => {
-    if (socket) return;
+    if (socket) {
+      return;
+    }
+    const newSocket: Socket<ServerToClientEvents> = io();
+    socketRef.current = newSocket;
+    console.log(`Listening to ${chatId.toString()}`);
 
-    (async () => {
-      const socket: Socket<ServerToClientEvents> = io();
-      socketRef.current = socket;
-      console.log(`Listening to ${chatId.toString()}`);
+    newSocket.on('connect', () => {
+      console.log(`connected ${newSocket.id}`);
+    });
 
-      socket.on('connect', () => {
-        console.log(`connected ${socket.id}`);
+    // fetch previous messages
+    fetch(`/api/messages/${chatId.toString()}`)
+      .then(res => res.json())
+      .then((messages: Message[]) => {
+        console.log('Fetched previous messages:', messages);
+        setMessages(messages);
       });
 
-      // fetch previous messages
-      fetch(`/api/messages/${chatId.toString()}`)
-        .then(res => res.json())
-        .then((messages: Message[]) => {
-          console.log('Fetched previous messages:', messages);
-          setMessages(messages);
-        });
-
-      // listen for new messages
-      socket.on(chatId.toString(), (message: Message) => {
-        console.log('Received message:', message);
-        setMessages(messages => [...messages, message]);
-      });
-    })();
+    // listen for new messages
+    newSocket.on(chatId.toString(), (message: Message) => {
+      console.log('Received message:', message);
+      setMessages(messages => [...messages, message]);
+    });
   }, [socket, chatId]);
 
   // send messages
@@ -66,10 +65,9 @@ const Chat = ({ chatId, user }: { chatId: ObjectId; user: User }) => {
     <div>
       <div style={{ padding: 8, background: '#eee' }}>
         {messages.map(
-          (
-            message // TODO: extract this to message component
-          ) => (
-            <div key={message._id?.toString()}>
+          // TODO: extract this to message component
+          (message, index) => (
+            <div key={index}>
               <b>From: </b>
               {message.sender.username}
               <br />
