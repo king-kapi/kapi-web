@@ -1,0 +1,42 @@
+.InvitationMessageContainer{
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    width: 48.5rem;
+    top: 3rem;
+    left: 20.75rem;
+}
+
+.Header {
+    font-size: 2.25rem;
+    font-weight: 600;
+}
+
+.SubHeader {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 3rem;
+}
+
+.Question {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 3rem;
+}
+
+.TextBox {
+    width: 45.5rem;
+    height: 22.125rem;
+    font-size: 1.5rem;
+    background-color: #F4F4F4;
+    border: none;
+    border-radius: 10px;
+    resize: none;
+    padding: 2rem;
+}
+
+.TextBox::placeholder {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #000000;
+    opacity: 30%;
+}

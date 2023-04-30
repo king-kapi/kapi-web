@@ -1,16 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
-
 .ProfilePreviewContainer {
   font-family: 'Montserrat', sans-serif;
-  height: 47.5rem;
   width: 79.5rem;
   background-color: #fdfdfd;
   color: black;
-  margin-bottom: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  margin-left: 7rem;
+  margin-top: 3rem;
 }
 
 .TitleContainer {
@@ -45,6 +43,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin-top: 5.25rem;
 }
 
 
