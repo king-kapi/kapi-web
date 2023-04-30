@@ -49,7 +49,7 @@ export default function LobbyMemberList() {
       <div className={styles.Tags}>
         {' '}
         {tags.map(tag => {
-          return <div className={[styles.Tag, 'bg-neutralBg'].join(' ')}>{tag}</div>;
+          return <div key={tag} className={[styles.Tag, 'bg-neutralBg'].join(' ')}>{tag}</div>;
         })}
       </div>
       <div className={styles.MemberCountContainer}>
