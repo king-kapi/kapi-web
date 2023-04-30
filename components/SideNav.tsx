@@ -51,6 +51,11 @@ function SideNav() {
     );
   }
 
+  function fetchUser() {
+    const user = data;
+    return <span className={styles.userName}>{`${user.username}#${user.tag}`}</span>;
+  }
+
   if (isLoading) {
     return (
       <div className={styles.sidenav}>
@@ -240,7 +245,7 @@ function SideNav() {
             <div className={getCurrentStatus()}></div>
           </div>
           <div className={styles.userNameContainer}>
-            <span className={styles.userName}>{`${data.username}#${data.tag}`}</span>
+            {fetchUser()}
             <select
               name="status"
               className={[styles.status, 'bg-secondaryBg'].join(" ")}
