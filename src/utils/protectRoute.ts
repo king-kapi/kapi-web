@@ -15,6 +15,8 @@ export default async function protectedGetServerSideProps(context: GetServerSide
   }
 
   return {
-    props: {}
+    props: {
+      user: JSON.parse(JSON.stringify(session.user))
+    }
   }
 }

@@ -1,5 +1,5 @@
 import MongoDatastore from "@/src/datastore/MongoDatastore";
-import User from "@/src/models/User";
+import User from "@/src/types/User";
 import protectApiRoute from "@/src/utils/protectApiRoute";
 import { ObjectId } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";

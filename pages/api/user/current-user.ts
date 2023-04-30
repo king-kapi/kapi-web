@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const instance = await MongoDatastore.getInstance();
 
         // return list of users
-        res.status(200).json(await instance.users.getUser(user._id));
+        res.status(200).json(await instance.users.getUserProfile(user._id));
     } else {
         res.status(405).send("405 Method Not Allowed.");
     }

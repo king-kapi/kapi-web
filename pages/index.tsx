@@ -29,6 +29,13 @@ export default function Home() {
         <Link href={"/chat-demo"}>
           <button>See chat demo</button>
         </Link>
+
+        <br/>
+        <br/>
+
+        <Link href={"/party-finder/test"}>
+          <button>See Party Finder Backend Tests</button>
+        </Link>
       </main>
     </>
   );
