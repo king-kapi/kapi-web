@@ -5,6 +5,7 @@ import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
 import { authOptions } from './api/auth/[...nextauth]';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import 'tailwindcss/tailwind.css'
 
 // todo: this context is any pls don't do this ;-;
 export async function getServerSideProps(context: GetServerSidePropsContext) {

@@ -1,9 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
-
 .sidenav {
-  height: 67.5em;
+  height: 100vh;
   width: 17.5em;
   font-family: 'Montserrat', sans-serif;
+  overflow: hidden;
 }
 
 .header {
@@ -12,6 +11,7 @@
   justify-content: space-between;
   margin-left: 1.813em;
   margin-top: 1.938em;
+  color: #FFFFFF;
 }
 
 .header h1 {
@@ -36,7 +36,7 @@
   cursor: pointer;
   width: 1.5em;
   height: 1.5em;
-  padding-right: 1.438em;
+  margin-right: 1.438em;
 }
 
 .avatarDiv {
@@ -69,7 +69,7 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: black;
+  color: #FFFFFF;
 }
 
 .homeIcon,
@@ -87,7 +87,6 @@
   align-items: center;
   width: 3.5em;
   height: 3.5em;
-  background-color: #272727;
   border-radius: 6.25em;
 }
 
@@ -97,7 +96,7 @@
   align-items: center;
   width: 3.5em;
   height: 3.5em;
-  background-color: white;
+  background-color: transparent;
   border-radius: 6.25em;
 }
 
@@ -111,15 +110,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 29.875em;
+  height: 43%;
 }
 
 .graySection {
-  color: #FEFEFE;
-  background-color: #616161;
   display: flex;
   flex-direction: column;
   overflow-y: hidden;
+  height: 48%;
 }
 
 .graySection h1 {
@@ -130,6 +128,7 @@
   font-size: 1.25em;
   display: flex;
   align-items: baseline;
+  color: #FFFFFF;
 }
 
 .graySection h1 span {
@@ -141,11 +140,11 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  color: #FFFFFF;
   list-style: none;
   padding: 0;
   margin: 0;
   overflow-y: scroll;
-  height: 25em;
 }
 
 .graySection ul li {
@@ -160,14 +159,14 @@
 }
 
 .friendsAvatar {
-  background-color: white;
+  background-color: #EFEFEF;
   border-radius: 50%;
   height: 3.688em;
   width: 3.688em;
 }
 
 .userAvatar {
-  background-color: white;
+  background-color: #EFEFEF;
   border-radius: 50%;
   height: 3.688em;
   width: 3.688em;
@@ -176,7 +175,7 @@
 
 .blackSection {
   color: #FFFFFF;
-  background-color: #272727;
+  height: 9%;
 }
 
 .Sidenav_expand {
@@ -204,7 +203,6 @@
   cursor: pointer;
   outline: none;
   color: #FFFFFF;
-  background-color: #272727;
   border: none;
   border-style: none;
   font-size: 1em;
@@ -216,7 +214,7 @@
 .statusOnline {
   width: 1.063em;
   height: 1.063em;
-  background-color: #23A55A;
+  background-color: #95E265;
   border-radius: 50%;
   position: relative;
   top: 2.5em;

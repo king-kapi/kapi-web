@@ -1,0 +1,53 @@
+.PartyOptionsContainer{
+    font-family: 'Montserrat', sans-serif;
+    flex: 1 0 auto;
+}
+
+.Header {
+    position: relative;
+    display: inline-block;
+    font-size: 2.25rem;
+    font-weight: 600;
+    left: 20.75rem;
+    margin-top: 5rem;
+    margin-bottom: 3.5rem;
+}
+
+.ButtonsContainer {
+    position: relative;
+    width: 48.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.875rem;
+    left: 20.75rem;
+    margin-bottom: 5.25rem;
+}
+
+.PartyOption {
+    height: 10.625rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #FFFFFF;
+    background-color: #505050;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.PartyOptionName {
+    width: 26rem;
+    text-align: left;
+}
+
+.PartyOptionIcon {
+    margin-left: 3.125rem;
+}
+
+.PartyOptionArrow {
+    margin-right: 3.125rem;
+}
+

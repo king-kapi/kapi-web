@@ -1,5 +1,5 @@
 import { Collection, ObjectId } from 'mongodb';
-import Message from '../models/Message';
+import Message from '../types/Message';
 
 class MessagesCollection {
   constructor(private col: Collection) { }

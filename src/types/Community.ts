@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 import InterestTag from './InterestTag';
 
-type ServerCommunity = {
+type Community = {
   _id: ObjectId;
   name: string; // could be title as well
   // TODO: implement
@@ -10,4 +10,4 @@ type ServerCommunity = {
   interests: InterestTag[];
 };
 
-export default ServerCommunity;
+export default Community;

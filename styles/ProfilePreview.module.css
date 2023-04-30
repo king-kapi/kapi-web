@@ -1,0 +1,54 @@
+.ProfilePreviewContainer {
+  font-family: 'Montserrat', sans-serif;
+  width: 79.5rem;
+  background-color: #fdfdfd;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 7rem;
+  margin-top: 3rem;
+}
+
+.TitleContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.Reroll{
+  font-weight: 600;
+  font-size: 1.25rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+
+.TitleContainer h1 {
+  font-size: 2.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.TitleContainer h2 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.ServersContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 5.25rem;
+}
+
+
+.Vector {
+  height: 2.625rem;
+  width: 2.625rem;
+  margin-left: 2rem;
+}

@@ -1,0 +1,56 @@
+.GameWidgetContainer {
+    font-family: 'Poppins', sans-serif;
+    width: 22.5rem;
+    height: 25rem;
+    background-color: #fdfdfd;
+    margin: 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .625rem;
+}
+
+.TitleContainer {
+    color: black;
+    width: 17.375rem;
+}
+
+.Title {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.ContentContainer {
+    height: 15.875rem;
+    width: 17.375rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.GameContainer {
+    color: black;
+    transition: .8s;
+}
+
+.GameContainer:hover {
+    transform: scale(1.02);
+}
+
+.GameImg {
+    width: 7.5rem;
+    height: 5.375rem;
+}
+
+.Username {
+    margin-top: .625rem;
+    line-height: .75rem;
+    font-size: .75rem;
+}
+
+.Game {
+    font-size: .625rem;
+    margin-bottom: .625rem;
+}
