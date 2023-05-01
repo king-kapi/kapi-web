@@ -23,7 +23,7 @@ const theme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
-        textPrimary: 'color: #e2e4e9',
+        textPrimary: 'color: #fff',
         root: {
           ':disabled': {
             color: '#999',
@@ -147,7 +147,7 @@ const Chat = ({ chatId, user }: ChatBoxProps) => {
 
   return (
     <div style={{ backgroundColor: '#181818', color: 'white' }}>
-      <Stack direction={'column'} spacing={1}>
+      <Stack direction={'column'} spacing={1} overflow={'scroll'} maxHeight={'75vh'}>
         {messages.map((message, index) => (
           <MessageBubble
             message={message}
@@ -163,14 +163,16 @@ const Chat = ({ chatId, user }: ChatBoxProps) => {
           display: 'flex',
           alignItems: 'center',
           flex: 1,
-          mt: 3,
+          mt: 2,
           bgcolor: '#272a30',
           color: '#e2e4e9',
+          minHeight: '5%',
         }}
       >
         <InputBase
           sx={{ ml: 1, flex: 1, bgcolor: '#272a30', color: '#e2e4e9' }}
           placeholder="Message this lobby"
+          value={message}
           onChange={e => setMessage(e.target.value)}
         />
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
