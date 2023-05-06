@@ -15,10 +15,6 @@ import { ObjectId } from 'bson';
 import { useEffect, useRef, useState } from 'react';
 import { Socket, io } from 'socket.io-client';
 
-type ChatBoxProps = { chatId: ObjectId; user: User };
-
-type MessageBubbleProps = { message: Message; side: 'left' | 'right' };
-
 const theme = createTheme({
   components: {
     MuiButton: {
@@ -54,7 +50,10 @@ const BubbleBase: React.FC<{
   );
 };
 
-function MessageBubble({ message, side }: MessageBubbleProps): JSX.Element {
+const MessageBubble: React.FC<{ message: Message; side: 'left' | 'right' }> = ({
+  message,
+  side,
+}) => {
   return (
     <Stack width={'100%'} alignItems={side === 'right' ? 'end' : 'start'} direction={'column'}>
       <Stack
@@ -88,13 +87,14 @@ function MessageBubble({ message, side }: MessageBubbleProps): JSX.Element {
       </Stack>
     </Stack>
   );
-}
+};
 
-const Chat: React.FC<ChatBoxProps> = ({ chatId, user }) => {
+const Chat: React.FC<{ chatId: ObjectId; user: User }> = ({ chatId, user }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [message, setMessage] = useState('');
   const socketRef = useRef<Socket>();
   const socket = socketRef.current;
+  const endOfMessageStackRef = useRef<HTMLDivElement>(null); // dummy div used for auto scroll
 
   useEffect(() => {
     if (socketRef.current !== undefined) {
@@ -104,18 +104,22 @@ const Chat: React.FC<ChatBoxProps> = ({ chatId, user }) => {
     socketRef.current = newSocket;
     fetch(`/api/messages/${chatId.toString()}`)
       .then(res => res.json())
-      .then((messages: Message[]) => setMessages(messages));
+      .then((messages: Message[]) => {
+        setMessages(messages);
+      });
     newSocket.on(chatId.toString(), (message: Message) => {
       setMessages(messages => [...messages, message]);
     });
   }, [socket, chatId]);
 
-  // send messages
+  useEffect(() => {
+    endOfMessageStackRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
   const sendMessage = () => {
     if (socket === undefined) {
       return;
     }
-    console.log(`emitted message to ${chatId.toString()}`);
     socket.emit(chatId.toString(), {
       chatId,
       sender: user,
@@ -123,7 +127,7 @@ const Chat: React.FC<ChatBoxProps> = ({ chatId, user }) => {
       timestamp: Date.now(),
       metadata: {},
     });
-    setMessage(''); // clear input
+    setMessage('');
   };
 
   return (
@@ -136,6 +140,7 @@ const Chat: React.FC<ChatBoxProps> = ({ chatId, user }) => {
             side={message.sender._id.toString() === user._id.toString() ? 'right' : 'left'}
           />
         ))}
+        <div ref={endOfMessageStackRef} />
       </Stack>
       <Paper
         component="form"
@@ -156,9 +161,9 @@ const Chat: React.FC<ChatBoxProps> = ({ chatId, user }) => {
           value={message}
           onChange={e => setMessage(e.target.value)}
         />
-        <Divider sx={{ height: 28, m: 0.5, bgcolor:'#999' }} orientation="vertical" />
+        <Divider sx={{ height: 28, m: 0.5, bgcolor: '#999' }} orientation="vertical" />
         <ThemeProvider theme={theme}>
-          <Button sx={{ p:1 }} onClick={sendMessage} disabled={message.length === 0}>
+          <Button sx={{ p: 1 }} onClick={sendMessage} disabled={message.length === 0}>
             Send
           </Button>
         </ThemeProvider>
