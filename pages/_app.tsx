@@ -1,15 +1,15 @@
 import '@/styles/globals.css';
-import { GetServerSidePropsContext } from 'next';
+import { GetServerSideProps } from 'next';
 import { getServerSession } from 'next-auth/next';
 import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
 import { authOptions } from './api/auth/[...nextauth]';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import type { Session } from 'next-auth';
 
-// todo: this context is any pls don't do this ;-;
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+// ngl this still looks really ugly, but using the function syntax it's worse
+export const getServerSideProps: GetServerSideProps<{ session: Session }> = async context => {
   const session = await getServerSession(context.req, context.res, authOptions);
-
   if (!session) {
     return {
       redirect: {
@@ -18,20 +18,17 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     };
   }
-
   return {
     props: {
       session,
     },
   };
-}
-
-const queryClient = new QueryClient();
+};
 
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <SessionProvider session={session}>
-      <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={new QueryClient()}>
         <Component {...pageProps} />
       </QueryClientProvider>
     </SessionProvider>

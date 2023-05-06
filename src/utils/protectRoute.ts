@@ -1,22 +1,23 @@
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
-import { getServerSession } from "next-auth";
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import { GetServerSideProps } from 'next';
+import { getServerSession } from 'next-auth';
+import UserProfile from '../types/UserProfile';
 
-export default async function protectedGetServerSideProps(context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<object>> {
+const protectedGetServerSideProps: GetServerSideProps<{ user: UserProfile }> = async context => {
   const session = await getServerSession(context.req, context.res, authOptions);
-
   if (!session) {
     return {
       redirect: {
         destination: '/signin',
-        permanent: false
-      }
-    }
+        permanent: false,
+      },
+    };
   }
-
   return {
     props: {
-      user: JSON.parse(JSON.stringify(session.user))
-    }
-  }
-}
+      user: session.user,
+    },
+  };
+};
+
+export default protectedGetServerSideProps;
