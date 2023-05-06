@@ -1,11 +1,12 @@
-import '@/styles/globals.css';
-import { GetServerSidePropsContext } from 'next';
-import { getServerSession } from 'next-auth/next';
-import { SessionProvider } from 'next-auth/react';
-import type { AppProps } from 'next/app';
-import { authOptions } from './api/auth/[...nextauth]';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import 'tailwindcss/tailwind.css'
+import "@/styles/globals.css";
+import { GetServerSidePropsContext } from "next";
+import { getServerSession } from "next-auth/next";
+import { SessionProvider } from "next-auth/react";
+import type { AppProps } from "next/app";
+import { authOptions } from "./api/auth/[...nextauth]";
+import { QueryClient, QueryClientProvider } from "react-query";
+import "tailwindcss/tailwind.css";
+import Layout from "@/components/Layout";
 
 // todo: this context is any pls don't do this ;-;
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -14,16 +15,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (!session) {
     return {
       redirect: {
-        destination: '/login',
-        permanent: false,
-      },
+        destination: "/login",
+        permanent: false
+      }
     };
   }
 
   return {
     props: {
-      session,
-    },
+      session
+    }
   };
 }
 
@@ -33,7 +34,9 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
   return (
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </QueryClientProvider>
     </SessionProvider>
   );
