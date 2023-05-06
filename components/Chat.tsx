@@ -34,13 +34,10 @@ const theme = createTheme({
   },
 });
 
-function BubbleBase({
-  side,
-  children,
-}: {
+const BubbleBase: React.FC<{
   side: 'left' | 'right';
   children: React.ReactNode;
-}): JSX.Element {
+}> = ({ side, children }) => {
   const rightBorderRadius = '10px 10px 3px 10px';
   const leftBorderRadius = '10px 10px 10px 3px';
   return (
@@ -55,7 +52,7 @@ function BubbleBase({
       {children}
     </div>
   );
-}
+};
 
 function MessageBubble({ message, side }: MessageBubbleProps): JSX.Element {
   return (
@@ -93,38 +90,22 @@ function MessageBubble({ message, side }: MessageBubbleProps): JSX.Element {
   );
 }
 
-const Chat = ({ chatId, user }: ChatBoxProps) => {
+const Chat: React.FC<ChatBoxProps> = ({ chatId, user }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [message, setMessage] = useState('');
   const socketRef = useRef<Socket>();
   const socket = socketRef.current;
 
-  // initialize socket
   useEffect(() => {
     if (socketRef.current !== undefined) {
       return;
     }
-
     const newSocket: Socket<ServerToClientEvents> = io();
     socketRef.current = newSocket;
-
-    console.log(`Listening to ${chatId.toString()}`);
-
-    newSocket.on('connect', () => {
-      console.log(`connected ${newSocket.id}`);
-    });
-
-    // fetch previous messages
     fetch(`/api/messages/${chatId.toString()}`)
       .then(res => res.json())
-      .then((messages: Message[]) => {
-        console.log('Fetched previous messages:', messages);
-        setMessages(messages);
-      });
-
-    // listen for new messages
+      .then((messages: Message[]) => setMessages(messages));
     newSocket.on(chatId.toString(), (message: Message) => {
-      console.log('Received message:', message);
       setMessages(messages => [...messages, message]);
     });
   }, [socket, chatId]);
@@ -146,7 +127,7 @@ const Chat = ({ chatId, user }: ChatBoxProps) => {
   };
 
   return (
-    <div style={{ backgroundColor: '#181818', color: 'white' }}>
+    <div style={{ backgroundColor: '#181818', color: 'white', padding: 10 }}>
       <Stack direction={'column'} spacing={1} overflow={'scroll'} maxHeight={'75vh'}>
         {messages.map((message, index) => (
           <MessageBubble
@@ -175,9 +156,9 @@ const Chat = ({ chatId, user }: ChatBoxProps) => {
           value={message}
           onChange={e => setMessage(e.target.value)}
         />
-        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+        <Divider sx={{ height: 28, m: 0.5, bgcolor:'#999' }} orientation="vertical" />
         <ThemeProvider theme={theme}>
-          <Button sx={{ p: '10px' }} onClick={sendMessage} disabled={message.length === 0}>
+          <Button sx={{ p:1 }} onClick={sendMessage} disabled={message.length === 0}>
             Send
           </Button>
         </ThemeProvider>
