@@ -22,7 +22,7 @@ export default function LobbyMemberList() {
           Jane's Lobby <span>/ League of Legends</span>
         </h1>
         <button
-          className={[styles.LeaveButton, 'bg-neutralBg hover:bg-blue-120 active:bg-blue-90'].join(
+          className={[styles.LeaveButton, 'bg-mediumGrey hover:bg-blue-120 active:bg-blue-90'].join(
             ' '
           )}
         >
@@ -49,7 +49,7 @@ export default function LobbyMemberList() {
       <div className={styles.Tags}>
         {' '}
         {tags.map(tag => {
-          return <div key={tag} className={[styles.Tag, 'bg-neutralBg'].join(' ')}>{tag}</div>;
+          return <div key={tag} className={[styles.Tag, 'bg-mediumGrey'].join(' ')}>{tag}</div>;
         })}
       </div>
       <div className={styles.MemberCountContainer}>
@@ -110,7 +110,7 @@ export default function LobbyMemberList() {
           </svg>
           <select
             name="view"
-            className={[styles.View, 'bg-primaryBg'].join(' ')}
+            className={[styles.View, 'bg-black'].join(' ')}
             id="view"
             onChange={e => handleChange(e)}
           >

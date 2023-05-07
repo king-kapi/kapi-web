@@ -19,7 +19,7 @@
 
 .Question {
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: 3rem;
 }
 
@@ -27,7 +27,6 @@
     width: 45.5rem;
     height: 22.125rem;
     font-size: 1.5rem;
-    background-color: #F4F4F4;
     border: none;
     border-radius: 10px;
     resize: none;
@@ -35,8 +34,6 @@
 }
 
 .TextBox::placeholder {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 400;
-    color: #000000;
-    opacity: 30%;
 }

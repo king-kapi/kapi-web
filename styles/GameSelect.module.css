@@ -1,58 +1,64 @@
-.GameSelectContainer{
-    font-family: 'Montserrat', sans-serif;
-    position: relative;
-    width: 48.5rem;
-    top: 3rem;
-    left: 20.75rem;
+.GameSelectContainer {
+  font-family: 'Montserrat', sans-serif;
+  position: relative;
+  width: 48.5rem;
+  top: 10rem;
+  left: 24rem;
 }
 
 .Header {
-    font-size: 2.25rem;
-    font-weight: 600;
+  font-size: 2rem;
+  font-weight: 600;
 }
 
-.SubHeader {
-    font-size: 1.5rem;
-    font-weight: 500;
-    margin-bottom: 3rem;
-}
-
-.Question {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 3rem;
+.Games {
+  height: 20rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 3.125rem;
 }
 
 .Game {
-    font-size: 1.5rem;
-    font-weight: 600; 
+  font-size: 1rem;
+  font-weight: 600;
+  height: 5.625rem;
+  width: 22.5rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.563rem;
+  border-radius: 10px;
+}
+
+.GameImg {
+  height: 5.625rem;
+  width: 8.688rem;
+}
+
+.Game input[type='checkbox'] {
+  height: 0;
+  width: 0;
+}
+
+.Game input[type='text'] {
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 20px;
+  background-color: #efefef;
+  border: none;
+  padding-left: 1.25rem;
+}
+
+.Next {
+    position: fixed;
+    width: 7.5rem;
+    height: 2.75rem;
+    font-size: .9rem;
+    font-weight: 400;
+    left: 82.875rem;
+    bottom: 4rem;
+    border-radius: 5px;
     display: flex;
     align-items: center;
-    margin-left: 2rem;
-    margin-bottom: 2.5rem;
-}
-
-.Game input[type=checkbox] {
-    height: 2rem;
-    width: 2rem;
-    border-radius: 5px;
-    background-color: #D9D9D9;
-    margin-right: 4.75rem;
-}
-
-.Game input[type=text] {
-    width: 26.75rem;
-    height: 2.5rem;
-    font-size: 1rem;
-    border-radius: 20px;
-    background-color: #EFEFEF;
-    border: none;
-    padding-left: 1.25rem;
-}
-
-.Game input[type=text]::placeholder {
-    font-size: 1rem;
-    color: #000000;
-    opacity: 50%;
-    font-weight: 400;
+    justify-content: center;
 }

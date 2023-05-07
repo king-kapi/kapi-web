@@ -17,10 +17,6 @@
     text-decoration: none;
 }
 
-.PartyFinder:visited {
-    color: #000000;
-}
-
 .BackArrow {
     margin-right: .75rem;
     cursor: pointer;
@@ -28,28 +24,31 @@
 
 .Next {
     position: absolute;
-    font-size: 1.5rem;
-    font-weight: 600;
-    text-decoration: underline;
+    width: 7.5rem;
+    height: 2.75rem;
+    font-size: .9rem;
+    font-weight: 400;
     left: 82.875rem;
-    bottom: 4.5rem;
+    bottom: 4rem;
     cursor: pointer;
-}
-
-.Next:visited {
-    color: #000000;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
 }
 
 .Back {
     position: absolute;
-    font-size: 1.5rem;
-    font-weight: 600;
-    text-decoration: underline;
-    left: 38.5rem;
+    left: 41.5rem;
     bottom: 4.5rem;
     cursor: pointer;
-}
-
-.Back:visited {
-    color: #000000;
+    width: 7.5rem;
+    height: 2.75rem;
+    font-size: .9rem;
+    border-radius: 5px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
