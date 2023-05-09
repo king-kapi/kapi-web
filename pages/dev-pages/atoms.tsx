@@ -47,12 +47,19 @@ const ColorThemes = () => {
 
       <div>
         <h3 className={"text-xl"}>Buttons</h3>
-        <Button>Small Button</Button>
-        <Button className={"ml-2"} size={"large"}>Large Button</Button>
-        <br />
-        <h4 className={"mt-4"}>Secondary</h4>
-        <Button type={"secondary"}>Small Button</Button>
-        <Button type={"secondary"} className={"ml-2"} size={"large"}>Large Button</Button>
+        <div className={"flex gap-4"}>
+          <div>
+            <h4>Primary</h4>
+            <Button>Small Button</Button> <br />
+            <Button size={"large"} className={"mt-2"}>Large Button</Button>
+          </div>
+
+          <div>
+            <h4>Secondary</h4>
+            <Button type={"secondary"}>Small Button</Button> <br />
+            <Button type={"secondary"} size={"large"} className={"mt-2"}>Large Button</Button>
+          </div>
+        </div>
       </div>
     </main>
   )
