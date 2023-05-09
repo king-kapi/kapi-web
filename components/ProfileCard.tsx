@@ -1,19 +1,19 @@
 import styles from '../styles/ProfileCard.module.css'
+import { useState } from 'react'
 
 export default function ProfileCard() {
+    const [mode, setMode] = useState('dark')
+    const tags = [{name: 'World of WarCraft', border: false},{name: 'League of Legends', border: false},{name: 'POC Gamer', border: true},{name: 'Non-Binary', border: true},{name: 'NA Region', border: false},{name: 'PST - Time Zone', border: false}]
     return (
-        <div className={styles.ProfileCardContainer}>
+        <div className={[styles.ProfileCardContainer, `theme-${mode} bg-mediumGrey text-textColor`].join(' ')}>
             <div className={styles.Avatar}></div>
             <h1 className={styles.Username}>WoWPlayer123</h1>
             <div className={styles.Tags}>
-                    <h3 className={styles.Tag}>World of WarCraft</h3>
-                    <h3 className={styles.Tag}>League of Legends</h3>
-                    <h3 className={styles.Tag}>POC Gamer</h3>
-                    <h3 className={styles.Tag}>Non-Binary</h3>
-                    <h3 className={styles.Tag}>NA Region</h3>
-                    <h3 className={styles.Tag}>PST - Time Zone</h3>
+                {tags.map(tag => {
+                    return(<h3 className={[styles.Tag, tag.border ? styles.GradientBorder : ''].join(' ')}>{tag.name}</h3>)
+                })}
             </div>
-            <button className={styles.Button}>View Profile</button>
+            <button className={[styles.Button, 'bg-blue-100'].join(' ')}>View Profile</button>
         </div>
     )
 }

@@ -76,7 +76,7 @@ function SideNav() {
       ::-webkit-scrollbar-thumb:hover {
         background: #333333;
       }`}</style>
-        <section className={[styles.whiteSection, 'bg-secondaryBg'].join(" ")}>
+        <section className={[styles.whiteSection, 'bg-darkGrey'].join(" ")}>
           <span className={styles.header}>
             <div className={styles.avatarDiv}>
               <div>
@@ -131,12 +131,12 @@ function SideNav() {
             </a>
           </div>
         </section>
-        <section className={[styles.graySection, 'bg-neutralBg'].join(" ")}>
+        <section className={[styles.graySection, 'bg-mediumGrey'].join(" ")}>
           <h1>
             Friends - <span>9/26</span>
           </h1>
         </section>
-        <section className={[styles.blackSection, 'bg-secondaryBg'].join(" ")}>
+        <section className={[styles.blackSection, 'bg-darkGrey'].join(" ")}>
           <div className={styles.statusContainer}>
             <div className={styles.userAvatar}>
               <div className={getCurrentStatus()}></div>
@@ -183,7 +183,7 @@ function SideNav() {
         ::-webkit-scrollbar-thumb:hover {
           background: #333333;
         }`}</style>
-      <section className={[styles.whiteSection, 'bg-secondaryBg'].join(" ")}>
+      <section className={[styles.whiteSection, 'bg-darkGrey'].join(" ")}>
         <span className={styles.header}>
           <div className={styles.avatarDiv}>
             <div>
@@ -238,8 +238,8 @@ function SideNav() {
           </a>
         </div>
       </section>
-      <section className={[styles.graySection, 'bg-neutralBg'].join(" ")}>{fetchFriends()}</section>
-      <section className={[styles.blackSection, 'bg-secondaryBg'].join(" ")}>
+      <section className={[styles.graySection, 'bg-mediumGrey'].join(" ")}>{fetchFriends()}</section>
+      <section className={[styles.blackSection, 'bg-darkGrey'].join(" ")}>
         <div className={styles.statusContainer}>
           <div className={styles.userAvatar}>
             <div className={getCurrentStatus()}></div>
@@ -248,7 +248,7 @@ function SideNav() {
             {fetchUser()}
             <select
               name="status"
-              className={[styles.status, 'bg-secondaryBg'].join(" ")}
+              className={[styles.status, 'bg-darkGrey'].join(" ")}
               id="status"
               onChange={e => handleChange(e)}
             >

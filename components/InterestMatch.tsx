@@ -21,7 +21,7 @@ export default function InterestMatch() {
         We want to ask you a few questions to find people based on your preferences.
       </h3>
       <h2 className={styles.Question}>
-        2. Do you want to be matched with someone based on your profile?
+        1. Do you want to be matched with someone based on your profile?
       </h2>
       <h2 className={styles.SubHeader} style={{ marginLeft: "1.5rem" }}>
         i.e, age, gender and sexual identity, ethnography, etc.
@@ -37,6 +37,7 @@ export default function InterestMatch() {
           No, it does not matter based on my profile
         </label>
       </div>
+      <button className={[styles.Next, (findBuddy === -1) ? 'bg-mediumGrey z-10' : 'display-none z-0'].join(' ')}>Next</button>
     </div>
   );
 }

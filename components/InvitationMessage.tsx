@@ -8,10 +8,10 @@ export default function InvitationMessage() {
         <h3 className={styles.SubHeader}>
           We want to ask you a few questions to find people based on your preferences.
         </h3>
-        <h2 className={styles.Question}>4. Edit Invitation Message? (Optional)</h2>
+        <h2 className={styles.Question}>3. Edit Invitation Message? (Optional)</h2>
       </div>
       <textarea
-        className={styles.TextBox}
+        className={[styles.TextBox, 'bg-mediumGrey placeholder-textColor'].join(' ')}
         placeholder="Hi ____, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
       ></textarea>
     </div>
