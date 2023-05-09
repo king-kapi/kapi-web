@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import Button from "@/components/Button";
 import DevLayout from "@/components/layouts/DevLayout";
 import { Icons } from "@/components/Icon";
+import Tag from "@/components/Tag";
 
 const AtomsPage = () => {
   const [theme, setTheme] = useState("pink");
 
   return (
-    <main className={`theme-${theme}`}>
+    <main className={`theme-${theme} pb-16`}>
 
       <h1>
         Atoms
@@ -62,9 +63,24 @@ const AtomsPage = () => {
         </div>
       </div>
 
-      <div>
-        <h3 className={"mt-8"}>Tags</h3>
-
+      <h3 className={"mt-8"}>Tags</h3>
+      <div className={"flex gap-4"}>
+        <div className={"mt-2"}>
+          <h4>Large</h4>
+          <div className={"flex gap-2 mt-1"}>
+            <Tag>Tag Name</Tag>
+            <Tag icon={true}>Tag Name</Tag>
+            <Tag border={true} icon={false}>Tag Name</Tag>
+          </div>
+        </div>
+        <div className={"mt-2"}>
+          <h4>Small</h4>
+          <div className={"flex gap-2 mt-1"}>
+            <Tag size={"small"}>Tag Name</Tag>
+            <Tag size={"small"} icon={true}>Tag Name</Tag>
+            <Tag size={"small"} border={true} icon={false}>Tag Name</Tag>
+          </div>
+        </div>
       </div>
     </main>
   );
