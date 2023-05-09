@@ -1,7 +1,7 @@
 .Button {
     @apply font-medium;
     font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
+    font-size: 1rem;
     border-radius: 5px;
     height: 48px;
     transition: background-color 40ms;

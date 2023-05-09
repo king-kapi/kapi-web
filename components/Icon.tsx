@@ -1,7 +1,8 @@
 import styles from "@/styles/Icon.module.css";
 import Image from "next/image";
+import React from "react";
 
-type IconDef = {
+export type IconDef = {
   src: string,
   height: number,
   width: number
@@ -33,8 +34,12 @@ export const Icons: { [key: string]: IconDef } = {
   "TOGGLE_VERTICAL": { "src": "/icons/toggle_vertical.svg", "width": 24, "height": 24 }
 };
 
-const Icon = ({ icon }: { icon: IconDef }) => {
-  return <div className={styles.Icon}>
+export interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
+  icon: IconDef
+}
+
+const Icon = ({ icon, ...props }: IconProps) => {
+  return <div className={styles.Icon} {...props}>
     <Image {...icon} alt={icon.src}/>
   </div>;
 };
