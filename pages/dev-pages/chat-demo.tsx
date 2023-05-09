@@ -4,6 +4,7 @@ import UserProfile from "@/src/types/UserProfile";
 import protectedGetServerSideProps from "@/src/utils/protectRoute";
 import { ObjectID } from "bson";
 import React, { useState } from "react";
+import Link from "next/link";
 
 export const getServerSideProps = protectedGetServerSideProps;
 
@@ -18,7 +19,13 @@ const ChatDemo = ({ user }: { user: UserProfile }) => {
   }
 
   return (
-    <div>
+    <main className={"p-8"}>
+      <Link href={"/dev-pages"}>
+        <button>
+          Back
+        </button>
+      </Link>
+
       <h1>Chat Demo</h1>
 
       <div>Currently logged in as <b>{user.email}</b></div><br />
@@ -32,7 +39,7 @@ const ChatDemo = ({ user }: { user: UserProfile }) => {
       </form>
 
       {chatId ? <Chat chatId={chatId} user={toUser(user)} /> : <></>}
-    </div>
+    </main>
   )
 }
 

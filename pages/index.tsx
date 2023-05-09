@@ -24,28 +24,6 @@ export default function Home() {
         <Link href={"/dev-pages"}>
           <Button>See Dev Pages</Button>
         </Link>
-
-        <h3 className={"mt-8"}>Deprecated</h3>
-
-        <p>These should be moved into the dev page :)</p>
-
-        <Link href={"/components"}>
-          <Button type={"secondary"}>See components page</Button>
-        </Link>
-
-        <br/>
-        <br/>
-
-        <Link href={"/chat-demo"}>
-          <Button type={"secondary"}>See chat demo</Button>
-        </Link>
-
-        <br/>
-        <br/>
-
-        <Link href={"/party-finder/test"}>
-          <Button type={"secondary"}>See Party Finder Backend Tests</Button>
-        </Link>
       </main>
     </>
   );
