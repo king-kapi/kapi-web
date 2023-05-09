@@ -2,7 +2,7 @@ import "@/styles/globals.css";
 import { GetServerSidePropsContext } from "next";
 import { getServerSession } from "next-auth/next";
 import { SessionProvider } from "next-auth/react";
-import type { AppProps } from "next/app";
+import { AppContext, AppInitialProps, AppLayoutProps } from "next/app";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { QueryClient, QueryClientProvider } from "react-query";
 import React, { ReactNode } from "react";
@@ -30,8 +30,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
 const queryClient = new QueryClient();
 
-export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-  const getLayout = Component.getLayout || ((page: ReactNode) => <Layout>{page}</Layout>);
+export default function App({ Component, pageProps: { session, ...pageProps } }: AppLayoutProps) {
+  const getLayout = Component.getLayout || Layout.getLayout;
 
   return (
     <SessionProvider session={session}>

@@ -5,6 +5,7 @@ import protectedGetServerSideProps from "@/src/utils/protectRoute";
 import { ObjectID } from "bson";
 import React, { useState } from "react";
 import Link from "next/link";
+import DevLayout from "@/components/layouts/DevLayout";
 
 export const getServerSideProps = protectedGetServerSideProps;
 
@@ -42,5 +43,7 @@ const ChatDemo = ({ user }: { user: UserProfile }) => {
     </main>
   )
 }
+
+ChatDemo.getLayout = DevLayout.getLayout("/dev-pages");
 
 export default ChatDemo;

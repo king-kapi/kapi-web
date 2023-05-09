@@ -1,5 +1,6 @@
 import styles from "@/styles/layout.module.css";
 import SideNav from "@/components/SideNav";
+import React, { ReactNode } from "react";
 
 const Layout = ({ children }: React.PropsWithChildren) => {
   return (
@@ -13,5 +14,11 @@ const Layout = ({ children }: React.PropsWithChildren) => {
     </div>
   );
 };
+
+Layout.getLayout = (page: ReactNode) => (
+  <Layout>
+    {page}
+  </Layout>
+);
 
 export default Layout;

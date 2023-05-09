@@ -1,17 +1,12 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import Button from "@/components/Button";
+import DevLayout from "@/components/layouts/DevLayout";
 
-const ColorThemes = () => {
+const AtomsPage = () => {
   const [theme, setTheme] = useState("pink");
 
   return (
-    <main className={["p-8", `theme-${theme}`].join(" ")}>
-      <Link href={"/dev-pages"}>
-        <button>
-          Back
-        </button>
-      </Link>
+    <main className={`theme-${theme}`}>
 
       <h1>
         Atoms
@@ -67,8 +62,9 @@ const ColorThemes = () => {
 
       </div>
     </main>
-  )
-    ;
+  );
 };
 
-export default ColorThemes;
+AtomsPage.getLayout = DevLayout.getLayout("/dev-pages");
+
+export default AtomsPage;

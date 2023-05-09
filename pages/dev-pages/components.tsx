@@ -1,11 +1,9 @@
 import { AchievementsWidget } from "@/components/AchievementsWidget";
 import CustomizeDashboard from "@/components/CustomizeDashboard";
 import { InterestsWidget } from "@/components/InterestsWidget";
-import LoginStatus from "@/components/LoginStatus";
 import { NotificationsWidget } from "@/components/NotificationsWidget";
 import { Notification } from "@/src/types/Notification";
 import { GameWidget } from "@/components/GameWidget";
-import Head from "next/head";
 import NotificationBubble from "../../components/NotificationBubble";
 import SearchBar from "../../components/SearchBar";
 import SideNav from "../../components/SideNav";
@@ -16,8 +14,9 @@ import { ProfilePreview } from "@/components/ProfilePreview";
 import ProfileCard from "@/components/ProfileCard";
 import Link from "next/link";
 import React from "react";
+import DevLayout from "@/components/layouts/DevLayout";
 
-export default function Components() {
+function Components() {
   const notifications: Notification[] = [
     {
       icon: "mingcute:trophy-fill",
@@ -45,13 +44,7 @@ export default function Components() {
     }
   ];
   return (
-    <main className={"p-8"}>
-      <Link href={"/dev-pages"}>
-        <button>
-          Back
-        </button>
-      </Link>
-
+    <main>
       <h1 className={"mb-8"}>Various Components</h1>
 
       <SideNav />
@@ -72,3 +65,7 @@ export default function Components() {
     </main>
   );
 }
+
+Components.getLayout = DevLayout.getLayout("/dev-pages");
+
+export default Components;

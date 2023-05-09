@@ -1,12 +1,10 @@
 import React from "react";
 import Link from "next/link";
 import Button from "@/components/Button";
+import DevLayout from "@/components/layouts/DevLayout";
 
 const DevPages = () => {
-  return <main className={"p-8"}>
-    <Link href={"/"}>
-      <button>Back</button>
-    </Link>
+  return <main>
     <h1>
       Dev Pages
     </h1>
@@ -65,5 +63,7 @@ const DevPages = () => {
     </Link>
   </main>;
 };
+
+DevPages.getLayout = DevLayout.getLayout("/");
 
 export default DevPages;

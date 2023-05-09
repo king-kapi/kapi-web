@@ -1,17 +1,12 @@
 import React from "react";
-import Link from "next/link";
+import DevLayout from "@/components/layouts/DevLayout";
 
 const Colors = () => {
   const colors = ["pink", "blue", "cyan", "yellow"];
   const shades = [900, 800, 700, 600, 500, 400, 300, 200, 100];
 
   return (
-    <main style={{ backgroundColor: "#181818" }} className={"p-8"}>
-      <Link href={"/dev-pages"}>
-        <button>
-          Back
-        </button>
-      </Link>
+    <main>
       <h1 className={"text-3xl"}>Colors</h1>
       <div className={"grid grid-cols-4"} style={{ backgroundColor: "#181818", width: 640 }}>
         {colors.map((color) =>
@@ -29,5 +24,7 @@ const Colors = () => {
     </main>
   );
 };
+
+Colors.getLayout = DevLayout.getLayout("/dev-pages");
 
 export default Colors;

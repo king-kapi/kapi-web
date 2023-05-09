@@ -1,20 +1,18 @@
 import React, { ReactNode } from "react";
-import Layout from "@/components/layouts/Layout";
+import styles from "@/styles/EmptyLayout.module.css";
 
 const EmptyLayout = ({ children }: React.PropsWithChildren) => {
   return (
-    <div className={"theme-dark theme-blue bg-black dark:text-white"}>
+    <div className={[styles.EmptyLayout, "theme-dark theme-blue bg-black dark:text-white"].join(" ")}>
       {children}
     </div>
   );
 };
 
-export function getLayout(page: ReactNode) {
-  return (
-    <EmptyLayout>
-      {page}
-    </EmptyLayout>
-  );
-}
+EmptyLayout.getLayout = (page: ReactNode) => (
+  <EmptyLayout>
+    {page}
+  </EmptyLayout>
+);
 
 export default EmptyLayout;

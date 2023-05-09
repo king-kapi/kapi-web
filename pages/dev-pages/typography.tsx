@@ -1,15 +1,9 @@
 import React from "react";
 import Link from "next/link";
+import DevLayout from "@/components/layouts/DevLayout";
 
 const TypographyPage = () => (
-  <main className={"p-8"}>
-
-    <Link href={"/dev-pages"}>
-      <button>
-        Back
-      </button>
-    </Link>
-
+  <main>
     <h1>
       Typography
     </h1>
@@ -72,4 +66,5 @@ const TypographyPage = () => (
   </main>
 );
 
+TypographyPage.getLayout = DevLayout.getLayout("/dev-pages");
 export default TypographyPage;
