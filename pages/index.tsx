@@ -1,8 +1,10 @@
-import LoginStatus from '@/components/LoginStatus';
-import protectedGetServerSideProps from '@/src/utils/protectRoute';
-import Head from 'next/head';
+import LoginStatus from "@/components/LoginStatus";
+import protectedGetServerSideProps from "@/src/utils/protectRoute";
+import Head from "next/head";
 
-import Link from 'next/link';
+import Link from "next/link";
+import React from "react";
+import Button from "@/components/Button";
 
 export const getServerSideProps = protectedGetServerSideProps;
 
@@ -15,26 +17,34 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <main className={"p-8"}>
         <LoginStatus />
-        <h1>Hello! You are currently looking at a protected route</h1>
-        
-        <Link href={"/components"}>
-          <button>See components page</button>
+        <h2 className={"mt-4"}>Hello! You are currently looking at a protected route</h2>
+
+        <Link href={"/dev-pages"}>
+          <Button>See Dev Pages</Button>
         </Link>
-        
+
+        <h3 className={"mt-8"}>Deprecated</h3>
+
+        <p>These should be moved into the dev page :)</p>
+
+        <Link href={"/components"}>
+          <Button type={"secondary"}>See components page</Button>
+        </Link>
+
         <br/>
         <br/>
 
         <Link href={"/chat-demo"}>
-          <button>See chat demo</button>
+          <Button type={"secondary"}>See chat demo</Button>
         </Link>
 
         <br/>
         <br/>
 
         <Link href={"/party-finder/test"}>
-          <button>See Party Finder Backend Tests</button>
+          <Button type={"secondary"}>See Party Finder Backend Tests</Button>
         </Link>
       </main>
     </>

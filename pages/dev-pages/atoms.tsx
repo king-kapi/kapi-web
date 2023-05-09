@@ -13,7 +13,7 @@ const ColorThemes = () => {
         </button>
       </Link>
 
-      <h1 className={"text-4xl"}>
+      <h1>
         Atoms
       </h1>
 
@@ -21,7 +21,7 @@ const ColorThemes = () => {
         Page for demonstrating the components and color themes associated
       </p>
 
-      <h3 className={"text-xl mt-4"}>
+      <h3 className={"mt-4"}>
         Select Theme
       </h3>
       <div className={"flex mb-16 gap-2"}>
@@ -46,7 +46,7 @@ const ColorThemes = () => {
       </div>
 
       <div>
-        <h3 className={"text-xl"}>Buttons</h3>
+        <h3>Buttons</h3>
         <div className={"flex gap-4"}>
           <div>
             <h4>Primary</h4>
@@ -60,6 +60,11 @@ const ColorThemes = () => {
             <Button type={"secondary"} size={"large"} className={"mt-2"}>Large Button</Button>
           </div>
         </div>
+      </div>
+
+      <div>
+        <h3 className={"mt-8"}>Tags</h3>
+
       </div>
     </main>
   )

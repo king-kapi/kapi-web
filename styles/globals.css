@@ -105,44 +105,46 @@
 }
 
 /* in accordance with design specs */
-h1, h2, h3, h4, h5, h6,
-body,
-p, strong, small {
-    font-family: 'Montserrat', sans-serif;
-}
+@layer base {
+    h1, h2, h3, h4, h5, h6,
+    body,
+    p, strong, small {
+        font-family: 'Montserrat', sans-serif;
+    }
 
-h1 {
-    @apply font-semibold;
-    font-size: 2.25rem; /* 36px */
-}
+    h1 {
+        @apply font-semibold text-4xl;
+        font-size: 2.25rem; /* 36px */
+    }
 
-h2 {
-    @apply font-semibold;
-    font-size: 2rem; /* 32px */
-}
+    h2 {
+        @apply font-semibold;
+        font-size: 2rem; /* 32px */
+    }
 
-h3 {
-    @apply font-semibold;
-    font-size: 1.5rem;
-}
+    h3 {
+        @apply font-semibold;
+        font-size: 1.5rem;
+    }
 
-h4 {
-    @apply font-normal;
-    font-size: 1.25rem;
-}
+    h4 {
+        @apply font-normal;
+        font-size: 1.25rem;
+    }
 
-body, p, strong, small {
-    font-size: 1rem;
-}
+    body, p, strong, small {
+        font-size: 1rem;
+    }
 
-body, p {
-    @apply font-medium;
-}
+    body, p {
+        @apply font-medium;
+    }
 
-strong {
-    @apply font-semibold;
-}
+    strong {
+        @apply font-semibold;
+    }
 
-small {
-    @apply font-normal;
+    small {
+        @apply font-normal;
+    }
 }

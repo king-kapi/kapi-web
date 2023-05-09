@@ -3,7 +3,7 @@ import SideNav from "@/components/SideNav";
 
 const Layout = ({ children }: React.PropsWithChildren) => {
   return (
-    <div className={[styles.Layout, "theme-dark", "bg-black", "dark:text-white"].join(" ")}>
+    <div className={[styles.Layout, "theme-dark", "theme-blue", "bg-black", "dark:text-white"].join(" ")}>
       <div className={styles.LayoutNavWrapper}>
         <SideNav />
       </div>
