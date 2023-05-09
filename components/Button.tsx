@@ -1,6 +1,4 @@
 import React from "react";
-import Themes from "@/src/types/Themes";
-
 import styles from "@/styles/Button.module.css";
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
@@ -8,6 +6,7 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   type?: "primary" | "secondary",
   size?: "small" | "large",
   icon?: string,
+  iconProps?: any,
   className?: string,
 }
 
@@ -16,6 +15,7 @@ const Button = ({
                   type = "primary",
                   size = "small",
                   icon,
+                  iconProps,
                   htmlType,
                   className,
                   ...props
@@ -29,9 +29,12 @@ const Button = ({
         "bg-grey hover:bg-mediumGrey active:bg-pressedGrey",
       className
     ].join(" ")}
-      type={htmlType}
+            type={htmlType}
             {...props}
     >
+      {icon ?
+        <Icon icon={icon} {...iconProps} />
+        : <></>}
       {children}
     </button>
   );

@@ -5,7 +5,8 @@ import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { QueryClient, QueryClientProvider } from "react-query";
-import Layout from "@/components/Layout";
+import React, { ReactNode } from "react";
+import Layout from "@/components/layouts/Layout";
 
 // todo: this context is any pls don't do this ;-;
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -30,12 +31,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+  const getLayout = Component.getLayout || ((page: ReactNode) => <Layout>{page}</Layout>);
+
   return (
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        {getLayout(<Component {...pageProps} />)}
       </QueryClientProvider>
     </SessionProvider>
   );

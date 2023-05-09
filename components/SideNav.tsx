@@ -1,8 +1,8 @@
-import { Icon } from '@iconify/react';
-import styles from '@/styles/Sidenav.module.css';
-import React, { useState } from 'react';
-import { useQuery } from 'react-query';
-import { useRouter } from 'next/router'
+import { Icon } from "@iconify/react";
+import styles from "@/styles/Sidenav.module.css";
+import React, { useState } from "react";
+import { useQuery } from "react-query";
+import { useRouter } from "next/router";
 
 function SideNav() {
   const [onlineStatus, setOnlineStatus] = useState('1');

@@ -4,6 +4,9 @@ import Button from "@/components/Button";
 
 const DevPages = () => {
   return <main className={"p-8"}>
+    <Link href={"/"}>
+      <button>Back</button>
+    </Link>
     <h1>
       Dev Pages
     </h1>
@@ -17,19 +20,27 @@ const DevPages = () => {
       </Button>
     </Link>
 
-    <br/>
+    <br />
 
-    <Link href={"/dev-pages/atoms"}>
+    <Link href={"/dev-pages/icons"}>
       <Button className={"mt-2"}>
-        Atoms
+        Icons
       </Button>
     </Link>
 
-    <br/>
+    <br />
 
     <Link href={"/dev-pages/typography"}>
       <Button className={"mt-2"}>
         Typography
+      </Button>
+    </Link>
+
+    <br />
+
+    <Link href={"/dev-pages/atoms"}>
+      <Button className={"mt-2"}>
+        Atoms
       </Button>
     </Link>
 
@@ -39,15 +50,15 @@ const DevPages = () => {
       <Button type={"secondary"}>See components page</Button>
     </Link>
 
-    <br/>
-    <br/>
+    <br />
+    <br />
 
     <Link href={"/dev-pages/chat-demo"}>
       <Button type={"secondary"}>See chat demo</Button>
     </Link>
 
-    <br/>
-    <br/>
+    <br />
+    <br />
 
     <Link href={"/dev-pages/party-finder/test"}>
       <Button type={"secondary"}>See Party Finder Backend Tests</Button>
