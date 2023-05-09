@@ -22,11 +22,16 @@ module.exports = {
       black: "var(--black)",
       darkGrey: "var(--darkGrey)",
       mediumGrey: "var(--mediumGrey)",
+      pressedGrey: "var(--pressedGrey)",
       textColor: "var(--textColor)",
       greyText: "var(--greyText)",
       white: "var(--white)",
       grey: "var(--grey)",
-      primary: generateColors("primary"),
+      primary: {
+        170: "var(--primary-170)",
+        100: "var(--primary-100)",
+        90: "var(--primary-90)"
+      },
       pink: generateColors("pink"),
       blue: generateColors("blue"),
       cyan: generateColors("cyan"),

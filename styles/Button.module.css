@@ -1,0 +1,16 @@
+.Button {
+    @apply font-medium;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    border-radius: 5px;
+    height: 48px;
+    transition: background-color 40ms;
+}
+
+.Small {
+    padding: 0 1rem; /* 16px */
+}
+
+.Large {
+    padding: 0 4rem;
+}

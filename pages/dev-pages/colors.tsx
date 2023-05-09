@@ -6,7 +6,7 @@ const Colors = () => {
   const shades = [900, 800, 700, 600, 500, 400, 300, 200, 100];
 
   return (
-    <main style={{ backgroundColor: "#181818" }}>
+    <main style={{ backgroundColor: "#181818" }} className={"p-8"}>
       <Link href={"/dev-pages"}>
         <button>
           Back
@@ -19,7 +19,7 @@ const Colors = () => {
             {shades.map(shade => (
               <div key={shade} style={{ color: "#fff", textAlign: "center" }} className={"py-8"}>
                 <div style={{ height: 128, width: 128 }} className={`bg-${color}-${shade} rounded-xl`} />
-                {`${color}-${shade}`}
+                {`bg-${color}-${shade}`}
               </div>
             ))}
           </div>

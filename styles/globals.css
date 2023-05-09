@@ -56,6 +56,8 @@
     --yellow-300: #AF8D2F;
     --yellow-200: #8D6D1D;
     --yellow-100: #755612;
+
+    --pressedGrey: #4A4A4A;
 }
 
 .theme-dark {
@@ -63,23 +65,84 @@
     --darkGrey: #181818;
     --grey: #373737;
     --mediumGrey: #242424;
+    --pressedGrey: #4A4A4A;
     --greyText: #8D8B8B;
     --textColor: #E2E4E9;
     --white: #FFFFFF;
 }
 
 
-@each $color in pink, blue, cyan, yellow {
+/*@each $color in pink, blue, cyan, yellow {
     .theme-$(color) {
         @each $shade in 900, 800, 700, 600, 500, 400, 300, 200, 100 {
             --primary-$(shade): var(--$(color)-$(shade))
         }
     }
+}*/
+
+.theme-pink {
+    --primary-170: var(--blue-300);
+    --primary-100: var(--pink-500);
+    --primary-90: var(--blue-600);
 }
 
-.
-h1 {
+.theme-blue {
+    --primary-170: var(--blue-300);
+    --primary-100: var(--blue-500);
+    --primary-90: var(--blue-600);
+}
+
+.theme-cyan {
+    --primary-170: var(--blue-300);
+    --primary-100: var(--cyan-500);
+    --primary-90: var(--blue-600);
+}
+
+.theme-yellow {
+    --primary-170: var(--blue-300);
+    --primary-100: var(--yellow-500);
+    --primary-90: var(--blue-600);
+}
+
+/* in accordance with design specs */
+h1, h2, h3, h4, h5, h6,
+body,
+p, strong, small {
     font-family: 'Montserrat', sans-serif;
-    font-size: 36px;
-    font-weight: 600;
+}
+
+h1 {
+    @apply font-semibold;
+    font-size: 2.25rem; /* 36px */
+}
+
+h2 {
+    @apply font-semibold;
+    font-size: 2rem; /* 32px */
+}
+
+h3 {
+    @apply font-semibold;
+    font-size: 1.5rem;
+}
+
+h4 {
+    @apply font-normal;
+    font-size: 1.25rem;
+}
+
+body, p, strong, small {
+    font-size: 1rem;
+}
+
+body, p {
+    @apply font-medium;
+}
+
+strong {
+    @apply font-semibold;
+}
+
+small {
+    @apply font-normal;
 }

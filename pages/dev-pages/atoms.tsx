@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import Button from "@/components/Button";
 
 const ColorThemes = () => {
   const [theme, setTheme] = useState("pink");
@@ -23,26 +24,39 @@ const ColorThemes = () => {
       <h3 className={"text-xl mt-4"}>
         Select Theme
       </h3>
-      <select className={"dark:bg-mediumGrey mb-2"}
-        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-          setTheme(e.currentTarget.value);
-        }}
-      >
-        <option value={"pink"}>Pink</option>
-        <option value={"blue"}>Blue</option>
-        <option value={"cyan"}>Cyan</option>
-        <option value={"yellow"}>Yellow</option>
-      </select>
+      <div className={"flex mb-16 gap-2"}>
+        <Button className={"theme-pink"} onClick={() => setTheme("pink")}>Pink</Button>
+        <Button className={"theme-blue"} onClick={() => setTheme("blue")}>Blue</Button>
+        <Button className={"theme-cyan"} onClick={() => setTheme("cyan")}>Cyan</Button>
+        <Button className={"theme-yellow"} onClick={() => setTheme("yellow")}>Yellow</Button>
+      </div>
 
-      <div className={`bg-mediumGrey grid-1 p-4`}>
-        <div>
-          <div style={{ height: 128, width: 128 }} className={`bg-primary-500 rounded p-1`}>
-            Primary 500
-          </div>
+      <div className={"flex gap-4 mb-4"}>
+        <div style={{ height: 128, width: 128 }} className={`bg-primary-100 rounded p-1`}>
+          Primary 100
+        </div>
+
+        <div style={{ height: 128, width: 128 }} className={`bg-primary-170 rounded p-1`}>
+          Primary 170
+        </div>
+
+        <div style={{ height: 128, width: 128 }} className={`bg-primary-90 rounded p-1`}>
+          Primary 90
         </div>
       </div>
+
+      <div>
+        <h3 className={"text-xl"}>Buttons</h3>
+        <Button>Small Button</Button>
+        <Button className={"ml-2"} size={"large"}>Large Button</Button>
+        <br />
+        <h4 className={"mt-4"}>Secondary</h4>
+        <Button type={"secondary"}>Small Button</Button>
+        <Button type={"secondary"} className={"ml-2"} size={"large"}>Large Button</Button>
+      </div>
     </main>
-  );
+  )
+    ;
 };
 
 export default ColorThemes;
