@@ -5,7 +5,6 @@ import Link from "next/link";
 const DevLayout = ({ href, children }: React.PropsWithChildren & {
   href: string
 }) => {
-  console.log(href);
   return (
     <div className={[styles.EmptyLayout, "theme-dark theme-blue bg-black dark:text-white"].join(" ")}>
 

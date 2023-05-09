@@ -1,7 +1,7 @@
 import React from "react";
-import Link from "next/link";
 import Icon, { Icons } from "@/components/Icon";
 import DevLayout from "@/components/layouts/DevLayout";
+import Image from "next/image";
 
 const IconsPage = () => (
   <main>
