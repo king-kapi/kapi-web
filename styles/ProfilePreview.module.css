@@ -1,8 +1,6 @@
 .ProfilePreviewContainer {
   font-family: 'Montserrat', sans-serif;
   width: 79.5rem;
-  background-color: #fdfdfd;
-  color: black;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,13 +16,19 @@
 }
 
 .Reroll{
-  font-weight: 600;
-  font-size: 1.25rem;
+  font-weight: 500;
+  font-size: 1rem;
+  width: 7.5rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
   border: none;
-  background: none;
+  border-radius: 5px;
   cursor: pointer;
   display: flex;
   align-items: center;
+  gap: .5rem;
+
 }
 
 
@@ -43,12 +47,11 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-top: 5.25rem;
+  margin-top: 3rem;
 }
 
 
 .Vector {
-  height: 2.625rem;
-  width: 2.625rem;
-  margin-left: 2rem;
+  height: 1.5rem;
+  width: 1.5rem;
 }

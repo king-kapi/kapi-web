@@ -1,13 +1,38 @@
-import styles from '../styles/GameSelect.module.css';
+import React, { useState } from "react";
+import styles from "../styles/GameSelect.module.css";
+import Game, { GameList } from "@/src/types/Games";
 
 export default function GameSelect() {
-  const games = ['League of Legends', 'Valorant', 'Overwatch', 'Genshin Impact', 'Dota 2'];
+  const [selectedGames, setSelectedGames] = useState<Game[]>([]);
+  const games = GameList;
 
-  const createCheckbox = (label:any) => {
+  const selectedBorder = "border-solid border-2 border-blue-100";
+  const unselectedBorder = "border-solid border-2 border-textColor";
+
+  const handleSelectGame = (e: React.MouseEvent<HTMLLabelElement>, game: Game) => {
+    e.preventDefault();
+
+    if (selectedGames.includes(game))
+      setSelectedGames(selectedGames.filter((a) => a !== game));
+    else
+      setSelectedGames([...selectedGames, game]);
+  };
+
+  const createCheckbox = (game: Game, index: number) => {
     return (
-      <label className={styles.Game}>
+      <label
+        className={[styles.Game,
+          "bg-mediumGrey",
+          selectedGames.includes(game) ? selectedBorder : unselectedBorder
+        ].join(" ")}
+
+        id={`Game${index}`}
+        key={index}
+        onClick={e => handleSelectGame(e, game)}
+      >
+        <div className={styles.GameImg}></div>
         <input type="checkbox" />
-        {label}
+        {game}
         <br />
       </label>
     );
@@ -15,18 +40,13 @@ export default function GameSelect() {
 
   return (
     <div className={styles.GameSelectContainer}>
-      <h1 className={styles.Header}>Lets find a gaming buddy for you</h1>
-      <h3 className={styles.SubHeader}>
-        We want to ask you a few questions to find people based on your preferences.
-      </h3>
-      <h2 className={styles.Question}>1. What games do you play?</h2>
+      <h1 className={styles.Header}>Select the games you want to play!</h1>
       <div className={styles.Games}>
-        {games.map(label => createCheckbox(label))}
-        <label className={styles.Game}>
-          <input type="checkbox" />
-          <input type="text" placeholder="Search other games" />
-        </label>
+        {games.map((game, index) => createCheckbox(game, index))}
       </div>
+      <button
+        className={[styles.Next, (selectedGames.length === 0) ? "bg-mediumGrey z-10" : "display-none z-0"].join(" ")}>Next
+      </button>
     </div>
   );
 }

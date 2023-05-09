@@ -13,10 +13,13 @@ module.exports = {
         110: '#7090D8',
         120: '#324EA4',
       },
-      primaryBg: 'var(--primaryBg)',
-      secondaryBg: 'var(--secondaryBg)',
-      neutralBg: 'var(--neutralBg)',
-      textColor: 'var(--textColor)'
+      black: 'var(--black)',
+      darkGrey: 'var(--darkGrey)',
+      mediumGrey: 'var(--mediumGrey)',
+      textColor: 'var(--textColor)',
+      greyText: 'var(--greyText)',
+      white: 'var(--white)',
+      grey: 'var(--grey)'
     },
     extend: {},
   },

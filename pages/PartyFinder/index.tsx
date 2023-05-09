@@ -7,9 +7,10 @@ import { useState } from 'react';
 export default function PartyFinderPage() {
 
   const [pageNumber, setPageNumber] = useState(1)
+  const [mode, setMode] = useState('dark')
 
   return (
-    <div className={styles.PartyFinderContainer}>
+    <div className={[styles.PartyFinderContainer, `theme-${mode} bg-black text-textColor`].join(' ')}>
       <style>{`body {margin: 0;}`}</style>
       <SideNav />
       <div>

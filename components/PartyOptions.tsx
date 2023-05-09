@@ -3,10 +3,10 @@ import { Icon } from '@iconify/react';
 
 export default function PartyOptions() {
   return (
-    <div className={styles.PartyOptionsContainer}>
+    <div className={[styles.PartyOptionsContainer, 'text-textColor', ].join(' ')}>
       <h1 className={styles.Header}>1. What are you looking for?</h1>
       <div className={styles.ButtonsContainer}>
-        <a className={styles.PartyOption} href='./PartyFinder/BuddyFinder'>
+        <a className={[styles.PartyOption, 'bg-mediumGrey'].join(' ')} href='./PartyFinder/BuddyFinder'>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="94"
@@ -35,7 +35,7 @@ export default function PartyOptions() {
             />
           </svg>
         </a>
-        <a className={styles.PartyOption} href='./PartyFinder/LobbyFinder'>
+        <a className={[styles.PartyOption, 'bg-mediumGrey'].join(' ')} href='./PartyFinder/LobbyFinder'>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="100"
@@ -64,7 +64,7 @@ export default function PartyOptions() {
             />
           </svg>
         </a>
-        <a className={styles.PartyOption}>
+        <a className={[styles.PartyOption, 'bg-mediumGrey'].join(' ')}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="76"
