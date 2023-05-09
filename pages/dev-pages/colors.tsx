@@ -13,7 +13,7 @@ const Colors = () => {
         </button>
       </Link>
       <h1 className={"text-3xl"}>Colors</h1>
-      <div className={"grid grid-cols-4 bg-grey grid-flow-dense"} style={{ backgroundColor: "#181818", width: 640 }}>
+      <div className={"grid grid-cols-4"} style={{ backgroundColor: "#181818", width: 640 }}>
         {colors.map((color) =>
           <div key={color} style={{width: 128}}>
             {shades.map(shade => (

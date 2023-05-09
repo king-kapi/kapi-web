@@ -2,8 +2,8 @@ import React from "react";
 import Link from "next/link";
 
 const DevPages = () => {
-  return <>
-    <h1>
+  return <main className={"p-16"}>
+    <h1 className={"text-5xl"}>
       Dev Pages
     </h1>
     <p>
@@ -15,7 +15,7 @@ const DevPages = () => {
         Colors
       </button>
     </Link>
-  </>;
+  </main>;
 };
 
 export default DevPages;

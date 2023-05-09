@@ -5,13 +5,57 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    background-color: #0F0F0F;
-    color: white;
-}
-
 * {
     box-sizing: border-box;
+}
+
+:root {
+    /*pink*/
+    --pink-900: #FEE3E4;
+    --pink-800: #FDC7CE;
+    --pink-700: #F9A9BC;
+    --pink-600: #F492B3;
+    --pink-500: #ED6FA6;
+    --pink-400: #CB5192;
+    --pink-300: #AA3780;
+    --pink-200: #89236E;
+    --pink-100: #711562;
+
+    /*blue*/
+    --blue-900: #D8E8FB;
+    --blue-800: #B9D0F8;
+    --blue-700: #91AFEB;
+    --blue-600: #7090D8;
+    --blue-500: #4567BF;
+    --blue-400: #324EA4;
+    --blue-300: #223989;
+    --blue-200: #16276E;
+    --blue-120: #324EA4;
+    --blue-110: #7090D8;
+    --blue-100: #4567BF;
+    --blue-90: #91AFEB;
+
+    /*cyan*/
+    --cyan-900: #CEFBEC;
+    --cyan-800: #9FF7E1;
+    --cyan-700: #6CE8D4;
+    --cyan-600: #46D2C7;
+    --cyan-500: #14B2B4;
+    --cyan-400: #0E8D9A;
+    --cyan-300: #0A6B81;
+    --cyan-200: #064D68;
+    --cyan-100: #033856;
+
+    /*yellow*/
+    --yellow-900: #FEFADF;
+    --yellow-800: #FDF4BF;
+    --yellow-700: #FBEB9E;
+    --yellow-600: #F8E185;
+    --yellow-500: #F4D35E;
+    --yellow-400: #D1AF44;
+    --yellow-300: #AF8D2F;
+    --yellow-200: #8D6D1D;
+    --yellow-100: #755612;
 }
 
 .theme-dark {
@@ -22,4 +66,20 @@ body {
     --greyText: #8D8B8B;
     --textColor: #E2E4E9;
     --white: #FFFFFF;
+}
+
+
+@each $color in pink, blue, cyan, yellow {
+    .theme-$(color) {
+        @each $shade in 900, 800, 700, 600, 500, 400, 300, 200, 100 {
+            --primary-$(shade): var(--$(color)-$(shade))
+        }
+    }
+}
+
+.
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    font-weight: 600;
 }
