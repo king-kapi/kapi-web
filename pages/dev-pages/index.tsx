@@ -25,6 +25,14 @@ const DevPages = () => {
       </Button>
     </Link>
 
+    <br/>
+
+    <Link href={"/dev-pages/typography"}>
+      <Button className={"mt-2"}>
+        Typography
+      </Button>
+    </Link>
+
     <h3 className={"mt-8"}>Miscellaneous</h3>
 
     <Link href={"/dev-pages/components"}>
