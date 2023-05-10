@@ -24,18 +24,13 @@
 }
 
 .checkbox input[type='checkbox'] {
-  height: 1rem;
-  width: 1rem;
+  height: 0rem;
+  width: 0rem;
+  visibility: hidden;
   border-radius: 5px;
   margin-right: 3rem;
 }
 
-.checkbox input[type='checkbox']:checked {
-  height: 2rem;
-  width: 2rem;
-  margin-right: 3rem;
-  z-index: 2;
-}
 
 .Box {
   position: absolute;

@@ -28,7 +28,7 @@ const HonorOfConduct = () => {
         }}
       >
         <span
-          className={[styles.Box, 'border-solid border border-textColor bg-black'].join(' ')}
+          className={[styles.Box, 'border-solid border border-textColor'].join(' ')} style={{backgroundColor: agreed ? '#d9d9d9' : ''}}
         ></span>
         <input type="checkbox" />I acknowledge and agree to abide by honor of conduct.
       </label>
