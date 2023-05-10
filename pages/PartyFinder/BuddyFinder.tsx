@@ -9,6 +9,7 @@ import styles from "../../styles/BuddyFinder.module.css";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 import Link from "next/link";
+import Button from "@/components/Button";
 
 export default function BuddyFinder() {
 
@@ -16,7 +17,7 @@ export default function BuddyFinder() {
   const [mode, setMode] = useState("dark");
 
   return (
-    <div className={[styles.BuddyFinderContainer, `theme-${mode} bg-black text-textColor`].join(" ")}>
+    <div className={[styles.BuddyFinderContainer, `theme-${mode} theme-blue bg-black text-textColor`].join(" ")}>
       <style>{`body {margin: 0;}`}</style>
       <SideNav />
       <div>
@@ -41,9 +42,9 @@ export default function BuddyFinder() {
           </span>
           <span>Party Finder</span>
         </Link>
-        {pageNumber < 6 && <a className={[styles.Next, "bg-blue-100"].join(" ")} onClick={() => {
+        {pageNumber < 6 && <Button className={styles.Next} onClick={() => {
           setPageNumber(pageNumber + 1);
-        }}>Next</a>}
+        }}>Next</Button>}
         {pageNumber === 1 && <HonorOfConduct />}
         {pageNumber === 2 && <GameSelect />}
         {pageNumber === 3 && <InterestMatch />}
@@ -51,10 +52,10 @@ export default function BuddyFinder() {
         {pageNumber === 5 && <InvitationMessage />}
         {pageNumber === 6 && <ProfilePreview />}
         {pageNumber !== 1 && pageNumber < 6 &&
-          <a className={[styles.Back, "bg-mediumGrey"].join(" ")} style={{ left: "38.5rem" }} onClick={() => {
+          <Button type='secondary' className={styles.Back} style={{ left: "38.5rem" }} onClick={() => {
             setPageNumber(pageNumber - 1);
-          }}>Back</a>}
-        {pageNumber === 1 && <Link className={[styles.Back, "bg-mediumGrey"].join(" ")} href="/PartyFinder">Back</Link>}
+          }}>Back</Button>}
+        {pageNumber === 1 && <Link href="/PartyFinder"><Button type='secondary' className={styles.Back}>Back</Button></Link>}
       </div>
     </div>
   );
