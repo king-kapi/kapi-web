@@ -3,7 +3,7 @@
   position: relative;
   width: 48.5rem;
   top: 10rem;
-  left: 24rem;
+  left: 22.5rem;
 }
 
 .Header {
@@ -25,19 +25,29 @@
   height: 5.625rem;
   width: 22.5rem;
   display: flex;
-  align-items: center;
   margin-bottom: 1.563rem;
   border-radius: 10px;
 }
 
+.GameContent {
+  width: 65.25%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 1.5rem;
+}
+
 .GameImg {
-  height: 5.625rem;
-  width: 8.688rem;
+  height: 5.375rem;
+  width: 34.75%;
+  border-radius: 10px 0px 0px 10px;
+  background-color: var(--black);
 }
 
 .Game input[type='checkbox'] {
   height: 0;
   width: 0;
+  display: none;
 }
 
 .Game input[type='text'] {
@@ -46,8 +56,8 @@
   border-radius: 20px;
   background-color: #efefef;
   border: none;
-  padding-left: 1.25rem;
 }
+
 
 .Next {
   position: fixed;

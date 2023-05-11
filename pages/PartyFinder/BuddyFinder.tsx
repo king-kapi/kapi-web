@@ -3,7 +3,6 @@ import InterestMatch from "@/components/InterestMatch";
 import InvitationMessage from "@/components/InvitationMessage";
 import TimeZone from "@/components/TimeZone";
 import { ProfilePreview } from "@/components/ProfilePreview";
-import SideNav from "@/components/SideNav";
 import { HonorOfConduct } from "@/components/HonorOfConduct";
 import styles from "../../styles/BuddyFinder.module.css";
 import { Icon } from "@iconify/react";
@@ -19,7 +18,6 @@ export default function BuddyFinder() {
   return (
     <div className={[styles.BuddyFinderContainer, `theme-${mode} theme-blue bg-black text-textColor`].join(" ")}>
       <style>{`body {margin: 0;}`}</style>
-      <SideNav />
       <div>
         <Link className={styles.PartyFinder} href="/PartyFinder">
           <span className={styles.BackArrow}>

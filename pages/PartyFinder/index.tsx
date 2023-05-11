@@ -1,5 +1,4 @@
 import PartyOptions from '@/components/PartyOptions';
-import SideNav from '@/components/SideNav';
 import styles from '../../styles/PartyFinder.module.css';
 import { Icon } from '@iconify/react';
 import { useState } from 'react';
@@ -12,7 +11,6 @@ export default function PartyFinderPage() {
   return (
     <div className={[styles.PartyFinderContainer, `theme-${mode} bg-black text-textColor`].join(' ')}>
       <style>{`body {margin: 0;}`}</style>
-      <SideNav />
       <div>
         <div className={styles.PartyFinder}>
           <span className={styles.BackArrow}>

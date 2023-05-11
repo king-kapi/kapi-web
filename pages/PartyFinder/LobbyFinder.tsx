@@ -1,4 +1,3 @@
-import SideNav from "@/components/SideNav";
 import styles from "../../styles/LobbyFinder.module.css";
 import { Icon } from "@iconify/react";
 import React, { useState } from "react";
@@ -12,7 +11,6 @@ export default function LobbyFinder() {
   return (
     <div className={[styles.LobbyFinderContainer, `theme-${mode} bg-black`].join(" ")}>
       <style>{`body {margin: 0;}`}</style>
-      <SideNav />
       <div>
         <Link className={styles.PartyFinder} href="/PartyFinder">
           <span className={styles.BackArrow}>

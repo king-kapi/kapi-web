@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from '../styles/GameSelect.module.css';
 import Game, { GameList } from '@/src/types/Games';
 import Button from './Button';
+import Icon, { Icons } from './Icon';
 
 export default function GameSelect() {
   const [selectedGames, setSelectedGames] = useState<Game[]>([]);
@@ -31,8 +32,10 @@ export default function GameSelect() {
       >
         <div className={styles.GameImg}></div>
         <input type="checkbox" />
-        {game}
-        <br />
+        <div className={styles.GameContent}>
+          {game}
+          <Icon className={selectedGames.includes(game) ? '' : 'hidden'} icon={Icons['ADD']} />
+        </div>
       </label>
     );
   };
