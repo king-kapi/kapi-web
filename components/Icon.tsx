@@ -25,7 +25,7 @@ export const Icons: { [key: string]: IconDef } = {
   "DENY_SMALL": { "src": "/icons/deny_small.svg", "width": 10, "height": 10 },
   "EDIT": { "src": "/icons/edit.svg", "width": 24, "height": 24 },
   "EDIT_PENCIL": { "src": "/icons/edit_pencil.svg", "width": 19, "height": 19 },
-  "EXIT": { "src": "/icons/exit.svg", "width": 18, "height": 18 },
+  "EXIT": { "src": "/icons/exit.svg", "width": 23, "height": 23 },
   "FIND_BUDDY_BARA": {"src": "/icons/find_buddy_bara.svg", "width": 180, "height": 80},
   "FIND_LOBBY_BARA": {"src": "/icons/find_lobby_bara.svg", "width": 110, "height": 80},
   "CREATE_LOBBY_BARA": {"src": "/icons/create_lobby_bara.svg", "width": 88, "height": 80},

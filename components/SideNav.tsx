@@ -82,7 +82,6 @@ function SideNav() {
               <div>
                 <div className={styles.avatar}></div>
               </div>
-              <h1 className={styles.logoWord}>Logo</h1>
             </div>
             <div>
               <Icon icon="mdi:bell" className={styles.bell} />
@@ -193,7 +192,6 @@ function SideNav() {
             <div>
               <div className={styles.avatar}></div>
             </div>
-            <h1 className={styles.logoWord}>Logo</h1>
           </div>
           <div>
             <Icon icon="mdi:bell" color="#FFFFFF" className={styles.bell} />
