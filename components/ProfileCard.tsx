@@ -1,5 +1,7 @@
 import styles from '../styles/ProfileCard.module.css'
 import { useState } from 'react'
+import Tag from './Tag'
+import Button from './Button'
 
 export default function ProfileCard() {
     const [mode, setMode] = useState('dark')
@@ -10,10 +12,10 @@ export default function ProfileCard() {
             <h1 className={styles.Username}>WoWPlayer123</h1>
             <div className={styles.Tags}>
                 {tags.map(tag => {
-                    return(<h3 className={[styles.Tag, tag.border ? styles.GradientBorder : ''].join(' ')}>{tag.name}</h3>)
+                    return(<Tag size='small' border={tag.border}>{tag.name}</Tag>)
                 })}
             </div>
-            <button className={[styles.Button, 'bg-blue-100'].join(' ')}>View Profile</button>
+            <Button className={styles.Button}>View Profile</Button>
         </div>
     )
 }

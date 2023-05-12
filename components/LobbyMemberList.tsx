@@ -1,8 +1,16 @@
 import styles from '../styles/LobbyMemberList.module.css';
 import { useState } from 'react';
+import Tag from './Tag';
+import Button from './Button';
 
 export default function LobbyMemberList() {
-  const tags = ['League of Legends', 'NA Region', 'PST', 'LGBTQ+', 'Casual Gaming'];
+  const tags = [
+    { name: 'League of Legends', border: false },
+    { name: 'NA Region', border: false },
+    { name: 'PST', border: false },
+    { name: 'LGBTQ+', border: true },
+    { name: 'Casual Gaming', border: false },
+  ];
   const members = [
     { name: 'Jane Doe', username: 'LoLPlayer123', role: 'ADC', experience: 'Silver' },
     { name: 'Jane Doe', username: 'LoLPlayer123', role: 'ADC', experience: 'Silver' },
@@ -16,13 +24,13 @@ export default function LobbyMemberList() {
   };
 
   return (
-    <div className={[styles.LobbyMemberListContainer, 'text-textColor'].join(' ')}>
+    <div className={[styles.LobbyMemberListContainer, 'text-textColor theme-blue'].join(' ')}>
       <div className={styles.HeaderContainer}>
         <h1 className={styles.Header}>
           Jane's Lobby <span>/ League of Legends</span>
         </h1>
-        <button
-          className={[styles.LeaveButton, 'bg-mediumGrey hover:bg-blue-120 active:bg-blue-90'].join(
+        <Button
+          type='secondary' className={[styles.LeaveButton, 'hover:bg-blue-400 active:!bg-primary-90'].join(
             ' '
           )}
         >
@@ -39,7 +47,7 @@ export default function LobbyMemberList() {
             />
           </svg>
           Leave Lobby
-        </button>
+        </Button>
       </div>
       <p className={styles.Description}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -47,9 +55,12 @@ export default function LobbyMemberList() {
         laboris nisi ut aliquip ex ea commodo consequat.
       </p>
       <div className={styles.Tags}>
-        {' '}
         {tags.map(tag => {
-          return <div key={tag} className={[styles.Tag, 'bg-mediumGrey'].join(' ')}>{tag}</div>;
+          return (
+            <Tag key={tag.name} border={tag.border} size='small'>
+              {tag.name}
+            </Tag>
+          );
         })}
       </div>
       <div className={styles.MemberCountContainer}>
@@ -122,7 +133,7 @@ export default function LobbyMemberList() {
         {members.map(member => {
           return (
             <div
-              className={[styles.Member, 'bg-gradient-to-b from-blue-110 to-blue-120'].join(' ')}
+              className={styles.Member}
             >
               <div className={styles.MemberOptions}>
                 <svg

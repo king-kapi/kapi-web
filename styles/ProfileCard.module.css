@@ -23,27 +23,13 @@
 }
 
 .Tags {
-    width: 21rem;
+    width: 22rem;
     display: flex;
     flex-wrap: wrap;
-    gap:.4rem;
+    gap: 1rem 0.813rem;
 }
 
-.Tag {
-    font-size: 0.875rem;
-    font-weight: 500;
-    border-radius: 20px;
-    padding: .5rem .75rem;
-    display: inline-block;
-    margin-bottom: .875rem;
-    margin-top: 0;
-    background-color: #373737;
-}
 
-.GradientBorder {
-    border: 2px solid transparent;
-    background: linear-gradient(#373737, #373737) padding-box, linear-gradient(to right, rgba(237,111,166,100%), rgba(69,103,191,100%), rgba(121,220,222,100%), rgba(248,219,111,100%)) border-box;
-}
 
 .Button {
     height: 2.75rem;

@@ -6,7 +6,7 @@ const Layout = ({ children }: React.PropsWithChildren) => {
   return (
     <div className={[styles.Layout, "theme-dark", "theme-blue", "bg-black", "dark:text-white"].join(" ")}>
       <div className={styles.LayoutNavWrapper}>
-        <SideNav />
+        {children.type.name !== 'SignInPage' && <SideNav />}
       </div>
       <div className={styles.LayoutContent}>
         {children}
