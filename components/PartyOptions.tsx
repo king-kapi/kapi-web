@@ -26,7 +26,7 @@ export default function PartyOptions() {
             checked={selectedOption === '/PartyFinder/BuddyFinder'}
             onChange={handleChange}
           />
-          <Icon icon={Icons['FIND_BUDDY_BARA']} className={styles.FindBuddyIcon}/>
+          <Icon icon={Icons['KAPI']} className={styles.FindBuddyIcon}/>
           <span>Find a Buddy</span>
         </label>
         <label
@@ -41,7 +41,7 @@ export default function PartyOptions() {
             checked={selectedOption === '/PartyFinder/LobbyFinder'}
             onChange={handleChange}
           />
-          <Icon icon={Icons['FIND_LOBBY_BARA']} className={styles.FindLobbyIcon}/>
+          <Icon icon={Icons['KAPI_FRIENDS']} className={styles.FindLobbyIcon}/>
           <span>Find a Lobby</span>
         </label>
         <label
@@ -56,7 +56,7 @@ export default function PartyOptions() {
             checked={selectedOption === '/PartyFinder/CreateLobby'}
             onChange={handleChange}
           />
-          <Icon icon={Icons['CREATE_LOBBY_BARA']} className={styles.CreateLobbyIcon}/>
+          <Icon icon={Icons['KING_KAPI']} className={styles.CreateLobbyIcon}/>
           <span>Create a Lobby</span>
         </label>
       </div>

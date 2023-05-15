@@ -1,0 +1,23 @@
+.OnboardingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ProgressBarContainer {
+
+}
+
+.Back {
+    position: fixed;
+    width: 7.5rem;
+    bottom: 17rem;
+    left: 30rem;
+}
+
+.Next {
+    position: fixed;
+    width: 7.5rem;
+    bottom: 17rem;
+    right: 30rem;
+}
