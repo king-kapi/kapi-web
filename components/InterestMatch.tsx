@@ -1,6 +1,7 @@
 import styles from '../styles/InterestMatch.module.css';
-import { useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import Button from './Button';
+import { formContext } from '@/pages/partyfinder/buddyfinder';
 
 enum FindBuddyStates {
   NOT_SELECTED = -1,
@@ -14,6 +15,12 @@ export default function InterestMatch() {
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setFindBuddy(Number(e.currentTarget.value));
   };
+
+  useEffect(() => {
+    setContent({...content, interestMatch:Boolean(findBuddy)})
+},[findBuddy])
+
+  const { content, setContent } = useContext(formContext);
 
   return (
     <div className={styles.InterestMatchContainer}>

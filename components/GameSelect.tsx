@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import styles from '../styles/GameSelect.module.css';
 import Game, { GameList } from '@/src/types/Games';
 import Button from './Button';
 import Icon, { Icons } from './Icon';
+import { formContext } from '@/pages/partyfinder/buddyfinder';
 
 export default function GameSelect() {
   const [selectedGames, setSelectedGames] = useState<Game[]>([]);
   const games = GameList;
+
+  const { content, setContent } = useContext(formContext);
+
+  useEffect(() => {
+    setContent({ ...content, games: selectedGames });
+  }, [selectedGames]);
 
   const selectedBorder = 'border-solid border-2 border-transparent bg-gradient Selected';
   const unselectedBorder = 'border-solid border-2 border-textColor bg-mediumGrey';
@@ -27,7 +34,9 @@ export default function GameSelect() {
         ].join(' ')}
         id={`Game${index}`}
         key={index}
-        onClick={e => handleSelectGame(e, game)}
+        onClick={e => {
+          handleSelectGame(e, game);
+        }}
       >
         <div className={styles.GameImg}></div>
         <input type="checkbox" />

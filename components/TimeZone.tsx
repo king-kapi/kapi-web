@@ -1,14 +1,21 @@
-import { useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import styles from '../styles/TimeZone.module.css';
 import Button from './Button';
+import { formContext } from '@/pages/partyfinder/buddyfinder';
 
 export default function TimeZone() {
-  const timeZones = ['Easter (ET)', 'Central (ET)', 'Hawaii (HST)', 'Pacific Standard Time (PST)'];
+  const timeZones = ['Eastern (ET)', 'Central (ET)', 'Hawaii (HST)', 'Pacific Standard Time (PST)'];
   const [selectedZone, setSelectedZone] = useState(-1);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setSelectedZone(Number(e.currentTarget.value));
   };
+
+  const { content, setContent } = useContext(formContext);
+
+  useEffect(() => {
+    setContent({...content, timezone:selectedZone})
+  }, [selectedZone]);
 
   const createCheckbox = (label: any, index: number) => {
     return (

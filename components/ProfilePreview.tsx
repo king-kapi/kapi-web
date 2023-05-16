@@ -1,10 +1,14 @@
 import styles from '../styles/ProfilePreview.module.css';
 import ProfileCard from './ProfileCard';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Button from './Button';
 import Icon, {Icons} from './Icon'
+import { formContext } from '@/pages/partyfinder/buddyfinder';
 
 function ProfilePreview() {
+
+  const {content} = useContext(formContext)
+  console.log(content)
 
   const [mode, setMode] = useState('dark')
   return (

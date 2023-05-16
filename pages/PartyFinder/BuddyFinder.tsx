@@ -1,22 +1,43 @@
-import GameSelect from "@/components/GameSelect";
-import InterestMatch from "@/components/InterestMatch";
-import InvitationMessage from "@/components/InvitationMessage";
-import TimeZone from "@/components/TimeZone";
-import { ProfilePreview } from "@/components/ProfilePreview";
-import { HonorOfConduct } from "@/components/HonorOfConduct";
-import styles from "../../styles/BuddyFinder.module.css";
-import { Icon } from "@iconify/react";
-import { useState } from "react";
-import Link from "next/link";
-import Button from "@/components/Button";
+import GameSelect from '@/components/GameSelect';
+import InterestMatch from '@/components/InterestMatch';
+import InvitationMessage from '@/components/InvitationMessage';
+import TimeZone from '@/components/TimeZone';
+import { ProfilePreview } from '@/components/ProfilePreview';
+import { HonorOfConduct } from '@/components/HonorOfConduct';
+import styles from '../../styles/BuddyFinder.module.css';
+import { Icon } from '@iconify/react';
+import React, { useMemo, useState } from 'react';
+import Link from 'next/link';
+import Button from '@/components/Button';
+
+export const formContext = React.createContext({});
+
+export type formContent = {
+  games: string[];
+  interestMatch: boolean;
+  timezone: number;
+  message: string;
+};
 
 export default function BuddyFinder() {
-
   const [pageNumber, setPageNumber] = useState(1);
-  const [mode, setMode] = useState("dark");
+  const [mode, setMode] = useState('dark');
+  const [content, setContent] = useState<formContent>({
+    games: [],
+    interestMatch: true,
+    timezone: 0,
+    message: '',
+  });
+
+  const providerValue = useMemo(() => ({ content, setContent }), [content, setContent]);
 
   return (
-    <div className={[styles.BuddyFinderContainer, `theme-${mode} theme-blue bg-black text-textColor`].join(" ")}>
+    <div
+      className={[
+        styles.BuddyFinderContainer,
+        `theme-${mode} theme-blue bg-black text-textColor`,
+      ].join(' ')}
+    >
       <style>{`body {margin: 0;}`}</style>
       <div>
         <Link className={styles.PartyFinder} href="/partyfinder">
@@ -40,20 +61,43 @@ export default function BuddyFinder() {
           </span>
           <span>Party Finder</span>
         </Link>
-        {pageNumber < 6 && <Button className={styles.Next} onClick={() => {
-          setPageNumber(pageNumber + 1);
-        }}>Next</Button>}
-        {pageNumber === 1 && <HonorOfConduct />}
-        {pageNumber === 2 && <GameSelect />}
-        {pageNumber === 3 && <InterestMatch />}
-        {pageNumber === 4 && <TimeZone />}
-        {pageNumber === 5 && <InvitationMessage />}
-        {pageNumber === 6 && <ProfilePreview />}
-        {pageNumber !== 1 && pageNumber < 6 &&
-          <Button type='secondary' className={styles.Back} style={{ left: "38.5rem" }} onClick={() => {
-            setPageNumber(pageNumber - 1);
-          }}>Back</Button>}
-        {pageNumber === 1 && <Link href="/partyfinder"><Button type='secondary' className={styles.Back}>Back</Button></Link>}
+        {pageNumber < 6 && (
+          <Button
+            className={styles.Next}
+            onClick={() => {
+              setPageNumber(pageNumber + 1);
+            }}
+          >
+            Next
+          </Button>
+        )}
+        <formContext.Provider value={providerValue}>
+          {pageNumber === 1 && <HonorOfConduct />}
+          {pageNumber === 2 && <GameSelect />}
+          {pageNumber === 3 && <InterestMatch />}
+          {pageNumber === 4 && <TimeZone />}
+          {pageNumber === 5 && <InvitationMessage />}
+          {pageNumber === 6 && <ProfilePreview />}
+        </formContext.Provider>
+        {pageNumber !== 1 && pageNumber < 6 && (
+          <Button
+            type="secondary"
+            className={styles.Back}
+            style={{ left: '38.5rem' }}
+            onClick={() => {
+              setPageNumber(pageNumber - 1);
+            }}
+          >
+            Back
+          </Button>
+        )}
+        {pageNumber === 1 && (
+          <Link href="/partyfinder">
+            <Button type="secondary" className={styles.Back}>
+              Back
+            </Button>
+          </Link>
+        )}
       </div>
     </div>
   );
