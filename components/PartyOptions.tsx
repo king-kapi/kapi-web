@@ -17,28 +17,28 @@ export default function PartyOptions() {
         <label
           className={[
             styles.PartyOption,
-            selectedOption === '/PartyFinder/BuddyFinder' ? 'bg-pressedGrey' : 'bg-grey',
+            selectedOption === '/partyfinder/buddyfinder' ? 'bg-pressedGrey' : 'bg-grey',
           ].join(' ')}
         >
           <input
             type="radio"
-            value={'/PartyFinder/BuddyFinder'}
-            checked={selectedOption === '/PartyFinder/BuddyFinder'}
+            value={'/partyfinder/buddyfinder'}
+            checked={selectedOption === '/partyfinder/buddyfinder'}
             onChange={handleChange}
           />
-          <Icon icon={Icons['KAPI']} className={styles.FindBuddyIcon}/>
+          <Icon icon={Icons['KAPI_BUDDY']} className={styles.FindBuddyIcon}/>
           <span>Find a Buddy</span>
         </label>
         <label
           className={[
             styles.PartyOption,
-            selectedOption === '/PartyFinder/LobbyFinder' ? 'bg-pressedGrey' : 'bg-grey',
+            selectedOption === '/partyfinder/lobbyfinder' ? 'bg-pressedGrey' : 'bg-grey',
           ].join(' ')}
         >
           <input
             type="radio"
-            value={'/PartyFinder/LobbyFinder'}
-            checked={selectedOption === '/PartyFinder/LobbyFinder'}
+            value={'/partyfinder/lobbyfinder'}
+            checked={selectedOption === '/partyfinder/lobbyfinder'}
             onChange={handleChange}
           />
           <Icon icon={Icons['KAPI_FRIENDS']} className={styles.FindLobbyIcon}/>
@@ -47,13 +47,13 @@ export default function PartyOptions() {
         <label
           className={[
             styles.PartyOption,
-            selectedOption === '/PartyFinder/CreateLobby' ? 'bg-pressedGrey' : 'bg-grey',
+            selectedOption === '/partyfinder/CreateLobby' ? 'bg-pressedGrey' : 'bg-grey',
           ].join(' ')}
         >
           <input
             type="radio"
-            value={'/PartyFinder/CreateLobby'}
-            checked={selectedOption === '/PartyFinder/CreateLobby'}
+            value={'/partyfinder/CreateLobby'}
+            checked={selectedOption === '/partyfinder/CreateLobby'}
             onChange={handleChange}
           />
           <Icon icon={Icons['KING_KAPI']} className={styles.CreateLobbyIcon}/>

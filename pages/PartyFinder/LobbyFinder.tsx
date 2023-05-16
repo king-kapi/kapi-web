@@ -12,7 +12,7 @@ export default function LobbyFinder() {
     <div className={[styles.LobbyFinderContainer, `theme-${mode} bg-black`].join(" ")}>
       <style>{`body {margin: 0;}`}</style>
       <div>
-        <Link className={styles.PartyFinder} href="/PartyFinder">
+        <Link className={styles.PartyFinder} href="/partyfinder">
           <span className={styles.BackArrow}>
             <svg
               xmlns="http://www.w3.org/2000/svg"

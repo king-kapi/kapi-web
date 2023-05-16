@@ -19,7 +19,7 @@ export default function BuddyFinder() {
     <div className={[styles.BuddyFinderContainer, `theme-${mode} theme-blue bg-black text-textColor`].join(" ")}>
       <style>{`body {margin: 0;}`}</style>
       <div>
-        <Link className={styles.PartyFinder} href="/PartyFinder">
+        <Link className={styles.PartyFinder} href="/partyfinder">
           <span className={styles.BackArrow}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +53,7 @@ export default function BuddyFinder() {
           <Button type='secondary' className={styles.Back} style={{ left: "38.5rem" }} onClick={() => {
             setPageNumber(pageNumber - 1);
           }}>Back</Button>}
-        {pageNumber === 1 && <Link href="/PartyFinder"><Button type='secondary' className={styles.Back}>Back</Button></Link>}
+        {pageNumber === 1 && <Link href="/partyfinder"><Button type='secondary' className={styles.Back}>Back</Button></Link>}
       </div>
     </div>
   );
