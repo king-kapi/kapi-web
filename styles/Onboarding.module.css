@@ -5,19 +5,19 @@
 }
 
 .ProgressBarContainer {
-
+    margin-top: 2.75rem;
 }
 
 .Back {
     position: fixed;
     width: 7.5rem;
-    bottom: 17rem;
+    bottom: 16rem;
     left: 30rem;
 }
 
 .Next {
     position: fixed;
     width: 7.5rem;
-    bottom: 17rem;
+    bottom: 16rem;
     right: 30rem;
 }

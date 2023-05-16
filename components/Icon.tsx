@@ -29,6 +29,7 @@ export const Icons: { [key: string]: IconDef } = {
   "EXIT": { "src": "/icons/exit.svg", "width": 23, "height": 23 },
   "FLAG": { "src": "/icons/flag.svg", "width": 53, "height": 64 },
   "KAPI": {"src": "/icons/kapi.svg", "width": 180, "height": 80},
+  "KAPI_BUDDY": {"src": "/icons/kapi_buddy.svg", "width": 180, "height": 80},
   "KAPI_FRIENDS": {"src": "/icons/kapi_friends.svg", "width": 110, "height": 80},
   "GOOGLE_ICON": {"src": "/icons/google_icon.svg", "width": 24, "height": 24},
   "KING_KAPI": {"src": "/icons/king_kapi.svg", "width": 88, "height": 80},
