@@ -1,13 +1,12 @@
-import { signOut, useSession } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
-import Card from "./Card";
 
 export default function LoginStatus() {
   const { data, status } = useSession();
 
   return (
-    <Card>
+    <div className={"rounded-xl dark:bg-grey p-8"}>
       <p>
         Current status: {status}
       </p>
@@ -26,6 +25,6 @@ export default function LoginStatus() {
       }}>
         Logout
       </button>
-    </Card >
+    </div >
   )
 }

@@ -1,0 +1,14 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <mask id="path-1-inside-1_1898_9162" fill="white">
+        <rect x="3" y="5" width="7" height="6" rx="1"/>
+    </mask>
+    <rect x="3" y="5" width="7" height="6" rx="1" stroke="white" stroke-width="3"
+          mask="url(#path-1-inside-1_1898_9162)"/>
+    <mask id="path-2-inside-2_1898_9162" fill="white">
+        <rect x="3" y="14" width="7" height="6" rx="1"/>
+    </mask>
+    <rect x="3" y="14" width="7" height="6" rx="1" stroke="white" stroke-width="3"
+          mask="url(#path-2-inside-2_1898_9162)"/>
+    <line x1="12.75" y1="7.25" x2="21.25" y2="7.25" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="12.75" y1="16.25" x2="21.25" y2="16.25" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

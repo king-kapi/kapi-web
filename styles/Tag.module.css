@@ -1,0 +1,40 @@
+.Tag {
+    height: 40px;
+    display: inline-flex;
+    justify-items: center;
+    align-items: center;
+    border-radius: 20px;
+    font-weight: 400;
+    padding: 0 12px;
+
+    background-color: var(--grey);
+    transition: background-color 60ms;
+}
+
+.Small {
+    height: 33px;
+    font-size: 14px;
+}
+
+.Tag:hover {
+    background-color: var(--mediumGrey);
+}
+
+.Tag:active {
+    background-color: var(--pressedGrey);
+}
+
+.Border {
+    border: 2px solid transparent;
+    background: linear-gradient(var(--grey), var(--grey)) padding-box, linear-gradient(to right, rgba(237, 111, 166, 100%), rgba(69, 103, 191, 100%), rgba(121, 220, 222, 100%), rgba(248, 219, 111, 100%)) border-box;
+}
+
+.Border:hover {
+    border: 2px solid transparent;
+    background: linear-gradient(var(--mediumGrey), var(--mediumGrey)) padding-box, linear-gradient(to right, rgba(237, 111, 166, 100%), rgba(69, 103, 191, 100%), rgba(121, 220, 222, 100%), rgba(248, 219, 111, 100%)) border-box;
+}
+
+.Border:active {
+    border: 2px solid transparent;
+    background: linear-gradient(var(--pressedGrey), var(--pressedGrey)) padding-box, linear-gradient(to right, rgba(237, 111, 166, 100%), rgba(69, 103, 191, 100%), rgba(121, 220, 222, 100%), rgba(248, 219, 111, 100%)) border-box;
+}

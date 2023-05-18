@@ -1,27 +1,46 @@
-/** @type {import('tailwindcss').Config} */
+/** @type {import("tailwindcss").Config} */
+
+function generateColors(color) {
+  const colors = {};
+
+  for (let i = 1; i <= 9; i++) {
+    const shade = `${i}00`;
+    colors[shade] = `var(--${color}-${shade})`;
+  }
+
+  return colors;
+}
+
 module.exports = {
   content: [
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}"
   ],
   theme: {
     colors: {
-      blue: {
-        90: '#91AFEB',
-        100: '#4567BF',
-        110: '#7090D8',
-        120: '#324EA4',
+      black: "var(--black)",
+      darkGrey: "var(--darkGrey)",
+      mediumGrey: "var(--mediumGrey)",
+      pressedGrey: "var(--pressedGrey)",
+      textColor: "var(--textColor)",
+      greyText: "var(--greyText)",
+      white: "var(--white)",
+      grey: "var(--grey)",
+      primary: {
+        170: "var(--primary-170)",
+        100: "var(--primary-100)",
+        90: "var(--primary-90)"
       },
-      black: 'var(--black)',
-      darkGrey: 'var(--darkGrey)',
-      mediumGrey: 'var(--mediumGrey)',
-      textColor: 'var(--textColor)',
-      greyText: 'var(--greyText)',
-      white: 'var(--white)',
-      grey: 'var(--grey)'
+      pink: generateColors("pink"),
+      blue: generateColors("blue"),
+      cyan: generateColors("cyan"),
+      yellow: generateColors("yellow")
     },
-    extend: {},
+    extend: {}
   },
   plugins: [],
+  safelist: [{
+    pattern: /(bg|text|border)-(pink|blue|cyan|yellow)/
+  }]
 };
