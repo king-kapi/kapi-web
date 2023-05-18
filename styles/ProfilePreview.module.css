@@ -1,16 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
-
 .ProfilePreviewContainer {
   font-family: 'Montserrat', sans-serif;
-  height: 47.5rem;
   width: 79.5rem;
-  background-color: #fdfdfd;
-  color: black;
-  margin-bottom: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  margin-left: 7rem;
+  margin-top: 3rem;
 }
 
 .TitleContainer {
@@ -20,13 +16,19 @@
 }
 
 .Reroll{
-  font-weight: 600;
-  font-size: 1.25rem;
+  font-weight: 500;
+  font-size: 1rem;
+  width: 7.5rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
   border: none;
-  background: none;
+  border-radius: 5px;
   cursor: pointer;
   display: flex;
   align-items: center;
+  gap: .5rem;
+
 }
 
 
@@ -45,11 +47,11 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin-top: 3rem;
 }
 
 
 .Vector {
-  height: 2.625rem;
-  width: 2.625rem;
-  margin-left: 2rem;
+  height: 1.5rem;
+  width: 1.5rem;
 }

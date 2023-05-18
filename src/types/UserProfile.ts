@@ -24,7 +24,7 @@ interface UserProfile {
   friendRequests: [];
   friends: User[];
   status: UserStatus;
-  currentLobby: ObjectId | null;
+  currentLobby: ObjectId | undefined;
   lobbyRequests: LobbyRequestWithLobby[];
   communities: Community[];
   newUser: boolean;

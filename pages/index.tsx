@@ -1,8 +1,11 @@
-import LoginStatus from '@/components/LoginStatus';
-import protectedGetServerSideProps from '@/src/utils/protectRoute';
-import Head from 'next/head';
+import LoginStatus from "@/components/LoginStatus";
+import protectedGetServerSideProps from "@/src/utils/protectRoute";
+import Head from "next/head";
 
-import Link from 'next/link';
+import Link from "next/link";
+import React from "react";
+import Button from "@/components/Button";
+import Layout from "@/components/layouts/Layout";
 
 export const getServerSideProps = protectedGetServerSideProps;
 
@@ -15,26 +18,12 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <main className={"p-8"}>
         <LoginStatus />
-        <h1>Hello! You are currently looking at a protected route</h1>
-        
-        <Link href={"/components"}>
-          <button>See components page</button>
-        </Link>
-        
-        <br/>
-        <br/>
+        <h2 className={"mt-4"}>Hello! You are currently looking at a protected route</h2>
 
-        <Link href={"/chat-demo"}>
-          <button>See chat demo</button>
-        </Link>
-
-        <br/>
-        <br/>
-
-        <Link href={"/party-finder/test"}>
-          <button>See Party Finder Backend Tests</button>
+        <Link href={"/dev-pages"}>
+          <Button>See Dev Pages</Button>
         </Link>
       </main>
     </>

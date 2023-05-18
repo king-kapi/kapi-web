@@ -1,26 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
-
 .PartyOptionsContainer{
     font-family: 'Montserrat', sans-serif;
     flex: 1 0 auto;
-}
-
-.PartyFinder{
-    position: relative;
-    width: 16.5rem;
-    font-size: 1.5rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    line-height: 1rem;
-    left: 4.75rem;
-    margin-top: 4rem;
-}
-
-.Back {
-    margin-right: .75rem;
-    cursor: pointer;
 }
 
 .Header {
@@ -50,11 +30,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: #FFFFFF;
-    background-color: #505050;
     border: none;
     border-radius: 20px;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .PartyOptionName {
@@ -70,10 +49,3 @@
     margin-right: 3.125rem;
 }
 
-.Next {
-    position: relative;
-    font-size: 1.5rem;
-    font-weight: 600;
-    text-decoration: underline;
-    left: 65.375rem;
-}

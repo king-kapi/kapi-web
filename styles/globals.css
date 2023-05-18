@@ -1,1 +1,150 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    /*pink*/
+    --pink-900: #FEE3E4;
+    --pink-800: #FDC7CE;
+    --pink-700: #F9A9BC;
+    --pink-600: #F492B3;
+    --pink-500: #ED6FA6;
+    --pink-400: #CB5192;
+    --pink-300: #AA3780;
+    --pink-200: #89236E;
+    --pink-100: #711562;
+
+    /*blue*/
+    --blue-900: #D8E8FB;
+    --blue-800: #B9D0F8;
+    --blue-700: #91AFEB;
+    --blue-600: #7090D8;
+    --blue-500: #4567BF;
+    --blue-400: #324EA4;
+    --blue-300: #223989;
+    --blue-200: #16276E;
+    --blue-120: #324EA4;
+    --blue-110: #7090D8;
+    --blue-100: #4567BF;
+    --blue-90: #91AFEB;
+
+    /*cyan*/
+    --cyan-900: #CEFBEC;
+    --cyan-800: #9FF7E1;
+    --cyan-700: #6CE8D4;
+    --cyan-600: #46D2C7;
+    --cyan-500: #14B2B4;
+    --cyan-400: #0E8D9A;
+    --cyan-300: #0A6B81;
+    --cyan-200: #064D68;
+    --cyan-100: #033856;
+
+    /*yellow*/
+    --yellow-900: #FEFADF;
+    --yellow-800: #FDF4BF;
+    --yellow-700: #FBEB9E;
+    --yellow-600: #F8E185;
+    --yellow-500: #F4D35E;
+    --yellow-400: #D1AF44;
+    --yellow-300: #AF8D2F;
+    --yellow-200: #8D6D1D;
+    --yellow-100: #755612;
+
+    --pressedGrey: #4A4A4A;
+}
+
+.theme-dark {
+    --black: #161616;
+    --darkGrey: #181818;
+    --grey: #373737;
+    --mediumGrey: #242424;
+    --pressedGrey: #4A4A4A;
+    --greyText: #8D8B8B;
+    --textColor: #E2E4E9;
+    --white: #FFFFFF;
+}
+
+
+/*@each $color in pink, blue, cyan, yellow {
+    .theme-$(color) {
+        @each $shade in 900, 800, 700, 600, 500, 400, 300, 200, 100 {
+            --primary-$(shade): var(--$(color)-$(shade))
+        }
+    }
+}*/
+
+.theme-pink {
+    --primary-170: var(--blue-300);
+    --primary-100: var(--pink-500);
+    --primary-90: var(--blue-600);
+}
+
+.theme-blue {
+    --primary-170: var(--blue-300);
+    --primary-100: var(--blue-500);
+    --primary-90: var(--blue-600);
+}
+
+.theme-cyan {
+    --primary-170: var(--blue-300);
+    --primary-100: var(--cyan-500);
+    --primary-90: var(--blue-600);
+}
+
+.theme-yellow {
+    --primary-170: var(--blue-300);
+    --primary-100: var(--yellow-500);
+    --primary-90: var(--blue-600);
+}
+
+/* in accordance with design specs */
+@layer base {
+    h1, h2, h3, h4, h5, h6,
+    body,
+    p, strong, small {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    h1 {
+        @apply font-semibold text-4xl;
+        font-size: 2.25rem; /* 36px */
+    }
+
+    h2 {
+        @apply font-semibold;
+        font-size: 2rem; /* 32px */
+    }
+
+    h3 {
+        @apply font-semibold;
+        font-size: 1.5rem;
+    }
+
+    h4 {
+        @apply font-normal;
+        font-size: 1.25rem;
+    }
+
+    body, p, strong, small {
+        font-size: 1rem;
+    }
+
+    body, p {
+        @apply font-medium;
+    }
+
+    strong {
+        @apply font-semibold;
+    }
+
+    small {
+        @apply font-normal;
+    }
+}

@@ -1,11 +1,13 @@
-import '@/styles/globals.css';
-import { GetServerSideProps } from 'next';
-import { getServerSession } from 'next-auth/next';
-import { SessionProvider } from 'next-auth/react';
-import type { AppProps } from 'next/app';
-import { authOptions } from './api/auth/[...nextauth]';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import type { Session } from 'next-auth';
+import "@/styles/globals.css";
+import {GetServerSideProps} from "next";
+import {getServerSession} from "next-auth/next";
+import {SessionProvider} from "next-auth/react";
+import {AppLayoutProps} from "next/app";
+import {authOptions} from "./api/auth/[...nextauth]";
+import {QueryClient, QueryClientProvider} from "react-query";
+import React from "react";
+import Layout from "@/components/layouts/Layout";
+import {Session} from "next-auth";
 
 // ngl this still looks really ugly, but using the function syntax it's worse
 export const getServerSideProps: GetServerSideProps<{ session: Session }> = async context => {
@@ -13,23 +15,25 @@ export const getServerSideProps: GetServerSideProps<{ session: Session }> = asyn
   if (!session) {
     return {
       redirect: {
-        destination: '/login',
-        permanent: false,
-      },
+        destination: "/login",
+        permanent: false
+      }
     };
   }
   return {
     props: {
-      session,
-    },
+      session
+    }
   };
 };
 
-export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+export default function App({ Component, pageProps: { session, ...pageProps } }: AppLayoutProps) {
+  const getLayout = Component.getLayout || Layout.getLayout;
+
   return (
     <SessionProvider session={session}>
       <QueryClientProvider client={new QueryClient()}>
-        <Component {...pageProps} />
+        {getLayout(<Component {...pageProps} />)}
       </QueryClientProvider>
     </SessionProvider>
   );

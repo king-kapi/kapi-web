@@ -2,7 +2,7 @@ import LoginStatus from "@/components/LoginStatus";
 import { GameList } from "@/src/types/Games";
 import protectedGetServerSideProps from "@/src/utils/protectRoute";
 import { FormEvent } from "react";
-import { CreateLobbyBody } from "../api/lobby";
+import { CreateLobbyBody } from "../../api/lobby";
 import { useRouter } from "next/router";
 
 export const getServerSideProps = protectedGetServerSideProps;

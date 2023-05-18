@@ -27,7 +27,7 @@ const ViewLobby = ({ user }: { user: UserProfile }) => {
     <main>
       <LoginStatus />
 
-      <Link href="/party-finder/test">
+      <Link href="/dev-pages/party-finder/test">
         <button>Back</button>
       </Link>
 

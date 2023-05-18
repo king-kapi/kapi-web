@@ -1,0 +1,16 @@
+.Layout {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    flex-direction: row;
+}
+
+.LayoutNavWrapper {
+    flex: 0 1;
+    height: 100%;
+}
+
+.LayoutContent {
+    flex: 1;
+    overflow: auto;
+}
