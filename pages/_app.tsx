@@ -1,17 +1,17 @@
 import "@/styles/globals.css";
-import { GetServerSidePropsContext } from "next";
-import { getServerSession } from "next-auth/next";
-import { SessionProvider } from "next-auth/react";
-import { AppContext, AppInitialProps, AppLayoutProps } from "next/app";
-import { authOptions } from "./api/auth/[...nextauth]";
-import { QueryClient, QueryClientProvider } from "react-query";
-import React, { ReactNode } from "react";
+import {GetServerSideProps} from "next";
+import {getServerSession} from "next-auth/next";
+import {SessionProvider} from "next-auth/react";
+import {AppLayoutProps} from "next/app";
+import {authOptions} from "./api/auth/[...nextauth]";
+import {QueryClient, QueryClientProvider} from "react-query";
+import React from "react";
 import Layout from "@/components/layouts/Layout";
+import {Session} from "next-auth";
 
-// todo: this context is any pls don't do this ;-;
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+// ngl this still looks really ugly, but using the function syntax it's worse
+export const getServerSideProps: GetServerSideProps<{ session: Session }> = async context => {
   const session = await getServerSession(context.req, context.res, authOptions);
-
   if (!session) {
     return {
       redirect: {
@@ -20,22 +20,19 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       }
     };
   }
-
   return {
     props: {
       session
     }
   };
-}
-
-const queryClient = new QueryClient();
+};
 
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppLayoutProps) {
   const getLayout = Component.getLayout || Layout.getLayout;
 
   return (
     <SessionProvider session={session}>
-      <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={new QueryClient()}>
         {getLayout(<Component {...pageProps} />)}
       </QueryClientProvider>
     </SessionProvider>
