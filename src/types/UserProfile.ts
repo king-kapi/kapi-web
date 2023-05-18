@@ -41,7 +41,7 @@ export const BLANK_USER_PROFILE: OmitId<UserProfile> = {
   friendRequests: [],
   friends: [],
   status: UserStatus.OFFLINE,
-  currentLobby: null,
+  currentLobby: undefined,
   lobbyRequests: [],
   communities: [],
   newUser: true
