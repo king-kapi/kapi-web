@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "@/styles/Button.module.css";
-import Icon, { IconDef } from "@/components/Icon";
+import Icon, { IconDef } from "@/components/icons/Icon";
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   htmlType?: "button" | "submit" | "reset",
