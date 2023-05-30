@@ -1,0 +1,327 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type ChatsUsers {
+  id             String   @map("_id") @db.ObjectId
+  avatar         String?
+  bio            String?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  communities    Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  currentLobby   Json?
+  email          String?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  emailVerified  Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  friendRequests Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  friends        Json?
+  /// Nested objects had no data in the sample dataset to introspect a nested type.
+  games          Json?
+  image          String?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  interests      Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  lobbyRequests  Json?
+  name           String?
+  newUser        Boolean?
+  status         String
+  tag            String
+  username       String
+}
+
+type LobbiesHost {
+  id             String   @map("_id") @db.ObjectId
+  bio            String
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  communities    Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  currentLobby   Json?
+  email          String?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  emailVerified  Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  friendRequests Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  friends        Json?
+  /// Nested objects had no data in the sample dataset to introspect a nested type.
+  games          Json?
+  image          String
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  interests      Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  lobbyRequests  Json?
+  name           String?
+  newUser        Boolean?
+  status         String
+  tag            String
+  username       String
+}
+
+type LobbiesUsers {
+  id       String @map("_id") @db.ObjectId
+  bio      String
+  image    String
+  status   String
+  tag      String
+  username String
+}
+
+type MessagesSender {
+  id             String                  @map("_id")
+  avatar         String?
+  bio            String?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  communities    Json?
+  currentLobby   String?
+  email          String?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  emailVerified  Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  friendRequests Json?
+  friends        MessagesSenderFriends[]
+  /// Nested objects had no data in the sample dataset to introspect a nested type.
+  games          Json?
+  image          String?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  interests      Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  lobbyRequests  Json?
+  name           String?
+  newUser        Boolean?
+  status         String
+  tag            String
+  username       String
+}
+
+type MessagesSenderFriends {
+  id       String @map("_id")
+  username String
+}
+
+type PartiesHost {
+  id            String                     @map("_id") @db.ObjectId
+  avatar        String
+  bio           String
+  email         String
+  friends       PartiesHostFriends[]
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  interests     Json?
+  partyRequests PartiesHostPartyRequests[]
+  status        String
+  tag           String
+  username      String
+}
+
+type PartiesHostFriends {
+  id       String @map("_id") @db.ObjectId
+  username String
+}
+
+type PartiesHostPartyRequests {
+  party    PartiesHostPartyRequestsParty
+  receiver PartiesHostPartyRequestsReceiver
+  sender   PartiesHostPartyRequestsSender
+}
+
+type PartiesHostPartyRequestsParty {
+  id      String                            @map("_id") @db.ObjectId
+  game    String
+  host    PartiesHostPartyRequestsPartyHost
+  maxSize Int
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  users   Json?
+}
+
+type PartiesHostPartyRequestsPartyHost {
+  id        String                                     @map("_id") @db.ObjectId
+  avatar    String
+  bio       String
+  email     String
+  friends   PartiesHostPartyRequestsPartyHostFriends[]
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  interests Json?
+  status    String
+  tag       String
+  username  String
+}
+
+type PartiesHostPartyRequestsPartyHostFriends {
+  id       String @map("_id") @db.ObjectId
+  username String
+}
+
+type PartiesHostPartyRequestsReceiver {
+  id        String                                    @map("_id") @db.ObjectId
+  avatar    String
+  bio       String
+  email     String
+  friends   PartiesHostPartyRequestsReceiverFriends[]
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  interests Json?
+  status    String
+  tag       String
+  username  String
+}
+
+type PartiesHostPartyRequestsReceiverFriends {
+  id       String @map("_id") @db.ObjectId
+  username String
+}
+
+type PartiesHostPartyRequestsSender {
+  id        String                                  @map("_id") @db.ObjectId
+  avatar    String
+  bio       String
+  email     String
+  friends   PartiesHostPartyRequestsSenderFriends[]
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  interests Json?
+  status    String
+  tag       String
+  username  String
+}
+
+type PartiesHostPartyRequestsSenderFriends {
+  id       String @map("_id") @db.ObjectId
+  username String
+}
+
+type PartiesUsers {
+  id            String                @map("_id") @db.ObjectId
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  avatar        Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  bio           Json?
+  email         String
+  friends       PartiesUsersFriends[]
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  interests     Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  partyRequests Json?
+  status        String
+  tag           String
+  username      String
+}
+
+type PartiesUsersFriends {
+  id       String @map("_id") @db.ObjectId
+  username String
+}
+
+model Account {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  access_token      String
+  expires_at        Int
+  id_token          String
+  provider          String
+  providerAccountId String
+  scope             String
+  token_type        String
+  type              String
+  userId            String @db.ObjectId
+}
+
+model Chat {
+  id    String       @id @default(auto()) @map("_id") @db.ObjectId
+  icon  String?
+  name  String?
+  users ChatsUsers[]
+}
+
+model Lobby {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  chatId           String         @db.ObjectId
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  game             Json?
+  host             LobbiesHost
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  maxSize          Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  requests         Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  resolvedRequests Json?
+  users            LobbiesUsers[]
+}
+
+model Message {
+  id        String         @id @default(auto()) @map("_id") @db.ObjectId
+  chatId    String
+  content   String
+  /// Nested objects had no data in the sample dataset to introspect a nested type.
+  metadata  Json
+  sender    MessagesSender
+  timestamp Float
+}
+
+model Party {
+  id       String         @id @default(auto()) @map("_id") @db.ObjectId
+  game     String
+  host     User           @relation(fields: [hostId], references: [id])
+  hostId   String         @db.ObjectId
+  maxSize  Int
+  requests PartyRequest[]
+
+  users  PartiesUsers[]
+  userId String         @db.ObjectId
+}
+
+model Post {
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
+  authorId       String @db.ObjectId
+  authorTag      String
+  authorUsername String
+  content        String
+  likes          Int
+  timestamp      Float
+}
+
+model Session {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+}
+
+model User {
+  id                    String         @id @default(auto()) @map("_id") @db.ObjectId
+  bio                   String
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  communities           Json?
+  currentLobby          String         @db.ObjectId
+  email                 String         @unique
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  emailVerified         Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  friendRequests        Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  friends               Json?
+  /// Nested objects had no data in the sample dataset to introspect a nested type.
+  games                 Json
+  image                 String
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  interests             Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  sentPartyRequests     PartyRequest[] @relation("SentPartyRequests")
+  receivedPartyRequests PartyRequest[] @relation("ReceivedPartyRequests")
+  lobbyRequests         Json?
+  name                  String
+  newUser               Boolean
+  status                String
+  tag                   String
+  username              String
+  Party                 Party[]
+}
+
+model PartyRequest {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  sender     User   @relation("SentPartyRequests", fields: [senderId], references: [id])
+  senderId   String @db.ObjectId
+  receiver   User   @relation("ReceivedPartyRequests", fields: [receiverId], references: [id])
+  receiverId String @db.ObjectId
+  party      Party  @relation(fields: [partyId], references: [id])
+  partyId    String @db.ObjectId
+}
