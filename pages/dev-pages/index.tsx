@@ -12,13 +12,17 @@ const DevPages = () => {
       Pages dedicated for development use/showcase
     </p>
 
+    <div style={{color: "red"}}>
+
+    </div>
+
     <Link href={"/dev-pages/colors"}>
       <Button className={"mt-4"}>
         Colors
       </Button>
     </Link>
 
-    <br />
+    <br/>
 
     <Link href={"/dev-pages/icons"}>
       <Button className={"mt-2"}>
@@ -26,7 +30,7 @@ const DevPages = () => {
       </Button>
     </Link>
 
-    <br />
+    <br/>
 
     <Link href={"/dev-pages/typography"}>
       <Button className={"mt-2"}>
@@ -34,7 +38,7 @@ const DevPages = () => {
       </Button>
     </Link>
 
-    <br />
+    <br/>
 
     <Link href={"/dev-pages/atoms"}>
       <Button className={"mt-2"}>
@@ -48,15 +52,15 @@ const DevPages = () => {
       <Button type={"secondary"}>See components page</Button>
     </Link>
 
-    <br />
-    <br />
+    <br/>
+    <br/>
 
     <Link href={"/dev-pages/chat-demo"}>
       <Button type={"secondary"}>See chat demo</Button>
     </Link>
 
-    <br />
-    <br />
+    <br/>
+    <br/>
 
     <Link href={"/dev-pages/party-finder/test"}>
       <Button type={"secondary"}>See Party Finder Backend Tests</Button>

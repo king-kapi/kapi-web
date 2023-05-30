@@ -11,7 +11,8 @@
     "lint": "next lint",
     "format": "npx prettier --write .",
     "dump": "mongodump -d designthriving -o mock_data_dump",
-    "restore": "mongorestore mock_data_dump"
+    "restore": "mongorestore mock_data_dump",
+    "generate-icons": "ts-node ./scripts/generate-icons.ts components/icons/Icons.tsx"
   },
   "dependencies": {
     "@emotion/react": "^11.10.8",
