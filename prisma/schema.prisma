@@ -7,6 +7,100 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ==================================
+// Next-Auth Schemas
+// ==================================
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @map("user_id") @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id") @db.ObjectId
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verificationtokens")
+}
+
+// ===========================
+// Our Schemas
+// ===========================
+
+// model User {
+//   id            String    @id @default(cuid())
+//   name          String?
+//   email         String?   @unique
+//   emailVerified DateTime? @map("email_verified")
+//   image         String?
+//   accounts      Account[]
+//   sessions      Session[]
+//
+//   @@map("users")
+// }
+
+model User {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  // next-auth required fields
+
+  name                  String?
+  email                 String?        @unique
+  emailVerified         DateTime?      @map("email_verified")
+  image                 String?
+  accounts              Account[]
+  sessions              Session[]
+  // extending model
+  bio                   String?
+  currentLobby          String?        @db.ObjectId
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  friendRequests        Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  friends               Json?
+  /// Nested objects had no data in the sample dataset to introspect a nested type.
+  games                 Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  interests             Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  sentPartyRequests     PartyRequest[] @relation("SentPartyRequests")
+  receivedPartyRequests PartyRequest[] @relation("ReceivedPartyRequests")
+  lobbyRequests         Json?
+  newUser               Boolean?
+  status                String?
+  tag                   String?
+  username              String?
+  Party                 Party[]
+
+  @@map("users")
+}
+
 type ChatsUsers {
   id             String   @map("_id") @db.ObjectId
   avatar         String?
@@ -215,19 +309,6 @@ type PartiesUsersFriends {
   username String
 }
 
-model Account {
-  id                String @id @default(auto()) @map("_id") @db.ObjectId
-  access_token      String
-  expires_at        Int
-  id_token          String
-  provider          String
-  providerAccountId String
-  scope             String
-  token_type        String
-  type              String
-  userId            String @db.ObjectId
-}
-
 model Chat {
   id    String       @id @default(auto()) @map("_id") @db.ObjectId
   icon  String?
@@ -280,40 +361,6 @@ model Post {
   content        String
   likes          Int
   timestamp      Float
-}
-
-model Session {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-}
-
-model User {
-  id                    String         @id @default(auto()) @map("_id") @db.ObjectId
-  bio                   String
-  /// Could not determine type: the field only had null or empty values in the sample set.
-  communities           Json?
-  currentLobby          String         @db.ObjectId
-  email                 String         @unique
-  /// Could not determine type: the field only had null or empty values in the sample set.
-  emailVerified         Json?
-  /// Could not determine type: the field only had null or empty values in the sample set.
-  friendRequests        Json?
-  /// Could not determine type: the field only had null or empty values in the sample set.
-  friends               Json?
-  /// Nested objects had no data in the sample dataset to introspect a nested type.
-  games                 Json
-  image                 String
-  /// Could not determine type: the field only had null or empty values in the sample set.
-  interests             Json?
-  /// Could not determine type: the field only had null or empty values in the sample set.
-  sentPartyRequests     PartyRequest[] @relation("SentPartyRequests")
-  receivedPartyRequests PartyRequest[] @relation("ReceivedPartyRequests")
-  lobbyRequests         Json?
-  name                  String
-  newUser               Boolean
-  status                String
-  tag                   String
-  username              String
-  Party                 Party[]
 }
 
 model PartyRequest {

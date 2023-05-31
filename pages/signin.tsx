@@ -1,12 +1,11 @@
 import { Icon } from '@iconify/react';
 import { signIn } from 'next-auth/react';
 import styles from '../styles/SignInPage.module.css';
+import EmptyLayout from "@/components/layouts/EmptyLayout";
 
 export default function SignInPage() {
-    // console.log(providers)
-
     return (
-        <div className={styles.SignInPage}>
+        <div className={[styles.SignInPage, "text-black"].join(' ')}>
             <div className={styles.Logo}></div>
             <div className={styles.SignInContainer}>
                 <div className={styles.SignInHeader}>
@@ -33,3 +32,5 @@ export default function SignInPage() {
         </div>
     )
 }
+
+SignInPage.getLayout = EmptyLayout.getLayout;

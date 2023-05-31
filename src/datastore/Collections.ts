@@ -1,9 +1,9 @@
 const Collections = {
-  USERS: 'user',
-  CHATS: 'chat',
-  MESSAGES: 'message',
-  POSTS: 'post',
-  LOBBIES: 'lobby'
+  USERS: 'User',
+  CHATS: 'Chat',
+  MESSAGES: 'Message',
+  POSTS: 'Post',
+  LOBBIES: 'Lobby'
 }
 
 export default Collections;
