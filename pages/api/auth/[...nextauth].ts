@@ -1,41 +1,30 @@
-import Collections from "@/src/datastore/Collections";
 import MongoDatastore from "@/src/datastore/MongoDatastore";
-import UserProfile from "@/src/types/UserProfile";
-import {MongoClient} from "mongodb";
-import NextAuth, {AuthOptions, Session, User} from "next-auth";
-import {AdapterUser} from "next-auth/adapters";
-import {JWT} from "next-auth/jwt";
-import {Provider} from "next-auth/providers";
+import NextAuth, { AuthOptions, Session, User as NextUser } from "next-auth";
+import { AdapterUser } from "next-auth/adapters";
+import { JWT } from "next-auth/jwt";
+import { Provider } from "next-auth/providers";
 import CredentialsProvider from "next-auth/providers/credentials";
 import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
-import {PrismaClient} from "@prisma/client";
-import {PrismaAdapter} from "@next-auth/prisma-adapter";
-
-// create a MongoClient for the adapter
-
-const uri = process.env.MONGODB_CONNECTION_URI;
-const options = {};
-
-let client;
-let clientPromise: Promise<MongoClient>;
+import { PrismaClient, User } from "@prisma/client";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 const prisma = new PrismaClient();
 
 const providers: Provider[] = [
   GoogleProvider({
     clientId: process.env.GOOGLE_ID,
-    clientSecret: process.env.GOOGLE_SECRET,
+    clientSecret: process.env.GOOGLE_SECRET
   }),
   DiscordProvider({
     clientId: process.env.DISCORD_ID,
     clientSecret: process.env.DISCORD_SECRET
   })
-]
+];
 
 if (process.env.NODE_ENV === "development")
   providers.push(CredentialsProvider({
-    name: 'DevCredentials',
+    name: "DevCredentials",
     credentials: {
       email: {
         label: "Email",
@@ -45,7 +34,7 @@ if (process.env.NODE_ENV === "development")
     async authorize(credentials, req) { // I have no clue why typescript returns an error here
       if (process.env.NODE_ENV !== "development") return null;
 
-      console.log(`Logging in with ${credentials?.email}`)
+      console.log(`Logging in with ${credentials?.email}`);
 
       const user = await (await MongoDatastore.getInstance()).users.getUserProfileByEmail(credentials?.email || "");
 
@@ -58,7 +47,7 @@ if (process.env.NODE_ENV === "development")
         };
       return null;
     }
-  }))
+  }));
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -67,35 +56,16 @@ export const authOptions: AuthOptions = {
   },
   providers,
   pages: {
-    signIn: '/signin',
+    signIn: "/signin"
   },
   callbacks: {
-    async jwt({token, isNewUser}) {
-      if (isNewUser) {
-        console.log('registering new user!');
-        token.user = await prisma.user.create({
-          data: {
-            email: token.email ?? ""
-          }
-        })
-
-      } else {
-        token.user = await prisma.user.findUnique({
-          where: {
-            email: token.email ?? ""
-          }
-        });
-      }
-
-      return token;
-    },
-    session: async ({session, token}: { session: Session, user: User | AdapterUser, token: JWT }) => {
-      if (session) {
-        session.user = token.user as UserProfile;
+    session: async ({ session, token }: { session: Session, user: NextUser | AdapterUser, token: JWT }) => {
+      if (token.sub) {
+        session.id = token.sub;
       }
       return session;
     }
   }
-}
+};
 
 export default NextAuth(authOptions);

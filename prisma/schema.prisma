@@ -55,35 +55,27 @@ model VerificationToken {
 // Our Schemas
 // ===========================
 
-// model User {
-//   id            String    @id @default(cuid())
-//   name          String?
-//   email         String?   @unique
-//   emailVerified DateTime? @map("email_verified")
-//   image         String?
-//   accounts      Account[]
-//   sessions      Session[]
-//
-//   @@map("users")
-// }
-
 model User {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   // next-auth required fields
 
-  name                  String?
-  email                 String?        @unique
-  emailVerified         DateTime?      @map("email_verified")
-  image                 String?
-  accounts              Account[]
-  sessions              Session[]
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime? @map("email_verified")
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
   // extending model
-  bio                   String?
-  currentLobby          String?        @db.ObjectId
-  /// Could not determine type: the field only had null or empty values in the sample set.
-  friendRequests        Json?
-  /// Could not determine type: the field only had null or empty values in the sample set.
-  friends               Json?
+  username      String    @default("")
+  tag           String    @default("")
+  bio           String    @default("")
+  status        String    @default("")
+  currentLobby  String?   @db.ObjectId
+
+  friendOf   User?   @relation("Friend", fields: [friendOfId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  friendOfId String? @db.ObjectId
+  friends    User[]  @relation("Friend")
+
   /// Nested objects had no data in the sample dataset to introspect a nested type.
   games                 Json?
   /// Could not determine type: the field only had null or empty values in the sample set.
@@ -93,9 +85,6 @@ model User {
   receivedPartyRequests PartyRequest[] @relation("ReceivedPartyRequests")
   lobbyRequests         Json?
   newUser               Boolean?
-  status                String?
-  tag                   String?
-  username              String?
   Party                 Party[]
 
   @@map("users")
@@ -143,7 +132,7 @@ type LobbiesHost {
   /// Could not determine type: the field only had null or empty values in the sample set.
   friendRequests Json?
   /// Could not determine type: the field only had null or empty values in the sample set.
-  friends        Json?
+  // friends        User[]  @default([])
   /// Nested objects had no data in the sample dataset to introspect a nested type.
   games          Json?
   image          String

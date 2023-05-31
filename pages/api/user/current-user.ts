@@ -1,16 +1,20 @@
-import MongoDatastore from '@/src/datastore/MongoDatastore';
-import protectApiRoute from '@/src/utils/protectApiRoute';
-import { NextApiRequest, NextApiResponse } from 'next';
+import protectApiRoute from "@/src/utils/protectApiRoute";
+import { NextApiRequest, NextApiResponse } from "next";
+import { Prisma, PrismaClient } from "@prisma/client";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const { user } = await protectApiRoute(req, res);
+  const { id } = await protectApiRoute(req, res);
 
-    if (req.method === "GET") {
-        const instance = await MongoDatastore.getInstance();
+  if (req.method === "GET") {
+    const prisma = new PrismaClient();
 
-        // return list of users
-        res.status(200).json(await instance.users.getUserProfile(user._id));
-    } else {
-        res.status(405).send("405 Method Not Allowed.");
-    }
+    res.status(200).json(await prisma.user.findUnique({
+      where: {
+        id: id
+      },
+      include: req.query.include ? JSON.parse(atob(req.query.include as string))  : {}
+    }));
+  } else {
+    res.status(405).send("405 Method Not Allowed.");
+  }
 }
