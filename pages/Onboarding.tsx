@@ -12,13 +12,10 @@ export default function Onboarding() {
 
   return (
     <div className={styles.OnboardingContainer}>
-      <div className={styles.ProgressBarContainer}>
-        <ProgressBar progress={progress}></ProgressBar>
-      </div>
-      {pageNumber === 1 && <OnboardingWelcome/>}
+      <div className={styles.Content}>{pageNumber === 1 && <OnboardingWelcome/>}
       {pageNumber === 2 && <CustomizeAvatar />}
       <Button className={styles.Back} type='secondary' onClick={() => {if(pageNumber > 1) {setProgress(progress - 20); setPageNumber(pageNumber - 1)}}}>Back</Button>
-      <Button className={styles.Next} onClick={() => {setProgress(progress + 20); setPageNumber(pageNumber + 1)}}>Next</Button>
+      <Button className={styles.Next} onClick={() => {setProgress(progress + 20); setPageNumber(pageNumber + 1)}}>Next</Button></div>
     </div>
   );
 }

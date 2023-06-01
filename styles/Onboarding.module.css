@@ -1,23 +1,30 @@
 .OnboardingContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background: conic-gradient(from 171.34deg at 50% 50%, var(--yellow-500) 0deg, var(--pink-500) 65.83deg, var(--blue-500) 151.36deg, var(--cyan-500) 228.75deg, var(--yellow-500) 360deg);
 }
 
-.ProgressBarContainer {
-    margin-top: 2.75rem;
+.Content {
+    width: 55.25rem;
+    height: 46.25rem;
+    border-radius: 20px;
+    background-color: var(--black);
 }
 
 .Back {
-    position: fixed;
-    width: 7.5rem;
-    bottom: 16rem;
-    left: 30rem;
+  position: fixed;
+  width: 7.5rem;
+  bottom: 16.3rem;
+  left: 36.5rem;
 }
 
 .Next {
-    position: fixed;
-    width: 7.5rem;
-    bottom: 16rem;
-    right: 30rem;
+  position: fixed;
+  width: 7.5rem;
+  bottom: 16.3rem;
+  right: 36.5rem;
 }
