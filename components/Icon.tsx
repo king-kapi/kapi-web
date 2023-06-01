@@ -38,6 +38,7 @@ export const Icons: { [key: string]: IconDef } = {
   "REPLY": { "src": "/icons/reply.svg", "width": 18, "height": 14 },
   "REROLL": { "src": "/icons/reroll.svg", "width": 24, "height": 24 },
   "SEARCH": { "src": "/icons/search.svg", "width": 20, "height": 20 },
+  "SPARKLE_KAPI": { "src": "/icons/sparkle_kapi.svg", "width": 110, "height": 75 },
   "TOGGLE_VERTICAL": { "src": "/icons/toggle_vertical.svg", "width": 24, "height": 24 }
 };
 

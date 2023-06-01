@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Button from '@/components/Button';
 import EmptyLayout from '@/components/layouts/EmptyLayout';
 import OnboardingWelcome from '@/components/OnboardingWelcome';
-import CustomizeAvatar from '@/components/CustomizeAvatar';
+import OnboardingUsername from '@/components/OnboardingUsername';
 
 export default function Onboarding() {
     const [progress, setProgress] = useState(0)
@@ -13,7 +13,9 @@ export default function Onboarding() {
   return (
     <div className={styles.OnboardingContainer}>
       <div className={styles.Content}>{pageNumber === 1 && <OnboardingWelcome/>}
-      {pageNumber === 2 && <CustomizeAvatar />}
+      {pageNumber === 2 && <OnboardingUsername />}
+      {pageNumber === 3 /* && <CustomizeAvatar /> */}
+      {pageNumber === 4 }
       <Button className={styles.Back} type='secondary' onClick={() => {if(pageNumber > 1) {setProgress(progress - 20); setPageNumber(pageNumber - 1)}}}>Back</Button>
       <Button className={styles.Next} onClick={() => {setProgress(progress + 20); setPageNumber(pageNumber + 1)}}>Next</Button></div>
     </div>
