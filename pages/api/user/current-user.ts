@@ -1,6 +1,6 @@
 import protectApiRoute from "@/src/utils/protectApiRoute";
 import { NextApiRequest, NextApiResponse } from "next";
-import { Prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = await protectApiRoute(req, res);

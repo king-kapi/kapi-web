@@ -1,12 +1,10 @@
-import MongoDatastore from "@/src/datastore/MongoDatastore";
 import NextAuth, { AuthOptions, Session, User as NextUser } from "next-auth";
 import { AdapterUser } from "next-auth/adapters";
 import { JWT } from "next-auth/jwt";
 import { Provider } from "next-auth/providers";
-import CredentialsProvider from "next-auth/providers/credentials";
 import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
-import { PrismaClient, User } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 const prisma = new PrismaClient();
@@ -22,32 +20,32 @@ const providers: Provider[] = [
   })
 ];
 
-if (process.env.NODE_ENV === "development")
-  providers.push(CredentialsProvider({
-    name: "DevCredentials",
-    credentials: {
-      email: {
-        label: "Email",
-        type: "text"
-      }
-    },
-    async authorize(credentials, req) { // I have no clue why typescript returns an error here
-      if (process.env.NODE_ENV !== "development") return null;
-
-      console.log(`Logging in with ${credentials?.email}`);
-
-      const user = await (await MongoDatastore.getInstance()).users.getUserProfileByEmail(credentials?.email || "");
-
-      if (user)
-        return {
-          id: user._id.toString(),
-          email: user.email,
-          image: user.image,
-          name: user.username
-        };
-      return null;
-    }
-  }));
+// if (process.env.NODE_ENV === "development")
+//   providers.push(CredentialsProvider({
+//     name: "DevCredentials",
+//     credentials: {
+//       email: {
+//         label: "Email",
+//         type: "text"
+//       }
+//     },
+//     async authorize(credentials, req) { // I have no clue why typescript returns an error here
+//       if (process.env.NODE_ENV !== "development") return null;
+//
+//       console.log(`Logging in with ${credentials?.email}`);
+//
+//       const user = await (await MongoDatastore.getInstance()).users.getUserProfileByEmail(credentials?.email || "");
+//
+//       if (user)
+//         return {
+//           id: user._id.toString(),
+//           email: user.email,
+//           image: user.image,
+//           name: user.username
+//         };
+//       return null;
+//     }
+//   }));
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
