@@ -7,8 +7,7 @@ import { formContext } from '@/pages/partyfinder/buddyfinder';
 
 function ProfilePreview() {
 
-  const {content} = useContext(formContext)
-  console.log(content)
+  const {content} = useContext<any>(formContext)
 
   const [mode, setMode] = useState('dark')
   return (

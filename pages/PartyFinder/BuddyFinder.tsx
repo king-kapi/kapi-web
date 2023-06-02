@@ -29,6 +29,7 @@ export default function BuddyFinder() {
     message: '',
   });
 
+
   const providerValue = useMemo(() => ({ content, setContent }), [content, setContent]);
 
   return (
@@ -73,7 +74,7 @@ export default function BuddyFinder() {
         )}
         <formContext.Provider value={providerValue}>
           {pageNumber === 1 && <HonorOfConduct />}
-          {pageNumber === 2 && <GameSelect />}
+          {pageNumber === 2 && <GameSelect formContext={formContext}/>}
           {pageNumber === 3 && <InterestMatch />}
           {pageNumber === 4 && <TimeZone />}
           {pageNumber === 5 && <InvitationMessage />}
