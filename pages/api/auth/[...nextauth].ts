@@ -4,6 +4,7 @@ import { JWT } from "next-auth/jwt";
 import { Provider } from "next-auth/providers";
 import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaClient } from "@prisma/client";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
@@ -20,32 +21,36 @@ const providers: Provider[] = [
   })
 ];
 
-// if (process.env.NODE_ENV === "development")
-//   providers.push(CredentialsProvider({
-//     name: "DevCredentials",
-//     credentials: {
-//       email: {
-//         label: "Email",
-//         type: "text"
-//       }
-//     },
-//     async authorize(credentials, req) { // I have no clue why typescript returns an error here
-//       if (process.env.NODE_ENV !== "development") return null;
-//
-//       console.log(`Logging in with ${credentials?.email}`);
-//
-//       const user = await (await MongoDatastore.getInstance()).users.getUserProfileByEmail(credentials?.email || "");
-//
-//       if (user)
-//         return {
-//           id: user._id.toString(),
-//           email: user.email,
-//           image: user.image,
-//           name: user.username
-//         };
-//       return null;
-//     }
-//   }));
+if (process.env.NODE_ENV === "development")
+  providers.push(CredentialsProvider({
+    name: "DevCredentials",
+    credentials: {
+      email: {
+        label: "Email",
+        type: "text"
+      }
+    },
+    async authorize(credentials, req) { // I have no clue why typescript returns an error here
+      if (process.env.NODE_ENV !== "development") return null;
+
+      console.log(`Logging in with ${credentials?.email}`);
+
+      const user = await prisma.user.findUnique({
+        where: {
+          email: credentials?.email || ""
+        }
+      })
+
+      if (user)
+        return {
+          id: user.id,
+          email: user.email,
+          image: user.image,
+          name: user.username
+        };
+      return null;
+    }
+  }));
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
