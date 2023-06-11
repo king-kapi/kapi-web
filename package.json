@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "server-dev": "nodemon -r tsconfig-paths/register ./server/index.ts",
+    "server-dev": "NODE_ENV=development nodemon -r tsconfig-paths/register ./server/index.ts",
     "next-dev": "next dev",
     "dev": "NODE_ENV=development ts-node -r tsconfig-paths/register ./server/index.ts",
     "build": "next build",

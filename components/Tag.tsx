@@ -1,6 +1,6 @@
 import styles from "@/styles/Tag.module.css";
 import React from "react";
-import Icon, { Icons } from "@/components/icons/Icon";
+import Icon from "@/components/icons/Icon";
 
 export interface TagProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: "large" | "small";
@@ -13,7 +13,7 @@ const Tag = ({ size = "large", icon = false, border = false, children, ...props 
     styles.Tag,
     size === "small" ? styles.Small : "",
     border ? styles.Border : ""].join(" ")} {...props}>
-    {icon ? <Icon icon={Icons.DENY_SMALL} style={{ marginLeft: -7, marginRight: 9 }} /> : <></>}
+    {icon ? <Icon icon={"deny_small"} style={{ marginLeft: -7, marginRight: 9 }} /> : <></>}
     <span>
     {children}
     </span>

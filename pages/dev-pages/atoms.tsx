@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Button from "@/components/Button";
 import DevLayout from "@/components/layouts/DevLayout";
-import { Icons } from "@/components/icons/Icon";
 import Tag from "@/components/Tag";
+import Icons from "@/components/icons/Icons";
 
 const AtomsPage = () => {
   const [theme, setTheme] = useState("pink");
@@ -48,17 +48,17 @@ const AtomsPage = () => {
           <div>
             <h4>Primary</h4>
             <Button>Small Button</Button> <br />
-            <Button icon={Icons.EXIT} className={"mt-2"}>Small Button</Button> <br />
+            <Button icon={"exit"} className={"mt-2"}>Small Button</Button> <br />
             <Button size={"large"} className={"mt-2"}>Large Button</Button> <br />
-            <Button icon={Icons.EXIT} size={"large"} className={"mt-2"}>Large Button</Button>
+            <Button icon={"exit"} size={"large"} className={"mt-2"}>Large Button</Button>
           </div>
 
           <div>
             <h4>Secondary</h4>
             <Button type={"secondary"}>Small Button</Button> <br />
-            <Button type={"secondary"} icon={Icons.EXIT} className={"mt-2"}>Small Button</Button> <br />
+            <Button type={"secondary"} icon={"exit"} className={"mt-2"}>Small Button</Button> <br />
             <Button type={"secondary"} size={"large"} className={"mt-2"}>Large Button</Button> <br />
-            <Button type={"secondary"} icon={Icons.EXIT} size={"large"} className={"mt-2"}>Large Button</Button>
+            <Button type={"secondary"} icon={"exit"} size={"large"} className={"mt-2"}>Large Button</Button>
           </div>
         </div>
       </div>

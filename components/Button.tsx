@@ -1,12 +1,13 @@
 import React from "react";
 import styles from "@/styles/Button.module.css";
-import Icon, { IconDef } from "@/components/icons/Icon";
+import Icon from "@/components/icons/Icon";
+import Icons from "@/components/icons/Icons";
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   htmlType?: "button" | "submit" | "reset",
   type?: "primary" | "secondary",
   size?: "small" | "large",
-  icon?: IconDef,
+  icon?: Icons,
   className?: string,
 }
 
@@ -33,7 +34,7 @@ const Button = ({
             {...props}
     >
       {icon ?
-        <Icon icon={icon} className={"mr-2.5"}/>
+        <Icon icon={icon} className={children ? "mr-2.5" : ""}/> // no margin if icon only
         : <></>}
       {children}
     </button>
