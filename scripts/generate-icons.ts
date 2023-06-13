@@ -14,7 +14,7 @@ for (const imagePath of images) {
   //
   // console.log(create(names.join(""), contents));
 
-  const contents = fs.readFileSync("./public/icons/" + imagePath).toString()
+  const contents = fs.readFileSync("./assets/icons/" + imagePath).toString()
     .replaceAll('fill="white"', 'fill="currentColor"');
   const src = "/icons/" + imagePath;
   const key = imagePath.replace('.svg', '');

@@ -53,6 +53,13 @@ const DevPages = () => {
         Modify User
       </Button>
     </Link>
+    <br/>
+
+    <Link href={"/dev-pages/party"}>
+      <Button className={"mt-2"}>
+        Party
+      </Button>
+    </Link>
 
     <h3 className={"mt-8"}>Miscellaneous</h3>
 

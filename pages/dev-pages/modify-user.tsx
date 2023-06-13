@@ -4,6 +4,21 @@ import { User } from "@prisma/client";
 import includeQuery from "@/src/utils/includeQuery";
 import Icon from "@/components/icons/Icon";
 
+const typeMap: {
+  [key: string]: string
+} = {
+  name: "string",
+  email: "string",
+  emailVerified: "number",
+  image: "string",
+  username: "string",
+  tag: "string",
+  bio: "string",
+  status: "string",
+  currentLobby: "string",
+  friendOfId: "string"
+};
+
 const ModifyUser = () => {
   const [user, setUser] = useState<User | undefined>(undefined);
   const [editing, setEditing] = useState<string[]>([]);
@@ -45,7 +60,11 @@ const ModifyUser = () => {
     setEditing(newEditing);
   }
 
-  const EditAttribute = ({ attribute, value }: { attribute: keyof User, value: User[keyof User] }) => {
+  const EditAttribute = ({ attribute, value, type }: {
+    attribute: keyof User,
+    value: User[keyof User],
+    type: string
+  }) => {
     const inputRef = useRef<HTMLInputElement>(document.createElement("input"));
 
     return (
@@ -54,7 +73,7 @@ const ModifyUser = () => {
           <input className="bg-grey px-2 py-1 rounded"
                  style={{ width: "100%" }}
                  defaultValue={(value ?? "").toString()}
-                 ref={inputRef} />
+                 ref={inputRef} type={type === "number" ? "number" : "text"} />
         </td>
         <td className={"flex gap-x-4 items-center"} style={{ height: 34 }}>
           <Icon icon={"add"} className={"cursor-pointer"}
@@ -83,17 +102,14 @@ const ModifyUser = () => {
     <main>
       <h1>Modify User</h1>
       <h3>ID: <code className={"bg-grey font-normal px-1 rounded"}> {user.id} </code></h3>
-      <h3>Username: <code
-        className={"bg-grey font-normal px-1 rounded"}>{user.username === "" ? "Not Set" : user.username}</code></h3>
 
-      <h3 className={"mt-8"}>Attributes:</h3>
       <table className={"border-spacing-y-4 border-spacing-x-4 border-separate"}>
         <thead>
         <tr>
           <th>
             <h4>Attribute Name</h4>
           </th>
-          <th style={{ width: "400px" }}>
+          <th>
             <h4>Value</h4>
           </th>
           <th>
@@ -105,15 +121,19 @@ const ModifyUser = () => {
         </thead>
 
         <tbody>
-        {(Object.keys(user) as (keyof User)[]).map(key => (
-          <tr key={key}>
-            <td>{key}</td>
-            {editing.includes(key) ?
-              <EditAttribute attribute={key} value={user[key]} />
-              : <DisplayAttribute attribute={key} value={user[key]} />
-            }
-          </tr>
-        ))}
+        {(Object.keys(user) as (keyof User)[]).map(key => {
+          if (key === "id" || !typeMap[key])
+            return (<></>);
+          return (
+            <tr key={key}>
+              <td>{key}</td>
+              {editing.includes(key) ?
+                <EditAttribute attribute={key} value={user[key]} type={typeMap[key]} />
+                : <DisplayAttribute attribute={key} value={user[key]} />
+              }
+            </tr>
+          );
+        })}
         </tbody>
       </table>
     </main>
