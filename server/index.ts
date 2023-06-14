@@ -8,7 +8,7 @@ import cookieParser from "cookie-parser";
 import chatHandler from "./chat";
 import userHandler from "./user";
 import { PrismaClient } from "@prisma/client";
-import partiesHandler from "@/server/parties";
+import lobbiesHandler from "@/server/lobbies";
 import gamesHandler from "@/server/games";
 import tagsHandler from "@/server/tags";
 
@@ -39,7 +39,7 @@ app.use(cookieParser());
 // authHandler(server);
 chatHandler(app, prisma, io);
 userHandler(app, prisma);
-partiesHandler(app, prisma);
+lobbiesHandler(app, prisma);
 tagsHandler(app, prisma);
 gamesHandler(app, prisma);
 

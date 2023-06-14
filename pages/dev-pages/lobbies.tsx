@@ -3,38 +3,38 @@ import DevLayout from "@/components/layouts/DevLayout";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import Select, { Option } from "@/components/Select";
-import { Game, Party, Prisma } from "@prisma/client";
+import { Game, Prisma } from "@prisma/client";
 
 // :)
 const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
 
-const partyWithUsers = Prisma.validator<Prisma.PartyArgs>()({
+const lobbyWithUsers = Prisma.validator<Prisma.LobbyArgs>()({
   include: { users: true }
 });
-type PartyWithUsers = Prisma.PartyGetPayload<typeof partyWithUsers>;
+type LobbyWithUsers = Prisma.LobbyGetPayload<typeof lobbyWithUsers>;
 
-const PartyDevPage = () => {
+const LobbyDevPage = () => {
   // game stuff
   const [games, setGames] = useState<Game[]>([]);
   const [selectedGame, setSelectedGame] = useState<Game>();
 
-  const [parties, setParties] =
-    useState<PartyWithUsers[]>([]);
+  const [lobbies, setLobbies] =
+    useState<LobbyWithUsers[]>([]);
 
   function fetchGames() {
     fetch("/api/games").then(res => res.json())
       .then(games => setGames(games));
   }
 
-  function fetchParties() {
-    fetch("/api/parties").then(res => res.json())
-      .then(parties => setParties(parties));
+  function fetchLobbies() {
+    fetch("/api/lobbies").then(res => res.json())
+      .then(lobbies => setLobbies(lobbies));
   }
 
   // fetch on initialization
   useEffect(() => {
     fetchGames();
-    fetchParties();
+    fetchLobbies();
   }, []);
 
   // form stuff
@@ -51,11 +51,11 @@ const PartyDevPage = () => {
     setSelectedGame(selectedGame);
   }
 
-  async function handleCreateParty(e: React.FormEvent<HTMLFormElement>) {
+  async function handleCreateLobby(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const data = new FormData(e.currentTarget);
-    const res = await fetch(`/api/parties`, {
+    const res = await fetch(`/api/lobbies`, {
       method: 'POST',
       headers: {
         "Content-Type": 'application/json'
@@ -85,13 +85,13 @@ const PartyDevPage = () => {
   return (
     <main>
       <h1>
-        Party
+        Lobby
       </h1>
 
       <h3 className={"mt-4"}>
-        Create Party
+        Create Lobby
       </h3>
-      <form className={"p-4"} onSubmit={handleCreateParty}>
+      <form className={"p-4"} onSubmit={handleCreateLobby}>
         <label>Name of Lobby</label><br />
         <Input className={"mt-2 mb-4"} placeholder={"Jane's Lobby"} name={"name"}
                style={{ width: "100%", maxWidth: 800 }} />
@@ -132,19 +132,19 @@ const PartyDevPage = () => {
         <br />
 
         <Button className={"mt-4"} type={"submit"} buttonSize={"large"}>
-          Create Party
+          Create Lobby
         </Button>
       </form>
 
       <h3 className={"mt-4"}>
-        All Parties
+        All Lobbies
       </h3>
 
-      {parties.map(party => (
-        <div key={party.id}>
-          <h4>{party.name}</h4>
-          <div>{party.description}</div>
-          <div>Users: {party.users.map(user => <>{`${user.username}#${user.tag}`}</>)}</div>
+      {lobbies.map(lobby => (
+        <div key={lobby.id}>
+          <h4>{lobby.name}</h4>
+          <div>{lobby.description}</div>
+          <div>Users: {lobby.users.map(user => <>{`${user.username}#${user.tag}`}</>)}</div>
         </div>
       ))}
 
@@ -153,6 +153,6 @@ const PartyDevPage = () => {
   );
 };
 
-PartyDevPage.getLayout = DevLayout.getLayout("/dev-pages");
+LobbyDevPage.getLayout = DevLayout.getLayout("/dev-pages");
 
-export default PartyDevPage;
+export default LobbyDevPage;

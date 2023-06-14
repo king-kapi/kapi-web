@@ -85,8 +85,8 @@ model User {
   // receivedPartyRequests PartyRequest[] @relation("ReceivedPartyRequests")
   lobbyRequests Json?
   newUser       Boolean?
-  party         Party?    @relation(fields: [partyId], references: [id])
-  partyId       String?   @db.ObjectId
+  lobby         Lobby?    @relation(fields: [lobbyId], references: [id])
+  lobbyId       String?   @db.ObjectId
   Message       Message[]
 
   @@map("users")
@@ -103,7 +103,7 @@ model Message {
   timestamp Float
 }
 
-model Party {
+model Lobby {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   name String
   game String
@@ -117,7 +117,7 @@ model Party {
 
   users User[]
 
-  @@map("parties")
+  @@map("lobbies")
 }
 
 model Post {
@@ -136,10 +136,10 @@ model Post {
 //   senderId   String @db.ObjectId
 //   receiver   User   @relation("ReceivedPartyRequests", fields: [receiverId], references: [id])
 //   receiverId String @db.ObjectId
-//   party      Party  @relation(fields: [partyId], references: [id])
-//   partyId    String @db.ObjectId
+//   lobby      Lobby  @relation(fields: [lobbyId], references: [id])
+//   lobbyId    String @db.ObjectId
 //
-//   @@map("party-requests")
+//   @@map("lobby-requests")
 // }
 
 model Game {
