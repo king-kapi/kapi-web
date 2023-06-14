@@ -6,7 +6,7 @@ import { NextServer } from "next/dist/server/next";
 import { Server as IOServer } from "socket.io";
 import cookieParser from "cookie-parser";
 import chatHandler from "./chat";
-import userHandler from "./user";
+import usersHandler from "./users";
 import { PrismaClient } from "@prisma/client";
 import lobbiesHandler from "@/server/lobbies";
 import gamesHandler from "@/server/games";
@@ -38,7 +38,7 @@ app.use(cookieParser());
 // handlers
 // authHandler(server);
 chatHandler(app, prisma, io);
-userHandler(app, prisma);
+usersHandler(app, prisma);
 lobbiesHandler(app, prisma);
 tagsHandler(app, prisma);
 gamesHandler(app, prisma);

@@ -1,11 +1,14 @@
 import { Express, Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import protectApiRoute from "@/src/utils/protectApiRoute";
+import DoesNotExist from "@/src/errors/DoesNotExist";
 
 export default async function lobbiesHandler(
   app: Express,
   prisma: PrismaClient) {
   app.get("/api/lobbies", async (req: Request, res: Response) => {
+    await protectApiRoute(req, res);
+
     try {
       const lobbies = await prisma.lobby.findMany({
         include: {
@@ -41,6 +44,50 @@ export default async function lobbiesHandler(
       });
 
       res.status(201).send(created);
+    } catch (e) {
+      console.error(e);
+      res.status(400).send(e);
+    }
+  });
+
+  app.get("/api/lobbies/:lobbyId", async (req: Request, res: Response) => {
+    await protectApiRoute(req, res);
+    try {
+      const lobby = await prisma.lobby.findUnique({
+        where: {
+          id: req.params.lobbyId
+        },
+        include: {
+          users: true
+        }
+      });
+
+      res.status(200).send(lobby);
+    } catch (e) {
+      console.error(e);
+      res.status(400).send(e);
+    }
+  });
+
+  app.delete("/api/lobbies/:lobbyId", async (req: Request, res: Response) => {
+    await protectApiRoute(req, res);
+    try {
+      const lobby = await prisma.lobby.findUnique({
+        where: {
+          id: req.params.lobbyId
+        }
+      });
+
+      if (!lobby)
+        throw new DoesNotExist(req.params.lobbyId, "lobbies");
+
+      await prisma.lobby.delete({
+        where: {
+          id: req.params.lobbyId
+        }
+      });
+
+      res.status(200).send("Successful");
     } catch (e) {
       console.error(e);
       res.status(400).send(e);

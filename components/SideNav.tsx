@@ -8,7 +8,7 @@ import includeQuery from "@/src/utils/includeQuery";
 function SideNav() {
   const [onlineStatus, setOnlineStatus] = useState("1");
   const { data, isLoading, isError, error } = useQuery("userInfo", () =>
-    fetch(`/api/user?include=${includeQuery(["friends"])}`).then(res => res.json())
+    fetch(`/api/users/current?include=${includeQuery(["friends"])}`).then(res => res.json())
   );
 
   const handleChange = (e: any) => {

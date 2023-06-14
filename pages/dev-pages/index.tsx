@@ -55,9 +55,9 @@ const DevPages = () => {
     </Link>
     <br/>
 
-    <Link href={"/dev-pages/party"}>
+    <Link href={"/dev-pages/lobbies"}>
       <Button className={"mt-2"}>
-        Party
+        Lobbies
       </Button>
     </Link>
 

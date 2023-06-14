@@ -25,7 +25,7 @@ const ModifyUser = () => {
   const [editing, setEditing] = useState<string[]>([]);
 
   async function fetchUser() {
-    const res = await fetch(`http://localhost:3000/api/user?include=${includeQuery(["friends"])}`);
+    const res = await fetch(`http://localhost:3000/api/users/current?include=${includeQuery(["friends"])}`);
     const user = await res.json();
     setUser(user);
   }

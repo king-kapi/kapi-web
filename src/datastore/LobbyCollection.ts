@@ -1,6 +1,6 @@
 import { Collection, ObjectId } from 'mongodb';
 import Result, { Err, Ok } from '../Result';
-import { AlreadyInPartyError, NotInPartyError } from '../errors/PartyErrors';
+import { AlreadyInPartyError, NotInPartyError } from '../errors/LobbyErrors';
 import Lobby from '../types/Lobby';
 import LobbyRequest from '../types/LobbyRequest';
 import User from '../types/User';
