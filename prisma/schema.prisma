@@ -150,3 +150,11 @@ model Game {
 
   @@map("games")
 }
+
+model Tag {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  rainbow Boolean
+
+  @@map("tags")
+}

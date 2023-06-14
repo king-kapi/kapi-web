@@ -10,6 +10,7 @@ import userHandler from "./user";
 import { PrismaClient } from "@prisma/client";
 import partiesHandler from "@/server/parties";
 import gamesHandler from "@/server/games";
+import tagsHandler from "@/server/tags";
 
 dotenv.config({
   path: "./.env.local"
@@ -39,6 +40,7 @@ app.use(cookieParser());
 chatHandler(app, prisma, io);
 userHandler(app, prisma);
 partiesHandler(app, prisma);
+tagsHandler(app, prisma);
 gamesHandler(app, prisma);
 
 // nextjs handler
