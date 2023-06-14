@@ -16,7 +16,8 @@ const typeMap: {
   bio: "string",
   status: "string",
   currentLobby: "string",
-  friendOfId: "string"
+  friendOfId: "string",
+  partyId: "string"
 };
 
 const ModifyUser = () => {

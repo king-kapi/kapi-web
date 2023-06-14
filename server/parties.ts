@@ -2,18 +2,24 @@ import { Express, Request, Response } from "express";
 import { Party, PrismaClient } from "@prisma/client";
 import protectApiRoute from "@/src/utils/protectApiRoute";
 
-export default async function partyHandler(
+export default async function partiesHandler(
   app: Express,
   prisma: PrismaClient) {
-  app.get("/api/party/all", async (req: Request, res: Response) => {
+  app.get("/api/parties", async (req: Request, res: Response) => {
     try {
-      res.status(200).send(await prisma.party.findMany());
+      const parties = await prisma.party.findMany({
+        include: {
+          users: true
+        }
+      });
+      res.status(200).send(parties);
     } catch (e) {
-      res.status(400).send(e)
+      console.error(e);
+      res.status(400).send(e);
     }
   });
 
-  app.post("/api/party", async (req: Request, res: Response) => {
+  app.post("/api/parties", async (req: Request, res: Response) => {
     const session = await protectApiRoute(req, res);
 
     try {
@@ -23,8 +29,6 @@ export default async function partyHandler(
           hostId: session.id
         }
       });
-
-      console.log(created);
 
       // create relation between party and user
       await prisma.user.update({

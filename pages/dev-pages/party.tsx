@@ -3,18 +3,38 @@ import DevLayout from "@/components/layouts/DevLayout";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import Select, { Option } from "@/components/Select";
-import { Game } from "@prisma/client";
+import { Game, Party, Prisma } from "@prisma/client";
 
 // :)
 const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
 
+const partyWithUsers = Prisma.validator<Prisma.PartyArgs>()({
+  include: { users: true }
+});
+type PartyWithUsers = Prisma.PartyGetPayload<typeof partyWithUsers>;
+
 const PartyDevPage = () => {
+  // game stuff
   const [games, setGames] = useState<Game[]>([]);
   const [selectedGame, setSelectedGame] = useState<Game>();
 
-  useEffect(() => {
+  const [parties, setParties] =
+    useState<PartyWithUsers[]>([]);
+
+  function fetchGames() {
     fetch("/api/games").then(res => res.json())
       .then(games => setGames(games));
+  }
+
+  function fetchParties() {
+    fetch("/api/parties").then(res => res.json())
+      .then(parties => setParties(parties));
+  }
+
+  // fetch on initialization
+  useEffect(() => {
+    fetchGames();
+    fetchParties();
   }, []);
 
   // form stuff
@@ -35,12 +55,13 @@ const PartyDevPage = () => {
     e.preventDefault();
 
     const data = new FormData(e.currentTarget);
-    const res = await fetch(`/api/party`, {
+    const res = await fetch(`/api/parties`, {
       method: 'POST',
       headers: {
         "Content-Type": 'application/json'
       },
       body: JSON.stringify({
+        name: data.get("name"),
         game: data.get("game"),
         numPlayers: Number(data.get("numPlayers")),
         description: data.get("description")
@@ -72,7 +93,7 @@ const PartyDevPage = () => {
       </h3>
       <form className={"p-4"} onSubmit={handleCreateParty}>
         <label>Name of Lobby</label><br />
-        <Input className={"mt-2 mb-4"} placeholder={"Jane's Lobby"} name={""}
+        <Input className={"mt-2 mb-4"} placeholder={"Jane's Lobby"} name={"name"}
                style={{ width: "100%", maxWidth: 800 }} />
 
         <br />
@@ -118,6 +139,16 @@ const PartyDevPage = () => {
       <h3 className={"mt-4"}>
         All Parties
       </h3>
+
+      {parties.map(party => (
+        <div key={party.id}>
+          <h4>{party.name}</h4>
+          <div>{party.description}</div>
+          <div>Users: {party.users.map(user => <>{`${user.username}#${user.tag}`}</>)}</div>
+        </div>
+      ))}
+
+
     </main>
   );
 };

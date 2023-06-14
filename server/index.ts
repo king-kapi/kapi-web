@@ -8,7 +8,7 @@ import cookieParser from "cookie-parser";
 import chatHandler from "./chat";
 import userHandler from "./user";
 import { PrismaClient } from "@prisma/client";
-import partyHandler from "@/server/party";
+import partiesHandler from "@/server/parties";
 import gamesHandler from "@/server/games";
 
 dotenv.config({
@@ -38,7 +38,7 @@ app.use(cookieParser());
 // authHandler(server);
 chatHandler(app, prisma, io);
 userHandler(app, prisma);
-partyHandler(app, prisma);
+partiesHandler(app, prisma);
 gamesHandler(app, prisma);
 
 // nextjs handler
