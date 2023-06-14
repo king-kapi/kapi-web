@@ -22,6 +22,12 @@
     flex: 0 1;
 }
 
+.Disabled .Selected {
+    @apply bg-darkGrey;
+    color: var(--greyText);
+    cursor: not-allowed;
+}
+
 .Select {
     display: none;
 }
@@ -37,6 +43,7 @@
     border-radius: 10px;
     transition: all 120ms;
     transform: translateY(-8px);
+    z-index: 1;
 }
 
 .Options.Visible {

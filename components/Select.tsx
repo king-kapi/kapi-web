@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "@/styles/Select.module.css";
 import Icon from "@/components/icons/Icon";
-
-type SelectTypes = string | number;
+import { Simulate } from "react-dom/test-utils";
+import select = Simulate.select;
 
 export interface Option {
-  value: SelectTypes;
+  value: string;
   text: string;
 }
 
@@ -20,11 +20,13 @@ const Select = ({
                   placeholder = "...",
                   minWidth = 200,
                   options = [],
+                  disabled = false,
                   className,
                   style = {},
                   ...props
                 }: SelectProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const selectRef = useRef<HTMLSelectElement>(null);
   const [current, setCurrent] = useState<Option | null>(null);
   const [drop, setDrop] = useState(false);
 
@@ -37,13 +39,25 @@ const Select = ({
     });
   }, [containerRef]);
 
+  // use the select ref to maintain events such as onchange
+  // TODO: this seems a little convoluted, I think there's a better solution
+  useEffect(() => {
+    const event = document.createEvent("Event");
+    event.initEvent("change", true, true);
+    if (selectRef.current && current) {
+      selectRef.current.value = current.value;
+      selectRef.current.dispatchEvent(event);
+    }
+  }, [current]);
+
   function handleSelected(option: Option) {
     setCurrent(option);
     setDrop(false);
   }
 
   return (
-    <div className={[styles.Container, className].join(" ")} tabIndex={0} ref={containerRef}
+    <div className={[styles.Container, disabled ? styles.Disabled : "", className].join(" ")} tabIndex={0}
+         ref={containerRef}
          style={Object.assign({ minWidth }, style)}>
       <>
         <div className={styles.Selected} onClick={() => setDrop(!drop)}>
@@ -55,7 +69,7 @@ const Select = ({
         </div>
 
         <div className={[styles.Options,
-          drop ? styles.Visible : ""].join(" ")}>
+          drop && !disabled ? styles.Visible : ""].join(" ")}>
           {options.map(({ value, text }) => (
             <div key={value} className={styles.Option} onClick={() => handleSelected({ value, text })}>
               <Icon className={[styles.SelectedIcon, "mr-2.5"].join(" ")} icon={"dot"}
@@ -68,7 +82,7 @@ const Select = ({
         </div>
 
         {/*Invisible Select for Logic*/}
-        <select style={{ display: "none" }} value={current?.value} {...props}>
+        <select ref={selectRef} style={{ display: "none" }} disabled={disabled} {...props}>
           {options.map(({ value, text }) => (
             <option key={value} value={value}>{text}</option>
           ))}

@@ -1,13 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DevLayout from "@/components/layouts/DevLayout";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
-import Select from "@/components/Select";
+import Select, { Option } from "@/components/Select";
+import { Game } from "@prisma/client";
 
 // :)
 const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
 
-const ModifyUser = () => {
+const PartyDevPage = () => {
+  const [games, setGames] = useState<Game[]>([]);
+  const [selectedGame, setSelectedGame] = useState<Game>();
+
+  useEffect(() => {
+    fetch("/api/games").then(res => res.json())
+      .then(games => setGames(games));
+  }, []);
+
+  // form stuff
+  function handleGameSelect(e: React.FormEvent<HTMLSelectElement>) {
+    // find game
+    let selectedGame;
+    for (const game of games) {
+      if (game.id === e.currentTarget.value) {
+        selectedGame = game;
+        break;
+      }
+    }
+
+    setSelectedGame(selectedGame);
+  }
+
+  async function handleCreateParty(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const data = new FormData(e.currentTarget);
+    const res = await fetch(`/api/party`, {
+      method: 'POST',
+      headers: {
+        "Content-Type": 'application/json'
+      },
+      body: JSON.stringify({
+        game: data.get("game"),
+        numPlayers: Number(data.get("numPlayers")),
+        description: data.get("description")
+      })
+    });
+    console.log(await res.json());
+  }
+
+  const gameOptions: Option[] = games.map(({ id, name }) => ({
+    text: name,
+    value: id
+  }));
+
+  let playerOptions: Option[] | undefined;
+  if (selectedGame)
+    playerOptions = selectedGame.numPlayers.map(players => ({
+      text: players.toString(),
+      value: players.toString()
+    }));
+
   return (
     <main>
       <h1>
@@ -17,13 +70,7 @@ const ModifyUser = () => {
       <h3 className={"mt-4"}>
         Create Party
       </h3>
-      <form className={"p-4"} onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        const data = new FormData(e.currentTarget);
-
-        console.log(data.get("game"));
-      }}>
+      <form className={"p-4"} onSubmit={handleCreateParty}>
         <label>Name of Lobby</label><br />
         <Input className={"mt-2 mb-4"} placeholder={"Jane's Lobby"} name={""}
                style={{ width: "100%", maxWidth: 800 }} />
@@ -36,12 +83,8 @@ const ModifyUser = () => {
         <Select className={"mt-2 mb-4"}
                 name="game"
                 placeholder={"Select Game"}
-                options={[
-                  { value: "volvo", text: "Volvo" },
-                  { value: "saab", text: "Saab" },
-                  { value: "mercedes", text: "Mercedes" },
-                  { value: "audi", text: "Audi" }
-                ]} style={{ maxWidth: 800 }} />
+                options={gameOptions} style={{ maxWidth: 800 }}
+                onChange={handleGameSelect} />
 
         <br />
 
@@ -49,14 +92,10 @@ const ModifyUser = () => {
           Number of Players
         </label><br />
         <Select className={"mt-2 mb-4"}
-                name="game"
-                placeholder={"Select Game"}
-                options={[
-                  { value: "volvo", text: "Volvo" },
-                  { value: "saab", text: "Saab" },
-                  { value: "mercedes", text: "Mercedes" },
-                  { value: "audi", text: "Audi" }
-                ]} style={{ maxWidth: 800 }} />
+                name="numPlayers"
+                placeholder={"Select Number of Players"}
+                disabled={!selectedGame}
+                options={selectedGame ? playerOptions : []} style={{ maxWidth: 800 }} />
 
         <br />
 
@@ -66,9 +105,10 @@ const ModifyUser = () => {
         <Input className={"mt-2 mb-4"}
                placeholder={loremIpsum}
                element={"textarea"}
+               name={"description"}
                style={{ minHeight: 120, width: "100%", maxWidth: 800 }} />
 
-        <br/>
+        <br />
 
         <Button className={"mt-4"} type={"submit"} buttonSize={"large"}>
           Create Party
@@ -82,6 +122,6 @@ const ModifyUser = () => {
   );
 };
 
-ModifyUser.getLayout = DevLayout.getLayout("/dev-pages");
+PartyDevPage.getLayout = DevLayout.getLayout("/dev-pages");
 
-export default ModifyUser;
+export default PartyDevPage;

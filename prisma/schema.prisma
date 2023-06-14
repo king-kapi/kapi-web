@@ -77,16 +77,16 @@ model User {
   friends    User[]  @relation("Friend")
 
   /// Nested objects had no data in the sample dataset to introspect a nested type.
-  games                 Json?
+  games         Json?
   /// Could not determine type: the field only had null or empty values in the sample set.
-  interests             Json?
+  interests     Json?
   /// Could not determine type: the field only had null or empty values in the sample set.
-  sentPartyRequests     PartyRequest[] @relation("SentPartyRequests")
-  receivedPartyRequests PartyRequest[] @relation("ReceivedPartyRequests")
-  lobbyRequests         Json?
-  newUser               Boolean?
-  party                 Party          @relation("PartyMember", fields: [partyId], references: [id])
-  partyId               String         @db.ObjectId
+  // sentPartyRequests     PartyRequest[] @relation("SentPartyRequests")
+  // receivedPartyRequests PartyRequest[] @relation("ReceivedPartyRequests")
+  lobbyRequests Json?
+  newUser       Boolean?
+  party         Party    @relation(fields: [partyId], references: [id])
+  partyId       String   @db.ObjectId
 
   @@map("users")
 }
@@ -222,14 +222,18 @@ model Message {
 }
 
 model Party {
-  id       String         @id @default(auto()) @map("_id") @db.ObjectId
-  game     String
-  hostId   String         @db.ObjectId
-  maxSize  Int
-  requests PartyRequest[]
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  game String
 
-  users  User[] @relation("PartyMember")
-  userId String @db.ObjectId
+  hostId String @db.ObjectId
+
+  numPlayers  Int
+  description String
+  requests    Json[] @default([])
+
+  users User[]
+
+  @@map("parties")
 }
 
 model Post {
@@ -242,12 +246,23 @@ model Post {
   timestamp      Float
 }
 
-model PartyRequest {
+// model PartyRequest {
+//   id         String @id @default(auto()) @map("_id") @db.ObjectId
+//   sender     User   @relation("SentPartyRequests", fields: [senderId], references: [id])
+//   senderId   String @db.ObjectId
+//   receiver   User   @relation("ReceivedPartyRequests", fields: [receiverId], references: [id])
+//   receiverId String @db.ObjectId
+//   party      Party  @relation(fields: [partyId], references: [id])
+//   partyId    String @db.ObjectId
+//
+//   @@map("party-requests")
+// }
+
+model Game {
   id         String @id @default(auto()) @map("_id") @db.ObjectId
-  sender     User   @relation("SentPartyRequests", fields: [senderId], references: [id])
-  senderId   String @db.ObjectId
-  receiver   User   @relation("ReceivedPartyRequests", fields: [receiverId], references: [id])
-  receiverId String @db.ObjectId
-  party      Party  @relation(fields: [partyId], references: [id])
-  partyId    String @db.ObjectId
+  name       String
+  image      String
+  numPlayers Int[]
+
+  @@map("games")
 }
