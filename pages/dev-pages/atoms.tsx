@@ -49,16 +49,16 @@ const AtomsPage = () => {
             <h4>Primary</h4>
             <Button>Small Button</Button> <br />
             <Button icon={"exit"} className={"mt-2"}>Small Button</Button> <br />
-            <Button size={"large"} className={"mt-2"}>Large Button</Button> <br />
-            <Button icon={"exit"} size={"large"} className={"mt-2"}>Large Button</Button>
+            <Button buttonSize={"large"} className={"mt-2"}>Large Button</Button> <br />
+            <Button icon={"exit"} buttonSize={"large"} className={"mt-2"}>Large Button</Button>
           </div>
 
           <div>
             <h4>Secondary</h4>
-            <Button type={"secondary"}>Small Button</Button> <br />
-            <Button type={"secondary"} icon={"exit"} className={"mt-2"}>Small Button</Button> <br />
-            <Button type={"secondary"} size={"large"} className={"mt-2"}>Large Button</Button> <br />
-            <Button type={"secondary"} icon={"exit"} size={"large"} className={"mt-2"}>Large Button</Button>
+            <Button buttonType={"secondary"}>Small Button</Button> <br />
+            <Button buttonType={"secondary"} icon={"exit"} className={"mt-2"}>Small Button</Button> <br />
+            <Button buttonType={"secondary"} buttonSize={"large"} className={"mt-2"}>Large Button</Button> <br />
+            <Button buttonType={"secondary"} icon={"exit"} buttonSize={"large"} className={"mt-2"}>Large Button</Button>
           </div>
         </div>
       </div>

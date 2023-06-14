@@ -35,12 +35,15 @@
     pointer-events: none;
     padding: 4px;
     border-radius: 10px;
+    transition: all 120ms;
+    transform: translateY(-8px);
 }
 
 .Options.Visible {
     opacity: 1;
     pointer-events: auto;
     background: var(--mediumGrey);
+    transform: translateY(0);
 }
 
 .Option {

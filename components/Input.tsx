@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "@/styles/Input.module.css";
 
-export interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
+export interface InputProps extends React.ComponentPropsWithoutRef<"input"> {
   className?: string,
 }
 

@@ -35,22 +35,7 @@ const ModifyUser = () => {
 
         <label>Name of Lobby</label><br />
         <Input className={"mt-2"} placeholder={"Jane's Lobby"} name={""} />
-
-        <Button htmlType={"submit"}>Create</Button>
       </form>
-
-      {/*<h3 className={"mt-4"}>*/}
-      {/*  Current User*/}
-      {/*</h3>*/}
-
-      {/*<div className={"p-2 bg-grey rounded"}>*/}
-      {/*  <div className={"inline-block"}>*/}
-      {/*    <strong>Party:&nbsp;</strong>*/}
-      {/*    <code>asdfasdf</code>*/}
-      {/*    <br/>*/}
-      {/*    <Button>View</Button>*/}
-      {/*  </div>*/}
-      {/*</div>*/}
 
       <h3 className={"mt-4"}>
         All Parties
