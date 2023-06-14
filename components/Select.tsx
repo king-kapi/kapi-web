@@ -20,6 +20,8 @@ const Select = ({
                   placeholder = "...",
                   minWidth = 200,
                   options = [],
+                  className,
+                  style = {},
                   ...props
                 }: SelectProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -41,14 +43,15 @@ const Select = ({
   }
 
   return (
-    <div className={styles.Container} tabIndex={0} ref={containerRef} style={{ minWidth }}>
+    <div className={[styles.Container, className].join(" ")} tabIndex={0} ref={containerRef}
+         style={Object.assign({ minWidth }, style)}>
       <>
         <div className={styles.Selected} onClick={() => setDrop(!drop)}>
           <div className={!current ? "text-greyText" : ""}> {/* Text */}
             {current ? current.text : placeholder}
           </div>
 
-          <Icon className={"ml-1"} icon={"carat_down"}/>
+          <Icon className={"ml-1"} icon={"carat_down"} />
         </div>
 
         <div className={[styles.Options,
@@ -56,7 +59,7 @@ const Select = ({
           {options.map(({ value, text }) => (
             <div key={value} className={styles.Option} onClick={() => handleSelected({ value, text })}>
               <Icon className={[styles.SelectedIcon, "mr-2.5"].join(" ")} icon={"dot"}
-                    style={{opacity: current?.value === value ? 1 : 0}}/>
+                    style={{ opacity: current?.value === value ? 1 : 0 }} />
               <div className={styles.OptionText}>
                 {text}
               </div>

@@ -3,18 +3,31 @@ import styles from "@/styles/Input.module.css";
 
 export interface InputProps extends React.ComponentPropsWithoutRef<"input"> {
   className?: string,
-}
+  element?: "input" | "textarea"
+};
 
 const Input = ({
                  className,
+                 element = "input",
                  ...props
                }: InputProps) => {
+
+  if (element === "input")
+    return (
+      <input className={[
+        styles.Input,
+        className
+      ].join(" ")}
+             {...props}
+      />
+    );
+
   return (
-    <input className={[
+    <textarea className={[
       styles.Input,
       className
     ].join(" ")}
-           {...props}
+              {...props as React.ComponentPropsWithoutRef<"textarea">}
     />
   );
 };
