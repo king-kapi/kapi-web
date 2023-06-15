@@ -58,7 +58,12 @@ export default async function lobbiesHandler(
           id: req.params.lobbyId
         },
         include: {
-          users: true
+          users: true,
+          requests: {
+            include: {
+              sender: true
+            }
+          }
         }
       });
 
@@ -88,6 +93,25 @@ export default async function lobbiesHandler(
       });
 
       res.status(200).send("Successful");
+    } catch (e) {
+      console.error(e);
+      res.status(400).send(e);
+    }
+  });
+
+  app.post("/api/lobbies/:lobbyId/send-request", async (req: Request, res: Response) => {
+    const { id } = await protectApiRoute(req, res);
+    try {
+      // TODO: check if lobby and receiver exists
+      const created = await prisma.lobbyRequest.create({
+        data: {
+          lobbyId: req.params.lobbyId,
+          senderId: id,
+          message: req.body.message
+        }
+      });
+
+      res.status(201).send(created);
     } catch (e) {
       console.error(e);
       res.status(400).send(e);

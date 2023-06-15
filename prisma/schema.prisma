@@ -76,18 +76,13 @@ model User {
   friendOfId String? @db.ObjectId
   friends    User[]  @relation("Friend")
 
-  /// Nested objects had no data in the sample dataset to introspect a nested type.
-  games         Json?
-  /// Could not determine type: the field only had null or empty values in the sample set.
-  interests     Json?
-  /// Could not determine type: the field only had null or empty values in the sample set.
-  // sentPartyRequests     PartyRequest[] @relation("SentPartyRequests")
-  // receivedPartyRequests PartyRequest[] @relation("ReceivedPartyRequests")
-  lobbyRequests Json?
-  newUser       Boolean?
-  lobby         Lobby?    @relation(fields: [lobbyId], references: [id])
-  lobbyId       String?   @db.ObjectId
-  Message       Message[]
+  newUser Boolean?
+  lobby   Lobby?    @relation(fields: [lobbyId], references: [id])
+  lobbyId String?   @db.ObjectId
+  Message Message[]
+
+  sentLobbyRequests     LobbyRequest[] @relation("SentRequests")
+  receivedLobbyRequests LobbyRequest[] @relation("ReceivedRequests")
 
   @@map("users")
 }
@@ -113,11 +108,27 @@ model Lobby {
   tags        String[]
   numPlayers  Int
   description String
-  requests    Json[]   @default([])
+  requests    LobbyRequest[] @relation("LobbyRequests")
 
   users User[]
 
   @@map("lobbies")
+}
+
+model LobbyRequest {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  lobby   Lobby? @relation("LobbyRequests", fields: [lobbyId], references: [id])
+  lobbyId String @db.ObjectId
+
+  sender   User?  @relation("SentRequests", fields: [senderId], references: [id])
+  senderId String @db.ObjectId
+
+  receiver   User?   @relation("ReceivedRequests", fields: [receiverId], references: [id])
+  receiverId String? @db.ObjectId
+
+  message String
+
+  @@map("lobby-requests")
 }
 
 model Post {
@@ -129,18 +140,6 @@ model Post {
   likes          Int
   timestamp      Float
 }
-
-// model PartyRequest {
-//   id         String @id @default(auto()) @map("_id") @db.ObjectId
-//   sender     User   @relation("SentPartyRequests", fields: [senderId], references: [id])
-//   senderId   String @db.ObjectId
-//   receiver   User   @relation("ReceivedPartyRequests", fields: [receiverId], references: [id])
-//   receiverId String @db.ObjectId
-//   lobby      Lobby  @relation(fields: [lobbyId], references: [id])
-//   lobbyId    String @db.ObjectId
-//
-//   @@map("lobby-requests")
-// }
 
 model Game {
   id         String @id @default(auto()) @map("_id") @db.ObjectId
