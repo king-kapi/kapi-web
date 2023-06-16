@@ -1,12 +1,10 @@
-import { Express } from 'express';
-import { Server } from 'socket.io';
-import Message from '../src/types/Message';
-import MongoDatastore from '../src/datastore/MongoDatastore';
+import { Server } from "socket.io";
+import Message from "../src/types/Message";
+import MongoDatastore from "../src/datastore/MongoDatastore";
 import { ClientToServerEvents, ServerToClientEvents } from "@/types/socket-events";
 import { PrismaClient } from "@prisma/client";
 
 export default async function chatHandler(
-  app: Express,
   prisma: PrismaClient,
   io: Server<ClientToServerEvents, ServerToClientEvents>
 ) {

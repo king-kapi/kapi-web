@@ -1,20 +1,20 @@
-import { Express, Request, Response } from "express";
+import { Router, Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import protectApiRoute from "@/src/utils/protectApiRoute";
 
-export default async function tagsHandler(
-  app: Express,
+export default function tagsHandler(
   prisma: PrismaClient) {
+  const router = Router();
 
   // get all games
-  app.get("/api/tags", async (req: Request, res: Response) => {
+  router.get("/", async (req: Request, res: Response) => {
     await protectApiRoute(req, res);
 
     const tags = await prisma.tag.findMany();
     res.status(200).send(tags);
   });
 
-  app.post("/api/tags", async (req: Request, res: Response) => {
+  router.post("/", async (req: Request, res: Response) => {
     await protectApiRoute(req, res);
 
     try {
@@ -28,7 +28,7 @@ export default async function tagsHandler(
     }
   });
 
-  app.delete("/api/tags/:tagId", async (req: Request, res: Response) => {
+  router.delete("/:tagId", async (req: Request, res: Response) => {
     await protectApiRoute(req, res);
 
     try {
@@ -43,4 +43,6 @@ export default async function tagsHandler(
       res.status(400).send(e);
     }
   });
+
+  return router;
 }

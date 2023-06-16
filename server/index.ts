@@ -16,9 +16,6 @@ dotenv.config({
   path: "./.env.local"
 });
 
-// import authHandler from "@/server/auth";
-
-
 const nextApp: NextServer = next({ dev: process.env.NODE_ENV !== "production" });
 const handle = nextApp.getRequestHandler();
 
@@ -37,11 +34,11 @@ app.use(cookieParser());
 
 // handlers
 // authHandler(server);
-chatHandler(app, prisma, io);
-usersHandler(app, prisma);
-lobbiesHandler(app, prisma);
-tagsHandler(app, prisma);
-gamesHandler(app, prisma);
+chatHandler(prisma, io);
+app.use("/api/users/", usersHandler(prisma));
+app.use("/api/lobbies/", lobbiesHandler(prisma));
+app.use("/api/tags/", tagsHandler(prisma));
+app.use("/api/games/", gamesHandler(prisma));
 
 // nextjs handler
 app.use(async (req: Request, res: Response) => {

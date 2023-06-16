@@ -1,13 +1,13 @@
-import { Express, Request, Response } from "express";
+import { Request, Response, Router } from "express";
 import protectApiRoute from "@/src/utils/protectApiRoute";
 import { Prisma, PrismaClient } from "@prisma/client";
 import UserFindUniqueArgs = Prisma.UserFindUniqueArgs;
 
-export default async function usersHandler(
-  app: Express,
+export default function usersHandler(
   prisma: PrismaClient) {
+  const router = Router();
 
-  app.get("/api/users", async (req: Request, res: Response) => {
+  router.get("/", async (req: Request, res: Response) => {
     await protectApiRoute(req, res);
 
     try {
@@ -20,7 +20,7 @@ export default async function usersHandler(
   });
 
   // TODO: Does Not Exist
-  app.get("/api/users/current", async (req: Request, res: Response) => {
+  router.get("/current", async (req: Request, res: Response) => {
     const { id } = await protectApiRoute(req, res);
 
     if (req.method === "GET") {
@@ -41,8 +41,9 @@ export default async function usersHandler(
     }
   });
 
+  // this modifies a user without any checking
   if (process.env.NODE_ENV === "development") {
-    app.post("/api/users", async (req: Request, res: Response) => {
+    router.post("/", async (req: Request, res: Response) => {
       const { id } = await protectApiRoute(req, res);
 
       await prisma.user.update({
@@ -57,4 +58,6 @@ export default async function usersHandler(
       res.status(200).send("");
     });
   }
+
+  return router;
 }

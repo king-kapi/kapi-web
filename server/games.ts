@@ -1,17 +1,22 @@
-import { Express, Request, Response } from "express";
+import { Router, Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
+import protectApiRoute from "@/src/utils/protectApiRoute";
 
-export default async function gamesHandler(
-  app: Express,
+export default function gamesHandler(
   prisma: PrismaClient) {
+  const router = Router();
 
   // get all games
-  app.get("/api/games", async (req: Request, res: Response) => {
+  router.get("/", async (req: Request, res: Response) => {
+    await protectApiRoute(req, res);
+
     const games = await prisma.game.findMany();
     res.status(200).send(games);
   });
 
-  app.post("/api/games", async (req: Request, res: Response) => {
+  router.post("/", async (req: Request, res: Response) => {
+    await protectApiRoute(req, res);
+
     try {
       const created = await prisma.game.create({
         data: req.body
@@ -22,7 +27,9 @@ export default async function gamesHandler(
     }
   });
 
-  app.delete("/api/games/:gameId", async (req: Request, res: Response) => {
+  router.delete("/:gameId", async (req: Request, res: Response) => {
+    await protectApiRoute(req, res);
+
     try {
       await prisma.game.delete({
         where: {
@@ -34,4 +41,6 @@ export default async function gamesHandler(
       res.status(400).send(e);
     }
   });
+
+  return router;
 }
