@@ -77,17 +77,20 @@ export default async function lobbiesHandler(
   });
 
   app.delete("/api/lobbies/:lobbyId", async (req: Request, res: Response) => {
-    await protectApiRoute(req, res);
+    const userId = (await protectApiRoute(req, res))?.id;
+    const { lobbyId } = req.params;
     try {
       const lobby = await prisma.lobby.findUnique({
-        where: { id: req.params.lobbyId }
+        where: { id: lobbyId }
       });
 
       if (!lobby)
-        throw new DoesNotExist(req.params.lobbyId, "lobbies");
+        throw new DoesNotExist(lobbyId, "lobbies");
+      if (lobby.id !== userId)
+        throw new NotHostError(lobbyId, userId);
 
       await prisma.lobby.delete({
-        where: { id: req.params.lobbyId }
+        where: { id: lobbyId }
       });
 
       res.status(200).send("Successful");
@@ -149,20 +152,32 @@ export default async function lobbiesHandler(
     }
   });
 
+  // Host Only
   app.post("/api/lobbies/:lobbyId/request/:requestId/accept", async (req: Request, res: Response) => {
-    const { id } = await protectApiRoute(req, res);
+    const userId = (await protectApiRoute(req, res))?.id;
+    const { lobbyId, requestId } = req.params;
+
     try {
+      // verify host
+      const lobby = await prisma.lobby.findUnique({
+        where: { id: lobbyId }
+      });
+      if (!lobby)
+        throw new DoesNotExist(lobbyId, "lobbies");
+      if (lobby.hostId !== userId)
+        throw new NotHostError(lobbyId, userId);
+
       // delete request
-      await prisma.lobbyRequest.delete({
-        where: { id: req.params.requestId }
+      const request = await prisma.lobbyRequest.delete({
+        where: { id: requestId }
       });
 
       // add user to lobby
       const user = await prisma.user.update({
-        where: { id },
-        data: { lobbyId: req.params.lobbyId }
+        where: { id: request.senderId },
+        data: { lobbyId: lobbyId }
       });
-
+      
       res.status(200).send(user);
     } catch (e) {
       console.error(e);
@@ -171,11 +186,22 @@ export default async function lobbiesHandler(
   });
 
   app.post("/api/lobbies/:lobbyId/request/:requestId/deny", async (req: Request, res: Response) => {
-    await protectApiRoute(req, res);
+    const userId = (await protectApiRoute(req, res))?.id;
+    const { lobbyId, requestId } = req.params;
+
     try {
+      // verify host
+      const lobby = await prisma.lobby.findUnique({
+        where: { id: lobbyId }
+      });
+      if (!lobby)
+        throw new DoesNotExist(lobbyId, "lobbies");
+      if (lobby.hostId !== userId)
+        throw new NotHostError(lobbyId, userId);
+
       // delete request
       await prisma.lobbyRequest.delete({
-        where: { id: req.params.requestId }
+        where: { id: requestId }
       });
 
       res.status(200).send("Successful");
