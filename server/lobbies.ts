@@ -2,6 +2,12 @@ import { Express, Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import protectApiRoute from "@/src/utils/protectApiRoute";
 import DoesNotExist from "@/src/errors/DoesNotExist";
+import NotAuthenticatedError from "@/src/errors/NotAuthenticatedError";
+import { CannotKickHost, NotHostError, NotInLobbyError } from "@/src/errors/LobbyErrors";
+
+export interface LobbyParams {
+  lobbyId: string;
+}
 
 export default async function lobbiesHandler(
   app: Express,
@@ -35,12 +41,8 @@ export default async function lobbiesHandler(
 
       // create relation between party and user
       await prisma.user.update({
-        where: {
-          id: session.id
-        },
-        data: {
-          lobbyId: created.id
-        }
+        where: { id: session.id },
+        data: { lobbyId: created.id }
       });
 
       res.status(201).send(created);
@@ -78,18 +80,14 @@ export default async function lobbiesHandler(
     await protectApiRoute(req, res);
     try {
       const lobby = await prisma.lobby.findUnique({
-        where: {
-          id: req.params.lobbyId
-        }
+        where: { id: req.params.lobbyId }
       });
 
       if (!lobby)
         throw new DoesNotExist(req.params.lobbyId, "lobbies");
 
       await prisma.lobby.delete({
-        where: {
-          id: req.params.lobbyId
-        }
+        where: { id: req.params.lobbyId }
       });
 
       res.status(200).send("Successful");
@@ -99,7 +97,40 @@ export default async function lobbiesHandler(
     }
   });
 
-  app.post("/api/lobbies/:lobbyId/send-request", async (req: Request, res: Response) => {
+  // host only
+  app.post("/api/lobbies/:lobbyId/kick/:kickId", async (req: Request, res: Response) => {
+    const { id } = await protectApiRoute(req, res);
+    const { lobbyId, kickId } = req.params;
+
+    try {
+      const lobby = await prisma.lobby.findUnique({
+        where: { id: lobbyId },
+        include: { users: true }
+      });
+
+      if (!lobby)
+        throw new DoesNotExist(lobbyId, "lobbies");
+      if (lobby.hostId === kickId)
+        throw new CannotKickHost(lobbyId, kickId);
+      if (lobby.hostId !== id)
+        throw new NotHostError(lobbyId, id);
+
+      if (lobby.users.filter(user => user.id === kickId).length === 0)
+        throw new NotInLobbyError(lobbyId, kickId);
+
+      await prisma.user.update({
+        where: { id: kickId },
+        data: { lobbyId: null }
+      });
+
+      res.status(200).send("Successful");
+    } catch (e) {
+      console.error(e);
+      res.status(400).send(e);
+    }
+  });
+
+  app.post("/api/lobbies/:lobbyId/request", async (req: Request, res: Response) => {
     const { id } = await protectApiRoute(req, res);
     try {
       // TODO: check if lobby and receiver exists
@@ -112,6 +143,42 @@ export default async function lobbiesHandler(
       });
 
       res.status(201).send(created);
+    } catch (e) {
+      console.error(e);
+      res.status(400).send(e);
+    }
+  });
+
+  app.post("/api/lobbies/:lobbyId/request/:requestId/accept", async (req: Request, res: Response) => {
+    const { id } = await protectApiRoute(req, res);
+    try {
+      // delete request
+      await prisma.lobbyRequest.delete({
+        where: { id: req.params.requestId }
+      });
+
+      // add user to lobby
+      const user = await prisma.user.update({
+        where: { id },
+        data: { lobbyId: req.params.lobbyId }
+      });
+
+      res.status(200).send(user);
+    } catch (e) {
+      console.error(e);
+      res.status(400).send(e);
+    }
+  });
+
+  app.post("/api/lobbies/:lobbyId/request/:requestId/deny", async (req: Request, res: Response) => {
+    await protectApiRoute(req, res);
+    try {
+      // delete request
+      await prisma.lobbyRequest.delete({
+        where: { id: req.params.requestId }
+      });
+
+      res.status(200).send("Successful");
     } catch (e) {
       console.error(e);
       res.status(400).send(e);

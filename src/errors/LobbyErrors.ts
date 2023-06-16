@@ -11,14 +11,14 @@ export class AlreadyInPartyError extends Error {
   }
 }
 
-export class NotInPartyError extends Error {
-  type = 'NOT_IN_PARTY';
+export class NotInLobbyError extends Error {
+  type = 'NOT_IN_LOBBY';
   message: string;
 
-  constructor(partyId: ObjectId, userId: ObjectId) {
+  constructor(partyId: string, userId: string) {
     super();
 
-    this.message = `${partyId.toString()} does not have user ${userId}.`;
+    this.message = `${partyId} does not have user ${userId}.`;
   }
 }
 
@@ -26,9 +26,19 @@ export class NotHostError extends Error {
   type = 'NOT_HOST';
   message: string;
 
-  constructor(partyId: ObjectId, userId: ObjectId) {
+  constructor(lobbyId: string, userId: string) {
     super();
 
-    this.message = `${userId.toString()} is not the host of party ${partyId.toString()}.`
+    this.message = `${userId.toString()} is not the host of party ${lobbyId.toString()}.`
+  }
+}
+
+export class CannotKickHost extends Error {
+  type = 'CANNOT_KICK_HOST';
+  message: string;
+
+  constructor(lobbyId: string, hostId: string) {
+    super();
+    this.message = `Cannot kick host ${hostId} of lobby ${lobbyId}.`;
   }
 }

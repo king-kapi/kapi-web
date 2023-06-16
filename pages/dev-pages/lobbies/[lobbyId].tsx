@@ -45,8 +45,17 @@ const ViewLobbyDev = () => {
     }
   }, [lobbyId]);
 
+  function handleKick(kickId: string) {
+    fetch(`/api/lobbies/${lobbyId}/kick/${kickId}`, {
+      method: 'POST'
+    }).then(res => {
+      if (res.ok)
+        fetchLobby();
+    });
+  }
+
   function handleSendRequest() {
-    fetch(`/api/lobbies/${lobbyId}/send-request`, {
+    fetch(`/api/lobbies/${lobbyId}/request`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -59,6 +68,27 @@ const ViewLobbyDev = () => {
         fetchLobby();
     });
   }
+
+  function handleAccept(requestId: string) {
+    fetch(`/api/lobbies/${lobbyId}/request/${requestId}/accept`, {
+      method: "POST"
+    })
+      .then(res => {
+        if (res.ok)
+          fetchLobby();
+      });
+  }
+
+  function handleDeny(requestId: string) {
+    fetch(`/api/lobbies/${lobbyId}/request/${requestId}/deny`, {
+      method: "POST"
+    })
+      .then(res => {
+        if (res.ok)
+          fetchLobby();
+      });
+  }
+
 
   return (
     <main>
@@ -86,6 +116,10 @@ const ViewLobbyDev = () => {
             {lobby.users.map(user =>
               <ol key={user.id}>
                 {user.username}#{user.tag}
+                &nbsp;
+                &nbsp;
+                <span className={"underline cursor-pointer"}
+                      onClick={() => handleKick(user.id)}>Kick</span>
               </ol>
             )}
           </ul>
@@ -95,13 +129,13 @@ const ViewLobbyDev = () => {
             {lobby.requests.map(request =>
               <div className={"bg-mediumGrey p-4 rounded-xl"} key={request.id}>
                 From {request.sender?.username}#{request.sender?.tag}
-                <br/>
+                <br />
                 Message: {request.message}
-                <div className={"flex gap-2"}>
-                  <Button>
+                <div className={"flex gap-2 mt-2"}>
+                  <Button onClick={() => handleAccept(request.id)}>
                     Accept
                   </Button>
-                  <Button>
+                  <Button onClick={() => handleDeny(request.id)}>
                     Reject
                   </Button>
                 </div>
