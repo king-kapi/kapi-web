@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { Prisma, User } from "@prisma/client";
 import Button from "@/components/Button";
 import { useSession } from "next-auth/react";
+import OnlyIf from "@/components/OnlyIf";
 
 // TODO: put this in a exported type
 const lobbyWithUserAndRequests = Prisma.validator<Prisma.LobbyArgs>()({
@@ -27,6 +28,8 @@ const ViewLobbyDev = () => {
   const [lobby, setLobby] = useState<LobbyWithUserAndRequests>();
   const [users, setUsers] = useState<User[]>();
 
+  const isHost = user?.id === lobby?.hostId;
+
   function fetchLobby() {
     fetch(`/api/lobbies/${lobbyId}`).then(res => res.json())
       .then(lobby => setLobby(lobby));
@@ -47,7 +50,7 @@ const ViewLobbyDev = () => {
 
   function handleKick(kickId: string) {
     fetch(`/api/lobbies/${lobbyId}/kick/${kickId}`, {
-      method: 'POST'
+      method: "POST"
     }).then(res => {
       if (res.ok)
         fetchLobby();
@@ -116,10 +119,13 @@ const ViewLobbyDev = () => {
             {lobby.users.map(user =>
               <ol key={user.id}>
                 {user.username}#{user.tag}
-                &nbsp;
-                &nbsp;
-                <span className={"underline cursor-pointer"}
-                      onClick={() => handleKick(user.id)}>Kick</span>
+
+                <OnlyIf condition={isHost}>
+                  &nbsp;
+                  &nbsp;
+                  <span className={"underline cursor-pointer"}
+                        onClick={() => handleKick(user.id)}>Kick</span>
+                </OnlyIf>
               </ol>
             )}
           </ul>
@@ -131,21 +137,23 @@ const ViewLobbyDev = () => {
                 From {request.sender?.username}#{request.sender?.tag}
                 <br />
                 Message: {request.message}
-                <div className={"flex gap-2 mt-2"}>
-                  <Button onClick={() => handleAccept(request.id)}>
-                    Accept
-                  </Button>
-                  <Button onClick={() => handleDeny(request.id)}>
-                    Reject
-                  </Button>
-                </div>
+                <OnlyIf condition={isHost}>
+                  <div className={"flex gap-2 mt-2"}>
+                    <Button onClick={() => handleAccept(request.id)}>
+                      Accept
+                    </Button>
+                    <Button onClick={() => handleDeny(request.id)}>
+                      Reject
+                    </Button>
+                  </div>
+                </OnlyIf>
               </div>
             )}
           </div>
 
           <h2>Actions</h2>
 
-          {lobby.hostId === user.id ? (
+          {isHost ? (
             // host view
             <>
               None
@@ -153,7 +161,11 @@ const ViewLobbyDev = () => {
           ) : (
             // other view
             <>
-              <Button onClick={handleSendRequest}>Send Join Request</Button>
+              <OnlyIf condition={
+                lobby.users.filter(u => u.id === user.id).length === 0
+              }>
+                <Button onClick={handleSendRequest}>Send Join Request</Button>
+              </OnlyIf>
             </>
           )}
 
