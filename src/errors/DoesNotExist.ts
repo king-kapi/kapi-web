@@ -1,11 +1,7 @@
 class DoesNotExist extends Error {
-  type = 'DOES_NOT_EXIST';
-  message: string;
-
+  name = "DOES_NOT_EXIST";
   constructor(what: string, inWhat: string) {
-    super();
-
-    this.message = `${what} does not exist in ${inWhat}`;
+    super(`${what} does not exist in ${inWhat}`);
   }
 }
 

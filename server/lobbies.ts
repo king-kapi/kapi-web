@@ -104,32 +104,27 @@ export default function lobbiesHandler(
     const { id } = await protectApiRoute(req, res);
     const { lobbyId, kickId } = req.params;
 
-    try {
-      const lobby = await prisma.lobby.findUnique({
-        where: { id: lobbyId },
-        include: { users: true }
-      });
+    const lobby = await prisma.lobby.findUnique({
+      where: { id: lobbyId },
+      include: { users: true }
+    });
 
-      if (!lobby)
-        throw new DoesNotExist(lobbyId, "lobbies");
-      if (lobby.hostId === kickId)
-        throw new CannotKickHost(lobbyId, kickId);
-      if (lobby.hostId !== id)
-        throw new NotHostError(lobbyId, id);
+    if (!lobby)
+      throw new DoesNotExist(lobbyId, "lobbies");
+    if (lobby.hostId === kickId)
+      throw new CannotKickHost(lobbyId, kickId);
+    if (lobby.hostId !== id)
+      throw new NotHostError(lobbyId, id);
 
-      if (lobby.users.filter(user => user.id === kickId).length === 0)
-        throw new NotInLobbyError(lobbyId, kickId);
+    if (lobby.users.filter(user => user.id === kickId).length === 0)
+      throw new NotInLobbyError(lobbyId, kickId);
 
-      await prisma.user.update({
-        where: { id: kickId },
-        data: { lobbyId: null }
-      });
+    await prisma.user.update({
+      where: { id: kickId },
+      data: { lobbyId: null }
+    });
 
-      res.status(200).send("Successful");
-    } catch (e) {
-      console.error(e);
-      res.status(400).send(e);
-    }
+    res.status(200).send("Successful");
   });
 
   router.post("/:lobbyId/request", async (req: Request, res: Response) => {

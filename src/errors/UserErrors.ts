@@ -1,40 +1,23 @@
-import { ObjectId } from "mongodb";
-
 export class UserNotFoundError extends Error {
-  type = 'USER_NOT_FOUND';
-  message: string;
+  name = "USER_NOT_FOUND";
 
-  constructor(user: string | ObjectId) {
-    super();
-
-    this.message = `User (${user.toString()}) not found.`;
+  constructor(user: string) {
+    super(`User (${user.toString()}) not found.`);
   }
 }
 
 export class UserAlreadyRegistered extends Error {
-  type = 'USER_ALREADY_REGISTERED';
-  message: string;
-  
-  constructor(user: string | ObjectId) {
-    super();
+  name = "USER_ALREADY_REGISTERED";
 
-    this.message = `User (${user.toString()}) already registered.`;
+  constructor(user: string) {
+    super(`User (${user.toString()}) already registered.`);
   }
 }
 
 export class UserInvalid extends Error {
-  type = 'USER_INVALID';
-  message: string;
-  
-  constructor() {
-    super();
+  name = "USER_INVALID";
 
-    this.message = `Invalid username or email.`;
+  constructor() {
+    super(`Invalid username or email.`);
   }
 }
-
-// class UserNotFoundError extends Error {
-//   constructor(public user: string | ObjectId | undefined) {
-//       super("User not found: " + user);
-//   }
-// }

@@ -1,44 +1,33 @@
 import { ObjectId } from "mongodb";
 
-export class AlreadyInPartyError extends Error {
-  type = 'ALREADY_IN_PARTY';
-  message: string;
+export class AlreadyInLobbyError extends Error {
+  name = "ALREADY_IN_LOBBY";
 
-  constructor(partyId: ObjectId, userId: ObjectId) {
-    super();
-
-    this.message = `${partyId.toString()} already has user ${userId}.`;
+  constructor(lobbyId: ObjectId, userId: ObjectId) {
+    super(`${lobbyId.toString()} already has user ${userId}.`);
   }
 }
 
 export class NotInLobbyError extends Error {
-  type = 'NOT_IN_LOBBY';
-  message: string;
+  name = "NOT_IN_LOBBY";
 
   constructor(partyId: string, userId: string) {
-    super();
-
-    this.message = `${partyId} does not have user ${userId}.`;
+    super(`${partyId} does not have user ${userId}.`);
   }
 }
 
 export class NotHostError extends Error {
-  type = 'NOT_HOST';
-  message: string;
+  name = "NOT_HOST";
 
   constructor(lobbyId: string, userId: string) {
-    super();
-
-    this.message = `${userId.toString()} is not the host of party ${lobbyId.toString()}.`
+    super(`${userId.toString()} is not the host of party ${lobbyId.toString()}.`);
   }
 }
 
 export class CannotKickHost extends Error {
-  type = 'CANNOT_KICK_HOST';
-  message: string;
+  name = "CANNOT_KICK_HOST";
 
   constructor(lobbyId: string, hostId: string) {
-    super();
-    this.message = `Cannot kick host ${hostId} of lobby ${lobbyId}.`;
+    super(`Cannot kick host ${hostId} of lobby ${lobbyId}.`);
   }
 }
