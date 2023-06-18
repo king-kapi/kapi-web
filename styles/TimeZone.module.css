@@ -49,19 +49,13 @@
 }
 
 .Option input[type=radio]:checked {
-    background-color: #324EA4;
+    background-color: #d9d9d9;
 }
 
 .Next {
-    position: fixed;
-    width: 7.5rem;
-    height: 2.75rem;
-    font-size: .9rem;
-    font-weight: 400;
-    left: 82.875rem;
-    bottom: 4rem;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: fixed;
+  left: 82.875rem;
+  bottom: 4rem;
+  width: 7.5rem;
+  height: 2.75rem !important;
 }

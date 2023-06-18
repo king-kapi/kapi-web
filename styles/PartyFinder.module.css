@@ -20,3 +20,15 @@
     margin-right: .75rem;
     cursor: pointer;
 }
+
+.BackIcon {
+  fill: var(--grey);
+}
+
+.BackIcon:hover {
+  fill:var(--blue-100)
+}
+
+.BackIcon:active {
+fill:var(--blue-90)
+}

@@ -1,0 +1,19 @@
+.OnboardingGamesContainer {
+    @apply flex-grow;
+    width: 48.563rem;
+    padding-bottom: 2.625rem;
+}
+
+.OnboardingGamesContainer h1 {
+    font-size: 2.25rem;
+    font-weight: 600;
+    line-height: 2.743rem;
+}
+
+.OnboardingGamesContainer h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.829rem;
+    margin-top: 1.5rem;
+}
+

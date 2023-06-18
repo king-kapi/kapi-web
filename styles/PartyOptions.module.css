@@ -1,51 +1,92 @@
-.PartyOptionsContainer{
-    font-family: 'Montserrat', sans-serif;
-    flex: 1 0 auto;
+.PartyOptionsContainer {
+  font-family: 'Montserrat', sans-serif;
+  flex: 1 0 auto;
 }
 
 .Header {
-    position: relative;
-    display: inline-block;
-    font-size: 2.25rem;
-    font-weight: 600;
-    left: 20.75rem;
-    margin-top: 5rem;
-    margin-bottom: 3.5rem;
+  position: relative;
+  display: inline-block;
+  font-size: 2.25rem;
+  font-weight: 600;
+  left: 20.75rem;
+  margin-top: 5rem;
+  margin-bottom: 8rem;
 }
 
 .ButtonsContainer {
-    position: relative;
-    width: 48.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.875rem;
-    left: 20.75rem;
-    margin-bottom: 5.25rem;
+  position: relative;
+  display: flex;
+  gap: 3.5rem;
+  left: 20.75rem;
+  width: 54rem;
+  margin-bottom: 5.25rem;
 }
 
 .PartyOption {
-    height: 10.625rem;
-    font-size: 1.5rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    text-decoration: none;
+  height: 15.313rem;
+  width: 15.625rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  flex-direction: column;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
 }
 
-.PartyOptionName {
-    width: 26rem;
-    text-align: left;
+.PartyOption:hover {
+  background-color: var(--blue-100);
 }
 
-.PartyOptionIcon {
-    margin-left: 3.125rem;
+.PartyOption input {
+  display: none;
 }
 
-.PartyOptionArrow {
-    margin-right: 3.125rem;
+.FindBuddyIcon {
+    width: 11.125rem;
+    margin-bottom: 3rem;
 }
 
+.FindLobbyIcon {
+    width: 6.875rem;
+    margin-bottom: 3.3rem;
+}
+
+.CreateLobbyIcon {
+    width: 5.5rem;
+    margin-bottom: 3.3rem;
+}
+
+.PartyOption span {
+    margin-bottom: 1.5rem;
+}
+
+.NextBackContainer {
+  width: 54rem;
+  position: fixed;
+  bottom: 14rem;
+  left: 38.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Next {
+  width: 7.5rem;
+  height: 2.75rem;
+  z-index: 2;
+}
+
+.Back {
+  cursor: pointer;
+  width: 7.5rem;
+  height: 2.75rem;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,5 +1,5 @@
 type Game = string;
 
-export const GameList: Game[] = ["Valorant", "Apex Legends", "League of Legends", "Destiny 2", "Bread with Fred"]
+export const GameList: Game[] = ["League of Legends", "Genshin Impact", "Valorant", "Dota 2", "Overwatch"]
 
 export default Game;

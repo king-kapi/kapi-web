@@ -1,8 +1,8 @@
-import { Icon } from "@iconify/react";
-import styles from "@/styles/Sidenav.module.css";
-import React, { useState } from "react";
-import { useQuery } from "react-query";
-import { useRouter } from "next/router";
+import { Icon } from '@iconify/react';
+import styles from '@/styles/Sidenav.module.css';
+import React, { useState } from 'react';
+import { useQuery } from 'react-query';
+import { useRouter } from 'next/router';
 
 function SideNav() {
   const [onlineStatus, setOnlineStatus] = useState('1');
@@ -15,11 +15,11 @@ function SideNav() {
   };
 
   const {
-    asPath,        // the value: "/question/how-do-you-get-the-current-url-in-nextjs/"
-    pathname,   // the value: "/question/[slug]"
+    asPath, // the value: "/question/how-do-you-get-the-current-url-in-nextjs/"
+    pathname, // the value: "/question/[slug]"
   } = useRouter();
 
-  const [mode, setMode] = useState('dark')
+  const [mode, setMode] = useState('dark');
 
   function getCurrentStatus() {
     if (onlineStatus === '1') {
@@ -76,20 +76,19 @@ function SideNav() {
       ::-webkit-scrollbar-thumb:hover {
         background: #333333;
       }`}</style>
-        <section className={[styles.whiteSection, 'bg-darkGrey'].join(" ")}>
+        <section className={[styles.whiteSection, 'bg-darkGrey'].join(' ')}>
           <span className={styles.header}>
             <div className={styles.avatarDiv}>
               <div>
                 <div className={styles.avatar}></div>
               </div>
-              <h1 className={styles.logoWord}>Logo</h1>
             </div>
             <div>
               <Icon icon="mdi:bell" className={styles.bell} />
             </div>
           </span>
           <div className={styles.menu}>
-            <a  className={styles.homeTab}>
+            <a className={styles.homeTab}>
               <div className={pathname.includes('Home') ? styles.selected : styles.notSelected}>
                 <Icon
                   icon="mdi:house"
@@ -99,31 +98,35 @@ function SideNav() {
               </div>
               <span className={styles.homeTabWord}>Home</span>
             </a>
-            <a  href='./PartyFinder' className={styles.partyFinderTab}>
-              <div className={pathname.includes('PartyFinder') ? styles.selected : styles.notSelected}>
+            <a href="./partyfinder" className={styles.partyFinderTab}>
+              <div
+                className={pathname.includes('partyfinder') ? styles.selected : styles.notSelected}
+              >
                 <Icon
                   icon="mdi:sword-cross"
-                  color={pathname.includes('PartyFinder') ? '#FFFFFF' : '#939393'}
+                  color={pathname.includes('partyfinder') ? '#FFFFFF' : '#939393'}
                   className={styles.partFinderIcon}
                 />
               </div>
               <span className={styles.partyFinderTabWord}>Party Finder</span>
             </a>
-            <a  className={styles.communityTab}>
-              <div className={pathname.includes('Community') ? styles.selected : styles.notSelected}>
+            <a className={styles.communityTab}>
+              <div
+                className={pathname.includes('community') ? styles.selected : styles.notSelected}
+              >
                 <Icon
                   icon="fa-solid:user-friends"
-                  color={pathname.includes('Community') ? '#FFFFFF' : '#939393'}
+                  color={pathname.includes('community') ? '#FFFFFF' : '#939393'}
                   className={styles.communityIcon}
                 />
               </div>
               <span className={styles.communityTabWord}>Community</span>
             </a>
-            <a  className={styles.forYouTab}>
-              <div className={pathname.includes('ForYou') ? styles.selected : styles.notSelected}>
+            <a className={styles.forYouTab}>
+              <div className={pathname.includes('foryou') ? styles.selected : styles.notSelected}>
                 <Icon
                   icon="ph:sparkle-fill"
-                  color={pathname.includes('ForYou') ? '#FFFFFF' : '#939393'}
+                  color={pathname.includes('foryou') ? '#FFFFFF' : '#939393'}
                   className={styles.forYouIcon}
                 />
               </div>
@@ -131,12 +134,12 @@ function SideNav() {
             </a>
           </div>
         </section>
-        <section className={[styles.graySection, 'bg-mediumGrey'].join(" ")}>
+        <section className={[styles.graySection, 'bg-mediumGrey'].join(' ')}>
           <h1>
             Friends - <span>9/26</span>
           </h1>
         </section>
-        <section className={[styles.blackSection, 'bg-darkGrey'].join(" ")}>
+        <section className={[styles.blackSection, 'bg-darkGrey'].join(' ')}>
           <div className={styles.statusContainer}>
             <div className={styles.userAvatar}>
               <div className={getCurrentStatus()}></div>
@@ -165,7 +168,7 @@ function SideNav() {
   }
 
   return (
-    <div className={[styles.sidenav, `theme-${mode}`].join(" ")}>
+    <div className={[styles.sidenav, `theme-${mode}`].join(' ')}>
       <style>{`/* width */
         ::-webkit-scrollbar {
           width: 10px;
@@ -183,63 +186,68 @@ function SideNav() {
         ::-webkit-scrollbar-thumb:hover {
           background: #333333;
         }`}</style>
-      <section className={[styles.whiteSection, 'bg-darkGrey'].join(" ")}>
+      <section className={[styles.whiteSection, 'bg-darkGrey'].join(' ')}>
         <span className={styles.header}>
           <div className={styles.avatarDiv}>
             <div>
               <div className={styles.avatar}></div>
             </div>
-            <h1 className={styles.logoWord}>Logo</h1>
           </div>
           <div>
-            <Icon icon="mdi:bell" color='#FFFFFF' className={styles.bell}/>
+            <Icon icon="mdi:bell" color="#FFFFFF" className={styles.bell} />
           </div>
         </span>
         <div className={styles.menu}>
-          <a className={styles.homeTab}>
-            <div className={pathname.includes('Home') ? styles.selected : styles.notSelected}>
-              <Icon
-                icon="mdi:house"
-                color='#FFFFFF'
-                className={styles.homeIcon}
-              />
+          <a className={styles.homeTab} href="/">
+            <div
+              className={[
+                pathname === '/' ? styles.selected : styles.notSelected,
+                'bg-pink-500',
+              ].join(' ')}
+            >
+              <Icon icon="mdi:house" color="#FFFFFF" className={styles.homeIcon} />
             </div>
             <span className={styles.homeTabWord}>Home</span>
           </a>
-          <a href='/PartyFinder' className={styles.partyFinderTab}>
-            <div className={[pathname.includes('PartyFinder') ? styles.selected : styles.notSelected, 'bg-blue-100'].join(" ")}>
-              <Icon
-                icon="mdi:sword-cross"
-                color='#FFFFFF'
-                className={styles.partFinderIcon}
-              />
+          <a href="/partyfinder" className={styles.partyFinderTab}>
+            <div
+              className={[
+                pathname.includes('partyfinder') ? styles.selected : styles.notSelected,
+                'bg-blue-100',
+              ].join(' ')}
+            >
+              <Icon icon="mdi:sword-cross" color="#FFFFFF" className={styles.partFinderIcon} />
             </div>
             <span className={styles.partyFinderTabWord}>Party Finder</span>
           </a>
-          <a className={styles.communityTab}>
-            <div className={pathname.includes('Community') ? styles.selected : styles.notSelected}>
-              <Icon
-                icon="fa-solid:user-friends"
-                color='#FFFFFF'
-                className={styles.communityIcon}
-              />
+          <a className={styles.communityTab} href="/community">
+            <div
+              className={[
+                pathname.includes('community') ? styles.selected : styles.notSelected,
+                'bg-cyan-500',
+              ].join(' ')}
+            >
+              <Icon icon="fa-solid:user-friends" color="#FFFFFF" className={styles.communityIcon} />
             </div>
             <span className={styles.communityTabWord}>Community</span>
           </a>
-          <a className={styles.forYouTab}>
-            <div className={pathname.includes('ForYou') ? styles.selected : styles.notSelected}>
-              <Icon
-                icon="ph:sparkle-fill"
-                color='#FFFFFF'
-                className={styles.forYouIcon}
-              />
+          <a className={styles.forYouTab} href="/foryou">
+            <div
+              className={[
+                pathname.includes('foryou') ? styles.selected : styles.notSelected,
+                'bg-yellow-500',
+              ].join(' ')}
+            >
+              <Icon icon="ph:sparkle-fill" color="#FFFFFF" className={styles.forYouIcon} />
             </div>
             <span className={styles.forYouTabWord}>For You</span>
           </a>
         </div>
       </section>
-      <section className={[styles.graySection, 'bg-mediumGrey'].join(" ")}>{fetchFriends()}</section>
-      <section className={[styles.blackSection, 'bg-darkGrey'].join(" ")}>
+      <section className={[styles.graySection, 'bg-mediumGrey'].join(' ')}>
+        {fetchFriends()}
+      </section>
+      <section className={[styles.blackSection, 'bg-darkGrey'].join(' ')}>
         <div className={styles.statusContainer}>
           <div className={styles.userAvatar}>
             <div className={getCurrentStatus()}></div>
@@ -248,7 +256,7 @@ function SideNav() {
             {fetchUser()}
             <select
               name="status"
-              className={[styles.status, 'bg-darkGrey'].join(" ")}
+              className={[styles.status, 'bg-darkGrey'].join(' ')}
               id="status"
               onChange={e => handleChange(e)}
             >
