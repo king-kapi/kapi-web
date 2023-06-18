@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "@/components/Button";
 import DevLayout from "@/components/layouts/DevLayout";
-import { Icons } from "@/components/Icon";
+import { Icons } from "@/components/icons/Icon";
 import Tag from "@/components/Tag";
 
 const AtomsPage = () => {

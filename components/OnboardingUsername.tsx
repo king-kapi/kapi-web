@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from '../styles/OnboardingUsername.module.css';
-import Icon, { Icons } from './Icon';
+import Image from "next/image";
+import sparkleKapi from "@/assets/images/sparkle_kapi.svg";
 
 export default function OnboardingUsername() {
   const [username, setUsername] = useState('');
@@ -11,7 +12,7 @@ export default function OnboardingUsername() {
       <h3>2. Create you username</h3>
       <div className={styles.InputContainer}>
         <input className={'bg-mediumGrey'} type="text" value={username} onChange={e => setUsername(e.target.value)} />
-        <Icon className={styles.Avatar} icon={Icons['SPARKLE_KAPI']} />
+        <Image className={styles.Avatar} src={sparkleKapi} alt={"Sparkle Kapi"}/>
       </div>
       <ul className={styles.UsernameRequirements}>
         <li>Minimum 5 characters (numbers allowed)</li>

@@ -1,6 +1,6 @@
 import styles from "@/styles/Tag.module.css";
 import React from "react";
-import Icon, { Icons } from "@/components/Icon";
+import Icon, { Icons } from "@/components/icons/Icon";
 
 export interface TagProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: "large" | "small";

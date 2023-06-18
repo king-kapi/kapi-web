@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import styles from "@/styles/EmptyLayout.module.css";
 import Link from "next/link";
+import Icon from "@/components/icons/Icon";
 
 const DevLayout = ({ href, children }: React.PropsWithChildren & {
   href: string
@@ -10,7 +11,9 @@ const DevLayout = ({ href, children }: React.PropsWithChildren & {
 
       <div className={"p-8"} style={{ maxWidth: "1200px", margin: "0 auto" }}>
         <Link href={href}>
-          <button>Back</button>
+          <button className={"mb-2"}>
+            <Icon icon={"carat_left"}/> Back
+          </button>
         </Link>
 
         {children}

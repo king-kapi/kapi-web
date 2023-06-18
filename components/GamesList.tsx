@@ -1,7 +1,7 @@
 import styles from '../styles/GamesList.module.css'
 import React, { useContext, useState, useEffect } from 'react';
 import Game, { GameList } from '@/src/types/Games';
-import Icon, {Icons} from './Icon';
+import Icon from "@/components/icons/Icon";
 
 export default function GamesList (props:any) {
     const [selectedGames, setSelectedGames] = useState<Game[]>([]);
@@ -40,7 +40,7 @@ export default function GamesList (props:any) {
         <input type="checkbox" />
         <div className={styles.GameContent}>
           {game}
-          <Icon className={selectedGames.includes(game) ? '' : 'hidden'} icon={Icons['ADD']} />
+          <Icon className={selectedGames.includes(game) ? '' : 'hidden'} icon={"add"} />
         </div>
       </label>
     );

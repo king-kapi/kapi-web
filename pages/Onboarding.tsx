@@ -1,11 +1,10 @@
-import ProgressBar from '@/components/ProgressBar';
-import styles from '../styles/Onboarding.module.css';
-import React, { useState, useMemo } from 'react';
-import Button from '@/components/Button';
-import EmptyLayout from '@/components/layouts/EmptyLayout';
-import OnboardingWelcome from '@/components/OnboardingWelcome';
-import OnboardingUsername from '@/components/OnboardingUsername';
-import OnboardingGames from '@/components/OnboardingGames';
+import styles from "../styles/Onboarding.module.css";
+import React, { useMemo, useState } from "react";
+import Button from "@/components/Button";
+import EmptyLayout from "@/components/layouts/EmptyLayout";
+import OnboardingWelcome from "@/components/OnboardingWelcome";
+import OnboardingUsername from "@/components/OnboardingUsername";
+import OnboardingGames from "@/components/OnboardingGames";
 
 export type formContent = {
   games: string[];
