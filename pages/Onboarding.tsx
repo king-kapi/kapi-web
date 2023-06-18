@@ -18,7 +18,7 @@ export default function Onboarding() {
 
   const [content, setContent] = useState<formContent>({
     games: [],
-    username: '',
+    username: ""
   });
 
 
@@ -27,36 +27,41 @@ export default function Onboarding() {
   return (
     <div className={styles.OnboardingContainer}>
       <formContext.Provider value={providerValue}>
-        <div className={styles.Content} style={pageNumber === 4 ? {width: '64.063rem', height: '53rem'} : {}}>
-          {pageNumber === 1 && <OnboardingWelcome />}
-          {pageNumber === 2 && <OnboardingUsername />}
-          {pageNumber === 3 /* && <CustomizeAvatar /> */}
-          {pageNumber === 4 && <OnboardingGames />}
+        <div className={styles.ContentContainer}>
+          <div className={styles.Content}>
+            {pageNumber === 1 && <OnboardingWelcome />}
+            {pageNumber === 2 && <OnboardingUsername />}
+            {pageNumber === 3 /* && <CustomizeAvatar /> */}
+            {pageNumber === 4 && <OnboardingGames />}
+          </div>
+
+          <div className={styles.ButtonContainer}>
+            <Button
+              className={styles.Back}
+              type="secondary"
+              onClick={() => {
+                if (pageNumber > 1) {
+                  setProgress(progress - 20);
+                  setPageNumber(pageNumber - 1);
+                }
+              }}
+              style={pageNumber === 4 ? { left: "32rem", bottom: "12.5rem", width: "9.125rem" } : {}}
+            >
+              Back
+            </Button>
+            <Button
+              className={styles.Next}
+              onClick={() => {
+                setProgress(progress + 20);
+                setPageNumber(pageNumber + 1);
+              }}
+              style={pageNumber === 4 ? { right: "32rem", bottom: "12.5rem", width: "9.125rem" } : {}}
+            >
+              Next
+            </Button>
+          </div>
         </div>
       </formContext.Provider>
-      <Button
-        className={styles.Back}
-        type="secondary"
-        onClick={() => {
-          if (pageNumber > 1) {
-            setProgress(progress - 20);
-            setPageNumber(pageNumber - 1);
-          }
-        }}
-        style={pageNumber === 4 ? {left: '32rem', bottom: '12.5rem', width: '9.125rem'} : {}}
-      >
-        Back
-      </Button>
-      <Button
-        className={styles.Next}
-        onClick={() => {
-          setProgress(progress + 20);
-          setPageNumber(pageNumber + 1);
-        }}
-        style={pageNumber === 4 ? {right: '32rem', bottom: '12.5rem', width: '9.125rem'} : {}}
-      >
-        Next
-      </Button>
     </div>
   );
 }

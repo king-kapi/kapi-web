@@ -15,23 +15,36 @@
   );
 }
 
-.Content {
-  width: 55.25rem;
-  height: 46.25rem;
+.ContentContainer {
+  @apply flex;
+  @apply flex-col;
   border-radius: 20px;
   background-color: var(--black);
+  padding: 64px 124px;
+  min-height: 740px;
+}
+
+.Content {
+  @apply flex-grow;
+  @apply relative;
+  @apply flex;
+  @apply flex-col;
+  @apply justify-center;
+}
+
+.ButtonContainer {
+  /*@apply flex-shrink;*/
+
+  display: block;
+  width: 100%;
 }
 
 .Back {
-  position: fixed;
   width: 7.5rem;
-  bottom: 16.3rem;
-  left: 36.5rem;
+  float: left;
 }
 
 .Next {
-  position: fixed;
   width: 7.5rem;
-  bottom: 16.3rem;
-  right: 36.5rem;
+  float: right;
 }
