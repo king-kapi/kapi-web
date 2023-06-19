@@ -1,5 +1,5 @@
-import styles from '../styles/OnboardingGames.module.css';
-import GamesList from './GamesList';
+import styles from '../../styles/onboarding/OnboardingGames.module.css';
+import GamesList from '../GamesList';
 import { formContext } from '@/pages/Onboarding';
 
 export default function OnboardingGames() {

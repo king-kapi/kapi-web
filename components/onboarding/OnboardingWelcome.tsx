@@ -1,4 +1,4 @@
-import styles from '../styles/OnboardingWelcome.module.css';
+import styles from '../../styles/onboarding/OnboardingWelcome.module.css';
 import Image from "next/image";
 import kingKapiSVG from "@/assets/images/king_kapi.svg";
 

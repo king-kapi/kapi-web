@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from '../styles/OnboardingUsername.module.css';
+import styles from '../../styles/onboarding/OnboardingUsername.module.css';
 import Image from "next/image";
 import sparkleKapi from "@/assets/images/sparkle_kapi.svg";
 

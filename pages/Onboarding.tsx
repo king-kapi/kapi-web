@@ -1,10 +1,10 @@
-import styles from "../styles/Onboarding.module.css";
+import styles from "../styles/onboarding/Onboarding.module.css";
 import React, { useMemo, useState } from "react";
 import Button from "@/components/Button";
 import EmptyLayout from "@/components/layouts/EmptyLayout";
-import OnboardingWelcome from "@/components/OnboardingWelcome";
-import OnboardingUsername from "@/components/OnboardingUsername";
-import OnboardingGames from "@/components/OnboardingGames";
+import OnboardingWelcome from "@/components/onboarding/OnboardingWelcome";
+import OnboardingUsername from "@/components/onboarding/OnboardingUsername";
+import OnboardingGames from "@/components/onboarding/OnboardingGames";
 
 export type formContent = {
   games: string[];
