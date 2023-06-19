@@ -1,20 +1,28 @@
-import styles from '../styles/GamesList.module.css'
-import React, { useContext, useState, useEffect } from 'react';
-import Game, { GameList } from '@/src/types/Games';
+import styles from "../styles/GamesList.module.css";
+import React, { useEffect, useState } from "react";
+import Game, { GameList } from "@/src/types/Games";
 import Icon from "@/components/icons/Icon";
 
-export default function GamesList (props:any) {
-    const [selectedGames, setSelectedGames] = useState<Game[]>([]);
+export interface GamesListProps {
+  onChange?: (selectedGames: string[]) => void;
+  initialSelected?: Game[];
+}
+
+export default function GamesList({
+                                    onChange = () => {
+                                      return;
+                                    },
+                                    initialSelected = []
+                                  }: GamesListProps) {
+  const [selectedGames, setSelectedGames] = useState<Game[]>(initialSelected);
   const games = GameList;
 
-  const { content, setContent } = useContext<any>(props.formContext);
-
   useEffect(() => {
-    setContent({ ...content, games: selectedGames });
-  }, [selectedGames]);
+    onChange(selectedGames);
+  }, [onChange, selectedGames]);
 
-  const selectedBorder = 'border-solid border-2 border-transparent bg-gradient Selected';
-  const unselectedBorder = 'border-solid border-2 border-textColor bg-mediumGrey';
+  const selectedBorder = "border-solid border-2 border-transparent bg-gradient Selected";
+  const unselectedBorder = "border-solid border-2 border-textColor bg-mediumGrey";
 
   const handleSelectGame = (e: React.MouseEvent<HTMLLabelElement>, game: Game) => {
     e.preventDefault();
@@ -28,8 +36,8 @@ export default function GamesList (props:any) {
       <label
         className={[
           styles.Game,
-          selectedGames.includes(game) ? selectedBorder : unselectedBorder,
-        ].join(' ')}
+          selectedGames.includes(game) ? selectedBorder : unselectedBorder
+        ].join(" ")}
         id={`Game${index}`}
         key={index}
         onClick={e => {
@@ -40,12 +48,12 @@ export default function GamesList (props:any) {
         <input type="checkbox" />
         <div className={styles.GameContent}>
           {game}
-          <Icon className={selectedGames.includes(game) ? '' : 'hidden'} icon={"add"} />
+          <Icon className={selectedGames.includes(game) ? "" : "hidden"} icon={"add"} />
         </div>
       </label>
     );
   };
-    return(
-        <div className={styles.Games}>{games.map((game, index) => createCheckbox(game, index))}</div>
-    )
+  return (
+    <div className={styles.Games}>{games.map((game, index) => createCheckbox(game, index))}</div>
+  );
 }
