@@ -8,7 +8,7 @@ import includeQuery from "@/src/utils/includeQuery";
 function SideNav() {
   const [onlineStatus, setOnlineStatus] = useState("1");
   const { data, isLoading, isError, error } = useQuery("userInfo", () =>
-    fetch(`/api/users/current?include=${includeQuery(["friends"])}`).then(res => res.json())
+    fetch(`/api/users/current`).then(res => res.json())
   );
 
   const handleChange = (e: any) => {
@@ -34,8 +34,8 @@ function SideNav() {
 
   function fetchFriends() {
     const friends = data.friends;
-    const friendsList = friends.map((friend: { username: string }) => (
-      <li>
+    const friendsList = friends.map((friend: { id: string, username: string }) => (
+      <li key={friend.id}>
         <div className={styles.friendsAvatar}>
           <div className={styles.statusOnline}></div>
         </div>

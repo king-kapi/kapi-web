@@ -1,61 +1,57 @@
-import { Request, Response, Router } from "express";
+import { NextFunction, Request, Response, Router } from "express";
 import protectApiRoute from "@/src/utils/protectApiRoute";
-import { Prisma, PrismaClient } from "@prisma/client";
-import UserFindUniqueArgs = Prisma.UserFindUniqueArgs;
+import { PrismaClient } from "@prisma/client";
 
 export default function usersHandler(
   prisma: PrismaClient) {
   const router = Router();
 
-  router.get("/", async (req: Request, res: Response) => {
-    await protectApiRoute(req, res);
-
+  router.get("/", async (req: Request, res: Response, next: NextFunction) => {
     try {
+      await protectApiRoute(req, res);
+
       const users = await prisma.user.findMany();
       res.status(200).send(users);
-    } catch (e) {
-      console.error(e);
-      res.status(400).send(e);
+    } catch (err) {
+      next(err);
     }
   });
 
-  // TODO: Does Not Exist
-  router.get("/current", async (req: Request, res: Response) => {
-    const { id } = await protectApiRoute(req, res);
+  // TODO: Does Not Exist error
+  router.get("/current", async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id } = await protectApiRoute(req, res);
 
-    if (req.method === "GET") {
-      const args: UserFindUniqueArgs = {
-        where: {
-          id: id
-        }
-      };
-
-      if (req.query.include)
-        args.include = JSON.parse(atob(req.query.include as string));
-
-      const user = await prisma.user.findUnique(args);
+      const user = await prisma.user.findUnique({
+        where: { id },
+        include: { friends: true }
+      });
 
       res.status(200).json(user);
-    } else {
-      res.status(405).send("405 Method Not Allowed.");
+    } catch (err) {
+      next(err);
     }
   });
 
   // this modifies a user without any checking
   if (process.env.NODE_ENV === "development") {
-    router.post("/", async (req: Request, res: Response) => {
-      const { id } = await protectApiRoute(req, res);
+    router.post("/", async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const { id } = await protectApiRoute(req, res);
 
-      await prisma.user.update({
-        where: {
-          id
-        },
-        data: {
-          [req.body.attribute]: req.body.value
-        }
-      });
+        await prisma.user.update({
+          where: {
+            id
+          },
+          data: {
+            [req.body.attribute]: req.body.value
+          }
+        });
 
-      res.status(200).send("");
+        res.status(200).send("");
+      } catch (err) {
+        next(err);
+      }
     });
   }
 
