@@ -5,6 +5,7 @@ import EmptyLayout from "@/components/layouts/EmptyLayout";
 import OnboardingWelcome from "@/components/onboarding/OnboardingWelcome";
 import OnboardingUsername from "@/components/onboarding/OnboardingUsername";
 import OnboardingGames from "@/components/onboarding/OnboardingGames";
+import ProgressDots from "@/components/onboarding/ProgressDots";
 
 export type formContent = {
   games: string[];
@@ -21,6 +22,7 @@ export default function Onboarding() {
     username: ""
   });
 
+  const numPages = 4;
 
   const providerValue = useMemo(() => ({ content, setContent }), [content, setContent]);
 
@@ -44,9 +46,7 @@ export default function Onboarding() {
                   setProgress(progress - 20);
                   setPageNumber(pageNumber - 1);
                 }
-              }}
-              style={pageNumber === 4 ? { left: "32rem", bottom: "12.5rem", width: "9.125rem" } : {}}
-            >
+              }}>
               Back
             </Button>
             <Button
@@ -54,12 +54,12 @@ export default function Onboarding() {
               onClick={() => {
                 setProgress(progress + 20);
                 setPageNumber(pageNumber + 1);
-              }}
-              style={pageNumber === 4 ? { right: "32rem", bottom: "12.5rem", width: "9.125rem" } : {}}
-            >
-              Next
+              }}>
+              {pageNumber === numPages ? "Finish" : "Next"}
             </Button>
           </div>
+
+          <ProgressDots current={pageNumber - 1} steps={numPages} style={{ margin: "42px auto 0" }} />
         </div>
       </formContext.Provider>
     </div>

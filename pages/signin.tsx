@@ -1,8 +1,8 @@
-import Icon, {Icons} from '@/components/Icon';
 import { signIn } from 'next-auth/react';
 import styles from '../styles/SignInPage.module.css';
 import EmptyLayout from '@/components/layouts/EmptyLayout';
 import Button from '@/components/Button';
+import Icon from '@/components/icons/Icon';
 
 export default function SignInPage() {
     // console.log(providers)
@@ -19,11 +19,11 @@ export default function SignInPage() {
                     <Button className={styles.Button} type='secondary' onClick={async () => {
                         console.log(signIn('google', { callbackUrl: '/' }))
                     }}>
-                        <Icon icon={Icons['GOOGLE_ICON']} />
+                        <Icon icon={"google_icon"} />
                         Sign in with Google
                     </Button>
                     <Button className={styles.Button} onClick={() => signIn('discord', { callbackUrl: '/' })}>
-                        <Icon icon={Icons["DISCORD_ICON"]} />
+                        <Icon icon={"discord_icon"} />
                         Sign in with Discord
                     </Button>
                 </div>
