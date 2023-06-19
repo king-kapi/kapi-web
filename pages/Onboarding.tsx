@@ -6,6 +6,7 @@ import OnboardingWelcome from "@/components/onboarding/OnboardingWelcome";
 import OnboardingUsername from "@/components/onboarding/OnboardingUsername";
 import OnboardingGames from "@/components/onboarding/OnboardingGames";
 import ProgressDots from "@/components/onboarding/ProgressDots";
+import { useRouter } from "next/router";
 
 export type OnboardingFormContent = {
   games: string[];
@@ -27,9 +28,9 @@ export type OnBoardingFormContextType = {
 export const OnboardingFormContext = React.createContext({});
 
 export default function Onboarding() {
-  const [progress, setProgress] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [content, setContent] = useState(DEFAULT_FORM_CONTENT);
+  const router = useRouter();
 
   const numPages = 4;
 
@@ -57,9 +58,9 @@ export default function Onboarding() {
               type="secondary"
               onClick={() => {
                 if (pageNumber > 1) {
-                  setProgress(progress - 20);
                   setPageNumber(pageNumber - 1);
-                }
+                } else
+                  router.push("/signin");
               }}>
               Back
             </Button>
@@ -67,7 +68,6 @@ export default function Onboarding() {
               className={styles.Next}
               onClick={() => {
                 if (pageNumber !== numPages) {
-                  setProgress(progress + 20);
                   setPageNumber(pageNumber + 1);
                 } else
                   handleFinish();
