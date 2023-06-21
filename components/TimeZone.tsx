@@ -1,18 +1,31 @@
-import { useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import styles from '../styles/TimeZone.module.css';
+import Button from './Button';
+import { formContext } from '@/pages/partyfinder/buddyfinder';
 
 export default function TimeZone() {
-    const timeZones = ['Easter (ET)', 'Central (ET)', 'Hawaii (HST)', 'Pacific Standard Time (PST)']
-    const [selectedZone, setSelectedZone] = useState(-1)
+  const timeZones = ['Eastern (ET)', 'Central (ET)', 'Hawaii (HST)', 'Pacific Standard Time (PST)'];
+  const [selectedZone, setSelectedZone] = useState(-1);
 
-    const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-      setSelectedZone(Number(e.currentTarget.value));
-    };
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setSelectedZone(Number(e.currentTarget.value));
+  };
 
-  const createCheckbox = (label:any, index:number) => {
+  const { content, setContent } = useContext(formContext);
+
+  useEffect(() => {
+    setContent({...content, timezone:selectedZone})
+  }, [selectedZone]);
+
+  const createCheckbox = (label: any, index: number) => {
     return (
       <label className={styles.Option}>
-        <input type="radio" value={index} checked={selectedZone === index} onChange={handleChange}/>
+        <input
+          type="radio"
+          value={index}
+          checked={selectedZone === index}
+          onChange={handleChange}
+        />
         {label}
         <br />
       </label>
@@ -29,8 +42,12 @@ export default function TimeZone() {
       <div className={styles.Options}>
         {timeZones.map((label, index) => createCheckbox(label, index))}
       </div>
-      <button className={[styles.Next, (selectedZone === -1) ? 'bg-mediumGrey z-10' : 'display-none z-0'].join(' ')}>Next</button>
-
+      <Button
+        type={selectedZone === -1 ? 'secondary' : 'primary'}
+        className={[styles.Next, selectedZone === -1 ? 'z-10 ' : 'hidden z-0'].join(' ')}
+      >
+        Next
+      </Button>
     </div>
   );
 }

@@ -1,0 +1,50 @@
+.OnboardingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background: conic-gradient(
+    from 171.34deg at 50% 50%,
+    var(--yellow-500) 0deg,
+    var(--pink-500) 65.83deg,
+    var(--blue-500) 151.36deg,
+    var(--cyan-500) 228.75deg,
+    var(--yellow-500) 360deg
+  );
+}
+
+.ContentContainer {
+  @apply flex;
+  @apply flex-col;
+  border-radius: 20px;
+  background-color: var(--black);
+  padding: 64px 124px;
+  min-height: 740px;
+}
+
+.Content {
+  @apply flex-grow;
+  @apply relative;
+  @apply flex;
+  @apply flex-col;
+  @apply justify-center;
+}
+
+.ButtonContainer {
+  /*@apply flex-shrink;*/
+
+  display: block;
+  width: 100%;
+}
+
+.Back {
+  width: 7.5rem;
+  float: left;
+}
+
+.Next {
+  width: 7.5rem;
+  float: right;
+}

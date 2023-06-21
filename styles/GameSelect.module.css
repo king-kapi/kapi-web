@@ -1,9 +1,9 @@
 .GameSelectContainer {
   font-family: 'Montserrat', sans-serif;
   position: relative;
-  width: 48.5rem;
+  width: 52.5rem;
   top: 10rem;
-  left: 24rem;
+  left: 22.5rem;
 }
 
 .Header {
@@ -11,54 +11,12 @@
   font-weight: 600;
 }
 
-.Games {
-  height: 20rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-top: 3.125rem;
-}
 
-.Game {
-  font-size: 1rem;
-  font-weight: 600;
-  height: 5.625rem;
-  width: 22.5rem;
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.563rem;
-  border-radius: 10px;
-}
-
-.GameImg {
-  height: 5.625rem;
-  width: 8.688rem;
-}
-
-.Game input[type='checkbox'] {
-  height: 0;
-  width: 0;
-}
-
-.Game input[type='text'] {
-  font-weight: 600;
-  font-size: 1rem;
-  border-radius: 20px;
-  background-color: #efefef;
-  border: none;
-  padding-left: 1.25rem;
-}
 
 .Next {
-    position: fixed;
-    width: 7.5rem;
-    height: 2.75rem;
-    font-size: .9rem;
-    font-weight: 400;
-    left: 82.875rem;
-    bottom: 4rem;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: fixed;
+  left: 82.875rem;
+  bottom: 4rem;
+  width: 7.5rem;
+  height: 2.75rem !important;
 }

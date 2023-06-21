@@ -1,0 +1,32 @@
+.ProgressBarContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 51.5rem;
+}
+
+.Flag {
+    margin-left: auto;
+}
+
+.EmptyBar {
+    width: 50.375rem;
+    height: 1.375rem;
+    border-radius: 20px;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+}
+
+.ProgressBar {
+    height: 0.938rem;
+    background: linear-gradient(to right, var(--pink-500), var(--blue-500), var(--cyan-500), var(--yellow-500));
+    border-radius: 20px;
+}
+
+.Levels {
+    width: 49rem;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+}

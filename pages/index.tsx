@@ -25,6 +25,12 @@ export default function Home() {
         <Link href={"/dev-pages"}>
           <Button>See Dev Pages</Button>
         </Link>
+
+        <br/>
+
+        <Link href={"/Onboarding"}>
+          <Button className={"mt-4"}>See Onboarding</Button>
+        </Link>
       </main>
     </>
   );
