@@ -39,7 +39,8 @@
     "react-query": "^3.39.3",
     "socket.io": "^4.6.1",
     "socket.io-client": "^4.6.1",
-    "swiper": "^9.1.0"
+    "swiper": "^9.1.0",
+    "ts-node": "^10.9.1"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.3",
