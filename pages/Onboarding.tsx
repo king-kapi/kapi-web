@@ -55,7 +55,7 @@ export default function Onboarding() {
           <div className={styles.ButtonContainer}>
             <Button
               className={styles.Back}
-              buttonType="secondary"
+              type="secondary"
               onClick={() => {
                 if (pageNumber > 1) {
                   setPageNumber(pageNumber - 1);
