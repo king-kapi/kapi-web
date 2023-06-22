@@ -21,7 +21,7 @@ export default function SignInPage() {
           <h3>Discover safe and inclusive gaming communities for you</h3>
         </div>
         <div className={styles.SignInButtons}>
-          <Button className={styles.Button} type="secondary" onClick={async () => {
+          <Button className={styles.Button} buttonType="secondary" onClick={async () => {
             console.log(signIn("google", { callbackUrl: "/" }));
           }}>
             <Icon icon={"google_icon"} />
@@ -36,7 +36,7 @@ export default function SignInPage() {
           <div className={styles.Line}><span className="bg-black">or</span></div>
         </div>
         <Link href={"/Onboarding"}>
-          <Button type="secondary" className={styles.CreateAccount}>Create an Account</Button>
+          <Button buttonType="secondary" className={styles.CreateAccount}>Create an Account</Button>
         </Link>
       </div>
     </div>

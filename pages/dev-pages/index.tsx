@@ -46,24 +46,39 @@ const DevPages = () => {
       </Button>
     </Link>
 
+    <br/>
+
+    <Link href={"/dev-pages/modify-user"}>
+      <Button className={"mt-2"}>
+        Modify User
+      </Button>
+    </Link>
+    <br/>
+
+    <Link href={"/dev-pages/lobbies"}>
+      <Button className={"mt-2"}>
+        Lobbies
+      </Button>
+    </Link>
+
     <h3 className={"mt-8"}>Miscellaneous</h3>
 
     <Link href={"/dev-pages/components"}>
-      <Button type={"secondary"}>See components page</Button>
+      <Button buttonType={"secondary"}>See components page</Button>
     </Link>
 
     <br/>
     <br/>
 
     <Link href={"/dev-pages/chat-demo"}>
-      <Button type={"secondary"}>See chat demo</Button>
+      <Button buttonType={"secondary"}>See chat demo</Button>
     </Link>
 
     <br/>
     <br/>
 
     <Link href={"/dev-pages/party-finder/test"}>
-      <Button type={"secondary"}>See Party Finder Backend Tests</Button>
+      <Button buttonType={"secondary"}>See Party Finder Backend Tests</Button>
     </Link>
   </main>;
 };

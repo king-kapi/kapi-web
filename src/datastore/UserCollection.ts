@@ -41,7 +41,7 @@ class UserCollection {
     }
 
     // user not found
-    throw new UserNotFoundError(userId);
+    throw new UserNotFoundError(userId.toString());
   }
 
   async getUserProfileByEmail(email: string, options: FindOptions<Document> = {}): Promise<UserProfile> {
@@ -150,7 +150,7 @@ class UserCollection {
   private async _update(userId: ObjectId, fields: Partial<UserProfile>) {
     // verify user exists
     if (!await this.getUserProfile(userId))
-      throw new UserNotFoundError(userId);
+      throw new UserNotFoundError(userId.toString());
 
     await this.col.updateOne({
       _id: userId

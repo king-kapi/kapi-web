@@ -4,7 +4,6 @@ import Collections from './Collections';
 import MessagesCollection from './MessagesCollection';
 import PostsCollection from './PostsCollection';
 import UserCollection from './UserCollection';
-import LobbyCollection from './LobbyCollection';
 
 class MongoDatastore {
   private static instance: MongoDatastore;
@@ -13,7 +12,6 @@ class MongoDatastore {
   public chats = new ChatsCollection(this.datastore.collection(Collections.CHATS), this);
   public messages = new MessagesCollection(this.datastore.collection(Collections.MESSAGES));
   public posts = new PostsCollection(this.datastore.collection(Collections.POSTS), this);
-  public lobbies = new LobbyCollection(this.datastore.collection(Collections.LOBBIES), this);
 
   private constructor(private client: MongoClient) {}
 

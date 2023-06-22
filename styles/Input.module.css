@@ -1,0 +1,15 @@
+.Input {
+    @apply font-medium;
+    @apply text-base;
+    @apply bg-mediumGrey;
+    @apply py-3;
+    @apply px-4;
+
+    outline-color: var(--grey);
+    border-radius: 0.625rem; /* 10px */
+}
+
+.Input::placeholder {
+    color: var(--greyText);
+    opacity: 1; /* for firefox */
+}
