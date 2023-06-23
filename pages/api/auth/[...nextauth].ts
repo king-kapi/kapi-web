@@ -1,9 +1,9 @@
-import NextAuth, { AuthOptions, Session, User as NextUser } from "next-auth";
+import NextAuth, { AuthOptions, Session } from "next-auth";
 import { Provider } from "next-auth/providers";
 import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
-import { AdapterUser } from "next-auth/adapters";
 import { JWT } from "next-auth/jwt";
+import User from "@/src/models/User";
 
 const providers: Provider[] = [
   GoogleProvider({
@@ -59,10 +59,19 @@ export const authOptions: AuthOptions = {
     signIn: "/signin"
   },
   callbacks: {
-    session: async ({ session, token }: { session: Session, user: NextUser | AdapterUser, token: JWT }) => {
-      if (token.sub) {
-        session.id = token.sub;
+    async jwt({ token }) {
+      const user = await User.findOne({ email: token.email });
+      if (!user) {// that means user does not exist
+        token.user = await new User({
+          email: token.email
+        }).save();
+      } else {
+        token.user = user;
       }
+      return token;
+    },
+    session: async ({ session, token }: { session: Session, token: JWT }) => {
+      session.user = token.user;
       return session;
     }
   }
