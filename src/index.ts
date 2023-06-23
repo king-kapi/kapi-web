@@ -7,11 +7,10 @@ import { Server as IOServer } from "socket.io";
 import cookieParser from "cookie-parser";
 import chatHandler from "./chat";
 import usersHandler from "./users";
-import { PrismaClient } from "@prisma/client";
-import lobbiesHandler from "@/server/lobbies";
-import gamesHandler from "@/server/games";
-import tagsHandler from "@/server/tags";
-import errorHandler from "@/server/errors";
+import lobbiesHandler from "@/src/lobbies";
+import gamesHandler from "@/src/games";
+import tagsHandler from "@/src/tags";
+import errorHandler from "@/src/errors";
 import { Simulate } from "react-dom/test-utils";
 import error = Simulate.error;
 
@@ -28,8 +27,6 @@ const port = process.env.PORT;
 
 const io = new IOServer(server);
 
-const prisma = new PrismaClient();
-
 // middleware setup
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -37,11 +34,11 @@ app.use(cookieParser());
 
 // handlers
 // authHandler(server);
-chatHandler(prisma, io);
-app.use("/api/users/", usersHandler(prisma));
-app.use("/api/lobbies/", lobbiesHandler(prisma));
-app.use("/api/tags/", tagsHandler(prisma));
-app.use("/api/games/", gamesHandler(prisma));
+// chatHandler(prisma, io);
+// app.use("/api/users/", usersHandler(prisma));
+// app.use("/api/lobbies/", lobbiesHandler(prisma));
+// app.use("/api/tags/", tagsHandler(prisma));
+// app.use("/api/games/", gamesHandler(prisma));
 
 // nextjs handler
 app.use((req: Request, res: Response) => {

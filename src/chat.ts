@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
-import Message from "../src/types/Message";
-import MongoDatastore from "../src/datastore/MongoDatastore";
+import Message from "./types/Message";
+import MongoDatastore from "./datastore/MongoDatastore";
 import { ClientToServerEvents, ServerToClientEvents } from "@/types/socket-events";
 import { PrismaClient } from "@prisma/client";
 
