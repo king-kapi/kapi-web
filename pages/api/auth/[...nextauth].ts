@@ -2,6 +2,7 @@ import NextAuth, { AuthOptions, Session } from "next-auth";
 import { Provider } from "next-auth/providers";
 import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
 import User from "@/src/models/User";
 
@@ -19,36 +20,28 @@ const providers: Provider[] = [
 // =============================================================================
 // Create a custom CredentialsProvider for email sign on in development use
 // =============================================================================
-// if (process.env.NODE_ENV === "development")
-//   providers.push(CredentialsProvider({
-//     name: "DevCredentials",
-//     credentials: {
-//       email: {
-//         label: "Email",
-//         type: "text"
-//       }
-//     },
-//     async authorize(credentials, req) { // I have no clue why typescript returns an error here
-//       if (process.env.NODE_ENV !== "development") return null;
-//
-//       console.log(`Logging in with ${credentials?.email}`);
-//
-//       const user = await prisma.user.findUnique({
-//         where: {
-//           email: credentials?.email || ""
-//         }
-//       })
-//
-//       if (user)
-//         return {
-//           id: user.id,
-//           email: user.email,
-//           image: user.image,
-//           name: user.username
-//         };
-//       return null;
-//     }
-//   }));
+if (process.env.NODE_ENV === "development")
+  providers.push(CredentialsProvider({
+    name: "DevCredentials",
+    credentials: {
+      email: {
+        label: "Email",
+        type: "text"
+      }
+    },
+    async authorize(credentials, req) { // I have no clue why typescript returns an error here
+      if (process.env.NODE_ENV !== "development") return null;
+
+      console.log(`Logging in with ${credentials?.email}`);
+
+      return {
+        id: "",
+        email: credentials?.email,
+        image: "",
+        name: ""
+      };
+    }
+  }));
 
 export const authOptions: AuthOptions = {
   session: {
