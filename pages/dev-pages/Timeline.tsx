@@ -110,7 +110,7 @@ function TabPanel({
 
 // TODO: where will the timeline be? this is needed for routing
 /**
- * A post inside the user's timeline
+ * A post inside the user_old's timeline
  */
 function Post({ user, body, imageURLs }: PostProps) {
   return (

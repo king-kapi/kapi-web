@@ -4,7 +4,7 @@ import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
-import User from "@/src/models/User";
+import User, { IUser } from "@/src/models/User";
 
 const providers: Provider[] = [
   GoogleProvider({
@@ -54,7 +54,7 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async jwt({ token }) {
       const user = await User.findOne({ email: token.email });
-      if (!user) {// that means user does not exist
+      if (!user) {// that means user_old does not exist
         token.user = await new User({
           email: token.email
         }).save();
@@ -65,6 +65,7 @@ export const authOptions: AuthOptions = {
     },
     session: async ({ session, token }: { session: Session, token: JWT }) => {
       session.user = token.user;
+      session.id = token.user._id.toString();
       return session;
     }
   }

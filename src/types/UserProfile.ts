@@ -8,7 +8,7 @@ import OmitId from "./OmitId";
 import User from "./User";
 
 // TODO: change this to a class
-// UserProfile will hold ALL the information that is available about the user
+// UserProfile will hold ALL the information that is available about the user_old
 // and is intended to also contain much more private information
 interface UserProfile {
   _id: ObjectId;

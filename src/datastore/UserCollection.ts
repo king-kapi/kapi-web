@@ -16,7 +16,7 @@ class UserCollection {
   }
 
   async register({ id, email, image }: { id: ObjectId, email: string, image: string }): Promise<UserProfile> {
-    // // check if user already exists
+    // // check if user_old already exists
     // if (!(await this.getUserProfile(id)).newUser ) {
     //   throw new UserAlreadyRegistered(id);
     // }
@@ -40,7 +40,7 @@ class UserCollection {
       return user;
     }
 
-    // user not found
+    // user_old not found
     throw new UserNotFoundError(userId.toString());
   }
 
@@ -50,7 +50,7 @@ class UserCollection {
       return user;
     }
 
-    // user not found
+    // user_old not found
     throw new UserNotFoundError(email);
   }
 
@@ -78,7 +78,7 @@ class UserCollection {
   }
 
   async addFriend(userId: ObjectId, friendId: ObjectId): Promise<void> {
-    // verify user exists
+    // verify user_old exists
     await this.getUser(userId);
     const newFriend = await this.getUser(friendId);
 
@@ -95,10 +95,10 @@ class UserCollection {
   }
 
   async setStatus(userId: ObjectId, status: UserStatus): Promise<void> {
-    // verify user exists
+    // verify user_old exists
     await this.getUser(userId);
 
-    // update user
+    // update user_old
     await this.col.updateOne({
       _id: userId,
     }, {
@@ -107,7 +107,7 @@ class UserCollection {
   }
 
   async removeFriend(userId: ObjectId, friendId: ObjectId): Promise<void> {
-    // verify user exists
+    // verify user_old exists
     await this.getUser(userId);
     // verify friend exists
     await this.getUser(friendId);
@@ -148,7 +148,7 @@ class UserCollection {
   }
 
   private async _update(userId: ObjectId, fields: Partial<UserProfile>) {
-    // verify user exists
+    // verify user_old exists
     if (!await this.getUserProfile(userId))
       throw new UserNotFoundError(userId.toString());
 
@@ -159,7 +159,7 @@ class UserCollection {
     })
   }
 
-  // update user
+  // update user_old
   async update(userId: ObjectId, fields: Partial<UserProfile>): Promise<void> {
 
     if (fields.username)

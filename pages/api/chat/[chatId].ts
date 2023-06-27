@@ -8,7 +8,7 @@ type ChatQuery = {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const { user } = await protectApiRoute(req, res); // use user to verify chat id
+    const { user } = await protectApiRoute(req, res); // use user_old to verify chat id
     const chatId = new ObjectId((req.query as ChatQuery).chatId);
 
     const instance = await MongoDatastore.getInstance();

@@ -6,7 +6,8 @@ import { NextServer } from "next/dist/server/next";
 import { Server as IOServer } from "socket.io";
 import cookieParser from "cookie-parser";
 import errorHandler from "@/src/errors";
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
+import usersHandler from "@/src/users";
 
 dotenv.config({
   path: "./.env.local"
@@ -29,7 +30,7 @@ app.use(cookieParser());
 // handlers
 // authHandler(server);
 // chatHandler(prisma, io);
-// app.use("/api/users/", usersHandler(prisma));
+app.use("/api/users/", usersHandler());
 // app.use("/api/lobbies/", lobbiesHandler(prisma));
 // app.use("/api/tags/", tagsHandler(prisma));
 // app.use("/api/games/", gamesHandler(prisma));

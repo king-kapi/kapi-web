@@ -32,23 +32,23 @@ function SideNav() {
   }
 
   function fetchFriends() {
-    const friends = data.friends;
-    const friendsList = friends.map((friend: { id: string, username: string }) => (
-      <li key={friend.id}>
-        <div className={styles.friendsAvatar}>
-          <div className={styles.statusOnline}></div>
-        </div>
-        <span>{friend.username}</span>
-      </li>
-    ));
-    return (
-      <div>
-        <h1>
-          Friends - <span>{friends.length}/26</span>
-        </h1>
-        <ul>{friendsList}</ul>
-      </div>
-    );
+    // const friends = data.friends;
+    // const friendsList = friends.map((friend: { id: string, username: string }) => (
+    //   <li key={friend.id}>
+    //     <div className={styles.friendsAvatar}>
+    //       <div className={styles.statusOnline}></div>
+    //     </div>
+    //     <span>{friend.username}</span>
+    //   </li>
+    // ));
+    // return (
+    //   <div>
+    //     <h1>
+    //       Friends - <span>{friends.length}/26</span>
+    //     </h1>
+    //     <ul>{friendsList}</ul>
+    //   </div>
+    // );
   }
 
   function fetchUser() {

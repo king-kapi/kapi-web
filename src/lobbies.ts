@@ -38,7 +38,7 @@ export default function lobbiesHandler(
         }
       });
 
-      // create relation between party and user
+      // create relation between party and user_old
       await prisma.user.update({
         where: { id: userId },
         data: { lobbyId: created.id }
@@ -74,7 +74,7 @@ export default function lobbiesHandler(
       if (!lobby)
         throw new DoesNotExist(lobbyId, "lobbies");
 
-      // if user is not in the party, remove requests
+      // if user_old is not in the party, remove requests
       // TODO: consider just removing the field altogether
       if (lobby.users.filter(u => u.id === userId).length === 0)
         lobby.requests = [];
@@ -151,7 +151,7 @@ export default function lobbiesHandler(
 
       if (!lobby) // check if lobby exists
         throw new DoesNotExist(lobbyId, "lobbies");
-      if (!user) // check if user exists
+      if (!user) // check if user_old exists
         throw new DoesNotExist(userId, "users");
 
       const created = await prisma.lobbyRequest.create({
@@ -189,7 +189,7 @@ export default function lobbiesHandler(
         where: { id: requestId }
       });
 
-      // add user to lobby
+      // add user_old to lobby
       const user = await prisma.user.update({
         where: { id: request.senderId },
         data: { lobbyId: lobbyId }
