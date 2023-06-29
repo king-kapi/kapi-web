@@ -82,7 +82,7 @@ export default function BuddyFinder() {
         </formContext.Provider>
         {pageNumber !== 1 && pageNumber < 6 && (
           <Button
-            type="secondary"
+            buttonType="secondary"
             className={styles.Back}
             style={{ left: '38.5rem' }}
             onClick={() => {
@@ -94,7 +94,7 @@ export default function BuddyFinder() {
         )}
         {pageNumber === 1 && (
           <Link href="/partyfinder">
-            <Button type="secondary" className={styles.Back}>
+            <Button buttonType="secondary" className={styles.Back}>
               Back
             </Button>
           </Link>

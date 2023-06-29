@@ -2,7 +2,7 @@ import styles from '../styles/LobbyMemberList.module.css';
 import { useState } from 'react';
 import Tag from './Tag';
 import Button from './Button';
-import Icon, {Icons} from './Icon';
+import Icon from './icons/Icon'
 
 export default function LobbyMemberList() {
   const tags = [
@@ -31,11 +31,11 @@ export default function LobbyMemberList() {
           Jane's Lobby <span>/ League of Legends</span>
         </h1>
         <Button
-          type='secondary' className={[styles.LeaveButton, 'hover:bg-blue-400 active:!bg-primary-90'].join(
+          buttonType='secondary' className={[styles.LeaveButton, 'hover:bg-blue-400 active:!bg-primary-90'].join(
             ' '
           )}
         >
-          <Icon  icon={Icons['EXIT']}/>
+          <Icon  icon={'exit'}/>
           Leave Lobby
         </Button>
       </div>
@@ -56,7 +56,7 @@ export default function LobbyMemberList() {
       <div className={styles.MemberCountContainer}>
         <h2 className={styles.MemberCount}>Party Members {members.length}/5</h2>
         <div className={styles.ViewOptions}>
-         <Icon icon={Icons['LIST_VIEW']}/>
+         <Icon icon={'list_view'}/>
           <select
             name="view"
             className={[styles.View, 'bg-black'].join(' ')}
@@ -74,7 +74,7 @@ export default function LobbyMemberList() {
               className={styles.Member}
             >
               <div className={styles.MemberOptions}>
-                <Icon icon={Icons['TOGGLE_VERTICAL']} />
+                <Icon icon={'toggle_vertical'} />
               </div>
               <div className={styles.MemberAvatar}></div>
               <div className={styles.MemberInfo}>

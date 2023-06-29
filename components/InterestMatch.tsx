@@ -56,7 +56,7 @@ export default function InterestMatch() {
         </label>
       </div>
       <Button
-        type={findBuddy === -1 ? 'secondary' : 'primary'}
+        buttonType={findBuddy === -1 ? 'secondary' : 'primary'}
         className={[styles.Next, findBuddy === -1 ? 'z-10 ' : 'hidden z-0'].join(' ')}
       >
         Next

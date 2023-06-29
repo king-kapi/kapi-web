@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styles from '../styles/GameSelect.module.css';
 import Button from './Button';
-import Icon, { Icons } from './Icon';
 import GamesList from './GamesList';
 
 export default function GameSelect(props:any) {

@@ -1,7 +1,7 @@
-import styles from "../styles/GamesList.module.css";
-import React, { useEffect, useState } from "react";
-import Game, { GameList } from "@/src/types/Games";
-import Icon from "@/components/icons/Icon";
+import styles from '../styles/GamesList.module.css';
+import React, { useEffect, useState } from 'react';
+import Game, { GameList } from '@/src/types/Games';
+import Icon from '@/components/icons/Icon';
 
 export interface GamesListProps {
   onChange?: (selectedGames: string[]) => void;
@@ -9,11 +9,11 @@ export interface GamesListProps {
 }
 
 export default function GamesList({
-                                    onChange = () => {
-                                      return;
-                                    },
-                                    initialSelected = []
-                                  }: GamesListProps) {
+  onChange = () => {
+    return;
+  },
+  initialSelected = [],
+}: GamesListProps) {
   const [selectedGames, setSelectedGames] = useState<Game[]>(initialSelected);
   const games = GameList;
 
@@ -21,8 +21,8 @@ export default function GamesList({
     onChange(selectedGames);
   }, [onChange, selectedGames]);
 
-  const selectedBorder = "border-solid border-2 border-transparent bg-gradient Selected";
-  const unselectedBorder = "border-solid border-2 border-textColor bg-mediumGrey";
+  const selectedBorder = 'border-solid border-2 border-transparent bg-gradient Selected';
+  const unselectedBorder = 'border-solid border-2 border-textColor bg-mediumGrey';
 
   const handleSelectGame = (e: React.MouseEvent<HTMLLabelElement>, game: Game) => {
     e.preventDefault();
@@ -36,8 +36,8 @@ export default function GamesList({
       <label
         className={[
           styles.Game,
-          selectedGames.includes(game) ? selectedBorder : unselectedBorder
-        ].join(" ")}
+          selectedGames.includes(game) ? selectedBorder : unselectedBorder,
+        ].join(' ')}
         id={`Game${index}`}
         key={index}
         onClick={e => {
@@ -48,7 +48,7 @@ export default function GamesList({
         <input type="checkbox" />
         <div className={styles.GameContent}>
           {game}
-          <Icon className={selectedGames.includes(game) ? "" : "hidden"} icon={"add"} />
+          <Icon className={selectedGames.includes(game) ? '' : 'hidden'} icon={'add'} />
         </div>
       </label>
     );

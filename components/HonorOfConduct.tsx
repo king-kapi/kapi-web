@@ -37,7 +37,7 @@ const HonorOfConduct = () => {
       </div>
       <div onClick={() => setClickedNext(true)}>
         <Button
-          type={!agreed ? 'secondary' : 'primary'}
+          buttonType={!agreed ? 'secondary' : 'primary'}
           className={[styles.Next, !agreed ? 'z-10' : 'display-none z-0'].join(' ')}
         >
           Next

@@ -1,8 +1,11 @@
 import styles from '../styles/PartyOptions.module.css';
-import Icon, {Icons} from './Icon';
+import Image from "next/image";
 import Link from 'next/link';
 import { useState } from 'react';
 import Button from './Button';
+import kapiBuddy from "@/assets/images/kapi_buddy.svg";
+import kapiFriends from "@/assets/images/kapi_friends.svg";
+import kingKapi from "@/assets/images/king_kapi.svg";
 
 export default function PartyOptions() {
   const [selectedOption, setSelectedOption] = useState('');
@@ -26,7 +29,7 @@ export default function PartyOptions() {
             checked={selectedOption === '/partyfinder/buddyfinder'}
             onChange={handleChange}
           />
-          <Icon icon={Icons['KAPI_BUDDY']} className={styles.FindBuddyIcon}/>
+          <Image src={kapiBuddy} alt={'kapiBuddy'} className={styles.FindBuddyIcon}/>
           <span>Find a Buddy</span>
         </label>
         <label
@@ -41,7 +44,7 @@ export default function PartyOptions() {
             checked={selectedOption === '/partyfinder/lobbyfinder'}
             onChange={handleChange}
           />
-          <Icon icon={Icons['KAPI_FRIENDS']} className={styles.FindLobbyIcon}/>
+          <Image src={kapiFriends} alt={'kapiFriends'} className={styles.FindLobbyIcon}/>
           <span>Find a Lobby</span>
         </label>
         <label
@@ -56,18 +59,18 @@ export default function PartyOptions() {
             checked={selectedOption === '/partyfinder/CreateLobby'}
             onChange={handleChange}
           />
-          <Icon icon={Icons['KING_KAPI']} className={styles.CreateLobbyIcon}/>
+          <Image src={kingKapi} alt={'kingKapi'} className={styles.CreateLobbyIcon}/>
           <span>Create a Lobby</span>
         </label>
       </div>
       <div className={styles.NextBackContainer}>
         <Link href="">
-          <Button type="secondary" className={styles.Back}>
+          <Button buttonType="secondary" className={styles.Back}>
             Back
           </Button>
         </Link>
         <Link href={selectedOption}>
-          <Button type={selectedOption.length === 0 ? 'secondary' : 'primary'} className={styles.Next}>Next</Button>
+          <Button buttonType={selectedOption.length === 0 ? 'secondary' : 'primary'} className={styles.Next}>Next</Button>
         </Link>
       </div>
     </div>

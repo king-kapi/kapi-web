@@ -43,7 +43,7 @@ export default function TimeZone() {
         {timeZones.map((label, index) => createCheckbox(label, index))}
       </div>
       <Button
-        type={selectedZone === -1 ? 'secondary' : 'primary'}
+        buttonType={selectedZone === -1 ? 'secondary' : 'primary'}
         className={[styles.Next, selectedZone === -1 ? 'z-10 ' : 'hidden z-0'].join(' ')}
       >
         Next
