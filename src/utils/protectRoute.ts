@@ -14,7 +14,7 @@ const protectedGetServerSideProps: GetServerSideProps<{ user: UserProfile }> = a
     };
   return {
     props: {
-      // user._id is not JSON serializable
+      // user_old._id is not JSON serializable
       user: JSON.parse(JSON.stringify(session.user))
     }
   };

@@ -18,7 +18,7 @@ class ChatsCollection {
       icon: ''
     }
 
-    // verify every user
+    // verify every user_old
     for (const user of users) {
       await this.instance.users.getUser(user._id);
       chat.users.push(user);

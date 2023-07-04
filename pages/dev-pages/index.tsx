@@ -48,7 +48,7 @@ const DevPages = () => {
 
     <br/>
 
-    <Link href={"/dev-pages/modify-user"}>
+    <Link href={"/dev-pages/modify-user_old"}>
       <Button className={"mt-2"}>
         Modify User
       </Button>

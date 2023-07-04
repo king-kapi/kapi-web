@@ -1,14 +1,10 @@
-import NextAuth, { AuthOptions, Session, User as NextUser } from "next-auth";
-import { AdapterUser } from "next-auth/adapters";
-import { JWT } from "next-auth/jwt";
+import NextAuth, { AuthOptions, Session } from "next-auth";
 import { Provider } from "next-auth/providers";
 import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaClient } from "@prisma/client";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-
-const prisma = new PrismaClient();
+import { JWT } from "next-auth/jwt";
+import User, { IUser } from "@/src/models/User";
 
 const providers: Provider[] = [
   GoogleProvider({
@@ -21,6 +17,9 @@ const providers: Provider[] = [
   })
 ];
 
+// =============================================================================
+// Create a custom CredentialsProvider for email sign on in development use
+// =============================================================================
 if (process.env.NODE_ENV === "development")
   providers.push(CredentialsProvider({
     name: "DevCredentials",
@@ -35,25 +34,16 @@ if (process.env.NODE_ENV === "development")
 
       console.log(`Logging in with ${credentials?.email}`);
 
-      const user = await prisma.user.findUnique({
-        where: {
-          email: credentials?.email || ""
-        }
-      })
-
-      if (user)
-        return {
-          id: user.id,
-          email: user.email,
-          image: user.image,
-          name: user.username
-        };
-      return null;
+      return {
+        id: "",
+        email: credentials?.email,
+        image: "",
+        name: ""
+      };
     }
   }));
 
 export const authOptions: AuthOptions = {
-  adapter: PrismaAdapter(prisma),
   session: {
     strategy: "jwt"
   },
@@ -62,10 +52,20 @@ export const authOptions: AuthOptions = {
     signIn: "/signin"
   },
   callbacks: {
-    session: async ({ session, token }: { session: Session, user: NextUser | AdapterUser, token: JWT }) => {
-      if (token.sub) {
-        session.id = token.sub;
+    async jwt({ token }) {
+      const user = await User.findOne({ email: token.email });
+      if (!user) {// that means user_old does not exist
+        token.user = await new User({
+          email: token.email
+        }).save();
+      } else {
+        token.user = user;
       }
+      return token;
+    },
+    session: async ({ session, token }: { session: Session, token: JWT }) => {
+      session.user = token.user;
+      session.id = token.user._id.toString();
       return session;
     }
   }
