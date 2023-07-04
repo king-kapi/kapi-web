@@ -1,10 +1,10 @@
-import { ObjectId } from "mongodb";
+import mongoose from "mongoose";
 
 export class AlreadyInLobbyError extends Error {
   name = "ALREADY_IN_LOBBY";
 
-  constructor(lobbyId: ObjectId, userId: ObjectId) {
-    super(`${lobbyId.toString()} already has user ${userId}.`);
+  constructor(lobbyId: string, userId: string) {
+    super(`${lobbyId} already has user ${userId}.`);
   }
 }
 

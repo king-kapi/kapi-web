@@ -1,25 +1,23 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { PrismaClient } from "@prisma/client";
 import protectApiRoute from "@/src/utils/protectApiRoute";
 import DoesNotExist from "@/src/errors/DoesNotExist";
-import { CannotKickHost, NotHostError, NotInLobbyError } from "@/src/errors/LobbyErrors";
+import { AlreadyInLobbyError, CannotKickHost, NotHostError, NotInLobbyError } from "@/src/errors/LobbyErrors";
+import Lobby from "@/src/models/Lobby";
+import User from "@/src/models/User";
+import mongoose from "mongoose";
+import LobbyRequest, { ILobbyRequest } from "@/src/models/LobbyRequest";
 
 export interface LobbyParams {
   lobbyId: string;
 }
 
-export default function lobbiesHandler(
-  prisma: PrismaClient) {
+export default function lobbiesHandler() {
   const router = Router();
   router.get("/", async (req: Request, res: Response, next: NextFunction) => {
     try {
       await protectApiRoute(req, res);
 
-      const lobbies = await prisma.lobby.findMany({
-        include: {
-          users: true
-        }
-      });
+      const lobbies = await Lobby.find();
 
       res.status(200).send(lobbies);
     } catch (err) {
@@ -31,17 +29,19 @@ export default function lobbiesHandler(
     try {
       const userId = (await protectApiRoute(req, res)).id;
 
-      const created = await prisma.lobby.create({
-        data: {
-          ...req.body,
-          hostId: userId
-        }
+      const user = await User.findById(userId);
+      if (user.lobby)
+        throw new AlreadyInLobbyError(userId, user.lobby);
+
+      const created = await Lobby.create({
+        ...req.body,
+        hostId: userId,
+        users: [userId]
       });
 
-      // create relation between party and user_old
-      await prisma.user.update({
-        where: { id: userId },
-        data: { lobbyId: created.id }
+      // also update the user
+      await User.findByIdAndUpdate(userId, {
+        lobby: created._id
       });
 
       res.status(201).send(created);
@@ -50,25 +50,23 @@ export default function lobbiesHandler(
     }
   });
 
-  // Get lobby information
+  // // Get lobby information
   router.get("/:lobbyId", async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = (await protectApiRoute(req, res)).id;
       const { lobbyId } = req.params;
 
-      const lobby = await prisma.lobby.findUnique({
-        where: {
-          id: req.params.lobbyId
-        },
-        include: {
-          users: true,
-          requests: {
-            include: {
-              sender: true
-            }
-          }
-        }
-      });
+      const lobby = await Lobby.findById(lobbyId)
+        .populate("users", "_id username tag bio status")
+        .populate({
+          path: "requests",
+          populate: [{
+            path: "sender"
+          }, {
+            path: "lobby"
+          }]
+        })
+        .exec();
 
       // if no lobby
       if (!lobby)
@@ -76,8 +74,8 @@ export default function lobbiesHandler(
 
       // if user_old is not in the party, remove requests
       // TODO: consider just removing the field altogether
-      if (lobby.users.filter(u => u.id === userId).length === 0)
-        lobby.requests = [];
+      // if (lobby.users.filter(u => u.id === userId).length === 0)
+      //   lobby.requests = [];
 
       res.status(200).send(lobby);
     } catch (err) {
@@ -90,17 +88,23 @@ export default function lobbiesHandler(
       const userId = (await protectApiRoute(req, res))?.id;
       const { lobbyId } = req.params;
 
-      const lobby = await prisma.lobby.findUnique({
-        where: { id: lobbyId }
-      });
+      const lobby = await Lobby.findById(lobbyId);
 
       if (!lobby)
         throw new DoesNotExist(lobbyId, "lobbies");
-      if (lobby.hostId !== userId)
+      if (lobby.hostId.toString() !== userId)
         throw new NotHostError(lobbyId, userId);
 
-      await prisma.lobby.delete({
-        where: { id: lobbyId }
+      for (const userId of lobby.users) {
+        await User.findByIdAndUpdate(userId, {
+          $unset: {
+            lobby: true
+          }
+        });
+      }
+
+      await Lobby.deleteOne({
+        _id: lobbyId
       });
 
       res.status(200).send("Successful");
@@ -110,32 +114,30 @@ export default function lobbiesHandler(
   });
 
   // host only
-  router.post("/:lobbyId/kick/:kickId", async (req: Request, res: Response, next: NextFunction) => {
+  router.post("/:lobbyId/:kickId/kick", async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = await protectApiRoute(req, res);
       const { lobbyId, kickId } = req.params;
 
-      const lobby = await prisma.lobby.findUnique({
-        where: { id: lobbyId },
-        include: { users: true }
-      });
+      const lobby = await Lobby.findById(lobbyId);
 
       if (!lobby)
         throw new DoesNotExist(lobbyId, "lobbies");
-      if (lobby.hostId === kickId)
+      if (lobby.hostId.toString() === kickId)
         throw new CannotKickHost(lobbyId, kickId);
-      if (lobby.hostId !== id)
+      if (lobby.hostId.toString() !== id)
         throw new NotHostError(lobbyId, id);
 
-      if (lobby.users.filter(user => user.id === kickId).length === 0)
+      if (lobby.users.filter((user: mongoose.Types.ObjectId) => user.toString() === kickId).length === 0)
         throw new NotInLobbyError(lobbyId, kickId);
 
-      await prisma.user.update({
-        where: { id: kickId },
-        data: { lobbyId: null }
-      });
+      const updated = await Lobby.findByIdAndUpdate(lobbyId, {
+        $pull: {
+          users: kickId
+        }
+      }, { new: true });
 
-      res.status(200).send("Successful");
+      res.status(200).send(updated);
     } catch (err) {
       next(err);
     }
@@ -146,23 +148,33 @@ export default function lobbiesHandler(
       const userId = (await protectApiRoute(req, res)).id;
       const { lobbyId } = req.params;
 
-      const lobby = prisma.lobby.findUnique({ where: { id: lobbyId } });
-      const user = prisma.user.findUnique({ where: { id: userId } });
+      const lobby = await Lobby.findById(lobbyId).populate("requests", "sender");
+      const user = await User.findById(userId);
 
       if (!lobby) // check if lobby exists
         throw new DoesNotExist(lobbyId, "lobbies");
       if (!user) // check if user_old exists
         throw new DoesNotExist(userId, "users");
+      if (lobby.requests.filter((request: ILobbyRequest) => request.sender.toString() === userId).length > 0) {
+        throw "yuh ur in here alr bud";
+      }
 
-      const created = await prisma.lobbyRequest.create({
-        data: {
-          lobbyId: req.params.lobbyId,
-          senderId: userId,
-          message: req.body.message
-        }
+      const created = await LobbyRequest.create({
+        lobby: lobbyId,
+        sender: userId,
+        message: req.body.message || "Default message."
       });
 
-      res.status(201).send(created);
+      const updated = await Lobby.findByIdAndUpdate(lobbyId, {
+        $push: {
+          requests: created._id
+        }
+      }, { new: true });
+
+      res.status(201).send({
+        request: created,
+        lobby: updated
+      });
     } catch (err) {
       next(err);
     }
@@ -175,27 +187,32 @@ export default function lobbiesHandler(
       const { lobbyId, requestId } = req.params;
 
       // verify host
-      const lobby = await prisma.lobby.findUnique({
-        where: { id: lobbyId }
-      });
+      const lobby = await Lobby.findById(lobbyId);
 
       if (!lobby) // check lobby
         throw new DoesNotExist(lobbyId, "lobbies");
-      if (lobby.hostId !== userId) // check is host
+      if (lobby.hostId.toString() !== userId) // check is host
         throw new NotHostError(lobbyId, userId);
 
       // delete request
-      const request = await prisma.lobbyRequest.delete({
-        where: { id: requestId }
+      const request = await LobbyRequest.findById(requestId);
+      await LobbyRequest.deleteOne({
+        _id: requestId
       });
 
-      // add user_old to lobby
-      const user = await prisma.user.update({
-        where: { id: request.senderId },
-        data: { lobbyId: lobbyId }
+      // add user to lobby
+      const updatedLobby = await Lobby.findByIdAndUpdate(lobbyId, {
+        $push: {
+          users: request.sender
+        }
+      }, { new: true });
+      const updatedUser = await User.findByIdAndUpdate(request, {
+        lobby: lobbyId
       });
 
-      res.status(200).send(user);
+      res.status(200).send({
+        lobby: updatedLobby
+      });
     } catch (err) {
       next(err);
     }
@@ -208,21 +225,20 @@ export default function lobbiesHandler(
       const { lobbyId, requestId } = req.params;
 
       // verify host
-      const lobby = await prisma.lobby.findUnique({
-        where: { id: lobbyId }
-      });
+      const lobby = await Lobby.findById(lobbyId);
 
       if (!lobby) // check lobby
         throw new DoesNotExist(lobbyId, "lobbies");
-      if (lobby.hostId !== userId) // check is host
+      if (lobby.hostId.toString() !== userId) // check is host
         throw new NotHostError(lobbyId, userId);
 
       // delete request
-      await prisma.lobbyRequest.delete({
-        where: { id: requestId }
+      const request = await LobbyRequest.findById(requestId);
+      await LobbyRequest.deleteOne({
+        _id: requestId
       });
 
-      res.status(200).send("Successful");
+      res.status(200).send("Success");
     } catch (err) {
       next(err);
     }

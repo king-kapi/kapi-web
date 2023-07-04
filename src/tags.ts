@@ -1,9 +1,8 @@
-import { Router, Request, Response, NextFunction } from "express";
-import { PrismaClient } from "@prisma/client";
+import { NextFunction, Request, Response, Router } from "express";
 import protectApiRoute from "@/src/utils/protectApiRoute";
+import Tag from "@/src/models/Tag";
 
-export default function tagsHandler(
-  prisma: PrismaClient) {
+export default function tagsHandler() {
   const router = Router();
 
   // get all games
@@ -11,7 +10,7 @@ export default function tagsHandler(
     try {
       await protectApiRoute(req, res);
 
-      const tags = await prisma.tag.findMany();
+      const tags = await Tag.find();
       res.status(200).send(tags);
     } catch (err) {
       next(err);
@@ -22,9 +21,7 @@ export default function tagsHandler(
     try {
       await protectApiRoute(req, res);
 
-      const created = await prisma.tag.create({
-        data: req.body
-      });
+      const created = await Tag.create({ ...req.body });
       res.status(201).send(created);
     } catch (err) {
       next(err);
@@ -35,10 +32,8 @@ export default function tagsHandler(
     try {
       await protectApiRoute(req, res);
 
-      await prisma.tag.delete({
-        where: {
-          id: req.params.tagId
-        }
+      await Tag.deleteOne({
+        _id: req.params.tagId
       });
       res.status(200).send("Successful");
     } catch (err) {

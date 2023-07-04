@@ -1,9 +1,8 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { PrismaClient } from "@prisma/client";
 import protectApiRoute from "@/src/utils/protectApiRoute";
+import Game from "@/src/models/Games";
 
-export default function gamesHandler(
-  prisma: PrismaClient) {
+export default function gamesHandler() {
   const router = Router();
 
   // get all games
@@ -11,7 +10,7 @@ export default function gamesHandler(
     try {
       await protectApiRoute(req, res);
 
-      const games = await prisma.game.findMany();
+      const games = await Game.find();
       res.status(200).send(games);
     } catch (err) {
       next(err);
@@ -22,8 +21,8 @@ export default function gamesHandler(
     try {
       await protectApiRoute(req, res);
 
-      const created = await prisma.game.create({
-        data: req.body
+      const created = await Game.create({
+        ...req.body
       });
       res.status(201).send(created);
     } catch (err) {
@@ -35,10 +34,8 @@ export default function gamesHandler(
     try {
       await protectApiRoute(req, res);
 
-      await prisma.game.delete({
-        where: {
-          id: req.params.gameId
-        }
+      await Game.deleteOne({
+        _id: req.params.gameId
       });
       res.status(200).send("Successful");
     } catch (err) {

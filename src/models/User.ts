@@ -1,5 +1,6 @@
 import mongoose, { model, models, Schema } from "mongoose";
 import UserStatus from "@/src/enums/UserStatus";
+import { USER_MODEL_NAME, LOBBY_MODEL_NAME } from "@/src/models/ModelNames";
 
 export interface IUser {
   _id: mongoose.Types.ObjectId;
@@ -10,6 +11,9 @@ export interface IUser {
   status: UserStatus;
   onboarded: boolean;
   friends: mongoose.Types.ObjectId[];
+
+  // lobby fields
+  lobby?: mongoose.Types.ObjectId;
 }
 
 const userSchema = new Schema<IUser>({
@@ -19,10 +23,10 @@ const userSchema = new Schema<IUser>({
   bio: { type: String, default: "I'm a bio!" },
   status: { type: Number, default: UserStatus.OFFLINE },
   onboarded: { type: Boolean, default: false },
-  friends: { type: [mongoose.SchemaTypes.ObjectId], default: []}
+  friends: { type: [mongoose.SchemaTypes.ObjectId], default: [] },
+  lobby: { type: mongoose.SchemaTypes.ObjectId, ref: LOBBY_MODEL_NAME }
 });
 
-export const USER_MODEL_NAME = "User";
 const User = models.User || model<IUser>(USER_MODEL_NAME, userSchema);
 
 export default User;

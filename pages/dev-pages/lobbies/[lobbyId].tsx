@@ -1,22 +1,11 @@
 import DevLayout from "@/components/layouts/DevLayout";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Prisma, User } from "@prisma/client";
 import Button from "@/components/Button";
 import { useSession } from "next-auth/react";
 import OnlyIf from "@/components/OnlyIf";
-
-// TODO: put this in a exported type
-const lobbyWithUserAndRequests = Prisma.validator<Prisma.LobbyArgs>()({
-  include: {
-    users: true, requests: {
-      include: {
-        sender: true
-      }
-    }
-  }
-});
-type LobbyWithUserAndRequests = Prisma.LobbyGetPayload<typeof lobbyWithUserAndRequests>;
+import { IUser } from "@/src/models/User";
+import { ILobbyPopulated } from "@/src/models/Lobby";
 
 const ViewLobbyDev = () => {
   const { data, status } = useSession();
@@ -25,8 +14,8 @@ const ViewLobbyDev = () => {
   const router = useRouter();
   const lobbyId = router.query.lobbyId as string;
 
-  const [lobby, setLobby] = useState<LobbyWithUserAndRequests>();
-  const [users, setUsers] = useState<User[]>();
+  const [lobby, setLobby] = useState<ILobbyPopulated>();
+  const [users, setUsers] = useState<IUser[]>();
 
   const isHost = user?.id === lobby?.hostId;
 
@@ -49,7 +38,7 @@ const ViewLobbyDev = () => {
   }, [lobbyId]);
 
   function handleKick(kickId: string) {
-    fetch(`/api/lobbies/${lobbyId}/kick/${kickId}`, {
+    fetch(`/api/lobbies/${lobbyId}/${kickId}/kick`, {
       method: "POST"
     }).then(res => {
       if (res.ok)
@@ -117,14 +106,14 @@ const ViewLobbyDev = () => {
           </h3>
           <ul>
             {lobby.users.map(user =>
-              <ol key={user.id}>
+              <ol key={user._id.toString()}>
                 {user.username}#{user.tag}
 
                 <OnlyIf condition={isHost}>
                   &nbsp;
                   &nbsp;
                   <span className={"underline cursor-pointer"}
-                        onClick={() => handleKick(user.id)}>Kick</span>
+                        onClick={() => handleKick(user._id.toString())}>Kick</span>
                 </OnlyIf>
               </ol>
             )}
@@ -133,16 +122,16 @@ const ViewLobbyDev = () => {
           <h2>Requests</h2>
           <div className={"flex gap-4"}>
             {lobby.requests.map(request =>
-              <div className={"bg-mediumGrey p-4 rounded-xl"} key={request.id}>
+              <div className={"bg-mediumGrey p-4 rounded-xl"} key={request._id.toString()}>
                 From {request.sender?.username}#{request.sender?.tag}
                 <br />
                 Message: {request.message}
                 <OnlyIf condition={isHost}>
                   <div className={"flex gap-2 mt-2"}>
-                    <Button onClick={() => handleAccept(request.id)}>
+                    <Button onClick={() => handleAccept(request._id.toString())}>
                       Accept
                     </Button>
-                    <Button onClick={() => handleDeny(request.id)}>
+                    <Button onClick={() => handleDeny(request._id.toString())}>
                       Reject
                     </Button>
                   </div>
@@ -162,7 +151,7 @@ const ViewLobbyDev = () => {
             // other view
             <>
               <OnlyIf condition={
-                lobby.users.filter(u => u.id === user.id).length === 0
+                lobby.users.filter(u => u._id.toString() === user.id.toString()).length === 0
               }>
                 <Button onClick={handleSendRequest}>Send Join Request</Button>
               </OnlyIf>
@@ -173,10 +162,10 @@ const ViewLobbyDev = () => {
             <h3 className={"mt-4"}>Available Users (DO NOT USE)</h3>
             {users.map(user => {
                 // remove users already in the party
-                if (lobby.users.filter(u => u.id === user.id).length > 0)
+                if (lobby.users.filter(u => u._id.toString() === user._id.toString()).length > 0)
                   return;
 
-                return <div key={user.id}>
+                return <div key={user._id.toString()}>
                   {user.username}#{user.tag}
                   <br />
                   <Button>

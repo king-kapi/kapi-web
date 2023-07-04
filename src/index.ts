@@ -8,6 +8,10 @@ import cookieParser from "cookie-parser";
 import errorHandler from "@/src/errors";
 import mongoose from "mongoose";
 import usersHandler from "@/src/users";
+import lobbiesHandler from "@/src/lobbies";
+import gamesHandler from "@/src/games";
+import tagsHandler from "@/src/tags";
+import chatHandler from "@/src/chat";
 
 dotenv.config({
   path: "./.env.local"
@@ -29,11 +33,11 @@ app.use(cookieParser());
 
 // handlers
 // authHandler(server);
-// chatHandler(prisma, io);
+app.use("/api/chats/", chatHandler(io));
 app.use("/api/users/", usersHandler());
-// app.use("/api/lobbies/", lobbiesHandler(prisma));
-// app.use("/api/tags/", tagsHandler(prisma));
-// app.use("/api/games/", gamesHandler(prisma));
+app.use("/api/lobbies/", lobbiesHandler());
+app.use("/api/tags/", tagsHandler());
+app.use("/api/games/", gamesHandler());
 
 // nextjs handler
 app.use((req: Request, res: Response) => {

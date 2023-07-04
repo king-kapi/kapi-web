@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from "react";
 import DevLayout from "@/components/layouts/DevLayout";
-import { Prisma } from "@prisma/client";
 import Button from "@/components/Button";
 import Link from "next/link";
 import protectedGetServerSideProps from "@/src/utils/protectRoute";
 import { useSession } from "next-auth/react";
+import { ILobbyPopulated } from "@/src/models/Lobby";
 
 export const getServerSideProps = protectedGetServerSideProps;
-
-const lobbyWithUsers = Prisma.validator<Prisma.LobbyArgs>()({
-  include: { users: true }
-});
-type LobbyWithUsers = Prisma.LobbyGetPayload<typeof lobbyWithUsers>;
 
 const LobbyDevPage = () => {
   const { data, status } = useSession();
 
   const [lobbies, setLobbies] =
-    useState<LobbyWithUsers[]>([]);
+    useState<ILobbyPopulated[]>([]);
 
   function fetchLobbies() {
     fetch("/api/lobbies").then(res => res.json())
@@ -56,20 +51,20 @@ const LobbyDevPage = () => {
 
       <div className={"flex"}>
         {lobbies.map(lobby => (
-          <div key={lobby.id} className={"bg-mediumGrey px-10 py-8"} style={{ borderRadius: 20 }}>
+          <div key={lobby._id.toString()} className={"bg-mediumGrey px-10 py-8"} style={{ borderRadius: 20 }}>
             <small>{lobby.game.toUpperCase()}</small>
             <h4>{lobby.name}</h4>
             <div>{lobby.description}</div>
             <div>Users: {lobby.users.map(user => <>{`${user.username}#${user.tag}`}</>)}</div>
             <div className={"flex gap-2"}>
-              <Link href={`lobbies/${lobby.id}`}>
+              <Link href={`lobbies/${lobby._id.toString()}`}>
                 <Button icon={"carat_right"}>
                   View
                 </Button>
               </Link>
 
-              {lobby.hostId === data?.id ? (
-                <Button icon={"deny_small"} onClick={() => handleDelete(lobby.id)}>
+              {lobby.hostId.toString() === data?.id ? (
+                <Button icon={"deny_small"} onClick={() => handleDelete(lobby._id.toString())}>
                   Delete
                 </Button>
               ) : <></>}
