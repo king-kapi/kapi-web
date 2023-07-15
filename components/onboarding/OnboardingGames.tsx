@@ -4,7 +4,7 @@ import { OnboardingFormContext, OnBoardingFormContextType } from "@/pages/Onboar
 import { useContext } from "react";
 
 export default function OnboardingGames() {
-  const { content, setContent } = useContext(OnboardingFormContext) as OnBoardingFormContextType;
+  // const { content, setContent } = useContext(OnboardingFormContext) as OnBoardingFormContextType;
 
   return (
     <div className={styles.OnboardingGamesContainer}>
@@ -18,12 +18,7 @@ export default function OnboardingGames() {
         This information help us optimize your experience here. However, you can choose to skip this
         step or hide this information from your profile.
       </h2>
-      <GamesList initialSelected={content.games} onChange={(selectedGames: string[]) => {
-        setContent({
-          ...content,
-          games: selectedGames
-        });
-      }} />
+      <GamesList initialSelected={[]} />
     </div>
   );
 }

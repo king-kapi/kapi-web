@@ -50,12 +50,6 @@ export default function SignInPage() {
             </form> : <></>
           }
         </div>
-        <div className={styles.SignInDivider}>
-          <div className={styles.Line}><span className="bg-black">or</span></div>
-        </div>
-        <Link href={"/Onboarding"}>
-          <Button buttonType="secondary" className={styles.CreateAccount}>Create an Account</Button>
-        </Link>
       </div>
     </div>
   );

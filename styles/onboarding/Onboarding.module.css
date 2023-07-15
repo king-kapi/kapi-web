@@ -26,10 +26,10 @@
 
 .Content {
   @apply flex-grow;
-  @apply relative;
-  @apply flex;
-  @apply flex-col;
-  @apply justify-center;
+  /*@apply relative;*/
+  /*@apply flex;*/
+  /*@apply flex-col;*/
+  /*@apply justify-center;*/
 }
 
 .ButtonContainer {
