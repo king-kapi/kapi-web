@@ -1,13 +1,16 @@
-import { useContext, useMemo } from "react";
+import { useContext, useMemo, useState } from "react";
 import styles from "../../styles/onboarding/OnboardingUsername.module.css";
 import Image from "next/image";
 import sparkleKapi from "@/assets/images/sparkle_kapi.svg";
-import { OnboardingFormContext, OnBoardingFormContextType } from "@/pages/Onboarding";
+import { OnboardingFormContext, OnBoardingFormContextType } from "@/pages/onboarding";
 import Select, { Option } from "@/components/Select";
 import Input from "@/components/Input";
+import KapiListbox from "@/components/KapiListbox";
+import { useAtom } from "jotai/index";
+import onboardingUserDataAtom from "@/src/atoms/onboardingUserDataAtom";
 
 const OnboardingBirthday = () => {
-  const { content, setContent } = useContext(OnboardingFormContext) as OnBoardingFormContextType;
+  const [userData, setUserData] = useAtom(onboardingUserDataAtom);
 
   const dayOptions = useMemo(() => {
     const options: Option[] = [];
@@ -41,7 +44,9 @@ const OnboardingBirthday = () => {
       <h3 className={"mt-14"}>Date of Birth</h3>
 
       <div className={`${styles.InputContainer} flex mt-8 items-end gap-x-6`}>
-        <Select className={"mt-6 w-[11.5rem]"} options={[
+        <KapiListbox
+          name={"month"}
+          className={"mt-6 w-[11.5rem]"} options={[
           { text: "January", value: "1" },
           { text: "February", value: "2" },
           { text: "March", value: "3" },
@@ -55,13 +60,43 @@ const OnboardingBirthday = () => {
           { text: "November", value: "11" },
           { text: "December", value: "12" }
         ]}
-        placeholder={"Month"}/>
+          placeholder={"Month"}
+          onChange={month => setUserData({
+            ...userData,
+            birthday: {
+              ...userData.birthday,
+              month: parseInt(month || "1")
+            }
+          })} />
 
-        <Select className={"mt-6 w-[8.125rem]"} options={dayOptions} placeholder={"Day"}/>
+        <KapiListbox
+          className={"mt-6 w-[8.125rem]"}
+          name={"day"}
+          options={dayOptions}
+          placeholder={"Day"}
+          onChange={day => setUserData({
+            ...userData,
+            birthday: {
+              ...userData.birthday,
+              day: parseInt(day || "1")
+            }
+          })} />
 
-        <Select className={"mt-6 w-[9.75rem]"} options={yearOptions} placeholder={"Year"}/>
+        <KapiListbox
+          className={"mt-6 w-[9.75rem]"}
+          name={"year"}
+          options={yearOptions}
+          placeholder={"Year"}
+          onChange={year => setUserData({
+            ...userData,
+            birthday: {
+              ...userData.birthday,
+              year: parseInt(year || "1")
+            }
+          })}
+        />
 
-        <Image className={styles.Avatar} src={sparkleKapi} alt={"Sparkle Kapi"}/>
+        <Image className={styles.Avatar} src={sparkleKapi} alt={"Sparkle Kapi"} />
       </div>
     </div>
   );

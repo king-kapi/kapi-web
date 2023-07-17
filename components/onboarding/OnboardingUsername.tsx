@@ -1,30 +1,45 @@
-import { useContext, useState } from "react";
 import styles from "../../styles/onboarding/OnboardingUsername.module.css";
 import Image from "next/image";
 import sparkleKapi from "@/assets/images/sparkle_kapi.svg";
-import { OnboardingFormContext, OnBoardingFormContextType } from "@/pages/Onboarding";
-import Select from "@/components/Select";
 import Input from "@/components/Input";
+import KapiListbox from "@/components/KapiListbox";
+import Pronouns from "@/src/enums/Pronouns";
+import { useAtom } from "jotai";
+import onboardingUserDataAtom from "@/src/atoms/onboardingUserDataAtom";
 
 export default function OnboardingUsername() {
-  const { content, setContent } = useContext(OnboardingFormContext) as OnBoardingFormContextType;
+  const [userData, setUserData] = useAtom(onboardingUserDataAtom);
+
   return (
     <div className={styles.OnboardingUsernameContainer}>
       <h1>Let's learn who you are.</h1>
       <h3>This is how others will identify you on the platform.</h3>
 
       <h3 className={"mt-14"}>What are your pronouns?</h3>
-      <Select className={"mt-6"} options={[
-        { text: "He/Him", value: "he-him" },
-        { text: "She/Her", value: "she-her" },
-        { text: "They/Them", value: "they-them" }
-      ]} />
+      <KapiListbox placeholder={"Pronouns"}
+                   className={"mt-6"}
+                   options={[
+                     { text: "He/Him", value: Pronouns.HE_HIM },
+                     { text: "She/Her", value: Pronouns.SHE_HER },
+                     { text: "They/Them", value: Pronouns.THEY_THEM }
+                   ]}
+                   onChange={pronouns => {
+                     setUserData({
+                       ...userData,
+                       pronouns: pronouns as Pronouns
+                     });
+                   }} />
 
       <div className={`${styles.InputContainer} flex mt-8 items-end`}>
         <div className={"flex-grow"}>
           <h3 className={"mt-8"}>Create your username</h3>
 
-          <Input className={"mt-6"} placeholder={"KingK@pi"} />
+          <Input className={"mt-6"} placeholder={"KingK@pi"} onChange={e => {
+            setUserData({
+              ...userData,
+              username: e.currentTarget.value
+            });
+          }} />
         </div>
         <div className={"flex-shrink"}>
           <Image className={styles.Avatar} src={sparkleKapi} alt={"Sparkle Kapi"} />

@@ -1,6 +1,9 @@
 import Avatar from "@/components/Avatar";
 import styles from "./OnboardingAvatar.module.css";
-import { MouseEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useAtom } from "jotai";
+import onboardingUserDataAtom from "@/src/atoms/onboardingUserDataAtom";
+import rgb2hex from "rgb2hex";
 
 // there's a better way to do this but i'm too bothered
 const OnboardingAvatar = () => {
@@ -8,6 +11,7 @@ const OnboardingAvatar = () => {
   const [handlePos, setHandlePos] = useState({ x: 86.1, y: 10.6 });
   const [color, setColor] = useState<[number, number, number]>([0, 0, 0]);
   const wheelRef = useRef<HTMLCanvasElement>(null);
+  const [userData, setUserData] = useAtom(onboardingUserDataAtom);
 
   // original wheel diameter is 12.875
   const wheelRadius = 75.5; // 4.71875rem
@@ -90,6 +94,13 @@ const OnboardingAvatar = () => {
     const p = ctx.getImageData(handlePos.x, handlePos.y, 1, 1).data;
     setColor([p[0], p[1], p[2]]);
   }, [wheelRef.current, handlePos]);
+
+  useEffect(() => {
+    setUserData({
+      ...userData,
+      avatarColor: rgb2hex(`rgb(${color[0]}, ${color[1]}, ${color[2]})`).hex
+    });
+  }, [color]);
 
   return (
     <div>
