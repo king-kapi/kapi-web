@@ -1,20 +1,17 @@
-import { useContext, useState, useEffect } from 'react';
-import styles from '../styles/TimeZone.module.css';
-import Button from './Button';
-import { formContext } from '@/pages/partyfinder/buddyfinder';
+import { useContext, useEffect, useState } from "react";
+import styles from "../styles/TimeZone.module.css";
+import Button from "./Button";
 
 export default function TimeZone() {
-  const timeZones = ['Eastern (ET)', 'Central (ET)', 'Hawaii (HST)', 'Pacific Standard Time (PST)'];
+  const timeZones = ["Eastern (ET)", "Central (ET)", "Hawaii (HST)", "Pacific Standard Time (PST)"];
   const [selectedZone, setSelectedZone] = useState(-1);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setSelectedZone(Number(e.currentTarget.value));
   };
 
-  const { content, setContent } = useContext(formContext);
-
   useEffect(() => {
-    setContent({...content, timezone:selectedZone})
+    // setContent({ ...content, timezone: selectedZone });
   }, [selectedZone]);
 
   const createCheckbox = (label: any, index: number) => {
@@ -43,8 +40,8 @@ export default function TimeZone() {
         {timeZones.map((label, index) => createCheckbox(label, index))}
       </div>
       <Button
-        type={selectedZone === -1 ? 'secondary' : 'primary'}
-        className={[styles.Next, selectedZone === -1 ? 'z-10 ' : 'hidden z-0'].join(' ')}
+        buttonType={selectedZone === -1 ? "secondary" : "primary"}
+        className={[styles.Next, selectedZone === -1 ? "z-10 " : "hidden z-0"].join(" ")}
       >
         Next
       </Button>

@@ -1,13 +1,12 @@
-import styles from '@/styles/HonorOfConduct.module.css';
-import { Icon } from '@iconify/react';
-import { useState } from 'react';
-import Button from './Button';
+import styles from "@/styles/HonorOfConduct.module.css";
+import { useState } from "react";
+import Button from "./Button";
 
 const HonorOfConduct = () => {
   const [agreed, setAgreed] = useState(false);
   const [clickedNext, setClickedNext] = useState(false);
   return (
-    <div className={[styles.honorOfConduct, 'theme-blue'].join(' ')}>
+    <div className={[styles.honorOfConduct, "theme-blue"].join(" ")}>
       <h1 className={styles.header}>Honor of Conduct</h1>
       <p className={styles.body}>
         We want to ensure the safety of others when using this feature. We do not tolerate any form
@@ -28,7 +27,8 @@ const HonorOfConduct = () => {
         }}
       >
         <span
-          className={[styles.Box, 'border-solid border border-textColor'].join(' ')} style={{backgroundColor: agreed ? '#d9d9d9' : ''}}
+          className={[styles.Box, "border-solid border border-textColor"].join(" ")}
+          style={{ backgroundColor: agreed ? "#d9d9d9" : "" }}
         ></span>
         <input type="checkbox" />I acknowledge and agree to abide by honor of conduct.
       </label>
@@ -37,8 +37,8 @@ const HonorOfConduct = () => {
       </div>
       <div onClick={() => setClickedNext(true)}>
         <Button
-          type={!agreed ? 'secondary' : 'primary'}
-          className={[styles.Next, !agreed ? 'z-10' : 'display-none z-0'].join(' ')}
+          buttonType={!agreed ? "secondary" : "primary"}
+          className={[styles.Next, !agreed ? "z-10" : "display-none z-0"].join(" ")}
         >
           Next
         </Button>

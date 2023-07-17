@@ -1,13 +1,10 @@
-import styles from '../styles/ProfilePreview.module.css';
-import ProfileCard from './ProfileCard';
-import { useContext, useState } from 'react';
-import Button from './Button';
-import Icon, {Icons} from './Icon'
-import { formContext } from '@/pages/partyfinder/buddyfinder';
+import styles from "../styles/ProfilePreview.module.css";
+import ProfileCard from "./ProfileCard";
+import React, { useState } from "react";
+import Button from "./Button";
+import Icon from "@/components/icons/Icon";
 
 function ProfilePreview() {
-
-  const {content} = useContext<any>(formContext)
 
   const [mode, setMode] = useState('dark')
   return (
@@ -15,7 +12,7 @@ function ProfilePreview() {
       <div className={styles.TitleContainer}>
         <h1>Here are some buddies you can meet </h1>
         <Button className={styles.Reroll}>
-          <Icon icon={Icons['REROLL']} />
+          <Icon icon={'reroll'} />
           Reroll
         </Button>
       </div>

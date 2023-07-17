@@ -1,12 +1,11 @@
 import styles from "../styles/LobbyMemberList.module.css";
 import { useState } from "react";
-import { Lobby, User } from "@prisma/client";
 import Icon from "@/components/icons/Icon";
+import { ILobby, ILobbyPopulated } from "@/src/models/Lobby";
+import { IUser } from "@/src/models/User";
 
 export interface LobbyDetailsProps {
-  lobby: Lobby & {
-    users: User[]
-  };
+  lobby: ILobbyPopulated;
 }
 
 export default function LobbyDetails({ lobby }: LobbyDetailsProps) {
@@ -61,24 +60,24 @@ export default function LobbyDetails({ lobby }: LobbyDetailsProps) {
       <div className={styles.MemberCountContainer}>
         <h2 className={styles.MemberCount}>Party Members {lobby.users.length}/{lobby.numPlayers}</h2>
         <div className={styles.ViewOptions}>
-          <Icon icon={"grid_view"}/>
+          <Icon icon={"grid_view"} />
           View
-          <Icon icon={"carat_down"}/>
+          <Icon icon={"carat_down"} />
         </div>
       </div>
       <div className={styles.Members}>
         {lobby.users.map(user => {
           return (
             <div
-              key={user.id}
+              key={user._id.toString()}
               className={[styles.Member, "bg-mediumGrey bg-gradient-to-b from-blue-110 to-blue-120"].join(" ")}
             >
               <div className={styles.MemberOptions}>
-                <Icon icon={"toggle_vertical"}/>
+                <Icon icon={"toggle_vertical"} />
               </div>
               <div className={styles.MemberAvatar}></div>
               <div className={styles.MemberInfo}>
-                <h3 className={styles.MemberName}>{user.name}</h3>
+                <h3 className={styles.MemberName}>{user.username}</h3>
                 <p className={[styles.MemberUsername, "text-description"].join(" ")}>@{user.username}</p>
                 <p className={[styles.MemberRole, "text-description-strong"].join(" ")}>[Role]</p>
                 <p className={[styles.MemberExperience, "text-description-strong"].join(" ")}>[Experience]</p>

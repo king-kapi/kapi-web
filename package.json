@@ -8,6 +8,7 @@
     "dev": "NODE_ENV=development ts-node -r tsconfig-paths/register src/index.ts",
     "build": "next build",
     "start": "next start",
+    "start-dev": "NODE_ENV=development npm run start",
     "lint": "next lint",
     "format": "npx prettier --write .",
     "dump": "mongodump -d designthriving -o mock_data_dump",

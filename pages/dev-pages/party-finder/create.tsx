@@ -2,7 +2,6 @@ import LoginStatus from "@/components/LoginStatus";
 import { GameList } from "@/src/types/Games";
 import protectedGetServerSideProps from "@/src/utils/protectRoute";
 import { FormEvent } from "react";
-import { CreateLobbyBody } from "../../api/lobby";
 import { useRouter } from "next/router";
 
 export const getServerSideProps = protectedGetServerSideProps;
@@ -14,18 +13,18 @@ const CreateParty = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-    const body: CreateLobbyBody = {
+    const body = {
       game: formData.get("game") as string,
       maxSize: Number(formData.get("maxSize"))
-    }
+    };
 
     const lobby = await fetch("/api/lobby", {
       method: "POST",
       body: JSON.stringify(body)
     });
 
-    router.push('/party-finder/test');
-  }
+    router.push("/party-finder/test");
+  };
 
   return (
     <>
@@ -45,6 +44,6 @@ const CreateParty = () => {
       </form>
     </>
   );
-}
+};
 
 export default CreateParty;

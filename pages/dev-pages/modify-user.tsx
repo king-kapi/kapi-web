@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import DevLayout from "@/components/layouts/DevLayout";
-import { User } from "@prisma/client";
 import includeQuery from "@/src/utils/includeQuery";
 import Icon from "@/components/icons/Icon";
+import { IUser } from "@/src/models/User";
 
 const typeMap: {
   [key: string]: string
@@ -21,7 +21,7 @@ const typeMap: {
 };
 
 const ModifyUser = () => {
-  const [user, setUser] = useState<User | undefined>(undefined);
+  const [user, setUser] = useState<IUser | undefined>(undefined);
   const [editing, setEditing] = useState<string[]>([]);
 
   async function fetchUser() {
@@ -43,7 +43,7 @@ const ModifyUser = () => {
       </main>
     );
 
-  const DisplayAttribute = ({ attribute, value }: { attribute: keyof User, value: User[keyof User] }) => (
+  const DisplayAttribute = ({ attribute, value }: { attribute: keyof IUser, value: IUser[keyof IUser] }) => (
     <>
       <td style={{ wordBreak: "break-all" }}>{(value ?? "").toString()}</td>
       <td>
@@ -55,15 +55,15 @@ const ModifyUser = () => {
     </>
   );
 
-  function removeFromEditing(attribute: keyof User) {
+  function removeFromEditing(attribute: keyof IUser) {
     const newEditing = [...editing];
     newEditing.splice(editing.indexOf(attribute), 1);
     setEditing(newEditing);
   }
 
   const EditAttribute = ({ attribute, value, type }: {
-    attribute: keyof User,
-    value: User[keyof User],
+    attribute: keyof IUser,
+    value: IUser[keyof IUser],
     type: string
   }) => {
     const inputRef = useRef<HTMLInputElement>(document.createElement("input"));
@@ -102,7 +102,7 @@ const ModifyUser = () => {
   return (
     <main>
       <h1>Modify User</h1>
-      <h3>ID: <code className={"bg-grey font-normal px-1 rounded"}> {user.id} </code></h3>
+      <h3>ID: <code className={"bg-grey font-normal px-1 rounded"}> {user._id.toString()} </code></h3>
 
       <table className={"border-spacing-y-4 border-spacing-x-4 border-separate"}>
         <thead>
@@ -122,8 +122,8 @@ const ModifyUser = () => {
         </thead>
 
         <tbody>
-        {(Object.keys(user) as (keyof User)[]).map(key => {
-          if (key === "id" || !typeMap[key])
+        {(Object.keys(user) as (keyof IUser)[]).map(key => {
+          if (key === "_id" || !typeMap[key])
             return (<></>);
           return (
             <tr key={key}>

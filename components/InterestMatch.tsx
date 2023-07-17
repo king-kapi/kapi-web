@@ -1,7 +1,6 @@
-import styles from '../styles/InterestMatch.module.css';
-import { useContext, useState, useEffect } from 'react';
-import Button from './Button';
-import { formContext } from '@/pages/partyfinder/buddyfinder';
+import styles from "../styles/InterestMatch.module.css";
+import { useContext, useState, useEffect } from "react";
+import Button from "./Button";
 
 enum FindBuddyStates {
   NOT_SELECTED = -1,
@@ -17,10 +16,8 @@ export default function InterestMatch() {
   };
 
   useEffect(() => {
-    setContent({...content, interestMatch:Boolean(findBuddy)})
-},[findBuddy])
-
-  const { content, setContent } = useContext(formContext);
+    // setContent({ ...content, interestMatch: Boolean(findBuddy) });
+  }, [findBuddy]);
 
   return (
     <div className={styles.InterestMatchContainer}>
@@ -31,7 +28,7 @@ export default function InterestMatch() {
       <h2 className={styles.Question}>
         1. Do you want to be matched with someone based on your profile?
       </h2>
-      <h2 className={styles.SubHeader} style={{ marginLeft: '1.5rem' }}>
+      <h2 className={styles.SubHeader} style={{ marginLeft: "1.5rem" }}>
         i.e, age, gender and sexual identity, ethnography, etc.
       </h2>
       <div className={styles.Options}>
@@ -56,8 +53,8 @@ export default function InterestMatch() {
         </label>
       </div>
       <Button
-        type={findBuddy === -1 ? 'secondary' : 'primary'}
-        className={[styles.Next, findBuddy === -1 ? 'z-10 ' : 'hidden z-0'].join(' ')}
+        buttonType={findBuddy === -1 ? "secondary" : "primary"}
+        className={[styles.Next, findBuddy === -1 ? "z-10 " : "hidden z-0"].join(" ")}
       >
         Next
       </Button>

@@ -40,11 +40,11 @@ const ViewLobby = ({ user }: { user: UserProfile }) => {
             {JSON.stringify(lobby, null, 2)}
           </code>
           <h3>Chat</h3>
-          <Chat chatId={lobby.chatId} user={toUser(user)} />
+          <Chat chatId={lobby.chatId.toString()} user={toUser(user)} />
         </>
       )}
     </main>
-  )
-}
+  );
+};
 
 export default ViewLobby;

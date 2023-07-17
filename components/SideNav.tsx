@@ -245,7 +245,7 @@ function SideNav() {
         </div>
       </section>
       <section className={[styles.graySection, "bg-mediumGrey"].join(" ")}>
-        {fetchFriends()}
+        {/*{fetchFriends()}*/}
       </section>
       <section className={[styles.blackSection, "bg-darkGrey"].join(" ")}>
         <div className={styles.statusContainer}>

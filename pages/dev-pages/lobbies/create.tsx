@@ -3,15 +3,16 @@ import Input from "@/components/Input";
 import Select, { Option } from "@/components/Select";
 import Button from "@/components/Button";
 import React, { useEffect, useState } from "react";
-import { Game, Prisma } from "@prisma/client";
+import { IGame } from "@/src/models/Games";
+import KapiListbox, { KapiOption } from "@/components/KapiListbox";
 
 // :)
 const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
 
 const CreateLobbyDev = () => {
   // game stuff
-  const [games, setGames] = useState<Game[]>([]);
-  const [selectedGame, setSelectedGame] = useState<Game>();
+  const [games, setGames] = useState<IGame[]>([]);
+  const [selectedGame, setSelectedGame] = useState<IGame>();
 
   function fetchGames() {
     fetch("/api/games").then(res => res.json())
@@ -25,11 +26,11 @@ const CreateLobbyDev = () => {
 
 
   // form stuff
-  function handleGameSelect(e: React.FormEvent<HTMLSelectElement>) {
+  function handleGameSelect(selected: string | null) {
     // find game
     let selectedGame;
     for (const game of games) {
-      if (game.id === e.currentTarget.value) {
+      if (game._id.toString() === selected) {
         selectedGame = game;
         break;
       }
@@ -57,9 +58,9 @@ const CreateLobbyDev = () => {
     console.log(await res.json());
   }
 
-  const gameOptions: Option[] = games.map(({ id, name }) => ({
+  const gameOptions: KapiOption[] = games.map(({ _id, name }) => ({
     text: name,
-    value: id
+    value: _id.toString()
   }));
 
   let playerOptions: Option[] | undefined;
@@ -84,11 +85,11 @@ const CreateLobbyDev = () => {
         <label className={""}>
           Game
         </label><br />
-        <Select className={"mt-2 mb-4"}
-                name="game"
-                placeholder={"Select Game"}
-                options={gameOptions} style={{ maxWidth: 800 }}
-                onChange={handleGameSelect} />
+        <KapiListbox className={"mt-2 mb-4"}
+                     name="game"
+                     placeholder={"Select Game"}
+                     options={gameOptions} style={{ maxWidth: 800 }}
+                     onChange={handleGameSelect} />
 
         <br />
 
