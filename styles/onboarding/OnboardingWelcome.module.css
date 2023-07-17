@@ -1,11 +1,11 @@
 .OnboardingWelcomeContainer {
-  @apply flex-shrink;
+  @apply flex-shrink h-full;
   display: flex;
   position: relative;
   gap: 0.875rem;
   justify-content: center;
   justify-self: center;
-  align-self: center;
+  align-items: center;
 }
 
 .MessageContainer {
@@ -35,7 +35,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  align-self: self-end;
   padding-bottom: 1rem;
 }
 

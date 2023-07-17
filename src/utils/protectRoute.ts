@@ -5,10 +5,21 @@ import UserProfile from "../types/UserProfile";
 
 const protectedGetServerSideProps: GetServerSideProps<{ user: UserProfile }> = async context => {
   const session = await getServerSession(context.req, context.res, authOptions);
+
+  // redirect to login if no user
   if (!session)
     return {
       redirect: {
         destination: "/signin",
+        permanent: false
+      }
+    };
+
+  // redirect to onboarding if they have not onboarded
+  if (!session.user.onboarded)
+    return {
+      redirect: {
+        destination: "/onboarding",
         permanent: false
       }
     };

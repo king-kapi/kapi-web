@@ -1,11 +1,14 @@
 import styles from "../styles/GamesList.module.css";
 import React, { useEffect, useState } from "react";
-import Game, { GameList } from "@/src/types/Games";
 import Icon from "@/components/icons/Icon";
+import { useAtomValue } from "jotai/index";
+import { gamesStatusAtom } from "@/src/atoms/gamesAtom";
+import _ID from "@/src/types/_ID";
+import { IGame } from "@/src/models/Games";
 
 export interface GamesListProps {
-  onChange?: (selectedGames: string[]) => void;
-  initialSelected?: Game[];
+  onChange?: (selectedGames: _ID[]) => void;
+  initialSelected?: _ID[];
 }
 
 export default function GamesList({
@@ -14,46 +17,48 @@ export default function GamesList({
                                     },
                                     initialSelected = []
                                   }: GamesListProps) {
-  const [selectedGames, setSelectedGames] = useState<Game[]>(initialSelected);
-  const games = GameList;
+  const [selectedGames, setSelectedGames] = useState<_ID[]>(initialSelected);
+  const gamesStatus = useAtomValue(gamesStatusAtom);
 
   useEffect(() => {
     onChange(selectedGames);
-  }, [onChange, selectedGames]);
+  }, [selectedGames]);
 
   const selectedBorder = "border-solid border-2 border-transparent bg-gradient Selected";
   const unselectedBorder = "border-solid border-2 border-textColor bg-mediumGrey";
 
-  const handleSelectGame = (e: React.MouseEvent<HTMLLabelElement>, game: Game) => {
+  const handleSelectGame = (e: React.MouseEvent<HTMLLabelElement>, game: IGame) => {
     e.preventDefault();
 
-    if (selectedGames.includes(game)) setSelectedGames(selectedGames.filter(a => a !== game));
-    else setSelectedGames([...selectedGames, game]);
-  };
-
-  const createCheckbox = (game: Game, index: number) => {
-    return (
-      <label
-        className={[
-          styles.Game,
-          selectedGames.includes(game) ? selectedBorder : unselectedBorder
-        ].join(" ")}
-        id={`Game${index}`}
-        key={index}
-        onClick={e => {
-          handleSelectGame(e, game);
-        }}
-      >
-        <div className={styles.GameImg}></div>
-        <input type="checkbox" />
-        <div className={styles.GameContent}>
-          {game}
-          <Icon className={selectedGames.includes(game) ? "" : "hidden"} icon={"add"} />
-        </div>
-      </label>
-    );
+    if (selectedGames.includes(game._id))
+      setSelectedGames(selectedGames.filter(a => a !== game._id));
+    else setSelectedGames([...selectedGames, game._id]);
   };
   return (
-    <div className={styles.Games}>{games.map((game, index) => createCheckbox(game, index))}</div>
+    <div className={styles.Games}>{
+      gamesStatus.data && gamesStatus.data.map((game, index) => {
+        const selected = selectedGames.includes(game._id);
+
+        return (
+          <label
+            className={[
+              styles.Game,
+              selected ? selectedBorder : unselectedBorder
+            ].join(" ")}
+            id={`Game${index}`}
+            key={index}
+            onClick={e => {
+              handleSelectGame(e, game);
+            }}
+          >
+            <div className={styles.GameImg}></div>
+            <input type="checkbox" />
+            <div className={styles.GameContent}>
+              {game.name}
+              <Icon className={selected ? "" : "hidden"} icon={"add"} />
+            </div>
+          </label>
+        );
+      })}</div>
   );
 }

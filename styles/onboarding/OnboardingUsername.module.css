@@ -22,12 +22,6 @@
   line-height: 1.829rem;
 }
 
-.InputContainer {
-  display: flex;
-  gap: 1.688rem;
-  align-items: flex-end;
-}
-
 .InputContainer input {
   width: 28.75rem;
   height: 3rem;

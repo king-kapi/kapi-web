@@ -37,9 +37,15 @@ module.exports = {
       cyan: generateColors("cyan"),
       yellow: generateColors("yellow")
     },
-    extend: {}
+    extend: {
+      borderRadius: {
+        'lg': '0.63rem'
+      }
+    }
   },
-  plugins: [],
+  plugins: [
+    require('@headlessui/tailwindcss')
+  ],
   safelist: [{
     pattern: /(bg|text|border)-(pink|blue|cyan|yellow)/
   }]

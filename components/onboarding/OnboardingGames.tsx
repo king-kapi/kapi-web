@@ -1,10 +1,10 @@
 import styles from "../../styles/onboarding/OnboardingGames.module.css";
 import GamesList from "../GamesList";
-import { OnboardingFormContext, OnBoardingFormContextType } from "@/pages/Onboarding";
-import { useContext } from "react";
+import { useAtom } from "jotai/index";
+import onboardingUserDataAtom from "@/src/atoms/onboardingUserDataAtom";
 
 export default function OnboardingGames() {
-  const { content, setContent } = useContext(OnboardingFormContext) as OnBoardingFormContextType;
+  const [userData, setUserData] = useAtom(onboardingUserDataAtom);
 
   return (
     <div className={styles.OnboardingGamesContainer}>
@@ -18,12 +18,10 @@ export default function OnboardingGames() {
         This information help us optimize your experience here. However, you can choose to skip this
         step or hide this information from your profile.
       </h2>
-      <GamesList initialSelected={content.games} onChange={(selectedGames: string[]) => {
-        setContent({
-          ...content,
-          games: selectedGames
-        });
-      }} />
+      <GamesList initialSelected={[]} onChange={selectedGames => setUserData({
+        ...userData,
+        games: selectedGames
+      })} />
     </div>
   );
 }

@@ -14,6 +14,7 @@ export interface SelectProps extends React.ComponentPropsWithoutRef<"select"> {
   placeholder?: string;
   options?: Option[];
   minWidth?: number;
+  initialIndex?: number;
 }
 
 const Select = ({
@@ -21,13 +22,14 @@ const Select = ({
                   minWidth = 200,
                   options = [],
                   disabled = false,
+                  initialIndex,
                   className,
                   style = {},
                   ...props
                 }: SelectProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const selectRef = useRef<HTMLSelectElement>(null);
-  const [current, setCurrent] = useState<Option | null>(null);
+  const [current, setCurrent] = useState<Option | null>(initialIndex ? options[initialIndex] : null);
   const [drop, setDrop] = useState(false);
 
   useEffect(() => {

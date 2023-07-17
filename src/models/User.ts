@@ -1,6 +1,7 @@
 import mongoose, { model, models, Schema } from "mongoose";
 import UserStatus from "@/src/enums/UserStatus";
 import { USER_MODEL_NAME, LOBBY_MODEL_NAME } from "@/src/models/ModelNames";
+import Pronouns from "@/src/enums/Pronouns";
 
 export interface IUser {
   _id: mongoose.Types.ObjectId;
@@ -9,12 +10,31 @@ export interface IUser {
   tag: string;
   bio: string;
   status: UserStatus;
-  onboarded: boolean;
   friends: mongoose.Types.ObjectId[];
+  games: mongoose.Types.ObjectId[];
+  pronouns: Pronouns;
+  birthday: IBirthday;
+  language: string;
+  timezone: string;
+  avatarColor: string;
 
   // lobby fields
   lobby?: mongoose.Types.ObjectId;
+
+  onboarded: boolean;
 }
+
+export interface IBirthday {
+  day?: number;
+  month?: number;
+  year?: number;
+}
+
+const birthdaySchema = new Schema<IBirthday>({
+  day: { type: Number },
+  month: { type: Number },
+  year: { type: Number }
+});
 
 const userSchema = new Schema<IUser>({
   username: { type: String, default: "" },
@@ -24,6 +44,10 @@ const userSchema = new Schema<IUser>({
   status: { type: Number, default: UserStatus.OFFLINE },
   onboarded: { type: Boolean, default: false },
   friends: { type: [mongoose.SchemaTypes.ObjectId], default: [] },
+  games: { type: [mongoose.SchemaTypes.ObjectId], default: [] },
+  language: { type: String },
+  pronouns: { type: String },
+  birthday: birthdaySchema,
   lobby: { type: mongoose.SchemaTypes.ObjectId, ref: LOBBY_MODEL_NAME }
 });
 

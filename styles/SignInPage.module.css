@@ -8,7 +8,7 @@
 }
 
 .SignInContainer {
-    width: 38%;
+    width: 40%; /* approximates to 48.25rem on a 1920 x 1080 screen */
     height: 100vh;
     display: flex;
     align-items: center;
@@ -18,14 +18,14 @@
 
 .Logo {
     /* default width: 7.813rem border-radius: 1.25rem */
-    width: 7.813rem;
-    height: 7.813rem;
-    border-radius: calc(16%);
-    max-width: calc(100vh * 0.12755);
-    max-height: calc(100vh * 0.12755);
+    width: 7.8125rem;
+    height: 7.8125rem;
+    border-radius: 1.25rem;
+    /*max-width: calc(100vh * 0.12755);*/
+    /*max-height: calc(100vh * 0.12755);*/
     position: absolute;
     left: 4rem;
-    top: 4.876rem;
+    top: 2.62rem;
     background-color: #D9D9D9;
 }
 
