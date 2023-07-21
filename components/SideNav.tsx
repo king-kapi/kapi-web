@@ -98,7 +98,7 @@ function SideNav() {
               </div>
               <span className={styles.homeTabWord}>Home</span>
             </a>
-            <a href="./partyfinder" className={styles.partyFinderTab}>
+            <a href="/party-finder" className={styles.partyFinderTab}>
               <div
                 className={pathname.includes("partyfinder") ? styles.selected : styles.notSelected}
               >
@@ -209,7 +209,7 @@ function SideNav() {
             </div>
             <span className={styles.homeTabWord}>Home</span>
           </a>
-          <a href="/partyfinder" className={styles.partyFinderTab}>
+          <a href="/party-finder" className={styles.partyFinderTab}>
             <div
               className={[
                 pathname.includes("partyfinder") ? styles.selected : styles.notSelected,

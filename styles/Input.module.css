@@ -1,12 +1,21 @@
-.Input {
+.InputContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
     @apply font-medium;
     @apply text-base;
     @apply bg-mediumGrey;
     @apply py-3;
     @apply px-4;
+    @apply rounded-lg;
+}
 
-    outline-color: var(--grey);
-    border-radius: 0.625rem; /* 10px */
+.Input {
+    background: none;
+    outline: none;
+
+    @apply flex-grow;
 }
 
 .Input::placeholder {

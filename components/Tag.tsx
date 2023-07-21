@@ -13,10 +13,10 @@ const Tag = ({ size = "large", icon = false, border = false, children, ...props 
     styles.Tag,
     size === "small" ? styles.Small : "",
     border ? styles.Border : ""].join(" ")} {...props}>
-    {icon ? <Icon icon={"deny_small"} style={{ marginLeft: -7, marginRight: 9 }} /> : <></>}
-    <span>
+    {icon ? <Icon icon={"deny_small"} /> : <></>}
+    <div>
     {children}
-    </span>
+    </div>
   </div>;
 };
 

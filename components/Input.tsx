@@ -1,35 +1,40 @@
-import React from "react";
+import React, { useMemo } from "react";
 import styles from "@/styles/Input.module.css";
 
 export interface InputProps extends React.ComponentPropsWithoutRef<"input"> {
   className?: string,
+  icon?: React.ReactNode,
+  style?: React.StyleHTMLAttributes<"div">,
   element?: "input" | "textarea"
-};
+}
 
 const Input = ({
                  className,
+                 icon,
                  element = "input",
+                 style,
                  ...props
                }: InputProps) => {
 
-  if (element === "input")
+  const inputNode = useMemo(() => {
+    if (element === "input")
+      return (
+        <input className={styles.Input}
+               {...props}
+        />
+      );
+
     return (
-      <input className={[
-        styles.Input,
-        className
-      ].join(" ")}
-             {...props}
+      <textarea className={styles.Input}
+                {...props as React.ComponentPropsWithoutRef<"textarea">}
       />
     );
+  }, [element, props]);
 
-  return (
-    <textarea className={[
-      styles.Input,
-      className
-    ].join(" ")}
-              {...props as React.ComponentPropsWithoutRef<"textarea">}
-    />
-  );
+  return <div className={styles.InputContainer}>
+    {icon}
+    {inputNode}
+  </div>;
 };
 
 export default Input;

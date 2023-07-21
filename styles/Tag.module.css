@@ -1,14 +1,14 @@
 .Tag {
     height: 40px;
     display: inline-flex;
-    justify-items: center;
     align-items: center;
     border-radius: 20px;
     font-weight: 400;
-    padding: 0 12px;
 
     background-color: var(--grey);
     transition: background-color 60ms;
+
+    @apply px-3 py-2 gap-4;
 }
 
 .Small {
