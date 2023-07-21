@@ -71,6 +71,10 @@
     --white: #FFFFFF;
 }
 
+html, body {
+    background: var(--black);
+}
+
 
 /*@each $color in pink, blue, cyan, yellow {
     .theme-$(color) {

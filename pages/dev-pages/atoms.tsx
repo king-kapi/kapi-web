@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "@/components/Button";
 import DevLayout from "@/components/layouts/DevLayout";
 import Tag from "@/components/Tag";
-import Icons from "@/components/icons/Icons";
+import AvatarStack from "@/components/atoms/AvatarStack";
 
 const AtomsPage = () => {
   const [theme, setTheme] = useState("pink");
@@ -81,6 +81,35 @@ const AtomsPage = () => {
             <Tag size={"small"} border={true} icon={false}>Tag Name</Tag>
           </div>
         </div>
+      </div>
+
+      <h3>Avatar Stack</h3>
+      <div className={"space-y-2"}>
+        <AvatarStack avatarsColors={[
+          "rgba(244, 211, 94, 1)",
+          "rgba(20, 178, 180, 1)",
+          "rgba(237, 111, 166, 1)",
+          "rgba(69, 103, 191, 1)",
+          "rgba(244, 211, 94, 1)"
+        ]} />
+        <AvatarStack avatarsColors={[
+          "rgba(244, 211, 94, 1)",
+          "rgba(20, 178, 180, 1)",
+          "rgba(237, 111, 166, 1)",
+          "rgba(69, 103, 191, 1)",
+        ]} />
+        <AvatarStack avatarsColors={[
+          "rgba(244, 211, 94, 1)",
+          "rgba(20, 178, 180, 1)",
+          "rgba(237, 111, 166, 1)",
+        ]} />
+        <AvatarStack avatarsColors={[
+          "rgba(244, 211, 94, 1)",
+          "rgba(20, 178, 180, 1)",
+        ]} />
+        <AvatarStack avatarsColors={[
+          "rgba(244, 211, 94, 1)",
+        ]} />
       </div>
     </main>
   );
