@@ -212,7 +212,7 @@ function SideNav() {
           <a href="/party-finder" className={styles.partyFinderTab}>
             <div
               className={[
-                pathname.includes("partyfinder") ? styles.selected : styles.notSelected,
+                pathname.includes("party-finder") ? styles.selected : styles.notSelected,
                 "bg-blue-100"
               ].join(" ")}
             >

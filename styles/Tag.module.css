@@ -4,6 +4,7 @@
     align-items: center;
     border-radius: 20px;
     font-weight: 400;
+    white-space: nowrap;
 
     background-color: var(--grey);
     transition: background-color 60ms;

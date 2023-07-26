@@ -4,6 +4,7 @@ import { lobbiesAtom } from "@/src/atoms/lobbiesAtom";
 import Icon from "@/components/icons/Icon";
 import Button from "@/components/Button";
 import AvatarStack from "@/components/atoms/AvatarStack";
+import Link from "next/link";
 
 const LobbyCards = () => {
   const lobbies = useAtomValue(lobbiesAtom);
@@ -30,7 +31,9 @@ const LobbyCards = () => {
           </p>
           <div className={"flex mt-6 items-center"}>
             <div className={"flex-grow"}>
-              <Button>View Lobby</Button>
+              <Link href={`party-finder/${lobby._id.toString()}`}>
+                <Button>View Lobby</Button>
+              </Link>
             </div>
             <div className={"flex gap-[0.625rem] items-center"}>
               <AvatarStack avatarsColors={lobby.users.map(u => u.avatarColor)} />
