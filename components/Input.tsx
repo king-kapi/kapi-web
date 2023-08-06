@@ -4,7 +4,6 @@ import styles from "@/styles/Input.module.css";
 export interface InputProps extends React.ComponentPropsWithoutRef<"input"> {
   className?: string,
   icon?: React.ReactNode,
-  style?: React.StyleHTMLAttributes<"div">,
   element?: "input" | "textarea"
 }
 
@@ -12,7 +11,6 @@ const Input = ({
                  className,
                  icon,
                  element = "input",
-                 style,
                  ...props
                }: InputProps) => {
 

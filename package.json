@@ -3,12 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "server-dev": "NODE_ENV=development nodemon -r tsconfig-paths/register src/index.ts",
+    "server-dev": "NODE_ENV=development nodemon -r tsconfig-paths/register src/server.ts",
     "next-dev": "next dev",
-    "dev": "NODE_ENV=development ts-node -r tsconfig-paths/register src/index.ts",
+    "dev": "NODE_ENV=development ts-node -r tsconfig-paths/register src/server.ts",
     "build": "next build",
-    "start": "next start",
-    "start-dev": "NODE_ENV=development npm run start",
+    "start": "NODE_ENV=production ts-node -r tsconfig-paths/register src/server.ts",
     "lint": "next lint",
     "format": "npx prettier --write .",
     "dump": "mongodump -d designthriving -o mock_data_dump",
@@ -47,7 +46,8 @@
     "rgb2hex": "^0.2.5",
     "socket.io": "^4.6.1",
     "socket.io-client": "^4.6.1",
-    "swiper": "^9.1.0"
+    "swiper": "^9.1.0",
+    "ts-node": "^10.9.1"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.3",

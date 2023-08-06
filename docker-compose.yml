@@ -1,0 +1,21 @@
+services:
+  kapi:
+    container_name: kapi
+    image: kapi
+    ports:
+      - 3000:3000
+    working_dir: /app
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    environment:
+      MONGODB_CONNECTION_URI: mongodb://mongo:27017/
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    restart: always
+    volumes:
+      - ./data:/data/db
+    ports:
+      - 27017:27017
