@@ -1,6 +1,7 @@
 services:
   kapi:
     container_name: kapi
+    build: .
     image: kapi
     ports:
       - 3000:3000
@@ -9,8 +10,8 @@ services:
       - mongo
     links:
       - mongo
-    environment:
-      MONGODB_CONNECTION_URI: mongodb://mongo:27017/
+    env_file:
+      - .env.local
   mongo:
     container_name: mongo
     image: mongo:latest
