@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import DevLayout from "@/components/layouts/DevLayout";
-import Button from "@/components/Button";
+import DevLayout from "@/src/components/layouts/DevLayout";
+import Button from "@/src/components/Button";
 import Link from "next/link";
 import protectedGetServerSideProps from "@/src/utils/protectRoute";
 import { useSession } from "next-auth/react";

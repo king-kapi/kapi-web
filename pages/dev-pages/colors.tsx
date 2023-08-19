@@ -1,5 +1,5 @@
 import React from "react";
-import DevLayout from "@/components/layouts/DevLayout";
+import DevLayout from "@/src/components/layouts/DevLayout";
 
 const Colors = () => {
   const colors = ["pink", "blue", "cyan", "yellow"];

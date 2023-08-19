@@ -1,5 +1,5 @@
-import Chat from "@/components/Chat";
-import LoginStatus from "@/components/LoginStatus";
+import Chat from "@/src/components/Chat";
+import LoginStatus from "@/src/components/LoginStatus";
 import Lobby from "@/src/types/Lobby";
 import { toUser } from "@/src/types/User";
 import UserProfile from "@/src/types/UserProfile";

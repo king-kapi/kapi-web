@@ -1,9 +1,9 @@
-import DevLayout from "@/components/layouts/DevLayout";
+import DevLayout from "@/src/components/layouts/DevLayout";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Button from "@/components/Button";
+import Button from "@/src/components/Button";
 import { useSession } from "next-auth/react";
-import OnlyIf from "@/components/OnlyIf";
+import OnlyIf from "@/src/components/OnlyIf";
 import { IUser } from "@/src/models/User";
 import { ILobbyPopulated } from "@/src/models/Lobby";
 

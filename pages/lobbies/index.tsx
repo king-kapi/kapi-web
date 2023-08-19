@@ -1,6 +1,6 @@
-import PartyOptions from '@/components/PartyOptions';
-import SideNav from '@/components/SideNav';
-import styles from '../../styles/PartyFinder.module.css';
+import PartyOptions from '@/src/components/PartyOptions';
+import SideNav from '@/src/components/SideNav';
+import styles from '@/src/styles/PartyFinder.module.css';
 import { Icon } from '@iconify/react';
 import { useState } from 'react';
 

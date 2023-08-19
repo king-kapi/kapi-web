@@ -1,14 +1,14 @@
-import GameSelect from "@/components/GameSelect";
-import InterestMatch from "@/components/InterestMatch";
-import InvitationMessage from "@/components/InvitationMessage";
-import TimeZone from "@/components/TimeZone";
-import { ProfilePreview } from "@/components/ProfilePreview";
-import { HonorOfConduct } from "@/components/HonorOfConduct";
-import styles from "../../styles/BuddyFinder.module.css";
+import GameSelect from "@/src/components/GameSelect";
+import InterestMatch from "@/src/components/InterestMatch";
+import InvitationMessage from "@/src/components/InvitationMessage";
+import TimeZone from "@/src/components/TimeZone";
+import { ProfilePreview } from "@/src/components/ProfilePreview";
+import { HonorOfConduct } from "@/src/components/HonorOfConduct";
+import styles from "@/src/styles/BuddyFinder.module.css";
 import { Icon } from "@iconify/react";
 import React, { useMemo, useState } from "react";
 import Link from "next/link";
-import Button from "@/components/Button";
+import Button from "@/src/components/Button";
 
 export const formContext = React.createContext({});
 

@@ -1,10 +1,10 @@
-import DevLayout from "@/components/layouts/DevLayout";
-import Input from "@/components/Input";
-import Select, { Option } from "@/components/Select";
-import Button from "@/components/Button";
+import DevLayout from "@/src/components/layouts/DevLayout";
+import Input from "@/src/components/Input";
+import Select, { Option } from "@/src/components/Select";
+import Button from "@/src/components/Button";
 import React, { useEffect, useState } from "react";
 import { IGame } from "@/src/models/Games";
-import KapiListbox, { KapiOption } from "@/components/KapiListbox";
+import KapiListbox, { KapiOption } from "@/src/components/KapiListbox";
 
 // :)
 const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";

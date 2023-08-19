@@ -1,9 +1,9 @@
-import Icon from "@/components/icons/Icon";
-import Input from "@/components/Input";
-import Tag from "@/components/Tag";
-import KapiListbox from "@/components/KapiListbox";
+import Icon from "@/src/components/icons/Icon";
+import Input from "@/src/components/Input";
+import Tag from "@/src/components/Tag";
+import KapiListbox from "@/src/components/KapiListbox";
 import { Suspense } from "react";
-import LobbyCards from "@/components/party-finder/LobbyCards";
+import LobbyCards from "@/src/components/party-finder/LobbyCards";
 
 export default function PartyFinderPage() {
   return (<div className={"px-16 py-12"}>

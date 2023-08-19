@@ -1,9 +1,9 @@
-import LoginStatus from "@/components/LoginStatus";
+import LoginStatus from "@/src/components/LoginStatus";
 import UserProfile from "@/src/types/UserProfile";
 import protectedGetServerSideProps from "@/src/utils/protectRoute";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Button from "@/components/Button";
+import Button from "@/src/components/Button";
 
 export const getServerSideProps = protectedGetServerSideProps;
 

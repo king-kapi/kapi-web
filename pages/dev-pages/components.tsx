@@ -1,20 +1,20 @@
-import { AchievementsWidget } from "@/components/AchievementsWidget";
-import CustomizeDashboard from "@/components/CustomizeDashboard";
-import { InterestsWidget } from "@/components/InterestsWidget";
-import { NotificationsWidget } from "@/components/NotificationsWidget";
+import { AchievementsWidget } from "@/src/components/AchievementsWidget";
+import CustomizeDashboard from "@/src/components/CustomizeDashboard";
+import { InterestsWidget } from "@/src/components/InterestsWidget";
+import { NotificationsWidget } from "@/src/components/NotificationsWidget";
 import { Notification } from "@/src/types/Notification";
-import { GameWidget } from "@/components/GameWidget";
-import NotificationBubble from "../../components/NotificationBubble";
-import SearchBar from "../../components/SearchBar";
-import SideNav from "../../components/SideNav";
-import { GamesInterests } from "@/components/GamesInterests";
-import { HonorOfConduct } from "@/components/HonorOfConduct";
-import PartyOption from "@/components/PartyOptions";
-import { ProfilePreview } from "@/components/ProfilePreview";
-import ProfileCard from "@/components/ProfileCard";
+import { GameWidget } from "@/src/components/GameWidget";
+import NotificationBubble from "@/src/components/NotificationBubble";
+import SearchBar from "@/src/components/SearchBar";
+import SideNav from "@/src/components/SideNav";
+import { GamesInterests } from "@/src/components/GamesInterests";
+import { HonorOfConduct } from "@/src/components/HonorOfConduct";
+import PartyOption from "@/src/components/PartyOptions";
+import { ProfilePreview } from "@/src/components/ProfilePreview";
+import ProfileCard from "@/src/components/ProfileCard";
 import Link from "next/link";
 import React from "react";
-import DevLayout from "@/components/layouts/DevLayout";
+import DevLayout from "@/src/components/layouts/DevLayout";
 
 function Components() {
   const notifications: Notification[] = [

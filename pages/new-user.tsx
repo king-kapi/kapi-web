@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import { signIn } from 'next-auth/react';
-import styles from '../styles/SignInPage.module.css';
+import styles from '@/src/styles/SignInPage.module.css';
 
 export default function SignInPage() {
     // console.log(providers)

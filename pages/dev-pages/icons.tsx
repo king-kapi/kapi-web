@@ -1,7 +1,7 @@
 import React from "react";
-import Icon from "@/components/icons/Icon";
-import DevLayout from "@/components/layouts/DevLayout";
-import Icons, {IconSVGs} from "@/components/icons/Icons";
+import Icon from "@/src/components/icons/Icon";
+import DevLayout from "@/src/components/layouts/DevLayout";
+import Icons, {IconSVGs} from "@/src/components/icons/Icons";
 
 const IconsPage = () => (
   <main>

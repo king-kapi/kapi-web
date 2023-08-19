@@ -1,4 +1,4 @@
-import LoginStatus from "@/components/LoginStatus";
+import LoginStatus from "@/src/components/LoginStatus";
 import { GameList } from "@/src/types/Games";
 import protectedGetServerSideProps from "@/src/utils/protectRoute";
 import { FormEvent } from "react";

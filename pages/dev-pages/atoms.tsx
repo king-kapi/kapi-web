@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Button from "@/components/Button";
-import DevLayout from "@/components/layouts/DevLayout";
-import Tag from "@/components/Tag";
-import AvatarStack from "@/components/atoms/AvatarStack";
+import Button from "@/src/components/Button";
+import DevLayout from "@/src/components/layouts/DevLayout";
+import Tag from "@/src/components/Tag";
+import AvatarStack from "@/src/components/atoms/AvatarStack";
 
 const AtomsPage = () => {
   const [theme, setTheme] = useState("pink");

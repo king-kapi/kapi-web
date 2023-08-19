@@ -1,7 +1,7 @@
-import styles from "../../styles/LobbyFinder.module.css";
+import styles from "@/src/styles/LobbyFinder.module.css";
 import { Icon } from "@iconify/react";
 import React, { useState } from "react";
-import LobbyMemberList from "@/components/LobbyMemberList";
+import LobbyMemberList from "@/src/components/LobbyMemberList";
 import Link from "next/link";
 
 export default function LobbyFinder() {

@@ -1,11 +1,11 @@
-import LoginStatus from "@/components/LoginStatus";
+import LoginStatus from "@/src/components/LoginStatus";
 import protectedGetServerSideProps from "@/src/utils/protectRoute";
 import Head from "next/head";
 
 import Link from "next/link";
 import React from "react";
-import Button from "@/components/Button";
-import Layout from "@/components/layouts/Layout";
+import Button from "@/src/components/Button";
+import Layout from "@/src/components/layouts/Layout";
 
 export const getServerSideProps = protectedGetServerSideProps;
 

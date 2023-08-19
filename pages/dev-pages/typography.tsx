@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import DevLayout from "@/components/layouts/DevLayout";
+import DevLayout from "@/src/components/layouts/DevLayout";
 
 const TypographyPage = () => (
   <main>

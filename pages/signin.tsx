@@ -1,12 +1,12 @@
 import { signIn } from "next-auth/react";
-import styles from "../styles/SignInPage.module.css";
-import EmptyLayout from "@/components/layouts/EmptyLayout";
-import Button from "@/components/Button";
-import Icon from "@/components/icons/Icon";
+import styles from "@/src/styles/SignInPage.module.css";
+import EmptyLayout from "@/src/components/layouts/EmptyLayout";
+import Button from "@/src/components/Button";
+import Icon from "@/src/components/icons/Icon";
 import Link from "next/link";
 import Image from "next/image";
 import rainbowKapi from "@/assets/images/rainbow_kapi.png";
-import Input from "@/components/Input";
+import Input from "@/src/components/Input";
 
 export default function SignInPage() {
   function emailSignin(e: React.FormEvent<HTMLFormElement>) {

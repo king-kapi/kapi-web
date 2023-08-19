@@ -1,4 +1,4 @@
-import Chat from "@/components/Chat";
+import Chat from "@/src/components/Chat";
 import { toUser } from "@/src/types/User";
 import UserProfile from "@/src/types/UserProfile";
 import protectedGetServerSideProps from "@/src/utils/protectRoute";

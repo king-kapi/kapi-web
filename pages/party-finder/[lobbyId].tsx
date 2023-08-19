@@ -1,11 +1,11 @@
 import React from "react";
 import { useRouter } from "next/router";
-import PageHeader from "@/components/atoms/PageHeader";
+import PageHeader from "@/src/components/atoms/PageHeader";
 import { useQuery } from "react-query";
-import LobbyDetails from "@/components/LobbyDetails";
+import LobbyDetails from "@/src/components/LobbyDetails";
 import { Tab } from "@headlessui/react";
-import styles from "@/styles/party-finder/LobbyDetail.module.css";
-import Chat from "@/components/chat/Chat";
+import styles from "@/src/styles/party-finder/LobbyDetail.module.css";
+import Chat from "@/src/components/chat/Chat";
 
 export default function LobbyPage() {
   const router = useRouter();

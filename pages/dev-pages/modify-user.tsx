@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import DevLayout from "@/components/layouts/DevLayout";
+import DevLayout from "@/src/components/layouts/DevLayout";
 import includeQuery from "@/src/utils/includeQuery";
-import Icon from "@/components/icons/Icon";
+import Icon from "@/src/components/icons/Icon";
 import { IUser } from "@/src/models/User";
 
 const typeMap: {

@@ -1,15 +1,15 @@
-import styles from "../styles/onboarding/Onboarding.module.css";
+import styles from "@/src/styles/onboarding/Onboarding.module.css";
 import React, { useEffect, useState } from "react";
-import Button from "@/components/Button";
-import EmptyLayout from "@/components/layouts/EmptyLayout";
-import OnboardingUsername from "@/components/onboarding/OnboardingUsername";
-import OnboardingGames from "@/components/onboarding/OnboardingGames";
+import Button from "@/src/components/Button";
+import EmptyLayout from "@/src/components/layouts/EmptyLayout";
+import OnboardingUsername from "@/src/components/onboarding/OnboardingUsername";
+import OnboardingGames from "@/src/components/onboarding/OnboardingGames";
 import { useRouter } from "next/router";
-import OnboardingAvatar from "@/components/onboarding/OnboardingAvatar";
-import OnboardingBirthday from "@/components/onboarding/OnboardingBirthday";
-import OnboardingMore from "@/components/onboarding/OnboardingMore";
-import OnboardingFinish from "@/components/onboarding/OnboardingFinish";
-import { useAtomValue } from "jotai/index";
+import OnboardingAvatar from "@/src/components/onboarding/OnboardingAvatar";
+import OnboardingBirthday from "@/src/components/onboarding/OnboardingBirthday";
+import OnboardingMore from "@/src/components/onboarding/OnboardingMore";
+import OnboardingFinish from "@/src/components/onboarding/OnboardingFinish";
+import { useAtomValue } from "jotai";
 import onboardingUserDataAtom from "@/src/atoms/onboardingUserDataAtom";
 
 export type OnboardingFormContent = {
@@ -42,6 +42,7 @@ export default function Onboarding() {
   async function handleFinish() {
     console.log("Onboarding with this data:", userData);
 
+    // input validation
     if (!userData.pronouns) {
       console.log("missing pronouns");
       return;
@@ -67,6 +68,7 @@ export default function Onboarding() {
       return;
     }
 
+    // set user data
     const res = await fetch("/api/users/onboard", {
       method: "POST",
       headers: {

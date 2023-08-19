@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import Button from "@/components/Button";
-import DevLayout from "@/components/layouts/DevLayout";
+import Button from "@/src/components/Button";
+import DevLayout from "@/src/components/layouts/DevLayout";
 
 const DevPages = () => {
   return <main>
