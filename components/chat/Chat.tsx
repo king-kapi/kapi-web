@@ -46,7 +46,7 @@ const Chat = ({ chatId, className, ...props }: ChatProps) => {
     if (!socketRef.current) return;
     const socket = socketRef.current;
 
-    const message: IMessage = {
+    const _message: IMessage = {
         chatId,
         sender: "alsdkfjhasldkjfh",
         content: message,
@@ -54,7 +54,7 @@ const Chat = ({ chatId, className, ...props }: ChatProps) => {
         metadata: {}
       };
 
-    socket.emit(chatId.toString());
+    socket.emit(chatId.toString(), _message);
   };
 
   return (

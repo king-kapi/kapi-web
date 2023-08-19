@@ -4,22 +4,22 @@ import Icon from "@/components/icons/Icon";
 
 
 // todo: find a way to extend ListboxProps
-export interface KapiOption {
-  text: string;
-  value: string;
+export interface KapiOption<TType> {
+  text: React.ReactNode;
+  value: TType;
 }
 
-export interface KapiListboxProps<TType, TActualType> extends React.ComponentPropsWithoutRef<any> {
-  options: KapiOption[];
-  selected?: string;
+export interface KapiListboxProps<TType> extends React.ComponentPropsWithoutRef<any> {
+  options: KapiOption<TType>[];
+  selected?: TType;
   placeholder?: string;
   className?: string;
-  onChange?: (selected: string | null) => void;
+  onChange?: (selected: TType | null) => void;
   name?: string;
   defaultIndex?: number;
 }
 
-const KapiListbox = <T, K, >({
+const KapiListbox = <TType,>({
                                options,
                                selected,
                                placeholder = "Select An Option",
@@ -29,8 +29,8 @@ const KapiListbox = <T, K, >({
                                },
                                defaultIndex,
                                name
-                             }: KapiListboxProps<T, K>) => {
-  const [internalSelected, setInternalSelected] = useState<string | null>((defaultIndex !== undefined) ? options[defaultIndex].value : null);
+                             }: KapiListboxProps<TType>) => {
+  const [internalSelected, setInternalSelected] = useState<TType | null>((defaultIndex !== undefined) ? options[defaultIndex].value : null);
   const _selected = selected ? selected : internalSelected;
 
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -75,10 +75,10 @@ const KapiListbox = <T, K, >({
 
 // add additional logic for finding max height and such
 const BOTTOM_MARGIN = 1; // 1rem
-const OptionsWrapper = ({
+const OptionsWrapper = <T,>({
                           options
                         }: {
-  options: KapiOption[]
+  options: KapiOption<T>[]
 }) => {
   // do some math and figure out what the max height should be
   const containerRef = useRef<HTMLElement>(null);
@@ -96,7 +96,7 @@ const OptionsWrapper = ({
       ref={containerRef}>
       {options.map(option => (
         <Listbox.Option
-          key={option.value}
+          key={option.value as string}
           value={option.value}
           className={"flex items-center py-3 hover:bg-grey rounded-lg transition-colors duration-100 cursor-pointer"}
         >

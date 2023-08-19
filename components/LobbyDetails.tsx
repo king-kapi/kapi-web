@@ -6,6 +6,7 @@ import Button from "@/components/Button";
 import Tag from "@/components/Tag";
 import Avatar from "@/components/Avatar";
 import { useSession } from "next-auth/react";
+import KapiListbox from "@/components/KapiListbox";
 
 export interface LobbyDetailsProps {
   lobby: ILobbyPopulated;
@@ -54,11 +55,13 @@ export default function LobbyDetails({ lobby }: LobbyDetailsProps) {
       </div>
       <div className={"flex justify-between mt-16 mb-6"}>
         <h4>Party Members</h4>
-        <div className={styles.ViewOptions}>
-          <Icon icon={"grid_view"} />
-          View
-          <Icon icon={"carat_down"} />
-        </div>
+        <KapiListbox options={[{
+          text: <div className={"flex items-center gap-2 whitespace-nowrap"}><Icon icon={"list_view"}/> Gallery View</div>,
+          value: "list"
+        },{
+          text: <div className={"flex items-center gap-2 whitespace-nowrap"}><Icon icon={"grid_view"}/> List View</div>,
+          value: "list"
+        }]}/>
       </div>
       <div className={"flex flex-wrap gap-8 justify-between"}>
         {lobby.users.map(user => {
