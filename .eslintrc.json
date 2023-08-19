@@ -9,8 +9,8 @@
   "rules": {
     "eqeqeq": "error",
     "prefer-const": "warn"
-  },
-  "parserOptions": {
-    "project": ["./tsconfig.json"]
   }
+//  "parserOptions": {
+//    "project": ["./tsconfig.json"]
+//  }
 }

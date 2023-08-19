@@ -1,6 +1,6 @@
 import mongoose, { model, models, Schema } from "mongoose";
 import UserStatus from "@/src/enums/UserStatus";
-import { USER_MODEL_NAME, LOBBY_MODEL_NAME } from "@/src/models/ModelNames";
+import { LOBBY_MODEL_NAME, USER_MODEL_NAME } from "@/src/models/ModelNames";
 import Pronouns from "@/src/enums/Pronouns";
 
 export interface IUser {
@@ -45,6 +45,7 @@ const userSchema = new Schema<IUser>({
   onboarded: { type: Boolean, default: false },
   friends: { type: [mongoose.SchemaTypes.ObjectId], default: [] },
   games: { type: [mongoose.SchemaTypes.ObjectId], default: [] },
+  avatarColor: { type: String },
   language: { type: String },
   pronouns: { type: String },
   birthday: birthdaySchema,

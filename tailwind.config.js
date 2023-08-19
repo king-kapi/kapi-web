@@ -18,34 +18,36 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}"
   ],
   theme: {
-    colors: {
-      black: "var(--black)",
-      darkGrey: "var(--darkGrey)",
-      mediumGrey: "var(--mediumGrey)",
-      pressedGrey: "var(--pressedGrey)",
-      textColor: "var(--textColor)",
-      greyText: "var(--greyText)",
-      white: "var(--white)",
-      grey: "var(--grey)",
-      primary: {
-        170: "var(--primary-170)",
-        100: "var(--primary-100)",
-        90: "var(--primary-90)"
-      },
-      pink: generateColors("pink"),
-      blue: generateColors("blue"),
-      cyan: generateColors("cyan"),
-      yellow: generateColors("yellow")
-    },
     extend: {
+      colors: {
+        black: "var(--black)",
+        darkGrey: "var(--darkGrey)",
+        mediumGrey: "var(--mediumGrey)",
+        pressedGrey: "var(--pressedGrey)",
+        textColor: "var(--textColor)",
+        greyText: "var(--greyText)",
+        white: "var(--white)",
+        grey: "var(--grey)",
+        primary: {
+          170: "var(--primary-170)",
+          100: "var(--primary-100)",
+          90: "var(--primary-90)"
+        },
+        pink: generateColors("pink"),
+        blue: generateColors("blue"),
+        cyan: generateColors("cyan"),
+        yellow: generateColors("yellow"),
+        "dark-blue": "var(--darkBlue)",
+        "medium-blue": "var(--medium-blue)",
+      },
       borderRadius: {
-        'lg': '0.625rem',
-        '2xl': '1.25rem'
+        "lg": "0.625rem",
+        "2xl": "1.25rem"
       }
     }
   },
   plugins: [
-    require('@headlessui/tailwindcss')
+    require("@headlessui/tailwindcss")
   ],
   safelist: [{
     pattern: /(bg|text|border)-(pink|blue|cyan|yellow)/

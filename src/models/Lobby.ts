@@ -13,6 +13,7 @@ interface ILobbyBase {
   description: string;
   requests: mongoose.Types.ObjectId[] | ILobbyRequestPopulated[];
   users: mongoose.Types.ObjectId[] | IUser[];
+  chat: mongoose.Types.ObjectId;
 }
 
 export interface ILobby extends ILobbyBase {
@@ -33,7 +34,8 @@ const lobbySchema = new Schema<ILobby>({
   numPlayers: { type: Number, required: true },
   description: { type: String, required: true },
   requests: { type: [mongoose.SchemaTypes.ObjectId], ref: LOBBY_REQUEST_MODEL_NAME, default: [] },
-  users: { type: [mongoose.SchemaTypes.ObjectId], ref: USER_MODEL_NAME, required: true }
+  users: { type: [mongoose.SchemaTypes.ObjectId], ref: USER_MODEL_NAME, required: true },
+  chat: { type: mongoose.SchemaTypes.ObjectId }
 });
 
 const Lobby = models.Lobby || model<ILobby>(LOBBY_MODEL_NAME, lobbySchema);

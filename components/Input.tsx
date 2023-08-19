@@ -29,7 +29,7 @@ const Input = ({
     );
   }, [element, props]);
 
-  return <div className={styles.InputContainer}>
+  return <div className={`${styles.InputContainer} ${className}`}>
     {icon}
     {inputNode}
   </div>;

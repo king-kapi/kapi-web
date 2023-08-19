@@ -57,7 +57,7 @@ export default function lobbiesHandler() {
       const { lobbyId } = req.params;
 
       const lobby = await Lobby.findById(lobbyId)
-        .populate("users", "_id username tag bio status")
+        .populate("users", "_id username tag bio status avatarColor")
         .populate({
           path: "requests",
           populate: [{
