@@ -50,20 +50,18 @@ export default function lobbiesHandler() {
     }
   });
 
-  // // Get lobby information
+  // Get lobby information
   router.get("/:lobbyId", async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = (await protectApiRoute(req, res)).id;
       const { lobbyId } = req.params;
 
       const lobby = await Lobby.findById(lobbyId)
-        .populate("users", "_id username tag bio status avatarColor")
+        .populate("users", "_id username pronouns tag bio status avatarColor")
         .populate({
           path: "requests",
           populate: [{
             path: "sender"
-          }, {
-            path: "lobby"
           }]
         })
         .exec();
@@ -113,35 +111,7 @@ export default function lobbiesHandler() {
     }
   });
 
-  // host only
-  router.post("/:lobbyId/:kickId/kick", async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { id } = await protectApiRoute(req, res);
-      const { lobbyId, kickId } = req.params;
 
-      const lobby = await Lobby.findById(lobbyId);
-
-      if (!lobby)
-        throw new DoesNotExist(lobbyId, "lobbies");
-      if (lobby.hostId.toString() === kickId)
-        throw new CannotKickHost(lobbyId, kickId);
-      if (lobby.hostId.toString() !== id)
-        throw new NotHostError(lobbyId, id);
-
-      if (lobby.users.filter((user: mongoose.Types.ObjectId) => user.toString() === kickId).length === 0)
-        throw new NotInLobbyError(lobbyId, kickId);
-
-      const updated = await Lobby.findByIdAndUpdate(lobbyId, {
-        $pull: {
-          users: kickId
-        }
-      }, { new: true });
-
-      res.status(200).send(updated);
-    } catch (err) {
-      next(err);
-    }
-  });
 
   router.post("/:lobbyId/request", async (req: Request, res: Response, next: NextFunction) => {
     try {

@@ -70,7 +70,7 @@ export default function usersHandler() {
       const friends: IUser[] = [];
       const user = await User.findById(id);
       for (const friendId of user.friends) {
-        const friend = await User.findById(friendId, "_id username tag status bio");
+        const friend = await User.findById(friendId, "_id username pronouns tag status bio");
         if (friend)
           friends.push(friend);
       }

@@ -12,11 +12,11 @@ export interface IUser {
   status: UserStatus;
   friends: mongoose.Types.ObjectId[];
   games: mongoose.Types.ObjectId[];
-  pronouns: Pronouns;
-  birthday: IBirthday;
-  language: string;
-  timezone: string;
-  avatarColor: string;
+  pronouns?: Pronouns;
+  birthday?: IBirthday;
+  language?: string;
+  timezone?: string;
+  avatarColor?: string;
 
   // lobby fields
   lobby?: mongoose.Types.ObjectId;
