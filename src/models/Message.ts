@@ -4,11 +4,11 @@ import { MESSAGE_MODEL_NAME, USER_MODEL_NAME } from "@/src/models/ModelNames";
 
 export interface IMessage {
   _id: mongoose.Types.ObjectId | string;
-  chatId: mongoose.Types.ObjectId;
-  sender: IUser | mongoose.Types.ObjectId;
+  chatId: mongoose.Types.ObjectId | string;
+  sender: IUser | mongoose.Types.ObjectId | string;
   content: string;
   timestamp: number;
-  metadata: { unknown: unknown };
+  metadata: object;
 }
 
 export interface IMessagePopulated extends IMessage {
