@@ -30,6 +30,7 @@ export const getServerSideProps: GetServerSideProps<{ session: Session }> = asyn
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppLayoutProps) {
   const getLayout = Component.getLayout || Layout.getLayout;
 
+
   return (
     <SessionProvider session={session}>
       <QueryClientProvider client={new QueryClient()}>

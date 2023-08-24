@@ -1,10 +1,10 @@
 import { Server } from "socket.io";
-import Message from "./types/Message";
 import { ClientToServerEvents, ServerToClientEvents } from "@/types/socket-events";
 import { Router } from "express";
 import Chat, { IChat } from "@/src/models/Chat";
 import protectApiRoute from "@/src/utils/protectApiRoute";
 import DoesNotExist from "@/src/errors/DoesNotExist";
+import Message, { IMessage, IMessagePopulated } from "./models/Message";
 
 export async function createChat(chat: Partial<IChat>) {
   if (!chat.users)
@@ -33,7 +33,7 @@ export default function chatHandler(
       const { chatId } = req.params;
 
       const chat = await Chat.findById(chatId)
-        .populate("users", "_id username tag bio status avatarColor")
+        .populate("users", "_id username pronouns tag bio status avatarColor")
         .exec();
 
       // if no chat
@@ -46,15 +46,60 @@ export default function chatHandler(
     }
   });
 
+  // get all messages with chatId
+  router.get("/:chatId/messages", async (req, res, next) => {
+    try {
+      await protectApiRoute(req, res);
+      const { chatId } = req.params;
+
+      const messages = await Message.find({
+        chatId
+      })
+        .populate("sender", "_id username pronouns tag bio status avatarColor")
+        .exec() as IMessagePopulated[];
+
+      const sorted = messages.sort((a, b) => b.timestamp - a.timestamp);
+
+      res.status(200).send(sorted);
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  // create message
+  router.post("/:chatId/messages", async (req, res, next) => {
+    try {
+      await protectApiRoute(req, res);
+      const { chatId } = req.params;
+
+      const created = await Message.create({
+        ...req.body,
+        chatId
+      });
+
+      res.status(200).send(created);
+    } catch (err) {
+      next(err);
+    }
+  });
+
   // socket logic
   io.on("connection", socket => {
     console.log(`[${socket.id}]: user connected`);
-    socket.onAny(async (event, message: Message) => {
-      console.log(`Got message on chatId ${event} and message content: ${message.content}`);
+    socket.onAny(async (chatId: string, message: IMessage) => {
+      console.log(`Got message on chatId ${chatId} and message content: ${message.content}`);
 
-      // message._id = await instance.messages.pushMessage(message);
+      // create a message
+      const created = await Message.create({
+        ...message,
+        chatId
+      });
 
-      io.emit(event, message);
+      const populated = await Message.findById({
+        _id: created._id
+      }).populate("sender", "_id username pronouns tag bio status avatarColor");
+
+      io.emit(chatId, populated);
     });
   });
 

@@ -2,34 +2,41 @@ import React, { useEffect, useRef, useState } from "react";
 import Input from "@/src/components/Input";
 import Button from "@/src/components/Button";
 import { io, Socket } from "socket.io-client";
-import { ServerToClientEvents } from "@/types/socket-events";
-import Message from "@/src/types/Message";
-import { IMessage } from "@/src/models/Message";
+import { ClientToServerEvents, ServerToClientEvents } from "@/types/socket-events";
+import { IMessage, IMessagePopulated } from "@/src/models/Message";
+import { useAtomValue } from "jotai/index";
+import { userAtom } from "@/src/atoms/userAtom";
+import SenderBubble from "@/src/components/chat/SenderBubble";
+import ReceiveBubble from "@/src/components/chat/ReceiveBubble";
 
 export interface ChatProps extends React.ComponentPropsWithoutRef<"div"> {
   chatId: string;
 }
 
 const Chat = ({ chatId, className, ...props }: ChatProps) => {
+  const user = useAtomValue(userAtom);
+
   const socketRef = useRef<Socket>();
-  const [messages, setMessages] = useState<any[]>([]);
+  const [messages, setMessages] = useState<IMessagePopulated[]>([]);
 
   useEffect(() => {
     if (!chatId) return;
-    const socket: Socket<ServerToClientEvents> = io();
+    const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
     socketRef.current = socket;
-    // fetch(`/api/messages/${chatId.toString()}`)
-    //   .then(res => res.json())
-    //   .then((messages: Message[]) => {
-    //     setMessages(messages);
-    //   });
+    fetch(`/api/chats/${chatId.toString()}/messages`)
+      .then(res => res.json())
+      .then((messages: IMessagePopulated[]) => {
+        setMessages(messages);
+      });
 
     socket.on("connect", () => {
       console.log(`Connected to chat ${chatId}`);
     });
 
-    socket.on(chatId.toString(), (message: Message) => {
-      setMessages(messages => [...messages, message]);
+    // listen for messages
+    socket.on(chatId.toString(), (message) => {
+      console.debug("Received message", message);
+      setMessages(messages => [message, ...messages]);
     });
 
     return () => {
@@ -46,25 +53,27 @@ const Chat = ({ chatId, className, ...props }: ChatProps) => {
     if (!socketRef.current) return;
     const socket = socketRef.current;
 
-    const _message: IMessage = {
-        chatId,
-        sender: "alsdkfjhasldkjfh",
-        content: message,
-        timestamp: Date.now(),
-        metadata: {}
-      };
+    const _message: Partial<IMessage> = {
+      chatId,
+      sender: user._id.toString(),
+      content: message,
+      timestamp: Date.now(),
+      metadata: {}
+    };
 
     socket.emit(chatId.toString(), _message);
+
+    e.currentTarget.reset();
   };
 
   return (
     <div className={`flex flex-col ${className}`} {...props}>
-      <div className={"flex-auto"}>
-        {messages.map((message, i) => (
-          <div key={i}>
-            {message.content}
-          </div>
-        ))}
+      <div className={"flex-auto flex flex-col-reverse gap-6 overflow-auto px-5 pb-6"}>
+        {messages.map((message, i) => {
+          if (message.sender._id.toString() === user._id.toString())
+            return <SenderBubble message={message} key={message._id.toString()} />;
+          return <ReceiveBubble message={message} key={message._id.toString()} />;
+        })}
       </div>
       <div className={"flex-shrink bg-dark-blue p-5"}>
         <form className={"bg-medium-blue flex rounded-lg"} onSubmit={handleSendMessage}>

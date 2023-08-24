@@ -6,6 +6,7 @@ import LobbyDetails from "@/src/components/LobbyDetails";
 import { Tab } from "@headlessui/react";
 import styles from "@/src/styles/party-finder/LobbyDetail.module.css";
 import Chat from "@/src/components/chat/Chat";
+import { ILobbyPopulated } from "@/src/models/Lobby";
 
 export default function LobbyPage() {
   const router = useRouter();
@@ -14,11 +15,11 @@ export default function LobbyPage() {
       const res = await fetch(`/api/lobbies/${router.query.lobbyId}`);
       if (!res.ok)
         throw await res.json();
-      return await res.json();
+      return await res.json() as ILobbyPopulated;
     });
 
   return (
-    <main className={"grid grid-cols-[auto_26rem] h-full"}>
+    <main className={"grid grid-cols-[auto_36rem] h-full"}>
       <div className={"px-16 py-12"}>
         <PageHeader href="/party-finder" iconName={"party_finder"}>Lobby</PageHeader>
         <div className="mt-16 flex flex-col">
@@ -42,7 +43,7 @@ export default function LobbyPage() {
             </Tab>
           </Tab.List>
           <Tab.Panels className={"flex-auto"}>
-            {data?.chatId && <Chat chatId={data?.chatId} className={"h-full"}/>}
+            {data && <Chat chatId={data._id.toString()} className={"h-full"}/>}
           </Tab.Panels>
         </Tab.Group>
       </div>
