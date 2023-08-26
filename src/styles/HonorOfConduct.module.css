@@ -1,11 +1,7 @@
 .honorOfConduct {
-  display: flex;
-  flex-direction: column;
   font-family: 'Montserrat';
   position: relative;
-  left: 24rem;
-  width: 49rem;
-  top: 6rem;
+  width: 51rem;
 }
 
 .body {
@@ -16,8 +12,8 @@
 }
 
 .checkbox {
-  font-size: 1.25rem;
-  font-weight: 400;
+  font-size: 1.5rem;
+  font-weight: 500;
   display: flex;
   align-items: center;
   margin-top: 4.5rem;
@@ -28,7 +24,7 @@
   width: 0rem;
   visibility: hidden;
   border-radius: 5px;
-  margin-right: 3rem;
+  margin-right: 4.7rem;
 }
 
 

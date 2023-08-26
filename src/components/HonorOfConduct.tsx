@@ -1,10 +1,14 @@
 import styles from "@/src/styles/HonorOfConduct.module.css";
 import { useState } from "react";
 import Button from "./Button";
+import { atom, useAtom } from "jotai";
+import { partyFinderAtom } from "../atoms/partyFinderAtom";
 
 const HonorOfConduct = () => {
   const [agreed, setAgreed] = useState(false);
   const [clickedNext, setClickedNext] = useState(false);
+  const [survey, setSurvey] = useAtom(partyFinderAtom)
+
   return (
     <div className={[styles.honorOfConduct, "theme-blue"].join(" ")}>
       <h1 className={styles.header}>Honor of Conduct</h1>
@@ -24,6 +28,7 @@ const HonorOfConduct = () => {
         className={styles.checkbox}
         onChange={() => {
           setAgreed(!agreed);
+          setSurvey({...survey, honorConduct: !agreed})
         }}
       >
         <span
@@ -32,17 +37,9 @@ const HonorOfConduct = () => {
         ></span>
         <input type="checkbox" />I acknowledge and agree to abide by honor of conduct.
       </label>
-      <div className={!agreed && clickedNext ? styles.showWarning : styles.hideWarning}>
+      {/* <div className={!agreed && clickedNext ? styles.showWarning : styles.hideWarning}>
         Please acknowledge the honor of conduct to use these features!
-      </div>
-      <div onClick={() => setClickedNext(true)}>
-        <Button
-          buttonType={!agreed ? "secondary" : "primary"}
-          className={[styles.Next, !agreed ? "z-10" : "display-none z-0"].join(" ")}
-        >
-          Next
-        </Button>
-      </div>
+      </div> */}
     </div>
   );
 };

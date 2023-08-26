@@ -1,6 +1,7 @@
 .PartyOptionsContainer {
   font-family: 'Montserrat', sans-serif;
   flex: 1 0 auto;
+  width: fit-content;
 }
 
 .Header {
@@ -8,24 +9,21 @@
   display: inline-block;
   font-size: 2.25rem;
   font-weight: 600;
-  left: 20.75rem;
-  margin-top: 5rem;
-  margin-bottom: 8rem;
+  margin-bottom: 1rem;
 }
 
 .ButtonsContainer {
   position: relative;
   display: flex;
-  gap: 3.5rem;
-  left: 20.75rem;
-  width: 54rem;
-  margin-bottom: 5.25rem;
+  justify-content: space-between;
+  width: 51.4rem;
 }
 
 .PartyOption {
   height: 15.313rem;
   width: 15.625rem;
   font-size: 1.5rem;
+  padding: 1.5rem;
   font-weight: 500;
   display: flex;
   align-items: center;
@@ -45,48 +43,8 @@
   display: none;
 }
 
-.FindBuddyIcon {
-    width: 11.125rem;
-    margin-bottom: 3rem;
+.Icon {
+  margin-bottom: 3rem;
 }
 
-.FindLobbyIcon {
-    width: 6.875rem;
-    margin-bottom: 3.3rem;
-}
 
-.CreateLobbyIcon {
-    width: 5.5rem;
-    margin-bottom: 3.3rem;
-}
-
-.PartyOption span {
-    margin-bottom: 1.5rem;
-}
-
-.NextBackContainer {
-  width: 54rem;
-  position: fixed;
-  bottom: 14rem;
-  left: 38.5rem;
-  display: flex;
-  justify-content: space-between;
-}
-
-.Next {
-  width: 7.5rem;
-  height: 2.75rem;
-  z-index: 2;
-}
-
-.Back {
-  cursor: pointer;
-  width: 7.5rem;
-  height: 2.75rem;
-  font-size: 0.9rem;
-  border-radius: 5px;
-  font-weight: 400;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}

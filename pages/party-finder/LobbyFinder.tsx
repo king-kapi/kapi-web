@@ -1,41 +1,55 @@
-import styles from "@/src/styles/LobbyFinder.module.css";
-import { Icon } from "@iconify/react";
-import React, { useState } from "react";
-import LobbyMemberList from "@/src/components/LobbyMemberList";
-import Link from "next/link";
+import Icon from "@/src/components/icons/Icon";
+import Input from "@/src/components/Input";
+import Tag from "@/src/components/Tag";
+import KapiListbox from "@/src/components/KapiListbox";
+import { Suspense } from "react";
+import LobbyCards from "@/src/components/party-finder/LobbyCards";
 
-export default function LobbyFinder() {
-
-  const [mode, setMode] = useState("dark");
-
-  return (
-    <div className={[styles.LobbyFinderContainer, `theme-${mode} bg-black`].join(" ")}>
-      <style>{`body {margin: 0;}`}</style>
-      <div>
-        <Link className={styles.PartyFinder} href="/partyfinder">
-          <span className={styles.BackArrow}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="30"
-              height="30"
-              viewBox="0 0 41 41"
-              fill="none"
-            >
-              <path
-                className="hover:fill-blue-120 active:fill-blue-90"
-                d="M20.5 0C9.17868 0 0 9.17868 0 20.5C0 31.8213 9.17868 41 20.5 41C31.8213 41 41 31.8213 41 20.5C41 9.17868 31.8213 0 20.5 0ZM23.9801 28.8469C24.1327 28.9918 24.2547 29.1659 24.339 29.3588C24.4232 29.5516 24.468 29.7594 24.4707 29.9699C24.4734 30.1804 24.434 30.3892 24.3547 30.5842C24.2754 30.7792 24.1578 30.9563 24.009 31.1051C23.8602 31.254 23.683 31.3715 23.4881 31.4508C23.2931 31.5301 23.0842 31.5696 22.8737 31.5669C22.6633 31.5642 22.4555 31.5194 22.2626 31.4351C22.0697 31.3508 21.8957 31.2288 21.7507 31.0762L12.2892 21.6147C11.9937 21.319 11.8277 20.918 11.8277 20.5C11.8277 20.082 11.9937 19.681 12.2892 19.3853L21.7507 9.92377C22.0488 9.64053 22.4458 9.48495 22.857 9.49022C23.2682 9.49548 23.6611 9.66117 23.9519 9.95196C24.2427 10.2427 24.4084 10.6356 24.4136 11.0468C24.4189 11.458 24.2633 11.855 23.9801 12.1531L15.6342 20.5L23.9801 28.8469Z"
-                fill="#E2E4E9"
-              />
-            </svg>
-          </span>
-          <span className={styles.SwordCross}>
-            <Icon icon="mdi:sword-cross" color="#E2E4E9" width="33" height="33" />
-          </span>
-          <span className="text-textColor">Party Finder</span>
-        </Link>
+export default function PartyFinderPage() {
+  return (<div className={"px-16 py-12"}>
+    <div className={"flex items-center"}>
+      <div className={"w-[1.875rem] h-[1.875rem] bg-grey rounded-full flex-center"}>
+        <Icon icon={"carat_left"} />
       </div>
-      <LobbyMemberList />
-      <div className={[styles.Chatbox, "bg-mediumGrey"].join(" ")}></div>
+      <Icon icon={"party_finder"} size={3.4375} className={"ml-6"} />
+      <span className={"ml-1"}>Party Finder</span>
     </div>
-  );
+    <div className={"flex items-center gap-6 mt-16"}>
+      <h1>
+        Open Lobbies
+      </h1>
+      <h4>20 available</h4>
+    </div>
+    <div className={"flex items-center mt-8 gap-6"}>
+      <h4>Filter By Tags</h4>
+      <div className={"flex-grow max-w-[31rem]"}>
+        <Input placeholder={"Lobby Name"} icon={<Icon icon={"search"} />} />
+      </div>
+      <div className={"flex-grow flex gap-6"}>
+        <Tag icon={true}>
+          Tag Name
+        </Tag>
+        <Tag icon={true}>
+          Tag Name
+        </Tag>
+      </div>
+      <div>
+        <KapiListbox placeholder={"Sort By"} options={[
+          {
+            text: "Name",
+            value: "name",
+          },
+          {
+            text: "Date",
+            value: "name",
+          }
+        ]} />
+      </div>
+    </div>
+    <div className={"mt-10"}>
+      <Suspense>
+        <LobbyCards/>
+      </Suspense>
+    </div>
+  </div>);
 }

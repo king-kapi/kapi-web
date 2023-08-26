@@ -55,7 +55,7 @@ export default function GamesList({
             <input type="checkbox" />
             <div className={styles.GameContent}>
               {game.name}
-              <Icon className={selected ? "" : "hidden"} icon={"add"} />
+              <Icon className={selected ? "" : "opacity-0"} icon={"add"} />
             </div>
           </label>
         );
