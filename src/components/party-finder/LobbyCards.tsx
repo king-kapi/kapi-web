@@ -31,7 +31,7 @@ const LobbyCards = () => {
           </p>
           <div className={"flex mt-6 items-center"}>
             <div className={"flex-grow"}>
-              <Link href={`party-finder/${lobby._id.toString()}`}>
+              <Link href={`${lobby._id.toString()}`}>
                 <Button>View Lobby</Button>
               </Link>
             </div>

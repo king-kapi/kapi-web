@@ -1,22 +1,10 @@
 .GameSelectContainer {
   font-family: 'Montserrat', sans-serif;
   position: relative;
-  width: 52.5rem;
-  top: 10rem;
-  left: 22.5rem;
+  width: 51.4rem;
 }
 
 .Header {
   font-size: 2rem;
   font-weight: 600;
-}
-
-
-
-.Next {
-  position: fixed;
-  left: 82.875rem;
-  bottom: 4rem;
-  width: 7.5rem;
-  height: 2.75rem !important;
 }
