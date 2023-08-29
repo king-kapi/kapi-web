@@ -2,26 +2,24 @@
   font-family: 'Montserrat', sans-serif;
   position: relative;
   width: 52.25rem;
-  top: 3rem;
-  left: 20.75rem;
 }
 
 .Header {
   font-size: 2.25rem;
   font-weight: 600;
+  margin-bottom: 2rem;
 }
 
 .SubHeader {
   font-size: 1.5rem;
   font-weight: 500;
   width: 48.5rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .Question {
   font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 2.5rem;
+  font-weight: 500;
 }
 
 .Options {
@@ -34,7 +32,6 @@
   font-weight: 400;
   display: flex;
   align-items: center;
-  margin-left: 3.125rem;
   margin-bottom: 2.5rem;
 }
 
