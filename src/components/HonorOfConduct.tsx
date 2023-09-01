@@ -5,9 +5,8 @@ import { atom, useAtom } from "jotai";
 import { partyFinderAtom } from "../atoms/partyFinderAtom";
 
 const HonorOfConduct = () => {
-  const [agreed, setAgreed] = useState(false);
-  const [clickedNext, setClickedNext] = useState(false);
   const [survey, setSurvey] = useAtom(partyFinderAtom)
+  const [agreed, setAgreed] = useState(survey.honorConduct);
 
   return (
     <div className={[styles.honorOfConduct, "theme-blue"].join(" ")}>

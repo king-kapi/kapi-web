@@ -2,19 +2,18 @@
   font-family: 'Montserrat', sans-serif;
   position: relative;
   width: 48.5rem;
-  top: 3rem;
-  left: 20.75rem;
 }
 
 .Header {
   font-size: 2.25rem;
   font-weight: 600;
+  margin-bottom: 2rem;
 }
 
 .SubHeader {
   font-size: 1.5rem;
   font-weight: 500;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .Question {
@@ -24,32 +23,30 @@
 }
 
 .Options {
-    margin-top: 5.5rem;
-    width: rem;
+  width: rem;
 }
 
 .Option {
-    font-size: 1.25rem;
-    font-weight: 400; 
-    display: flex;
-    align-items: center;
-    margin-left: 3.125rem;
-    margin-bottom: 2.5rem;
+  font-size: 1.25rem;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
 }
 
-.Option input[type=radio] {
-    height: 2rem;
-    width: 2rem;
-    padding: 14px;
-    border-radius: 5px;
-    background-color: #161616;
-    border: 1px solid #E2E4E9;
-    margin-right: 4.75rem;
-    appearance: none;
+.Option input[type='radio'] {
+  height: 2rem;
+  width: 2rem;
+  padding: 14px;
+  border-radius: 5px;
+  background-color: #161616;
+  border: 1px solid #e2e4e9;
+  margin-right: 4.75rem;
+  appearance: none;
 }
 
-.Option input[type=radio]:checked {
-    background-color: #d9d9d9;
+.Option input[type='radio']:checked {
+  background-color: #d9d9d9;
 }
 
 .Next {

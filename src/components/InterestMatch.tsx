@@ -1,6 +1,7 @@
-import styles from "@/src/styles/InterestMatch.module.css";
-import { useContext, useState, useEffect } from "react";
-import Button from "./Button";
+import styles from '@/src/styles/InterestMatch.module.css';
+import { useState, useEffect } from 'react';
+import { partyFinderAtom } from '../atoms/partyFinderAtom';
+import { useAtom } from 'jotai';
 
 enum FindBuddyStates {
   NOT_SELECTED = -1,
@@ -9,10 +10,13 @@ enum FindBuddyStates {
 }
 
 export default function InterestMatch() {
-  const [findBuddy, setFindBuddy] = useState<FindBuddyStates>(FindBuddyStates.NOT_SELECTED);
+  const [survey, setSurvey] = useAtom(partyFinderAtom)
+  const [findBuddy, setFindBuddy] = useState(survey.interestMatch);
+
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setFindBuddy(Number(e.currentTarget.value));
+    setSurvey({...survey, interestMatch: Number(e.currentTarget.value)})
   };
 
   useEffect(() => {
@@ -26,11 +30,9 @@ export default function InterestMatch() {
         We want to ask you a few questions to find people based on your preferences.
       </h3>
       <h2 className={styles.Question}>
-        1. Do you want to be matched with someone based on your profile?
+        Do you want to be matched with someone based on your profile?
       </h2>
-      <h2 className={styles.SubHeader} style={{ marginLeft: "1.5rem" }}>
-        i.e, age, gender and sexual identity, ethnography, etc.
-      </h2>
+      <h2 className={styles.Question} style={{fontWeight: 400}}>i.e, age, gender and sexual identity, ethnography, etc.</h2>
       <div className={styles.Options}>
         <label className={styles.Option}>
           <input
@@ -52,12 +54,6 @@ export default function InterestMatch() {
           No, it does not matter based on my profile
         </label>
       </div>
-      <Button
-        buttonType={findBuddy === -1 ? "secondary" : "primary"}
-        className={[styles.Next, findBuddy === -1 ? "z-10 " : "hidden z-0"].join(" ")}
-      >
-        Next
-      </Button>
     </div>
   );
 }

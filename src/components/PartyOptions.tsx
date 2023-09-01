@@ -11,7 +11,7 @@ import { partyFinderAtom } from '@/src/atoms/partyFinderAtom';
 
 export default function PartyOptions() {
   const [survey, setSurvey] = useAtom(partyFinderAtom)
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState(survey.partyOption);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setSelectedOption(String(e.currentTarget.value));
