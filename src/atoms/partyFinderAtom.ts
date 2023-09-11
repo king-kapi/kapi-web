@@ -7,7 +7,12 @@ export interface partyFinderSurvey {
     games: mongoose.Types.ObjectId[],
     interestMatch: Number,
     timezone: Number,
-    message: String
+    message: String,
+    lobbyName: String,
+    lobbySize: Number,
+    lobbyDescription: String,
+    nickname: String,
+    inGameName: String
 }
 
 const partyFinderAtom = atom(<Partial<partyFinderSurvey>>({partyOption: '', honorConduct: false, games: []}))

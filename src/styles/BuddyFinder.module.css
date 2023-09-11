@@ -4,7 +4,7 @@
 }
 
 .PartyFinder {
-  position: relative;
+  position: absolute;
   width: 16.5rem;
   font-size: 1.5rem;
   font-weight: 600;
@@ -12,8 +12,6 @@
   align-items: center;
   justify-content: space-between;
   line-height: 1rem;
-  left: 4.75rem;
-  margin-top: 4rem;
   text-decoration: none;
 }
 
