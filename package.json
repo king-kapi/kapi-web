@@ -34,6 +34,7 @@
     "eslint-config-next": "^13.4.7",
     "express": "^4.18.2",
     "jotai": "^2.2.2",
+    "jotai-molecules": "^1.1.1",
     "jotai-tanstack-query": "^0.7.1",
     "mongodb": "^5.6.0",
     "mongoose": "^7.3.1",

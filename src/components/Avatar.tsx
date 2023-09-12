@@ -3,7 +3,7 @@ import KapiTransparent from "../../assets/images/kapi_transparent.png";
 import Image from "next/image";
 
 export interface AvatarProps extends React.ComponentPropsWithoutRef<"div"> {
-  c: string;
+  c?: string;
 }
 
 const Avatar = ({ c, className = "" }: AvatarProps) => {

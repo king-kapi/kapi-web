@@ -1,4 +1,4 @@
-# API
+# API  (Last Updated 9/10/2023)
 
 ## Categories
 
@@ -322,6 +322,28 @@ Delete lobby with id `lobbyId`
 type Response = "Successful"
 ```
 
+### `POST`: `/api/lobbies/:lobbyId/kick`
+
+Kicks user with id `kickedId` from lobby with id `lobbyId`
+
+```typescript
+type Request = {
+  kickedId: string; // id
+}[]
+```
+
+```typescript
+type Response = {
+  name: string;
+  game: string;
+  tags: string[];
+  numPlayers: number;
+  description: string;
+  requests: string[]; // ids
+  chat: string; // id
+}
+```
+
 ### `POST`: `/api/lobbies/:lobbyId/request`
 
 Create a lobby request with the sender id set as the user who made this request for a specific lobby with id `lobbyId`
@@ -341,8 +363,26 @@ type Response = { // updated lobby
   tags: string[];
   numPlayers: number;
   description: string;
-  requests: string[]; // ids
-  users: string[]; // ids
+  requests: {
+    _id: string;
+    sender: {
+      _id: string;
+      username?: string;
+      tag?: string;
+      pronouns: Pronouns; // HE_HIM (he-him), SHE_HER (she-her), THEY_THEM (they-them)
+      status?: UserStatus; // ACTIVE (0), IDLE (1), DO_NOT_DISTRUB (2), OFFLINE (3)
+      bio?: string;
+    },
+    message: string
+  }[]; // ids
+  users: {
+    _id: string;
+    username?: string;
+    tag?: string;
+    pronouns: Pronouns; // HE_HIM (he-him), SHE_HER (she-her), THEY_THEM (they-them)
+    status?: UserStatus; // ACTIVE (0), IDLE (1), DO_NOT_DISTRUB (2), OFFLINE (3)
+    bio?: string;
+  }[];
   chat: string; // id
 }
 ```

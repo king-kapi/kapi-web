@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response, Router } from "express";
 import protectApiRoute from "@/src/utils/protectApiRoute";
 import DoesNotExist from "@/src/errors/DoesNotExist";
-import { AlreadyInLobbyError, CannotKickHost, NotHostError, NotInLobbyError } from "@/src/errors/LobbyErrors";
+import { AlreadyInLobbyError, NotHostError } from "@/src/errors/LobbyErrors";
 import Lobby from "@/src/models/Lobby";
 import User from "@/src/models/User";
-import mongoose from "mongoose";
 import LobbyRequest, { ILobbyRequest } from "@/src/models/LobbyRequest";
+import InvalidError from "@/src/errors/InvalidError";
 
 export interface LobbyParams {
   lobbyId: string;
@@ -111,7 +111,39 @@ export default function lobbiesHandler() {
     }
   });
 
+  router.post("/:lobbyId/kick", async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userId = (await protectApiRoute(req, res))?.id;
+      const { lobbyId } = req.params;
 
+      const lobby = await Lobby.findById(lobbyId);
+
+      if (!lobby)
+        throw new DoesNotExist(lobbyId, "lobbies");
+      if (lobby.hostId.toString() !== userId)
+        throw new NotHostError(lobbyId, userId);
+
+      const kickedId = req.body.kickedId as string | undefined;
+
+      if (!kickedId)
+        throw new InvalidError("kickedId", kickedId);
+
+
+      await User.findByIdAndUpdate(kickedId, {
+        $unset: {
+          lobby: true
+        }
+      });
+
+      const updated = await Lobby.findByIdAndUpdate(lobbyId, {
+        $pull: { users: kickedId }
+      });
+
+      res.status(200).send(updated);
+    } catch (err) {
+      next(err);
+    }
+  });
 
   router.post("/:lobbyId/request", async (req: Request, res: Response, next: NextFunction) => {
     try {

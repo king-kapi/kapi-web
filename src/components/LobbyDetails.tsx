@@ -1,49 +1,80 @@
-import styles from '@/src/styles/LobbyMemberList.module.css';
-import { useState } from 'react';
-import Icon from '@/src/components/icons/Icon';
-import { ILobbyPopulated } from '@/src/models/Lobby';
-import Button from '@/src/components/Button';
-import Tag from '@/src/components/Tag';
-import Avatar from '@/src/components/Avatar';
-import { useSession } from 'next-auth/react';
-import KapiListbox from '@/src/components/KapiListbox';
+import styles from "@/src/styles/LobbyMemberList.module.css";
+import { useCallback, useState } from "react";
+import Icon from "@/src/components/icons/Icon";
+import { ILobbyPopulated } from "@/src/models/Lobby";
+import Button from "@/src/components/Button";
+import Tag from "@/src/components/Tag";
+import Avatar from "@/src/components/Avatar";
+import { useSession } from "next-auth/react";
+import KapiListbox from "@/src/components/KapiListbox";
+import LobbyRequestModal from "@/src/components/party-finder/LobbyRequestModal";
+import { useMolecule } from "jotai-molecules";
+import LobbyMolecule from "@/src/state/LobbyMolecule";
+import { useAtom, useSetAtom } from "jotai/index";
 
 export interface LobbyDetailsProps {
   lobby: ILobbyPopulated;
 }
 
 export default function LobbyDetails({ lobby }: LobbyDetailsProps) {
+  const { lobbyStatusAtom, lobbyKickStatusAtom } = useMolecule(LobbyMolecule);
+
   const { data } = useSession();
+  const lobbyDispatch = useSetAtom(lobbyStatusAtom);
+  const [lobbyKickStatus, kickPlayer] = useAtom(lobbyKickStatusAtom);
+
   const userId = data?.id;
-  const tags = ['League of Legends', 'NA Region', 'PST', 'LGBTQ+', 'Casual Gaming'];
+  const tags = ["League of Legends", "NA Region", "PST", "LGBTQ+", "Casual Gaming"];
   const members = [
-    { name: 'Jane Doe', username: 'LoLPlayer123', role: 'ADC', experience: 'Silver' },
-    { name: 'Jane Doe', username: 'LoLPlayer123', role: 'ADC', experience: 'Silver' },
-    { name: 'Jane Doe', username: 'LoLPlayer123', role: 'ADC', experience: 'Silver' },
+    { name: "Jane Doe", username: "LoLPlayer123", role: "ADC", experience: "Silver" },
+    { name: "Jane Doe", username: "LoLPlayer123", role: "ADC", experience: "Silver" },
+    { name: "Jane Doe", username: "LoLPlayer123", role: "ADC", experience: "Silver" }
   ];
 
-  const [view, setView] = useState('grid');
+  const [view, setView] = useState("grid");
+  const [requestOpen, setRequestOpen] = useState(false);
 
   const isHost = lobby.hostId.toString() === userId;
+  const inParty = lobby.users.filter(user => user._id.toString() === userId).length > 0;
 
-  const handleChange = (e: any) => {
-    setView(e.target.value);
-  };
+  const handleKickPlayer = useCallback(async (kickedId: string) => {
+    await kickPlayer([kickedId]);
+
+    lobbyDispatch({ type: "refetch" });
+  }, [kickPlayer, lobbyDispatch]);
 
   return (
-    <div className={[styles.LobbyMemberListContainer, 'text-textColor'].join(' ')}>
+    <div className={[styles.LobbyMemberListContainer, "text-textColor"].join(" ")}>
       <div className={styles.HeaderContainer}>
         <h1 className={styles.Header}>
           {lobby.name}&nbsp;<span>/&nbsp;{lobby.game}</span>
         </h1>
-        <Button
-          className={[styles.LeaveButton, 'bg-mediumGrey hover:bg-blue-120 active:bg-blue-90'].join(
-            ' '
-          )}
-        >
-          <Icon icon={'exit'} />
-          Leave Lobby
-        </Button>
+        {inParty ? (
+          <Button
+            className={`${styles.LeaveButton}`}
+            buttonType={"primary"}
+            buttonSize={"small"}
+          >
+            {isHost && <>
+              <Icon icon={"edit_pencil"} />
+              Edit Party
+            </>}
+
+            {!isHost && <>
+              <Icon icon={"exit"} />
+              Leave Lobby
+            </>}
+          </Button>
+        ) : (
+          <Button
+            className={`${styles.LeaveButton}`}
+            buttonType={"secondary"}
+            buttonSize={"large"}
+            onClick={() => setRequestOpen(true)}
+          >
+            Request to Join
+          </Button>
+        )}
       </div>
       <p className={styles.Description}>{lobby.description}</p>
       <div className={`${styles.Tags} mt-[0.625rem]`}>
@@ -51,64 +82,65 @@ export default function LobbyDetails({ lobby }: LobbyDetailsProps) {
           return <Tag key={tag}>{tag}</Tag>;
         })}
       </div>
-      <div className={'flex justify-between mt-16 mb-6'}>
+      <div className={"flex justify-between mt-16 mb-6"}>
         <h4>Party Members</h4>
         <KapiListbox
-          onChange={e => {
-            setView(e);
+          onChange={view => {
+            if (view)
+              setView(view);
           }}
           placeholder="View"
-          className={'w-[12rem]'}
+          className={"w-[12rem]"}
           options={[
             {
               text: (
-                <div className={'flex items-center gap-2 whitespace-nowrap'}>
-                  <Icon icon={'grid_view'} /> Gallery View
+                <div className={"flex items-center gap-2 whitespace-nowrap"}>
+                  <Icon icon={"grid_view"} /> Gallery View
                 </div>
               ),
-              value: 'grid',
+              value: "grid"
             },
             {
               text: (
-                <div className={'flex items-center gap-2 whitespace-nowrap'}>
-                  <Icon icon={'list_view'} /> List View
+                <div className={"flex items-center gap-2 whitespace-nowrap"}>
+                  <Icon icon={"list_view"} /> List View
                 </div>
               ),
-              value: 'list',
-            },
+              value: "list"
+            }
           ]}
         />
       </div>
-      {view === 'grid' && (
-        <div className={'flex flex-wrap gap-8 justify-between'}>
+      {view === "grid" && (
+        <div className={"flex flex-wrap gap-8 justify-between"}>
           {lobby.users.map(user => {
             return (
               <div
                 key={user._id.toString()}
                 className={
-                  'basis-[17rem] flex flex-col relative px-20 py-10 bg-mediumGrey rounded-lg text-center items-center'
+                  "basis-[17rem] flex flex-col relative px-20 py-10 bg-mediumGrey rounded-lg text-center items-center"
                 }
               >
-                <div className={'absolute top-5 right-5'}>
-                  <Icon icon={'toggle_vertical'} />
+                <div className={"absolute top-5 right-5"} onClick={() => handleKickPlayer(user._id.toString())}>
+                  <Icon icon={"toggle_vertical"} />
                 </div>
 
-                <Avatar c={user.avatarColor} className={'w-[6.75rem]'} />
+                <Avatar c={user.avatarColor} className={"w-[6.75rem]"} />
 
-                <div className={'flex gap-2 items-center mt-6'}>
+                <div className={"flex gap-2 items-center mt-6"}>
                   <h3>{user.username}</h3>
-                  <Icon icon={'crown'} className={'text-yellow-500'} />
+                  <Icon icon={"crown"} className={"text-yellow-500"} />
                 </div>
                 <div className={styles.MemberInfo}>
-                  <p className={[styles.MemberUsername, 'text-description'].join(' ')}>
+                  <p className={[styles.MemberUsername, "text-description"].join(" ")}>
                     @{user.username}
                   </p>
-                  <strong className={[styles.MemberRole, 'text-description-strong'].join(' ')}>
+                  <strong className={[styles.MemberRole, "text-description-strong"].join(" ")}>
                     Role
                   </strong>
                   <br />
                   <strong
-                    className={[styles.MemberExperience, 'text-description-strong'].join(' ')}
+                    className={[styles.MemberExperience, "text-description-strong"].join(" ")}
                   >
                     Experience
                   </strong>
@@ -120,35 +152,35 @@ export default function LobbyDetails({ lobby }: LobbyDetailsProps) {
           {isHost && (
             <div
               className={
-                'basis-[17rem] flex flex-col justify-center items-center border border-dashed border-primary-100 rounded-lg cursor-pointer hover:bg-darkGrey'
+                "basis-[17rem] flex flex-col justify-center items-center border border-dashed border-primary-100 rounded-lg cursor-pointer hover:bg-darkGrey"
               }
             >
-              <Icon icon={'add_friend'} className={'text-black p-2 rounded-full bg-white'} />
-              <strong className={'mt-6'}>Invite friends</strong>
+              <Icon icon={"add_friend"} className={"text-black p-2 rounded-full bg-white"} />
+              <strong className={"mt-6"}>Invite friends</strong>
             </div>
           )}
         </div>
       )}
-      {view === 'list' && (
+      {view === "list" && (
         <div>
           {lobby.users.map(user => {
             return (
               <div
                 key={user._id.toString()}
-                className={'w-[56rem] h-[3.75rem] flex gap-[6rem] items-center mb-8'}
+                className={"w-[56rem] h-[3.75rem] flex gap-[6rem] items-center mb-8"}
               >
-                <div className={'flex gap-[1.88rem]'}>
-                  <Avatar c={user.avatarColor} className={'w-[3.75rem]'} />
-                  <div className={'flex flex-col w-[10.5rem] justify-center'}>
-                    <div className={'flex gap-[.5rem]'}>
-                      <h3 className={'text-base font-semibold'}>{user.username}</h3>
-                      <Icon icon={'crown'} className={'text-yellow-500 w-[.87rem]'} />
+                <div className={"flex gap-[1.88rem]"}>
+                  <Avatar c={user.avatarColor} className={"w-[3.75rem]"} />
+                  <div className={"flex flex-col w-[10.5rem] justify-center"}>
+                    <div className={"flex gap-[.5rem]"}>
+                      <h3 className={"text-base font-semibold"}>{user.username}</h3>
+                      <Icon icon={"crown"} className={"text-yellow-500 w-[.87rem]"} />
                     </div>
                     <p
                       className={[
                         styles.MemberUsername,
-                        'text-description text-base text-greyText font-normal',
-                      ].join(' ')}
+                        "text-description text-base text-greyText font-normal"
+                      ].join(" ")}
                     >
                       @{user.username}
                     </p>
@@ -157,37 +189,41 @@ export default function LobbyDetails({ lobby }: LobbyDetailsProps) {
                 <strong
                   className={[
                     styles.MemberRole,
-                    'text-description-strong w-[10.5rem] font-medium text-base',
-                  ].join(' ')}
+                    "text-description-strong w-[10.5rem] font-medium text-base"
+                  ].join(" ")}
                 >
                   Role
                 </strong>
                 <strong
                   className={[
                     styles.MemberExperience,
-                    'text-description-strong w-[10.5rem] font-medium text-base',
-                  ].join(' ')}
+                    "text-description-strong w-[10.5rem] font-medium text-base"
+                  ].join(" ")}
                 >
                   Experience
                 </strong>
                 <div>
-                  <Icon icon={'toggle_horizontal'} />
+                  <Icon icon={"toggle_horizontal"} />
                 </div>
               </div>
             );
           })}
+
+          {/*Invite Friends Card*/}
           {isHost && (
             <div
               className={
-                'basis-[17rem] flex items-center cursor-pointer hover:bg-darkGrey gap-[1.8rem]'
+                "basis-[17rem] flex items-center cursor-pointer hover:bg-darkGrey gap-[1.8rem]"
               }
             >
-              <Icon icon={'add_friend'} className={'text-black p-4 rounded-full bg-white'} />
+              <Icon icon={"add_friend"} className={"text-black p-4 rounded-full bg-white"} />
               <strong>Invite friends</strong>
             </div>
           )}
         </div>
       )}
+
+      <LobbyRequestModal open={requestOpen} onClose={() => setRequestOpen(false)} />
     </div>
   );
 }
