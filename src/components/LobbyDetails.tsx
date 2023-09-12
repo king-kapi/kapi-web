@@ -26,10 +26,6 @@ export default function LobbyDetails({ lobby }: LobbyDetailsProps) {
 
   const isHost = lobby.hostId.toString() === userId;
 
-  const handleChange = (e: any) => {
-    setView(e.target.value);
-  };
-
   return (
     <div className={[styles.LobbyMemberListContainer, 'text-textColor'].join(' ')}>
       <div className={styles.HeaderContainer}>
@@ -54,8 +50,9 @@ export default function LobbyDetails({ lobby }: LobbyDetailsProps) {
       <div className={'flex justify-between mt-16 mb-6'}>
         <h4>Party Members</h4>
         <KapiListbox
-          onChange={e => {
-            setView(e);
+          onChange={view => {
+            if (view)
+              setView(view);
           }}
           placeholder="View"
           className={'w-[12rem]'}

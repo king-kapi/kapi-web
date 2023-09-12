@@ -1,7 +1,7 @@
 import React from "react";
 
 export interface AvatarStackProps {
-  avatarsColors: string[];
+  avatarsColors: (string | undefined)[];
 }
 
 const AvatarStack = ({ avatarsColors }: AvatarStackProps) => {

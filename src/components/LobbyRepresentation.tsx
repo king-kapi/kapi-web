@@ -2,25 +2,26 @@ import Input from '@/src/components/Input';
 import Icon from '@/src/components/icons/Icon';
 import Tag from './Tag';
 import { useState, useEffect } from 'react';
+import { ITag } from "@/src/models/Tag";
 
 export default function LobbyRepresentation() {
   const [profileTags, setProfileTags] = useState([
-    { name: 'POC Gamers', border: true },
-    { name: 'LGBTQ+', border: false },
-    { name: 'PST', border: false },
-    { name: 'Casual Gaming', border: false },
+    { name: 'POC Gamers', rainbow: true },
+    { name: 'LGBTQ+', rainbow: false },
+    { name: 'PST', rainbow: false },
+    { name: 'Casual Gaming', rainbow: false },
   ]);
   const [suggestedTags, setSuggestedTags] = useState([
-    { name: 'Casual Gaming', border: false },
-    { name: 'NA Region', border: false },
+    { name: 'Casual Gaming', rainbow: false },
+    { name: 'NA Region', rainbow: false },
   ]);
 
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState<ITag[]>([]);
 
   function fetchTags() {
     fetch('/api/tags')
       .then(res => res.json())
-      .then(games => setTags(games));
+      .then(tags => setTags(tags));
   }
 
   useEffect(() => {

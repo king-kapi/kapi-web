@@ -93,14 +93,14 @@ const OnboardingAvatar = () => {
 
     const p = ctx.getImageData(handlePos.x, handlePos.y, 1, 1).data;
     setColor([p[0], p[1], p[2]]);
-  }, [wheelRef.current, handlePos]);
+  }, [handlePos]);
 
   useEffect(() => {
     setUserData({
       ...userData,
       avatarColor: rgb2hex(`rgb(${color[0]}, ${color[1]}, ${color[2]})`).hex
     });
-  }, [color]);
+  }, [color, setUserData, userData]);
 
   return (
     <div>
@@ -109,7 +109,7 @@ const OnboardingAvatar = () => {
       <div className={"flex mt-[7.75rem] mb-[9rem] gap-x-[7.75rem] px-[8rem] text-center"}>
         <div>
           <strong className={"block mb-5"}>Your Avatar</strong>
-          <Avatar c={color} className={"w-[12.875rem] h-[12.875rem]"} />
+          <Avatar c={`rgb(${color[0]}, ${color[1]}, ${color[2]})`} className={"w-[12.875rem] h-[12.875rem]"} />
         </div>
         <div>
           <strong className={"block mb-5"}>Drag on Color of Choice</strong>

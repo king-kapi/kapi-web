@@ -1,6 +1,6 @@
 services:
-  kapi:
-    container_name: kapi
+  kapi-web:
+    container_name: kapi-web
     build: .
     image: kapi
     ports:

@@ -3,10 +3,10 @@ import KapiTransparent from "../../assets/images/kapi_transparent.png";
 import Image from "next/image";
 
 export interface AvatarProps extends React.ComponentPropsWithoutRef<"div"> {
-  c: string;
+  c: string | undefined;
 }
 
-const Avatar = ({ c, className = "" }: AvatarProps) => {
+const Avatar = ({ c = "#fff", className = "" }: AvatarProps) => {
   return (
     <div className={`flex justify-center items-center rounded-full aspect-square ${className}`} style={{
       backgroundColor: c
