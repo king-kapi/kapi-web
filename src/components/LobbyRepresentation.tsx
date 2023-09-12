@@ -1,20 +1,33 @@
 import Input from '@/src/components/Input';
 import Icon from '@/src/components/icons/Icon';
-import Tag from './Tag'
-import { useState } from 'react';
-
+import Tag from './Tag';
+import { useState, useEffect } from 'react';
 
 export default function LobbyRepresentation() {
   const [profileTags, setProfileTags] = useState([
-    { name: 'POC Gamers', border: true},
+    { name: 'POC Gamers', border: true },
     { name: 'LGBTQ+', border: false },
     { name: 'PST', border: false },
-    {name: 'Casual Gaming', border: false}
+    { name: 'Casual Gaming', border: false },
   ]);
   const [suggestedTags, setSuggestedTags] = useState([
     { name: 'Casual Gaming', border: false },
     { name: 'NA Region', border: false },
-  ])
+  ]);
+
+  const [tags, setTags] = useState([]);
+
+  function fetchTags() {
+    fetch('/api/tags')
+      .then(res => res.json())
+      .then(games => setTags(games));
+  }
+
+  useEffect(() => {
+    fetchTags();
+  }, []);
+
+  console.log(tags)
 
   return (
     <div>
@@ -30,16 +43,28 @@ export default function LobbyRepresentation() {
         <button className="underline font-semibold text-[.875rem]">Clear all</button>
       </div>
       <div className="mt-[2.6rem]">
-        <h4 className='mb-[.65rem]'>Based on your profile</h4>
-        <div className='flex gap-[.75rem]'>{profileTags.map((tag, index) => {
-          return <Tag key={index} border={tag.border} size='large' icon>{tag.name}</Tag>;
-        })}</div>
+        <h4 className="mb-[.65rem]">Based on your profile</h4>
+        <div className="flex gap-[.75rem]">
+          {tags.map((tag, index) => {
+            return (
+              <Tag key={index} border={tag.rainbow} size="large" icon>
+                {tag.name}
+              </Tag>
+            );
+          })}
+        </div>
       </div>
       <div className="mt-[1.5rem]">
-        <h4 className='mb-[.65rem]'>Suggested Tags</h4>
-        <div className='flex gap-[.75rem] flex-wrap w-[100%]'>{suggestedTags.map((tag, index) => {
-          return <Tag key={index} border={tag.border} size='large' icon>{tag.name}</Tag>;
-        })}</div>
+        <h4 className="mb-[.65rem]">Suggested Tags</h4>
+        <div className="flex gap-[.75rem] flex-wrap w-[100%]">
+          {suggestedTags.map((tag, index) => {
+            return (
+              <Tag key={index} border={tag.rainbow} size="large" icon>
+                {tag.name}
+              </Tag>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

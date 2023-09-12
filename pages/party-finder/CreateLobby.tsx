@@ -14,6 +14,8 @@ import LobbyCard from '@/src/components/LobbyCard';
 export default function PartyFinderPage() {
   const [survey, setSurvey] = useAtom(partyFinderAtom);
   const [pageNumber, setPageNumber] = useState(1);
+
+
   return (
     <div className={'px-16 py-12'}>
       <Link className={styles.PartyFinder} href="/party-finder">
