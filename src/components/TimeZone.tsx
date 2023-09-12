@@ -38,7 +38,7 @@ export default function TimeZone() {
       <h3 className={styles.SubHeader}>
         We want to ask you a few questions to find people based on your preferences.
       </h3>
-      <h2 className={styles.Question}>What time region do you usually play in? (Optional)</h2>
+      <h2 className={styles.Question}>What time region do you usually play in?</h2>
       <div className={styles.Options}>
         {timeZones.map((label, index) => createCheckbox(label, index))}
       </div>

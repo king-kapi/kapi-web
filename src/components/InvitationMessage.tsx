@@ -18,7 +18,7 @@ export default function InvitationMessage() {
         <h3 className={styles.SubHeader}>
           We want to ask you a few questions to find people based on your preferences.
         </h3>
-        <h2 className={styles.Question}>Edit Invitation Message? (Optional)</h2>
+        <h2 className={styles.Question}>Edit Invitation Message?</h2>
       </div>
       <textarea
         className={[styles.TextBox, 'bg-mediumGrey placeholder-textColor'].join(' ')}
