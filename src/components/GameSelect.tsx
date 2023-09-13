@@ -16,7 +16,7 @@ export default function GameSelect(props: any) {
       }`}</style>
       <h1 className={styles.Header}>Select the games you want to play!</h1>
       <GamesList
-        initialSelected={[]}
+        initialSelected={survey.games}
         onChange={selectedGames => {
           setSurvey({
             ...survey,

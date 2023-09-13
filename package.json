@@ -12,7 +12,9 @@
     "format": "npx prettier --write .",
     "dump": "mongodump -d designthriving -o mock_data_dump",
     "restore": "mongorestore mock_data_dump",
-    "generate-icons": "ts-node ./scripts/generate-icons.ts src/components/icons/Icons.tsx"
+    "generate-icons": "ts-node ./scripts/generate-icons.ts src/components/icons/Icons.tsx",
+    "docker:build": "docker build -t kingkapi/kapi-web .",
+    "docker:push": "docker push kingkapi/kapi-web"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^1.0.0",

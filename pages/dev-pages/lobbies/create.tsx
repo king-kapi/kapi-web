@@ -58,7 +58,7 @@ const CreateLobbyDev = () => {
     console.log(await res.json());
   }
 
-  const gameOptions: KapiOption[] = games.map(({ _id, name }) => ({
+  const gameOptions: KapiOption<string>[] = games.map(({ _id, name }) => ({
     text: name,
     value: _id.toString()
   }));

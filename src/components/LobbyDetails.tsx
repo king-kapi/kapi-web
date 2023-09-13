@@ -10,7 +10,7 @@ import KapiListbox from "@/src/components/KapiListbox";
 import LobbyRequestModal from "@/src/components/party-finder/LobbyRequestModal";
 import { useMolecule } from "jotai-molecules";
 import LobbyMolecule from "@/src/state/LobbyMolecule";
-import { useAtom, useSetAtom } from "jotai/index";
+import { useAtom, useSetAtom } from "jotai";
 
 export interface LobbyDetailsProps {
   lobby: ILobbyPopulated;
