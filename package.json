@@ -3,9 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "server-dev": "NODE_ENV=development nodemon -r tsconfig-paths/register src/server.ts",
-    "next-dev": "next dev",
-    "dev": "NODE_ENV=development ts-node -r tsconfig-paths/register src/server.ts",
+    "dev": "next dev",
     "build": "next build",
     "start": "NODE_ENV=production ts-node -r tsconfig-paths/register src/server.ts",
     "lint": "next lint",
