@@ -1,9 +1,13 @@
 import {PropsWithChildren, useCallback, useEffect, useState} from "react";
 import {useRouter} from "next/router";
+import {useSetAtom} from "jotai";
+import meAtom from "@/src/atoms/meAtom";
+import User from "../types/User";
 
 
 const AuthGate = ({children}: PropsWithChildren) => {
   const [authenticated, setAuthenticated] = useState(false);
+  const setMe = useSetAtom(meAtom);
   const router = useRouter();
 
   const notLoggedIn = useCallback(() => {
@@ -20,12 +24,12 @@ const AuthGate = ({children}: PropsWithChildren) => {
         return;
       }
 
-      const body = res.json();
-      console.log(body);
+      const me = await res.json() as User;
+      setMe(me);
 
       setAuthenticated(true);
     })();
-  }, [notLoggedIn]);
+  }, [notLoggedIn, setMe]);
 
   if (!authenticated)
     return <></>;

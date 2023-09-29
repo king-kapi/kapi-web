@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "NODE_ENV=production ts-node -r tsconfig-paths/register src/server.ts",
     "lint": "next lint",
     "format": "npx prettier --write .",
     "dump": "mongodump -d designthriving -o mock_data_dump",

@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import React from "react";
 import Button from "@/src/components/Button";
+import LoginStatus from "@/src/components/LoginStatus";
 
 export default function Home() {
   return (
@@ -14,7 +15,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico"/>
       </Head>
       <main className={"p-8"}>
-        <h2 className={"mt-4"}>Hello! You are currently looking at a protected route</h2>
+        <LoginStatus/>
+
+        <h2 className={"mt-4"}>Welcome to Kapi!</h2>
 
         <Link href={"/dev-pages"}>
           <Button>See Dev Pages</Button>
