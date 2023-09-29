@@ -1,4 +1,3 @@
-import {signIn} from "next-auth/react";
 import styles from "@/src/styles/SignInPage.module.css";
 import EmptyLayout from "@/src/components/layouts/EmptyLayout";
 import Button from "@/src/components/Button";
@@ -6,32 +5,35 @@ import Icon from "@/src/components/icons/Icon";
 import Image from "next/image";
 import rainbowKapi from "@/assets/images/rainbow_kapi.png";
 import Input from "@/src/components/Input";
-import {useSearchParams} from "next/navigation";
-import {useEffect} from "react";
+import {useRouter} from "next/router";
 
 const GOOGLE_ID = process.env.NEXT_PUBLIC_GOOGLE_ID;
 const DISCORD_ID = process.env.NEXT_PUBLIC_DISCORD_ID;
 const HOST = process.env.NEXT_PUBLIC_HOST;
 
 export default function SignInPage() {
-  const searchParams = useSearchParams();
+  const router = useRouter();
 
-  function emailSignin(e: React.FormEvent<HTMLFormElement>) {
+  async function emailSignin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string | null;
 
-    if ((formData.get("email") || "").length === 0)
+    if (!email || email?.length === 0)
       return alert('Please enter an email!');
-    signIn("credentials", {
-      callbackUrl: "/",
-      email: formData.get("email")
-    })
-  }
 
-  useEffect(() => {
-    console.log(searchParams.get("code"));
-  }, [searchParams]);
+    const res = await fetch('/api/auth/email/login', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({email})
+    });
+
+    if (res.ok)
+      await router.push("/")
+  }
 
   const handleGoogleRedirect = () => {
     location.href = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=${GOOGLE_ID}&scope=email&redirect_uri=${HOST}/login/google&prompt=consent`;
