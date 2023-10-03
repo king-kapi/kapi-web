@@ -61,6 +61,21 @@ const DevPages = () => {
       </Button>
     </Link>
 
+    <h3 className="mt-8">Data Management</h3>
+
+    <Link href={"/dev-pages/tags"}>
+      <Button className={"mt-2"}>
+        Tags
+      </Button>
+    </Link>
+    <br/>
+
+    <Link href={"/dev-pages/games"}>
+      <Button className={"mt-2"}>
+        Games
+      </Button>
+    </Link>
+
     <h3 className={"mt-8"}>Miscellaneous</h3>
 
     <Link href={"/dev-pages/components"}>
