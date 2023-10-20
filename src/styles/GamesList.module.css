@@ -30,7 +30,10 @@
 .GameImg {
   height: 5.375rem;
   width: 34.75%;
-  border-radius: 10px 0px 0px 10px;
+  border-radius: 10px 0 0 10px;
+
+  background-size: cover;
+  background-position: center;
 
   @apply bg-grey;
 }

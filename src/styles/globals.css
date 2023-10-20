@@ -57,10 +57,6 @@
     --yellow-200: #8D6D1D;
     --yellow-100: #755612;
 
-    --pressedGrey: #4A4A4A;
-}
-
-.theme-dark {
     --black: #161616;
     --darkGrey: #181818;
     --grey: #373737;
@@ -71,6 +67,9 @@
     --white: #FFFFFF;
     --darkBlue: #13151B;
     --medium-blue: #272A30;
+
+    --status-green: rgba(149, 226, 101, 1);
+    --status-red: rgba(248, 86, 86, 1);
 
     color: var(--white);
 }
@@ -157,10 +156,26 @@ html, body {
     }
 }
 
+@layer components {
+    .form-label {
+        display: block;
+        @apply description-strong mb-2;
+    }
+}
+
 @layer utilities {
     .flex-center {
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    .header-4 {
+        @apply font-normal;
+        font-size: 1.25rem;
+    }
+
+    .description-strong {
+        @apply font-semibold;
     }
 }
