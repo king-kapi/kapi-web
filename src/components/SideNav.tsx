@@ -1,14 +1,16 @@
-import { Icon } from "@iconify/react";
-import styles from "@/src/styles/Sidenav.module.css";
-import React, { useState } from "react";
-import { useQuery } from "react-query";
-import { useRouter } from "next/router";
+import { Icon } from '@iconify/react';
+import styles from '@/src/styles/Sidenav.module.css';
+import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useAtomValue } from 'jotai';
+import meAtom from '@/src/atoms/meAtom';
+import Avatar from './Avatar';
+import Image from 'next/image';
+import rainbowKapi from '@/assets/images/rainbow_kapi.png';
 
 function SideNav() {
-  const [onlineStatus, setOnlineStatus] = useState("1");
-  const { data, isLoading, isError, error } = useQuery("userInfo", () =>
-    fetch(`/api/users/current`).then(res => res.json())
-  );
+  const [onlineStatus, setOnlineStatus] = useState('1');
+  const me = useAtomValue(meAtom);
 
   const handleChange = (e: any) => {
     setOnlineStatus(e.target.value);
@@ -16,15 +18,15 @@ function SideNav() {
 
   const {
     asPath, // the value: "/question/how-do-you-get-the-current-url-in-nextjs/"
-    pathname // the value: "/question/[slug]"
+    pathname, // the value: "/question/[slug]"
   } = useRouter();
 
-  const [mode, setMode] = useState("dark");
+  const [mode, setMode] = useState('dark');
 
   function getCurrentStatus() {
-    if (onlineStatus === "1") {
+    if (onlineStatus === '1') {
       return styles.statusOnline;
-    } else if (onlineStatus === "2") {
+    } else if (onlineStatus === '2') {
       return styles.statusIdle;
     } else {
       return styles.statusOffline;
@@ -51,124 +53,10 @@ function SideNav() {
     // );
   }
 
-  function fetchUser() {
-    const user = data;
-    return <span className={styles.userName}>{`${user.username}#${user.tag}`}</span>;
-  }
-
-  if (isLoading) {
-    return (
-      <div className={styles.sidenav}>
-        <style>{`/* width */
-      ::-webkit-scrollbar {
-        width: 10px;
-      }
-      /* Track */
-      ::-webkit-scrollbar-track {
-        background: transparent;
-      }
-      /* Handle */
-      ::-webkit-scrollbar-thumb {
-        background: #1a1b1e;;
-        border-radius: 10px
-      }
-      /* Handle on hover */
-      ::-webkit-scrollbar-thumb:hover {
-        background: #333333;
-      }`}</style>
-        <section className={[styles.whiteSection, "bg-darkGrey"].join(" ")}>
-          <span className={styles.header}>
-            <div className={styles.avatarDiv}>
-              <div>
-                <div className={styles.avatar}></div>
-              </div>
-            </div>
-            <div>
-              <Icon icon="mdi:bell" className={styles.bell} />
-            </div>
-          </span>
-          <div className={styles.menu}>
-            <a className={styles.homeTab}>
-              <div className={pathname.includes("Home") ? styles.selected : styles.notSelected}>
-                <Icon
-                  icon="mdi:house"
-                  color={pathname.includes("Home") ? "#FFFFFF" : "#939393"}
-                  className={styles.homeIcon}
-                />
-              </div>
-              <span className={styles.homeTabWord}>Home</span>
-            </a>
-            <a href="/party-finder" className={styles.partyFinderTab}>
-              <div
-                className={pathname.includes("partyfinder") ? styles.selected : styles.notSelected}
-              >
-                <Icon
-                  icon="mdi:sword-cross"
-                  color={pathname.includes("partyfinder") ? "#FFFFFF" : "#939393"}
-                  className={styles.partFinderIcon}
-                />
-              </div>
-              <span className={styles.partyFinderTabWord}>Party Finder</span>
-            </a>
-            <a className={styles.communityTab}>
-              <div
-                className={pathname.includes("community") ? styles.selected : styles.notSelected}
-              >
-                <Icon
-                  icon="fa-solid:user-friends"
-                  color={pathname.includes("community") ? "#FFFFFF" : "#939393"}
-                  className={styles.communityIcon}
-                />
-              </div>
-              <span className={styles.communityTabWord}>Community</span>
-            </a>
-            <a className={styles.forYouTab}>
-              <div className={pathname.includes("foryou") ? styles.selected : styles.notSelected}>
-                <Icon
-                  icon="ph:sparkle-fill"
-                  color={pathname.includes("foryou") ? "#FFFFFF" : "#939393"}
-                  className={styles.forYouIcon}
-                />
-              </div>
-              <span className={styles.forYouTabWord}>For You</span>
-            </a>
-          </div>
-        </section>
-        <section className={[styles.graySection, "bg-mediumGrey"].join(" ")}>
-          <h1>
-            Friends - <span>9/26</span>
-          </h1>
-        </section>
-        <section className={[styles.blackSection, "bg-darkGrey"].join(" ")}>
-          <div className={styles.statusContainer}>
-            <div className={styles.userAvatar}>
-              <div className={getCurrentStatus()}></div>
-            </div>
-            <div className={styles.userNameContainer}>
-              <span className={styles.userName}>Username</span>
-              <select
-                name="status"
-                className={styles.status}
-                id="status"
-                onChange={e => handleChange(e)}
-              >
-                <option value="1">Online</option>
-                <option value="2">Idle</option>
-                <option value="3">Offline</option>
-              </select>
-            </div>
-          </div>
-        </section>
-      </div>
-    );
-  }
-
-  if (isError) {
-    return <span>Error fetching data</span>;
-  }
+  if (!me) return;
 
   return (
-    <div className={[styles.sidenav, `theme-${mode}`].join(" ")}>
+    <div className={[styles.sidenav, `theme-${mode}`].join(' ')}>
       <style>{`/* width */
         ::-webkit-scrollbar {
           width: 10px;
@@ -186,11 +74,11 @@ function SideNav() {
         ::-webkit-scrollbar-thumb:hover {
           background: #333333;
         }`}</style>
-      <section className={[styles.whiteSection, "bg-darkGrey"].join(" ")}>
+      <section className={[styles.whiteSection, 'bg-darkGrey'].join(' ')}>
         <span className={styles.header}>
           <div className={styles.avatarDiv}>
             <div>
-              <div className={styles.avatar}></div>
+              <Image src={rainbowKapi} alt={'Kapi'} className={'w-[4rem]'} />
             </div>
           </div>
           <div>
@@ -201,9 +89,9 @@ function SideNav() {
           <a className={styles.homeTab} href="/">
             <div
               className={[
-                pathname === "/" ? styles.selected : styles.notSelected,
-                "bg-pink-500"
-              ].join(" ")}
+                pathname === '/' ? styles.selected : styles.notSelected,
+                'bg-pink-500',
+              ].join(' ')}
             >
               <Icon icon="mdi:house" color="#FFFFFF" className={styles.homeIcon} />
             </div>
@@ -212,9 +100,9 @@ function SideNav() {
           <a href="/party-finder" className={styles.partyFinderTab}>
             <div
               className={[
-                pathname.includes("party-finder") ? styles.selected : styles.notSelected,
-                "bg-blue-100"
-              ].join(" ")}
+                pathname.includes('party-finder') ? styles.selected : styles.notSelected,
+                'bg-blue-100',
+              ].join(' ')}
             >
               <Icon icon="mdi:sword-cross" color="#FFFFFF" className={styles.partFinderIcon} />
             </div>
@@ -223,9 +111,9 @@ function SideNav() {
           <a className={styles.communityTab} href="/community">
             <div
               className={[
-                pathname.includes("community") ? styles.selected : styles.notSelected,
-                "bg-cyan-500"
-              ].join(" ")}
+                pathname.includes('community') ? styles.selected : styles.notSelected,
+                'bg-cyan-500',
+              ].join(' ')}
             >
               <Icon icon="fa-solid:user-friends" color="#FFFFFF" className={styles.communityIcon} />
             </div>
@@ -234,9 +122,9 @@ function SideNav() {
           <a className={styles.forYouTab} href="/foryou">
             <div
               className={[
-                pathname.includes("foryou") ? styles.selected : styles.notSelected,
-                "bg-yellow-500"
-              ].join(" ")}
+                pathname.includes('foryou') ? styles.selected : styles.notSelected,
+                'bg-yellow-500',
+              ].join(' ')}
             >
               <Icon icon="ph:sparkle-fill" color="#FFFFFF" className={styles.forYouIcon} />
             </div>
@@ -244,19 +132,20 @@ function SideNav() {
           </a>
         </div>
       </section>
-      <section className={[styles.graySection, "bg-mediumGrey"].join(" ")}>
+      <section className={[styles.graySection, 'bg-mediumGrey'].join(' ')}>
         {/*{fetchFriends()}*/}
       </section>
-      <section className={[styles.blackSection, "bg-darkGrey"].join(" ")}>
+      <section className={[styles.blackSection, 'bg-darkGrey'].join(' ')}>
         <div className={styles.statusContainer}>
           <div className={styles.userAvatar}>
+            <Avatar c={me.avatarColor} />
             <div className={getCurrentStatus()}></div>
           </div>
           <div className={styles.userNameContainer}>
-            {fetchUser()}
+            {me.username}#{me.tag}
             <select
               name="status"
-              className={[styles.status, "bg-darkGrey"].join(" ")}
+              className={[styles.status, 'bg-darkGrey'].join(' ')}
               id="status"
               onChange={e => handleChange(e)}
             >

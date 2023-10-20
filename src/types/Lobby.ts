@@ -8,7 +8,7 @@ type Lobby = {
   game: Game,
   chatId: ObjectId,
   host: User,
-  users: User[],
+  users: string,
   resolvedRequests: LobbyRequest[],
   requests: LobbyRequest[],
   maxSize: number
