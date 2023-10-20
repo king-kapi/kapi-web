@@ -98,7 +98,7 @@ const OptionsWrapper = <T,>({
         <Listbox.Option
           key={option.value as string}
           value={option.value}
-          className={"flex items-center py-3 hover:bg-grey rounded-lg transition-colors duration-100 cursor-pointer"}
+          className={"flex items-center py-3 hover:bg-grey rounded-lg transition-colors duration-100 cursor-pointer ui-selected:bg-blue-500"}
         >
           <Icon icon={"dot"} className={"ml-[0.62rem] invisible ui-selected:visible"} />
           <div className={"pl-1 pr-4"}>{option.text}</div>

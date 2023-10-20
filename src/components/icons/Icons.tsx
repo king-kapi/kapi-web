@@ -48,7 +48,7 @@ export const IconSVGs = {
 </svg>
 ),
   deny_default: () => (<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M1 1L17 17M17 1L1 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M1 1L17 17M17 1L1 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 ),
   deny_small: () => (<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -91,7 +91,7 @@ export const IconSVGs = {
     width="7"
     height="6"
     rx="1"
-    stroke="white"
+    stroke="currentColor"
     stroke-width="3"
     mask="url(#path-1-inside-1_2028_11291)"
   />
@@ -104,7 +104,7 @@ export const IconSVGs = {
     width="7"
     height="6"
     rx="1"
-    stroke="white"
+    stroke="currentColor"
     stroke-width="3"
     mask="url(#path-2-inside-2_2028_11291)"
   />
@@ -117,7 +117,7 @@ export const IconSVGs = {
     width="7"
     height="6"
     rx="1"
-    stroke="white"
+    stroke="currentColor"
     stroke-width="3"
     mask="url(#path-3-inside-3_2028_11291)"
   />
@@ -130,7 +130,7 @@ export const IconSVGs = {
     width="7"
     height="6"
     rx="1"
-    stroke="white"
+    stroke="currentColor"
     stroke-width="3"
     mask="url(#path-4-inside-4_2028_11291)"
   />
@@ -140,15 +140,30 @@ export const IconSVGs = {
     <mask id="path-1-inside-1_1898_9162" fill="currentColor">
         <rect x="3" y="5" width="7" height="6" rx="1"/>
     </mask>
-    <rect x="3" y="5" width="7" height="6" rx="1" stroke="white" stroke-width="3"
+    <rect x="3" y="5" width="7" height="6" rx="1" stroke="currentColor" stroke-width="3"
           mask="url(#path-1-inside-1_1898_9162)"/>
     <mask id="path-2-inside-2_1898_9162" fill="currentColor">
         <rect x="3" y="14" width="7" height="6" rx="1"/>
     </mask>
-    <rect x="3" y="14" width="7" height="6" rx="1" stroke="white" stroke-width="3"
+    <rect x="3" y="14" width="7" height="6" rx="1" stroke="currentColor" stroke-width="3"
           mask="url(#path-2-inside-2_1898_9162)"/>
-    <line x1="12.75" y1="7.25" x2="21.25" y2="7.25" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="12.75" y1="16.25" x2="21.25" y2="16.25" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="12.75" y1="7.25" x2="21.25" y2="7.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="12.75" y1="16.25" x2="21.25" y2="16.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
+),
+  loading: () => (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_3692_15369)">
+        <path d="M2 12C2 17.5229 6.47715 22 12 22C17.5229 22 22 17.5229 22 12C22 6.47715 17.5229 2 12 2" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <defs>
+        <clipPath id="clip0_3692_15369">
+            <rect width="24" height="24" fill="currentColor"/>
+        </clipPath>
+    </defs>
+</svg>
+),
+  lock: () => (<svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5.875 5.625V7.5H12.125V5.625C12.125 3.89844 10.7266 2.5 9 2.5C7.27344 2.5 5.875 3.89844 5.875 5.625ZM3.375 7.5V5.625C3.375 2.51953 5.89453 0 9 0C12.1055 0 14.625 2.51953 14.625 5.625V7.5H15.25C16.6289 7.5 17.75 8.62109 17.75 10V17.5C17.75 18.8789 16.6289 20 15.25 20H2.75C1.37109 20 0.25 18.8789 0.25 17.5V10C0.25 8.62109 1.37109 7.5 2.75 7.5H3.375Z" fill="currentColor"/>
 </svg>
 ),
   party_finder: () => (<svg width="55" height="55" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -2468,6 +2468,11 @@ jose@^4.11.1, jose@^4.11.4, jose@^4.14.1:
   resolved "https://registry.npmjs.org/jose/-/jose-4.14.4.tgz"
   integrity sha512-j8GhLiKmUAh+dsFXlX1aJCbt5KMibuKb+d7j1JaOJG6s2UjX1PQlW+OKB/sD4a/5ZYF4RcmYmLSndOoU3Lt/3g==
 
+jotai-molecules@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/jotai-molecules/-/jotai-molecules-1.1.1.tgz#9c64402d6348e76ac388cd583e4a6f44227e186f"
+  integrity sha512-Z57pYXbZumT/Ix/nAFZdSF6ur4V2bTRO6Trh/iNwUwzUnw446UsxdObJ9+eWrhd/WUjAqq9TyIei/txKRNtSvw==
+
 jotai-tanstack-query@^0.7.1:
   version "0.7.1"
   resolved "https://registry.npmjs.org/jotai-tanstack-query/-/jotai-tanstack-query-0.7.1.tgz"
