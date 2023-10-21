@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Input from '@/src/components/Input';
 import Button from '@/src/components/Button';
 import { Socket } from 'socket.io-client';
@@ -44,6 +44,19 @@ const Chat = ({ chatId, inParty = true, className, ...props }: ChatProps) => {
   //     socket.disconnect();
   //   };
   // }, [chatId, inParty]);
+
+  useEffect(() => {
+    console.log('hi');
+    const ws = new WebSocket(`ws://${location.host}/api/chat`);
+
+    ws.onopen = () => {
+      console.log('socket opened');
+    };
+
+    ws.onmessage = message => {
+      console.log('Received', message);
+    };
+  }, []);
 
   const handleSendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
