@@ -73,7 +73,7 @@ const LobbyMolecule = molecule((getMolecule, getScope) => {
   const [lobbyRequestDenyAtom, lobbyRequestDenyStatusAtom] = atomsWithMutation(get => ({
     mutationKey: ['/lobbies/request/accept', get(lobbyIdAtom)],
     mutationFn: async (requestId: string) => {
-      const res = await fetch(`/api/lobbies/${get(lobbyIdAtom)}/request/${requestId}/deny`, {
+      const res = await fetch(`/api/lobbies/${get(lobbyIdAtom)}/${requestId}/deny`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

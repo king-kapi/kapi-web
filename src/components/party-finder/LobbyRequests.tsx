@@ -9,12 +9,13 @@ import { useAtom } from 'jotai/index';
 import IconSpinner from '@/src/components/atoms/IconSpinner';
 import { useAtomValue } from 'jotai';
 import meAtom from '@/src/atoms/meAtom';
+import WithUser from '@/src/components/misc/WithUser';
 
 const LobbyRequests = ({ lobby }: { lobby: ILobbyPopulated }) => {
   const meId = useAtomValue(meAtom)?._id;
 
   // const isHost = lobby.hostId.toString() === userId;
-  const inParty = lobby.users.filter(user => user._id.toString() === meId).length > 0;
+  const inParty = lobby.users.filter(userId => userId.toString() === meId).length > 0;
 
   if (inParty) return <LobbyHostView />;
   return <LobbyNotJoinedView />;
@@ -52,43 +53,52 @@ const LobbyHostView = () => {
   return (
     <div className={'flex flex-col justify-end h-full p-8 gap-8'}>
       {...requests.map(request => (
-        <div key={request._id} className={'flex flex-col bg-mediumGrey rounded-lg overflow-hidden'}>
-          <div className={'flex px-5 py-6 gap-5'}>
-            <div>
-              <Avatar c={request.sender.avatarColor} className={'w-[3.75rem] h-[3.75rem]'} />
-            </div>
-            <div className={'flex-auto flex flex-col'}>
-              <div className={'flex'}>
-                <div className={'flex-auto'}>
-                  <div className={'description-strong'}>{request.sender.username}</div>
+        <WithUser userId={request.sender} key={request._id}>
+          {user => {
+            return (
+              <div
+                key={request._id}
+                className={'flex flex-col bg-mediumGrey rounded-lg overflow-hidden'}
+              >
+                <div className={'flex px-5 py-6 gap-5'}>
+                  <div>
+                    <Avatar c={user.avatarColor} className={'w-[3.75rem] h-[3.75rem]'} />
+                  </div>
+                  <div className={'flex-auto flex flex-col'}>
+                    <div className={'flex'}>
+                      <div className={'flex-auto'}>
+                        <div className={'description-strong'}>{user.username}</div>
 
-                  <div className={'header-4'}>Role | Experience</div>
+                        <div className={'header-4'}>Role | Experience</div>
+                      </div>
+                      <div className={'flex'}>
+                        <IconButton icon={'toggle_horizontal'} />
+                        <IconButton icon={'carat_down_large'} />
+                      </div>
+                    </div>
+
+                    <div>{request.message}</div>
+                  </div>
                 </div>
-                <div className={'flex'}>
-                  <IconButton icon={'toggle_horizontal'} />
-                  <IconButton icon={'carat_down_large'} />
+                <div className={'flex text-black text-center'}>
+                  <button
+                    className={'flex-1 flex items-center justify-center gap-2 bg-status-green py-3'}
+                    onClick={() => handleAccept(request._id)}
+                  >
+                    {lobbyAcceptStatus.isLoading ? <IconSpinner /> : <Icon icon={'add'} />} Accept
+                  </button>
+                  <button
+                    className={'flex-1 flex items-center justify-center gap-2 bg-status-red py-3'}
+                    onClick={() => handleDeny(request._id.toString())}
+                  >
+                    {lobbyDenyStatus.isLoading ? <IconSpinner /> : <Icon icon={'deny_default'} />}
+                    Deny
+                  </button>
                 </div>
               </div>
-
-              <div>{request.message}</div>
-            </div>
-          </div>
-          <div className={'flex text-black text-center'}>
-            <button
-              className={'flex-1 flex items-center justify-center gap-2 bg-status-green py-3'}
-              onClick={() => handleAccept(request._id)}
-            >
-              {lobbyAcceptStatus.isLoading ? <IconSpinner /> : <Icon icon={'add'} />} Accept
-            </button>
-            <button
-              className={'flex-1 flex items-center justify-center gap-2 bg-status-red py-3'}
-              onClick={() => handleDeny(request._id.toString())}
-            >
-              {lobbyDenyStatus.isLoading ? <IconSpinner /> : <Icon icon={'deny_default'} />}
-              Deny
-            </button>
-          </div>
-        </div>
+            );
+          }}
+        </WithUser>
       ))}
     </div>
   );

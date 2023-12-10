@@ -8,20 +8,26 @@ import Chat from '@/src/components/chat/Chat';
 import Icon from '@/src/components/icons/Icon';
 import { ScopeProvider, useMolecule } from 'jotai-molecules';
 import LobbyMolecule, { LobbyScope } from '@/src/state/LobbyMolecule';
-import { useAtomValue } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import LobbyRequests from '@/src/components/party-finder/LobbyRequests';
 import meAtom from '@/src/atoms/meAtom';
+import useUpdate from '@/src/hooks/useUpdate';
 
 export default function LobbyPage() {
   const userId = useAtomValue(meAtom)?._id;
   const router = useRouter();
+  const lobbyId = router.query.lobbyId as string;
 
   const { lobbyStatusAtom } = useMolecule(LobbyMolecule, {
     withScope: [LobbyScope, router.query.lobbyId],
   });
-  const { isLoading, data, error } = useAtomValue(lobbyStatusAtom);
+  const [{ isLoading, data, error }, lobbyDispatch] = useAtom(lobbyStatusAtom);
 
-  const inParty = data ? data.users.filter(userId => userId === userId).length > 0 : false;
+  const inParty = data ? data.users.filter(uId => uId === userId).length > 0 : false;
+
+  useUpdate(lobbyId, () => {
+    lobbyDispatch({ type: 'refetch' });
+  });
 
   return (
     <ScopeProvider scope={LobbyScope} value={router.query.lobbyId}>
