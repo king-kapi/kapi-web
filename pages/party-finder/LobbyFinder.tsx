@@ -1,7 +1,7 @@
 import Icon from '@/src/components/icons/Icon';
 import Input from '@/src/components/Input';
 import Tag from '@/src/components/Tag';
-import KapiListbox from '@/src/components/KapiListbox';
+import KapiListbox from '@/src/components/forms/KapiListbox';
 import {Suspense, useEffect, useState} from 'react';
 import LobbyCards from '@/src/components/party-finder/LobbyCards';
 import styles from '@/src/styles/BuddyFinder.module.css';

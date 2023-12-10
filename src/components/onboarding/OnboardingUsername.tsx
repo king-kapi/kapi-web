@@ -2,7 +2,7 @@ import styles from "@/src/styles/onboarding/OnboardingUsername.module.css";
 import Image from "next/image";
 import sparkleKapi from "@/assets/images/sparkle_kapi.svg";
 import Input from "@/src/components/Input";
-import KapiListbox from "@/src/components/KapiListbox";
+import KapiListbox from "@/src/components/forms/KapiListbox";
 import Pronouns from "@/src/enums/Pronouns";
 import { useAtom } from "jotai";
 import onboardingUserDataAtom from "@/src/atoms/onboardingUserDataAtom";

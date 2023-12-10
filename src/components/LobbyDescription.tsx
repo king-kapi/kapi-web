@@ -1,5 +1,5 @@
 import Input from '@/src/components/Input';
-import KapiListbox from './KapiListbox';
+import KapiListbox from './forms/KapiListbox';
 import { partyFinderAtom } from '../atoms/partyFinderAtom';
 import { useAtom, useAtomValue } from 'jotai';
 import meAtom from '@/src/atoms/meAtom';

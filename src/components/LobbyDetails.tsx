@@ -4,7 +4,7 @@ import Icon from '@/src/components/icons/Icon';
 import Button from '@/src/components/Button';
 import Tag from '@/src/components/Tag';
 import Avatar from '@/src/components/Avatar';
-import KapiListbox from '@/src/components/KapiListbox';
+import KapiListbox from '@/src/components/forms/KapiListbox';
 import LobbyRequestModal from '@/src/components/party-finder/LobbyRequestModal';
 import { useMolecule } from 'jotai-molecules';
 import LobbyMolecule from '@/src/state/LobbyMolecule';
@@ -12,6 +12,7 @@ import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import meAtom from '@/src/atoms/meAtom';
 import FullLobby from '@/src/types/FullLobby';
 import WithUser from '@/src/components/misc/WithUser';
+import LobbyUserOptions from '@/src/components/party-finder/LobbyUserOptions';
 
 export interface LobbyDetailsProps {
   lobby: FullLobby;
@@ -120,11 +121,8 @@ export default function LobbyDetails({ lobby }: LobbyDetailsProps) {
                     'basis-[17rem] flex flex-col relative px-20 py-10 bg-mediumGrey rounded-lg text-center items-center'
                   }
                 >
-                  <div
-                    className={'absolute top-5 right-5'}
-                    onClick={() => handleKickPlayer(user._id.toString())}
-                  >
-                    <Icon icon={'toggle_vertical'} />
+                  <div className={'absolute top-5 right-5'}>
+                    <LobbyUserOptions onKick={() => handleKickPlayer(user._id)} />
                   </div>
 
                   <Avatar c={user.avatarColor} className={'w-[6.75rem]'} />
@@ -167,51 +165,53 @@ export default function LobbyDetails({ lobby }: LobbyDetailsProps) {
 
       {view === 'list' && (
         <div>
-          {lobby.users.map(user => {
-            return (
-              <div
-                key={user._id.toString()}
-                className={'w-[56rem] h-[3.75rem] flex gap-[6rem] items-center mb-8'}
-              >
-                <div className={'flex gap-[1.88rem]'}>
-                  <Avatar c={user.avatarColor} className={'w-[3.75rem]'} />
-                  <div className={'flex flex-col w-[10.5rem] justify-center'}>
-                    <div className={'flex gap-[.5rem]'}>
-                      <h3 className={'text-base font-semibold'}>{user.username}</h3>
-                      <Icon icon={'crown'} className={'text-yellow-500 w-[.87rem]'} />
+          {lobby.users.map(userId => (
+            <WithUser userId={userId} key={userId}>
+              {user => (
+                <div
+                  key={user._id.toString()}
+                  className={'w-[56rem] h-[3.75rem] flex gap-[6rem] items-center mb-8'}
+                >
+                  <div className={'flex gap-[1.88rem]'}>
+                    <Avatar c={user.avatarColor} className={'w-[3.75rem]'} />
+                    <div className={'flex flex-col w-[10.5rem] justify-center'}>
+                      <div className={'flex gap-[.5rem]'}>
+                        <h3 className={'text-base font-semibold'}>{user.username}</h3>
+                        <Icon icon={'crown'} className={'text-yellow-500 w-[.87rem]'} />
+                      </div>
+                      <p
+                        className={[
+                          styles.MemberUsername,
+                          'text-description text-base text-greyText font-normal',
+                        ].join(' ')}
+                      >
+                        @{user.username}
+                      </p>
                     </div>
-                    <p
-                      className={[
-                        styles.MemberUsername,
-                        'text-description text-base text-greyText font-normal',
-                      ].join(' ')}
-                    >
-                      @{user.username}
-                    </p>
+                  </div>
+                  <strong
+                    className={[
+                      styles.MemberRole,
+                      'text-description-strong w-[10.5rem] font-medium text-base',
+                    ].join(' ')}
+                  >
+                    Role
+                  </strong>
+                  <strong
+                    className={[
+                      styles.MemberExperience,
+                      'text-description-strong w-[10.5rem] font-medium text-base',
+                    ].join(' ')}
+                  >
+                    Experience
+                  </strong>
+                  <div>
+                    <Icon icon={'toggle_horizontal'} />
                   </div>
                 </div>
-                <strong
-                  className={[
-                    styles.MemberRole,
-                    'text-description-strong w-[10.5rem] font-medium text-base',
-                  ].join(' ')}
-                >
-                  Role
-                </strong>
-                <strong
-                  className={[
-                    styles.MemberExperience,
-                    'text-description-strong w-[10.5rem] font-medium text-base',
-                  ].join(' ')}
-                >
-                  Experience
-                </strong>
-                <div>
-                  <Icon icon={'toggle_horizontal'} />
-                </div>
-              </div>
-            );
-          })}
+              )}
+            </WithUser>
+          ))}
 
           {/*Invite Friends Card*/}
           {isHost && (

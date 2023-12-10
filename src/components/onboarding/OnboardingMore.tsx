@@ -1,4 +1,4 @@
-import KapiListbox from "@/src/components/KapiListbox";
+import KapiListbox from "@/src/components/forms/KapiListbox";
 import { useAtom } from "jotai/index";
 import onboardingUserDataAtom from "@/src/atoms/onboardingUserDataAtom";
 

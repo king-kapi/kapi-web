@@ -2,7 +2,7 @@ import Input from '@/src/components/Input';
 import { useAtom, useAtomValue } from 'jotai';
 import meAtom from '@/src/atoms/meAtom';
 import createLobbyAtom from '@/src/atoms/createLobbyAtom';
-import KapiListbox from '@/src/components/KapiListbox';
+import KapiListbox from '@/src/components/forms/KapiListbox';
 import { Option } from '@/src/components/Select';
 import { gamesStatusAtom } from '@/src/atoms/gamesAtom';
 import { useMemo } from 'react';

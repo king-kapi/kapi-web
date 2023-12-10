@@ -5,7 +5,7 @@ import sparkleKapi from "@/assets/images/sparkle_kapi.svg";
 import { OnboardingFormContext, OnBoardingFormContextType } from "@/pages/onboarding";
 import Select, { Option } from "@/src/components/Select";
 import Input from "@/src/components/Input";
-import KapiListbox from "@/src/components/KapiListbox";
+import KapiListbox from "@/src/components/forms/KapiListbox";
 import { useAtom } from "jotai/index";
 import onboardingUserDataAtom from "@/src/atoms/onboardingUserDataAtom";
 
