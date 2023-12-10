@@ -1,18 +1,17 @@
-import { atom } from "jotai";
-import mongoose from "mongoose";
+import {atom} from "jotai";
 
 export interface partyFinderSurvey {
-    partyOption: String, 
-    honorConduct: Boolean,
-    games: mongoose.Types.ObjectId[],
-    interestMatch: Number,
-    timezone: Number,
-    message: String,
-    lobbyName: String,
-    lobbySize: Number,
-    lobbyDescription: String,
-    nickname: String,
-    inGameName: String
+    partyOption: string,
+    honorConduct: boolean,
+    games: string[],
+    interestMatch: number,
+    timezone: number,
+    message: string,
+    lobbyName: string,
+    lobbySize: number,
+    lobbyDescription: string,
+    nickname: string,
+    inGameName: string
 }
 
 const partyFinderAtom = atom(<Partial<partyFinderSurvey>>({partyOption: '', honorConduct: false, games: []}))

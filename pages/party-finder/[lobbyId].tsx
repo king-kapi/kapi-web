@@ -21,9 +21,7 @@ export default function LobbyPage() {
   });
   const { isLoading, data, error } = useAtomValue(lobbyStatusAtom);
 
-  const inParty = data
-    ? data.users.filter(user => user._id.toString() === userId).length > 0
-    : false;
+  const inParty = data ? data.users.filter(userId => userId === userId).length > 0 : false;
 
   return (
     <ScopeProvider scope={LobbyScope} value={router.query.lobbyId}>
@@ -51,9 +49,7 @@ export default function LobbyPage() {
             </Tab.List>
             <Tab.Panels className={'flex-auto'}>
               <Tab.Panel className={'contents'}>
-                {data && (
-                  <Chat chatId={data._id.toString()} className={'h-full'} inParty={inParty} />
-                )}
+                {data && <Chat chatId={data.chatId} className={'h-full'} inParty={inParty} />}
               </Tab.Panel>
               <Tab.Panel className={'contents'}>{data && <LobbyRequests lobby={data} />}</Tab.Panel>
             </Tab.Panels>

@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import DevLayout from "@/src/components/layouts/DevLayout";
 import Button from "@/src/components/Button";
 import Link from "next/link";
-import protectedGetServerSideProps from "@/src/utils/protectRoute";
 import { useSession } from "next-auth/react";
 import { ILobbyPopulated } from "@/src/models/Lobby";
-
-export const getServerSideProps = protectedGetServerSideProps;
 
 const LobbyDevPage = () => {
   const { data, status } = useSession();

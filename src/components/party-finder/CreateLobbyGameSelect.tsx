@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from '@/src/styles/GameSelect.module.css';
-import GamesList from './GamesList';
+import { useAtom } from 'jotai';
+import createLobbyAtom from '@/src/atoms/createLobbyAtom';
+import GamesList from '@/src/components/GamesList';
 
-export default function GameSelect({
-  onChange
-                                   }: {
-  onChange: (games: string[]) => void
-}) {
+export default function CreateLobbyGameSelect() {
+  const [lobby, setLobby] = useAtom(createLobbyAtom);
+
   return (
     <div className={styles.GameSelectContainer}>
       <style>{`.Selected {
@@ -17,8 +17,7 @@ export default function GameSelect({
       <h1 className={styles.Header}>Select the games you want to play!</h1>
       <GamesList
         onChange={selectedGames => {
-          console.log(selectedGames);
-          onChange(selectedGames);
+          setLobby({ ...lobby, game: selectedGames[selectedGames.length - 1] });
         }}
       />
     </div>

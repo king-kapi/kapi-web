@@ -6,11 +6,12 @@ import { ProfilePreview } from '@/src/components/ProfilePreview';
 import { HonorOfConduct } from '@/src/components/HonorOfConduct';
 import styles from '@/src/styles/BuddyFinder.module.css';
 import Icon from '@/src/components/icons/Icon';
-import React, { useMemo, useState } from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import Link from 'next/link';
 import Button from '@/src/components/Button';
 import { partyFinderAtom } from '@/src/atoms/partyFinderAtom';
 import { useAtom } from 'jotai';
+import acknowledgedAtom from "@/src/atoms/acknowledgedAtom";
 
 export const formContext = React.createContext({});
 
@@ -33,6 +34,18 @@ export default function BuddyFinder() {
   });
 
   const providerValue = useMemo(() => ({ content, setContent }), [content, setContent]);
+
+  // todo: make this more seamless
+  const [acknowledged, setAcknowledged] = useAtom(acknowledgedAtom);
+  useEffect(() => {
+    // skip if alr ack'd
+    if (acknowledged)
+      setPageNumber(2);
+  }, [acknowledged]);
+  useEffect(() => {
+    if (pageNumber > 1)
+      setAcknowledged(true);
+  }, [pageNumber, setAcknowledged]);
 
   return (
     <div

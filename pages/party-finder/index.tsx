@@ -1,19 +1,13 @@
 import PartyOptions from '@/src/components/PartyOptions';
-import { HonorOfConduct } from '@/src/components/HonorOfConduct';
-import GameSelect from '@/src/components/GameSelect';
-import { useState } from 'react';
 import Button from '@/src/components/Button';
-import { useAtom } from 'jotai';
-import { partyFinderAtom } from '@/src/atoms/partyFinderAtom';
+import {useAtom} from 'jotai';
+import {partyFinderAtom} from '@/src/atoms/partyFinderAtom';
 import Link from 'next/link';
-import InterestMatch from '@/src/components/InterestMatch';
-import TimeZone from '@/src/components/TimeZone';
-import InvitationMessage from '@/src/components/InvitationMessage';
 import styles from '@/src/styles/BuddyFinder.module.css';
 import Icon from '@/src/components/icons/Icon';
 
 export default function PartyFinder() {
-  const [survey, setSurvey] = useAtom(partyFinderAtom);
+  const [survey] = useAtom(partyFinderAtom);
 
   return (
     <div className='px-16 py-12'>

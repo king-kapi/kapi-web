@@ -1,20 +1,22 @@
-import BaseModal, { BaseModalProps } from "@/src/components/modal/BaseModal";
-import { Dialog } from "@headlessui/react";
+import BaseModal, {BaseModalProps} from "@/src/components/modal/BaseModal";
+import {Dialog} from "@headlessui/react";
 import Button from "../Button";
 import Input from "../Input";
 import TextArea from "@/src/components/forms/TextArea";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useMolecule } from "jotai-molecules";
+import React, {useCallback, useEffect, useRef, useState} from "react";
+import {useMolecule} from "jotai-molecules";
 import LobbyMolecule from "@/src/state/LobbyMolecule";
-import { useAtom, useSetAtom } from "jotai/index";
+import {useAtom, useSetAtom} from "jotai/index";
 import IconSpinner from "@/src/components/atoms/IconSpinner";
+import lobbyRequestDefaultsAtom from "@/src/atoms/lobbyRequestDefaultsAtom";
 
 const requestMessagePlaceholder = "Hi i’m ____, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
 const LobbyRequestModal = (props: BaseModalProps) => {
   const {onClose} = props;
-  
-  const { lobbyStatusAtom, lobbyRequestStatusAtom } = useMolecule(LobbyMolecule);
+
+  const [requestDefaults, setRequestDefaults] = useAtom(lobbyRequestDefaultsAtom);
+  const {lobbyStatusAtom, lobbyRequestStatusAtom} = useMolecule(LobbyMolecule);
   const dispatchLobby = useSetAtom(lobbyStatusAtom);
   const [sendRequestStatus, sendRequest] = useAtom(lobbyRequestStatusAtom);
 
@@ -25,10 +27,10 @@ const LobbyRequestModal = (props: BaseModalProps) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const nickname = formData.get("nickname");
-    const ign = formData.get("ign");
-    const experience = formData.get("experience");
-    const role = formData.get("role");
+    const nickname = formData.get("nickname") as string | null;
+    const ign = formData.get("ign") as string | null;
+    const experience = formData.get("experience") as string | null;
+    const role = formData.get("role") as string | null;
     const message = formData.get("message") as string;
 
     if (!nickname || nickname.length === 0) {
@@ -44,7 +46,15 @@ const LobbyRequestModal = (props: BaseModalProps) => {
 
     await sendRequest([message]);
 
-    dispatchLobby({ type: "refetch" });
+    setRequestDefaults({
+      nickname,
+      ign,
+      experience: experience || "",
+      role: role || "",
+      message
+    })
+
+    dispatchLobby({type: "refetch"});
     onClose();
   }, [dispatchLobby, onClose, sendRequest]);
 
@@ -60,29 +70,30 @@ const LobbyRequestModal = (props: BaseModalProps) => {
     <BaseModal {...props} panelClassName={"p-16 theme-blue"}>
       <Dialog.Title className={"flex justify-between items-center w-[40rem]"}>
         Request to Join
-        <Button icon={"deny_default"} buttonType={"transparent"} />
+        <Button icon={"deny_default"} buttonType={"transparent"}/>
       </Dialog.Title>
       <p>Want to change your player info for this lobby?</p>
       <form className={"space-y-6 mt-10"} onSubmit={handleSubmit} ref={formRef}>
         <div>
           <label className={"form-label"}>Nickname</label>
-          <Input name={"nickname"} />
+          <Input name={"nickname"} defaultValue={requestDefaults.nickname}/>
         </div>
 
         <div>
           <label className={"form-label"}>In Game Name</label>
-          <Input placeholder={"This is not shown until you join the lobby"} name={"ign"} />
+          <Input placeholder={"This is not shown until you join the lobby"} name={"ign"}
+                 defaultValue={requestDefaults.ign}/>
         </div>
 
         <div className={"flex gap-8"}>
           <div className={"flex-1"}>
             <label className={"form-label"}>Experience (Optional)</label>
-            <Input placeholder={"Level, rank, etc."} name={"experience"} />
+            <Input placeholder={"Level, rank, etc."} name={"experience"} defaultValue={requestDefaults.experience}/>
           </div>
 
           <div className={"flex-1"}>
             <label className={"form-label"}>Role (Optional)</label>
-            <Input placeholder={"Role, position, etc."} name={"role"} />
+            <Input placeholder={"Role, position, etc."} name={"role"} defaultValue={requestDefaults.role}/>
           </div>
         </div>
 
@@ -90,7 +101,7 @@ const LobbyRequestModal = (props: BaseModalProps) => {
           <label className={"form-label"}>Request Message (Optional)</label>
           <TextArea style={{
             minHeight: "6rem"
-          }} placeholder={requestMessagePlaceholder} name={"message"} />
+          }} placeholder={requestMessagePlaceholder} name={"message"} defaultValue={requestDefaults.message}/>
         </div>
 
         {error && <div className={"text-red-500"}>
@@ -99,7 +110,7 @@ const LobbyRequestModal = (props: BaseModalProps) => {
 
         <div className={"flex justify-end !mt-10"}>
           <Button buttonType={"primary"} className={"w-[12.25rem]"} type={"submit"}>
-            {sendRequestStatus.isLoading && <IconSpinner />}
+            {sendRequestStatus.isLoading && <IconSpinner/>}
             Send Request
           </Button>
         </div>

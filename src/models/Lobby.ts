@@ -3,6 +3,9 @@ import { LOBBY_MODEL_NAME, LOBBY_REQUEST_MODEL_NAME, USER_MODEL_NAME } from "@/s
 import { ILobbyRequest, ILobbyRequestPopulated } from "@/src/models/LobbyRequest";
 import { IUser } from "@/src/models/User";
 
+/**
+ * @deprecated
+ */
 interface ILobbyBase {
   _id: mongoose.Types.ObjectId;
   name: string;
@@ -16,16 +19,25 @@ interface ILobbyBase {
   chat: mongoose.Types.ObjectId;
 }
 
+/**
+ * @deprecated
+ */
 export interface ILobby extends ILobbyBase {
   requests: mongoose.Types.ObjectId[];
   users: mongoose.Types.ObjectId[];
 }
 
+/**
+ * @deprecated
+ */
 export interface ILobbyPopulated extends ILobbyBase {
   requests: ILobbyRequestPopulated[];
   users: IUser[];
 }
 
+/**
+ * @deprecated
+ */
 const lobbySchema = new Schema<ILobby>({
   name: { type: String, required: true },
   game: { type: String, required: true },
@@ -38,6 +50,9 @@ const lobbySchema = new Schema<ILobby>({
   chat: { type: mongoose.SchemaTypes.ObjectId }
 });
 
+/**
+ * @deprecated
+ */
 const Lobby = models.Lobby || model<ILobby>(LOBBY_MODEL_NAME, lobbySchema);
 
 export default Lobby;

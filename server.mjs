@@ -21,7 +21,7 @@ app.prepare().then(() => {
     createProxyMiddleware({
       target: `${process.env.API_HOST || "http://localhost:8080"}`,
       changeOrigin: true,
-      ws: true
+      // ws: true
     })
   );
 

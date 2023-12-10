@@ -1,35 +1,59 @@
 import Input from '@/src/components/Input';
-import KapiListbox from './KapiListbox';
-import { partyFinderAtom } from '../atoms/partyFinderAtom';
 import { useAtom, useAtomValue } from 'jotai';
 import meAtom from '@/src/atoms/meAtom';
+import createLobbyAtom from '@/src/atoms/createLobbyAtom';
+import KapiListbox from '@/src/components/KapiListbox';
+import { Option } from '@/src/components/Select';
+import { gamesStatusAtom } from '@/src/atoms/gamesAtom';
+import { useMemo } from 'react';
+import { IGame } from '@/src/models/Games';
 
-export default function LobbyDescription() {
-  const [survey, setSurvey] = useAtom(partyFinderAtom);
+export default function CreateLobbyDescription() {
+  const [lobby, setLobbyAtom] = useAtom(createLobbyAtom);
   const me = useAtomValue(meAtom);
+  const selectedGameId = lobby.game;
+  const gamesStatus = useAtomValue(gamesStatusAtom);
+  const games = gamesStatus.data;
 
-  function numPlayers() {
-    let arr = [];
-    for (let i = 0; i < 12; i++)
-      arr[i] = {
-        text: <div className={'flex items-center gap-2 whitespace-nowrap'}>{i + 1}</div>,
-        value: i + 1,
-      };
-
-    return arr;
+  function setName(name: string) {
+    setLobbyAtom({
+      ...lobby,
+      name,
+    });
   }
 
-  function setName(x: string) {
-    setSurvey({ ...survey, lobbyName: x });
+  function setDescription(description: string) {
+    setLobbyAtom({
+      ...lobby,
+      description,
+    });
   }
 
-  function setDescription(x: string) {
-    setSurvey({ ...survey, lobbyDescription: x });
+  function setSize(size: number) {
+    setLobbyAtom({
+      ...lobby,
+      numPlayers: size,
+    });
   }
 
-  function setSize(x: number) {
-    setSurvey({ ...survey, lobbySize: x });
-  }
+  const playerOptions: Option[] | undefined = useMemo(() => {
+    let playerOptions: Option[] | undefined;
+    if (selectedGameId && games) {
+      let selectedGame: IGame | undefined;
+      console.log('foo');
+      for (const game of games) {
+        if (game._id.toString() === selectedGameId) selectedGame = game;
+      }
+
+      if (selectedGame)
+        playerOptions = selectedGame.numPlayers.map(players => ({
+          text: players.toString(),
+          value: players.toString(),
+        }));
+    }
+
+    return playerOptions;
+  }, [selectedGameId, games]);
 
   return (
     <div>
@@ -45,7 +69,7 @@ export default function LobbyDescription() {
           <KapiListbox
             placeholder="#"
             className={'w-[13.25rem]'}
-            options={numPlayers()}
+            options={playerOptions || []}
             onChange={x => setSize(Number(x))}
           />
         </div>

@@ -1,17 +1,23 @@
-import { ObjectId } from "mongodb"
-import User from "./User"
-import LobbyRequest from "./LobbyRequest"
-import Game from "./Games"
+import {ILobbyRequestPopulated} from "@/src/models/LobbyRequest";
+import User from "./User";
 
 type Lobby = {
-  _id: ObjectId,
-  game: Game,
-  chatId: ObjectId,
-  host: User,
-  users: string,
-  resolvedRequests: LobbyRequest[],
-  requests: LobbyRequest[],
-  maxSize: number
+  _id: string;
+  name: string;
+  game?: string;
+  hostId: string;
+  tags: string[];
+  numPlayers: number;
+  description?: string;
+  requests: string[];
+  users: string[];
+  chatId?: string;
+};
+
+
+export type LobbyPopulated = Lobby & {
+  requests: ILobbyRequestPopulated[];
+  users: User[];
 }
 
 export default Lobby;

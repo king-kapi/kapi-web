@@ -1,7 +1,6 @@
 import styles from '@/src/styles/LobbyMemberList.module.css';
 import { useCallback, useState } from 'react';
 import Icon from '@/src/components/icons/Icon';
-import { ILobbyPopulated } from '@/src/models/Lobby';
 import Button from '@/src/components/Button';
 import Tag from '@/src/components/Tag';
 import Avatar from '@/src/components/Avatar';
@@ -11,9 +10,11 @@ import { useMolecule } from 'jotai-molecules';
 import LobbyMolecule from '@/src/state/LobbyMolecule';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import meAtom from '@/src/atoms/meAtom';
+import FullLobby from '@/src/types/FullLobby';
+import WithUser from '@/src/components/misc/WithUser';
 
 export interface LobbyDetailsProps {
-  lobby: ILobbyPopulated;
+  lobby: FullLobby;
 }
 
 export default function LobbyDetails({ lobby }: LobbyDetailsProps) {
@@ -29,8 +30,8 @@ export default function LobbyDetails({ lobby }: LobbyDetailsProps) {
   const [view, setView] = useState('grid');
   const [requestOpen, setRequestOpen] = useState(false);
 
-  const isHost = lobby.hostId.toString() === meId;
-  const inParty = lobby.users.filter(user => user._id.toString() === meId).length > 0;
+  const isHost = lobby.hostId === meId;
+  const inParty = lobby.users.filter(userId => userId.toString() === meId).length > 0;
 
   const handleKickPlayer = useCallback(
     async (kickedId: string) => {
@@ -108,46 +109,48 @@ export default function LobbyDetails({ lobby }: LobbyDetailsProps) {
           ]}
         />
       </div>
+
       {view === 'grid' && (
-        <div className={'flex flex-wrap gap-8 justify-between'}>
-          {lobby.users.map(user => {
-            return (
-              <div
-                key={user._id.toString()}
-                className={
-                  'basis-[17rem] flex flex-col relative px-20 py-10 bg-mediumGrey rounded-lg text-center items-center'
-                }
-              >
+        <div className={'flex flex-wrap gap-8'}>
+          {lobby.users.map(userId => (
+            <WithUser userId={userId} key={userId}>
+              {user => (
                 <div
-                  className={'absolute top-5 right-5'}
-                  onClick={() => handleKickPlayer(user._id.toString())}
+                  className={
+                    'basis-[17rem] flex flex-col relative px-20 py-10 bg-mediumGrey rounded-lg text-center items-center'
+                  }
                 >
-                  <Icon icon={'toggle_vertical'} />
-                </div>
-
-                <Avatar c={user.avatarColor} className={'w-[6.75rem]'} />
-
-                <div className={'flex gap-2 items-center mt-6'}>
-                  <h3>{user.username}</h3>
-                  <Icon icon={'crown'} className={'text-yellow-500'} />
-                </div>
-                <div className={styles.MemberInfo}>
-                  <p className={[styles.MemberUsername, 'text-description'].join(' ')}>
-                    @{user.username}
-                  </p>
-                  <strong className={[styles.MemberRole, 'text-description-strong'].join(' ')}>
-                    Role
-                  </strong>
-                  <br />
-                  <strong
-                    className={[styles.MemberExperience, 'text-description-strong'].join(' ')}
+                  <div
+                    className={'absolute top-5 right-5'}
+                    onClick={() => handleKickPlayer(user._id.toString())}
                   >
-                    Experience
-                  </strong>
+                    <Icon icon={'toggle_vertical'} />
+                  </div>
+
+                  <Avatar c={user.avatarColor} className={'w-[6.75rem]'} />
+
+                  <div className={'flex gap-2 items-center mt-6'}>
+                    <h3>{user.username}</h3>
+                    <Icon icon={'crown'} className={'text-yellow-500'} />
+                  </div>
+                  <div className={styles.MemberInfo}>
+                    <p className={[styles.MemberUsername, 'text-description'].join(' ')}>
+                      @{user.username}
+                    </p>
+                    <strong className={[styles.MemberRole, 'text-description-strong'].join(' ')}>
+                      Role
+                    </strong>
+                    <br />
+                    <strong
+                      className={[styles.MemberExperience, 'text-description-strong'].join(' ')}
+                    >
+                      Experience
+                    </strong>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              )}
+            </WithUser>
+          ))}
 
           {isHost && (
             <div
@@ -161,6 +164,7 @@ export default function LobbyDetails({ lobby }: LobbyDetailsProps) {
           )}
         </div>
       )}
+
       {view === 'list' && (
         <div>
           {lobby.users.map(user => {

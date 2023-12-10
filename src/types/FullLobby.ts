@@ -1,22 +1,24 @@
-import { ObjectId } from 'mongodb';
-import User from './User';
-import Game from './Games';
+import Lobby from "@/src/types/Lobby";
 
-type Lobby = {
-  _id: ObjectId;
-  game: Game;
-  chatId: ObjectId;
-  host: User;
-  users: User[];
-  resolvedRequests: LobbyRequestWithUser[];
-  requests: LobbyRequestWithUser[];
-  maxSize: number;
-};
+// type Lobby = {
+//   _id: string;
+//   game: Game;
+//   chatId: string;
+//   hostId: string;
+//   name: string;
+//   description: string;
+//   users: User[];
+//   resolvedRequests: LobbyRequestWithUser[];
+//   requests: LobbyRequestWithUser[];
+//   maxSize: number;
+// };
 
-type LobbyRequestWithUser = {
-  _id: string;
-  sender: User;
-  message?: string;
-};
+// type LobbyRequestWithUser = {
+//   _id: string;
+//   sender: User;
+//   message?: string;
+// };
 
-export default Lobby;
+type FullLobby = Lobby;
+
+export default FullLobby;
