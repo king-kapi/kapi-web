@@ -7,6 +7,7 @@ import meAtom from '@/src/atoms/meAtom';
 import Avatar from './Avatar';
 import Image from 'next/image';
 import rainbowKapi from '@/assets/images/rainbow_kapi.png';
+import { usePathname } from "next/navigation";
 
 function SideNav() {
   const [onlineStatus, setOnlineStatus] = useState('1');
@@ -16,10 +17,7 @@ function SideNav() {
     setOnlineStatus(e.target.value);
   };
 
-  const {
-    asPath, // the value: "/question/how-do-you-get-the-current-url-in-nextjs/"
-    pathname, // the value: "/question/[slug]"
-  } = useRouter();
+  const pathname = usePathname();
 
   const [mode, setMode] = useState('dark');
 

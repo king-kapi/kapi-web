@@ -36,7 +36,7 @@ Authentication is handled with the `next-auth` library. You will need to set the
 
 Page routes are protected *server side*, which means we utilize the `getServerSideProps` to check if the user is logged in and redirect accordingly.
 
-Insert this code to protect a page (example: see `index.tsx`):
+Insert this code to protect a page (example: see `page.tsx`):
 
 ```tsx
 import protectedGetServerSideProps from '@/src/utils/protectRoute';

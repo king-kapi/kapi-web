@@ -1,3 +1,5 @@
+"use client";
+
 import EmptyLayout from "@/src/components/layouts/EmptyLayout";
 import {useEffect, useState} from "react";
 import {useSearchParams} from "next/navigation";

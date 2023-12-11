@@ -1,9 +1,8 @@
 import {PropsWithChildren, useCallback, useEffect, useState} from "react";
-import {useRouter} from "next/router";
 import {useSetAtom} from "jotai";
 import meAtom from "@/src/atoms/meAtom";
 import User from "../types/User";
-
+import {useRouter} from "next/navigation";
 
 const AuthGate = ({children}: PropsWithChildren) => {
   const [authenticated, setAuthenticated] = useState(false);

@@ -1,3 +1,5 @@
+"use client";
+
 import PartyOptions from '@/src/components/PartyOptions';
 import Button from '@/src/components/Button';
 import {useAtom} from 'jotai';

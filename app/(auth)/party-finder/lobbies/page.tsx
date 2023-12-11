@@ -1,3 +1,5 @@
+"use client";
+
 import Icon from '@/src/components/icons/Icon';
 import Input from '@/src/components/Input';
 import Tag from '@/src/components/Tag';

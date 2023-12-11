@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { useRouter } from 'next/router';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import PageHeader from '@/src/components/atoms/PageHeader';
 import LobbyDetails from '@/src/components/LobbyDetails';
 import { Tab } from '@headlessui/react';
@@ -15,11 +17,12 @@ import useUpdate from '@/src/hooks/useUpdate';
 
 export default function LobbyPage() {
   const userId = useAtomValue(meAtom)?._id;
-  const router = useRouter();
-  const lobbyId = router.query.lobbyId as string;
+  const params = useParams();
+
+  const lobbyId = params.lobbyId as string;
 
   const { lobbyStatusAtom } = useMolecule(LobbyMolecule, {
-    withScope: [LobbyScope, router.query.lobbyId],
+    withScope: [LobbyScope, lobbyId],
   });
   const [{ isLoading, data, error }, lobbyDispatch] = useAtom(lobbyStatusAtom);
 
@@ -30,7 +33,7 @@ export default function LobbyPage() {
   });
 
   return (
-    <ScopeProvider scope={LobbyScope} value={router.query.lobbyId}>
+    <ScopeProvider scope={LobbyScope} value={lobbyId}>
       <main className={'grid grid-cols-[auto_36rem] h-full'}>
         <div className={'px-16 py-12'}>
           <PageHeader href="/party-finder" iconName={'party_finder'}>

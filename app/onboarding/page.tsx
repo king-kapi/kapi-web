@@ -1,3 +1,5 @@
+"use client"
+
 import styles from "@/src/styles/onboarding/Onboarding.module.css";
 import React, { useEffect, useState } from "react";
 import Button from "@/src/components/Button";
@@ -140,4 +142,4 @@ export default function Onboarding() {
   );
 }
 
-Onboarding.getLayout = EmptyLayout.getLayout;
+export default Onboarding;

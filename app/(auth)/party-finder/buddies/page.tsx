@@ -1,3 +1,5 @@
+"use client";
+
 import GameSelect from '@/src/components/GameSelect';
 import InterestMatch from '@/src/components/InterestMatch';
 import InvitationMessage from '@/src/components/InvitationMessage';

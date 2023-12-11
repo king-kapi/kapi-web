@@ -1,3 +1,5 @@
+"use client";
+
 import Icon from '@/src/components/icons/Icon';
 import {useEffect, useState} from 'react';
 import styles from '@/src/styles/BuddyFinder.module.css';
