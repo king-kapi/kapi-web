@@ -21,26 +21,26 @@ app.prepare().then(() => {
     createProxyMiddleware({
       target: `${process.env.API_HOST || "http://localhost:8080"}`,
       changeOrigin: true,
-      // ws: true
+      ws: true
     })
   );
 
-  server.use(
-    "/api/chat",
-    createProxyMiddleware({
-      target: `${process.env.API_HOST || "http://localhost:8080"}`,
-      changeOrigin: true,
-      ws: true
-    })
-  );
-  server.use(
-    "/api/updates",
-    createProxyMiddleware({
-      target: `${process.env.API_HOST || "http://localhost:8080"}`,
-      changeOrigin: true,
-      ws: true
-    })
-  );
+  // server.use(
+  //   "/api/chat",
+  //   createProxyMiddleware({
+  //     target: `${process.env.API_HOST || "http://localhost:8080"}`,
+  //     changeOrigin: true,
+  //     ws: true
+  //   })
+  // );
+  // server.use(
+  //   "/api/updates",
+  //   createProxyMiddleware({
+  //     target: `${process.env.API_HOST || "http://localhost:8080"}`,
+  //     changeOrigin: true,
+  //     ws: true
+  //   })
+  // );
 
   server.all("*", (req, res) => handle(req, res));
 

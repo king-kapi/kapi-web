@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Input from '@/src/components/Input';
 import Button from '@/src/components/Button';
-import { IMessagePopulated } from '@/src/models/Message';
 import { useAtomValue } from 'jotai';
 import meAtom from '@/src/atoms/meAtom';
+import SenderBubble from '@/src/components/chat/SenderBubble';
+import ReceiveBubble from '@/src/components/chat/ReceiveBubble';
+import Message from '@/src/types/Message';
+import { twMerge } from 'tw-merge';
 
 export interface ChatProps extends React.ComponentPropsWithoutRef<'div'> {
   chatId: string;
@@ -11,10 +14,21 @@ export interface ChatProps extends React.ComponentPropsWithoutRef<'div'> {
 }
 
 const Chat = ({ chatId, inParty = true, className, ...props }: ChatProps) => {
-  const user = useAtomValue(meAtom);
+  const meId = useAtomValue(meAtom)?._id;
 
   const socketRef = useRef<WebSocket>();
-  const [messages, setMessages] = useState<IMessagePopulated[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
+
+  useEffect(() => {
+    fetch(`/api/chat/${chatId}/messages`)
+      .then(res => {
+        if (res.ok) return res.json();
+        throw res;
+      })
+      .then(messages => {
+        setMessages(m => [...m, ...messages]);
+      });
+  }, [chatId]);
 
   useEffect(() => {
     const socket = new WebSocket(`ws://${location.host}/api/chat`);
@@ -33,6 +47,7 @@ const Chat = ({ chatId, inParty = true, className, ...props }: ChatProps) => {
 
     socket.onmessage = message => {
       console.log('Received', message);
+      setMessages(messages => [...messages, JSON.parse(message.data) as Message]);
     };
   }, [chatId]);
 
@@ -46,7 +61,7 @@ const Chat = ({ chatId, inParty = true, className, ...props }: ChatProps) => {
 
     socket.send(
       JSON.stringify({
-        senderId: user?._id || '',
+        senderId: meId || '',
         message,
       })
     );
@@ -55,14 +70,14 @@ const Chat = ({ chatId, inParty = true, className, ...props }: ChatProps) => {
   };
 
   return (
-    <div className={`flex flex-col ${className}`} {...props}>
+    <div className={twMerge(`h-full max-h-full`, className)} {...props}>
       {inParty ? (
-        <div className={'flex-auto flex flex-col-reverse gap-6 overflow-auto px-5 pb-6'}>
-          {/*{messages.map((message, i) => {*/}
-          {/*  if (message.sender._id.toString() === user._id.toString())*/}
-          {/*    return <SenderBubble message={message} key={message._id.toString()} />;*/}
-          {/*  return <ReceiveBubble message={message} key={message._id.toString()} />;*/}
-          {/*})}*/}
+        <div className={'flex flex-col-reverse gap-6 px-5 pb-6'}>
+          {messages.map(message => {
+            if (message.senderId === meId)
+              return <SenderBubble message={message} key={message._id.toString()} />;
+            return <ReceiveBubble message={message} key={message._id.toString()} />;
+          })}
         </div>
       ) : (
         <div className={`flex-auto flex flex-center text-center text-greyText`}>

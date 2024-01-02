@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 const useUpdate = (id: string, onUpdate: () => void) => {
   const socketRef = useRef<WebSocket>();
   useEffect(() => {
-    const socket = new WebSocket(`ws://localhost:8080/api/updates`);
+    const socket = new WebSocket(`ws://${location.host}/api/updates`);
 
     socket.onopen = () => {
       console.log('socket opened');
@@ -12,7 +12,7 @@ const useUpdate = (id: string, onUpdate: () => void) => {
       // send the initiate message
       socket.send(
         JSON.stringify({
-          id
+          id,
         })
       );
     };
@@ -24,7 +24,7 @@ const useUpdate = (id: string, onUpdate: () => void) => {
 
     return () => {
       socket.close();
-    }
+    };
   }, [id, onUpdate]);
 
   return socketRef.current;

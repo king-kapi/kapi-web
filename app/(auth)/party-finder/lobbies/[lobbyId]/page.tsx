@@ -16,7 +16,7 @@ import meAtom from '@/src/atoms/meAtom';
 import useUpdate from '@/src/hooks/useUpdate';
 
 export default function LobbyPage() {
-  const userId = useAtomValue(meAtom)?._id;
+  const meId = useAtomValue(meAtom)?._id;
   const params = useParams();
 
   const lobbyId = params.lobbyId as string;
@@ -26,7 +26,7 @@ export default function LobbyPage() {
   });
   const [{ isLoading, data, error }, lobbyDispatch] = useAtom(lobbyStatusAtom);
 
-  const inParty = data ? data.users.filter(uId => uId === userId).length > 0 : false;
+  const inParty = data ? data.users.filter(userId => userId === meId).length > 0 : false;
 
   useUpdate(lobbyId, () => {
     lobbyDispatch({ type: 'refetch' });
@@ -58,7 +58,7 @@ export default function LobbyPage() {
             </Tab.List>
             <Tab.Panels className={'flex-auto'}>
               <Tab.Panel className={'contents'}>
-                {data && <Chat chatId={data.chatId} className={'h-full'} inParty={inParty} />}
+                {data?.chatId && <Chat chatId={data.chatId} inParty={inParty} />}
               </Tab.Panel>
               <Tab.Panel className={'contents'}>{data && <LobbyRequests lobby={data} />}</Tab.Panel>
             </Tab.Panels>
