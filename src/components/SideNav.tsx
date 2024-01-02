@@ -7,7 +7,8 @@ import meAtom from '@/src/atoms/meAtom';
 import Avatar from './Avatar';
 import Image from 'next/image';
 import rainbowKapi from '@/assets/images/rainbow_kapi.png';
-import { usePathname } from "next/navigation";
+import { usePathname } from 'next/navigation';
+import AvatarWithStatus from '@/src/components/misc/AvatarWithStatus';
 
 function SideNav() {
   const [onlineStatus, setOnlineStatus] = useState('1');
@@ -54,7 +55,7 @@ function SideNav() {
   if (!me) return;
 
   return (
-    <div className={[styles.sidenav, `theme-${mode}`].join(' ')}>
+    <div className={[styles.Sidenav, `theme-${mode}`].join(' ')}>
       <style>{`/* width */
         ::-webkit-scrollbar {
           width: 10px;
@@ -72,8 +73,8 @@ function SideNav() {
         ::-webkit-scrollbar-thumb:hover {
           background: #333333;
         }`}</style>
-      <section className={[styles.whiteSection, 'bg-darkGrey'].join(' ')}>
-        <span className={styles.header}>
+      <section className={styles.TopSection}>
+        <span className={styles.Header}>
           <div className={styles.avatarDiv}>
             <div>
               <Image src={rainbowKapi} alt={'Kapi'} className={'w-[4rem]'} />
@@ -83,8 +84,9 @@ function SideNav() {
             <Icon icon="mdi:bell" color="#FFFFFF" className={styles.bell} />
           </div>
         </span>
-        <div className={styles.menu}>
-          <a className={styles.homeTab} href="/">
+
+        <div className={styles.Menu}>
+          <a className={styles.MenuLink} href="/">
             <div
               className={[
                 pathname === '/' ? styles.selected : styles.notSelected,
@@ -93,9 +95,10 @@ function SideNav() {
             >
               <Icon icon="mdi:house" color="#FFFFFF" className={styles.homeIcon} />
             </div>
-            <span className={styles.homeTabWord}>Home</span>
+            <span>Home</span>
           </a>
-          <a href="/party-finder" className={styles.partyFinderTab}>
+
+          <a href="/party-finder" className={styles.MenuLink}>
             <div
               className={[
                 pathname.includes('party-finder') ? styles.selected : styles.notSelected,
@@ -104,9 +107,10 @@ function SideNav() {
             >
               <Icon icon="mdi:sword-cross" color="#FFFFFF" className={styles.partFinderIcon} />
             </div>
-            <span className={styles.partyFinderTabWord}>Party Finder</span>
+            <span>Party Finder</span>
           </a>
-          <a className={styles.communityTab} href="/community">
+
+          <a className={styles.MenuLink} href="/community">
             <div
               className={[
                 pathname.includes('community') ? styles.selected : styles.notSelected,
@@ -115,9 +119,10 @@ function SideNav() {
             >
               <Icon icon="fa-solid:user-friends" color="#FFFFFF" className={styles.communityIcon} />
             </div>
-            <span className={styles.communityTabWord}>Community</span>
+            <span>Community</span>
           </a>
-          <a className={styles.forYouTab} href="/foryou">
+
+          <a className={styles.MenuLink} href="/foryou">
             <div
               className={[
                 pathname.includes('foryou') ? styles.selected : styles.notSelected,
@@ -126,32 +131,50 @@ function SideNav() {
             >
               <Icon icon="ph:sparkle-fill" color="#FFFFFF" className={styles.forYouIcon} />
             </div>
-            <span className={styles.forYouTabWord}>For You</span>
+            <span>For You</span>
           </a>
         </div>
       </section>
-      <section className={[styles.graySection, 'bg-mediumGrey'].join(' ')}>
-        {/*{fetchFriends()}*/}
+
+      {/*Friends*/}
+
+      <section className={styles.FriendsSection}>
+        <h4 className={'align-text-middle leading-5'}>
+          Friends - <strong>2/12</strong>
+        </h4>
+
+        <div className={'flex flex-col mt-8 gap-5'}>
+          <div className={'flex items-center gap-6'}>
+            <AvatarWithStatus c={'#F4D35E'} status={'online'} />
+            CodeTea
+          </div>
+          <div className={'flex items-center gap-6'}>
+            <AvatarWithStatus c={'#ED6FA6'} status={'offline'} />
+            Janna Main
+          </div>
+          <div className={'flex items-center gap-6'}>
+            <AvatarWithStatus c={'#4567BF'} status={'idle'} />
+            TracerLegend21
+          </div>
+        </div>
       </section>
-      <section className={[styles.blackSection, 'bg-darkGrey'].join(' ')}>
-        <div className={styles.statusContainer}>
-          <div className={styles.userAvatar}>
-            <Avatar c={me.avatarColor} />
-            <div className={getCurrentStatus()}></div>
-          </div>
-          <div className={styles.userNameContainer}>
-            {me.username}#{me.tag}
-            <select
-              name="status"
-              className={[styles.status, 'bg-darkGrey'].join(' ')}
-              id="status"
-              onChange={e => handleChange(e)}
-            >
-              <option value="1">Online</option>
-              <option value="2">Idle</option>
-              <option value="3">Offline</option>
-            </select>
-          </div>
+
+      {/*Current User Status*/}
+
+      <section className={styles.MeSection}>
+        <AvatarWithStatus c={me.avatarColor} status={'online'} />
+        <div className={"flex flex-col"}>
+          {me.username}#{me.tag}
+          <select
+            name="status"
+            className={'-ml-1 bg-darkGrey'}
+            id="status"
+            onChange={e => handleChange(e)}
+          >
+            <option value="1">Online</option>
+            <option value="2">Idle</option>
+            <option value="3">Offline</option>
+          </select>
         </div>
       </section>
     </div>
