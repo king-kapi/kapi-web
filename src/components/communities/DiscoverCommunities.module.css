@@ -1,0 +1,31 @@
+.TrendingCommunities {
+    margin-top: 1.5rem;
+
+    width: 100%;
+    white-space: nowrap;
+
+    & > * {
+        display: inline-block;
+        width: 32rem;
+        white-space: initial;
+
+        &:not(:first-child) {
+            margin-left: 2rem;
+        }
+    }
+
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+
+.Communities {
+    margin-top: 2.5rem;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
+    gap: 1.5rem;
+}

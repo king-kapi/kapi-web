@@ -3,9 +3,10 @@
     flex-direction: column;
 
     height: 100vh;
-    width: 17.5em;
+    width: 17.5rem;
     font-family: 'Montserrat', sans-serif;
     overflow: hidden;
+    background: var(--darkGrey);
 }
 
 .TopSection {

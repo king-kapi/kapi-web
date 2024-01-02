@@ -6,7 +6,7 @@ import meAtom from '@/src/atoms/meAtom';
 import SenderBubble from '@/src/components/chat/SenderBubble';
 import ReceiveBubble from '@/src/components/chat/ReceiveBubble';
 import Message from '@/src/types/Message';
-import { twMerge } from 'tw-merge';
+import { twMerge } from "tailwind-merge";
 
 export interface ChatProps extends React.ComponentPropsWithoutRef<'div'> {
   chatId: string;

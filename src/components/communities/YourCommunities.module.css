@@ -1,0 +1,7 @@
+.Communities {
+    margin-top: 2.5rem;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
+    gap: 1.5rem;
+}

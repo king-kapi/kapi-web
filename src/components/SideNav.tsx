@@ -1,18 +1,15 @@
 import { Icon } from '@iconify/react';
 import styles from '@/src/styles/Sidenav.module.css';
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import { useAtomValue } from 'jotai';
-import meAtom from '@/src/atoms/meAtom';
-import Avatar from './Avatar';
 import Image from 'next/image';
 import rainbowKapi from '@/assets/images/rainbow_kapi.png';
 import { usePathname } from 'next/navigation';
 import AvatarWithStatus from '@/src/components/misc/AvatarWithStatus';
+import useMe from '@/src/hooks/useMe';
 
 function SideNav() {
   const [onlineStatus, setOnlineStatus] = useState('1');
-  const me = useAtomValue(meAtom);
+  const me = useMe();
 
   const handleChange = (e: any) => {
     setOnlineStatus(e.target.value);
@@ -163,7 +160,7 @@ function SideNav() {
 
       <section className={styles.MeSection}>
         <AvatarWithStatus c={me.avatarColor} status={'online'} />
-        <div className={"flex flex-col"}>
+        <div className={'flex flex-col'}>
           {me.username}#{me.tag}
           <select
             name="status"

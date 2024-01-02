@@ -1,0 +1,10 @@
+.CommunityCard {
+    background: var(--mediumGrey);
+    border-radius: 0.625rem;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.CommunityCardText {
+    padding: 1.25rem 1.5rem 1.5rem;
+}
