@@ -1,12 +1,10 @@
-import { useContext, useMemo, useState } from "react";
+import {useMemo} from "react";
 import styles from "@/src/styles/onboarding/OnboardingUsername.module.css";
 import Image from "next/image";
 import sparkleKapi from "@/assets/images/sparkle_kapi.svg";
-import { OnboardingFormContext, OnBoardingFormContextType } from "@/app/onboarding/page";
-import Select, { Option } from "@/src/components/Select";
-import Input from "@/src/components/Input";
+import {Option} from "@/src/components/Select";
 import KapiListbox from "@/src/components/forms/KapiListbox";
-import { useAtom } from "jotai/index";
+import {useAtom} from "jotai";
 import onboardingUserDataAtom from "@/src/atoms/onboardingUserDataAtom";
 
 const OnboardingBirthday = () => {
@@ -47,27 +45,28 @@ const OnboardingBirthday = () => {
         <KapiListbox
           name={"month"}
           className={"mt-6 w-[11.5rem]"} options={[
-          { text: "January", value: "1" },
-          { text: "February", value: "2" },
-          { text: "March", value: "3" },
-          { text: "April", value: "4" },
-          { text: "May", value: "5" },
-          { text: "June", value: "6" },
-          { text: "July", value: "7" },
-          { text: "August", value: "8" },
-          { text: "September", value: "9" },
-          { text: "October", value: "10" },
-          { text: "November", value: "11" },
-          { text: "December", value: "12" }
+          {text: "January", value: "1"},
+          {text: "February", value: "2"},
+          {text: "March", value: "3"},
+          {text: "April", value: "4"},
+          {text: "May", value: "5"},
+          {text: "June", value: "6"},
+          {text: "July", value: "7"},
+          {text: "August", value: "8"},
+          {text: "September", value: "9"},
+          {text: "October", value: "10"},
+          {text: "November", value: "11"},
+          {text: "December", value: "12"}
         ]}
           placeholder={"Month"}
           onChange={month => setUserData({
             ...userData,
             birthday: {
-              ...userData.birthday,
+              day: userData.birthday?.day ?? 1,
+              year: userData.birthday?.year ?? 2000,
               month: parseInt(month || "1")
             }
-          })} />
+          })}/>
 
         <KapiListbox
           className={"mt-6 w-[8.125rem]"}
@@ -77,10 +76,11 @@ const OnboardingBirthday = () => {
           onChange={day => setUserData({
             ...userData,
             birthday: {
-              ...userData.birthday,
+              month: userData.birthday?.month ?? 1,
+              year: userData.birthday?.year ?? 2000,
               day: parseInt(day || "1")
             }
-          })} />
+          })}/>
 
         <KapiListbox
           className={"mt-6 w-[9.75rem]"}
@@ -90,13 +90,14 @@ const OnboardingBirthday = () => {
           onChange={year => setUserData({
             ...userData,
             birthday: {
-              ...userData.birthday,
-              year: parseInt(year || "1")
+              month: userData.birthday?.month ?? 1,
+              year: parseInt(year || "1"),
+              day: userData.birthday?.day ?? 1
             }
           })}
         />
 
-        <Image className={styles.Avatar} src={sparkleKapi} alt={"Sparkle Kapi"} />
+        <Image className={styles.Avatar} src={sparkleKapi} alt={"Sparkle Kapi"}/>
       </div>
     </div>
   );

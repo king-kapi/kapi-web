@@ -26,7 +26,7 @@ export default function OnboardingUsername() {
                    onChange={pronouns => {
                      setUserData({
                        ...userData,
-                       pronouns: pronouns as Pronouns
+                       pronouns: [pronouns ?? "zzz-zzz"]
                      });
                    }} />
 

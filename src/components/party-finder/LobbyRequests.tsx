@@ -1,17 +1,17 @@
-import { ILobbyPopulated } from '@/src/models/Lobby';
-import { useMolecule } from 'jotai-molecules';
+import {useMolecule} from 'jotai-molecules';
 import LobbyMolecule from '@/src/state/LobbyMolecule';
 import Icon from '../icons/Icon';
 import Avatar from '../Avatar';
 import IconButton from '@/src/components/atoms/IconButton';
-import { useCallback } from 'react';
-import { useAtom } from 'jotai/index';
+import {useCallback} from 'react';
+import {useAtom} from 'jotai/index';
 import IconSpinner from '@/src/components/atoms/IconSpinner';
-import { useAtomValue } from 'jotai';
+import {useAtomValue} from 'jotai';
 import meAtom from '@/src/atoms/meAtom';
 import WithUser from '@/src/components/misc/WithUser';
+import Lobby from "@/src/types/Lobby";
 
-const LobbyRequests = ({ lobby }: { lobby: ILobbyPopulated }) => {
+const LobbyRequests = ({ lobby }: { lobby: Lobby }) => {
   const meId = useAtomValue(meAtom)?._id;
 
   // const isHost = lobby.hostId.toString() === userId;

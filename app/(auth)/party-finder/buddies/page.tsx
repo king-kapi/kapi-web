@@ -15,8 +15,6 @@ import { partyFinderAtom } from '@/src/atoms/partyFinderAtom';
 import { useAtom } from 'jotai';
 import acknowledgedAtom from "@/src/atoms/acknowledgedAtom";
 
-export const formContext = React.createContext({});
-
 export type formContent = {
   games: string[];
   interestMatch: boolean;
@@ -76,7 +74,9 @@ export default function BuddyFinder() {
               </h1>
             </div>
             {pageNumber === 1 && <HonorOfConduct />}
-            {pageNumber === 2 && <GameSelect />}
+            {pageNumber === 2 && <GameSelect onChange={(c) => {
+              console.log(c);
+            }} />}
             {pageNumber === 3 && <InterestMatch />}
             {pageNumber === 4 && <TimeZone />}
             {pageNumber === 5 && <InvitationMessage />}

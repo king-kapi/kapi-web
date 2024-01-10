@@ -1,6 +1,6 @@
 import { atom } from "jotai";
-import { IUser } from "@/src/models/User";
+import User from "@/src/types/User";
 
-const onboardingUserDataAtom = atom<Partial<IUser>>({});
+const onboardingUserDataAtom = atom<Partial<User>>({});
 
 export default onboardingUserDataAtom;

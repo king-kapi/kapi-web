@@ -1,6 +1,6 @@
 import styles from "@/src/styles/onboarding/OnboardingGames.module.css";
 import GamesList from "../GamesList";
-import { useAtom } from "jotai/index";
+import { useAtom } from "jotai";
 import onboardingUserDataAtom from "@/src/atoms/onboardingUserDataAtom";
 
 export default function OnboardingGames() {

@@ -13,14 +13,15 @@ import LobbyCard from '@/src/components/LobbyCard';
 import CreateLobbyGameSelect from '@/src/components/party-finder/CreateLobbyGameSelect';
 import createLobbyAtom from '@/src/atoms/createLobbyAtom';
 import CreateLobbyDescription from '@/src/components/party-finder/CreateLobbyDescription';
-import {router} from 'next/client';
 import FullLobby from '@/src/types/FullLobby';
 import acknowledgedAtom from "@/src/atoms/acknowledgedAtom";
+import {useRouter} from "next/navigation";
 
 export default function CreateLobbyPage() {
   const [survey, setSurvey] = useAtom(partyFinderAtom);
   const [pageNumber, setPageNumber] = useState(1);
   const createLobbyParams = useAtomValue(createLobbyAtom);
+  const router = useRouter();
 
   // todo: make this more seamless
   const [acknowledged, setAcknowledged] = useAtom(acknowledgedAtom);

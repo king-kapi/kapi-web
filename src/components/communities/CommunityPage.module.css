@@ -1,6 +1,9 @@
 .Page {
     background: var(--darkGrey);
     min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
 }
 
 .Banner {

@@ -1,10 +1,9 @@
 import styles from '@/src/styles/GamesList.module.css';
-import React, { useEffect, useState } from 'react';
+import React, {useState} from 'react';
 import Icon from '@/src/components/icons/Icon';
-import { useAtomValue } from 'jotai/index';
-import { gamesStatusAtom } from '@/src/atoms/gamesAtom';
-import _ID from '@/src/types/_ID';
-import { IGame } from '@/src/models/Games';
+import {useAtomValue} from 'jotai';
+import {gamesStatusAtom} from '@/src/atoms/gamesAtom';
+import {IGame} from '@/src/models/Games';
 
 export interface GamesListProps {
   onChange?: (selectedGames: string[]) => void;
