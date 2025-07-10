@@ -27,9 +27,14 @@ const AuthGate = ({children}: PropsWithChildren) => {
       const me = await res.json() as User;
       setMe(me);
 
+      if (!me.onboarded) {
+        await router.push("/onboarding");
+        return;
+      }
+
       setAuthenticated(true);
     })();
-  }, [notLoggedIn, setMe]);
+  }, [notLoggedIn, router, setMe]);
 
   if (!authenticated)
     return <></>;

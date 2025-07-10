@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import DevLayout from "@/src/components/layouts/DevLayout";
 import Button from "@/src/components/Button";
 import Link from "next/link";
-import protectedGetServerSideProps from "@/src/utils/protectRoute";
-import { useSession } from "next-auth/react";
-import { ILobbyPopulated } from "@/src/models/Lobby";
-
-export const getServerSideProps = protectedGetServerSideProps;
+import {ILobbyPopulated} from "@/src/models/Lobby";
+import {useAtomValue} from "jotai/index";
+import meAtom from "@/src/atoms/meAtom";
 
 const LobbyDevPage = () => {
-  const { data, status } = useSession();
+  const me = useAtomValue(meAtom);
 
   const [lobbies, setLobbies] =
     useState<ILobbyPopulated[]>([]);
@@ -51,7 +49,7 @@ const LobbyDevPage = () => {
 
       <div className={"flex"}>
         {lobbies.map(lobby => (
-          <div key={lobby._id.toString()} className={"bg-mediumGrey px-10 py-8"} style={{ borderRadius: 20 }}>
+          <div key={lobby._id.toString()} className={"bg-mediumGrey px-10 py-8"} style={{borderRadius: 20}}>
             <small>{lobby.game.toUpperCase()}</small>
             <h4>{lobby.name}</h4>
             <div>{lobby.description}</div>
@@ -63,7 +61,7 @@ const LobbyDevPage = () => {
                 </Button>
               </Link>
 
-              {lobby.hostId.toString() === data?.id ? (
+              {lobby.hostId.toString() === me?._id ? (
                 <Button icon={"deny_small"} onClick={() => handleDelete(lobby._id.toString())}>
                   Delete
                 </Button>
