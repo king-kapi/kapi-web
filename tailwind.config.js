@@ -38,10 +38,13 @@ module.exports = {
         yellow: generateColors("yellow"),
         "dark-blue": "var(--darkBlue)",
         "medium-blue": "var(--medium-blue)",
+        "status-green": "var(--status-green)",
+        "status-red": "var(--status-red)"
       },
       borderRadius: {
         "lg": "0.625rem",
-        "2xl": "1.25rem"
+        "2xl": "1.25rem",
+        "3xl": "2rem"
       }
     }
   },

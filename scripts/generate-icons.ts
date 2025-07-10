@@ -15,7 +15,8 @@ for (const imagePath of images) {
   // console.log(create(names.join(""), contents));
 
   const contents = fs.readFileSync("./assets/icons/" + imagePath).toString()
-    .replaceAll('fill="white"', 'fill="currentColor"');
+    .replaceAll('fill="white"', 'fill="currentColor"')
+    .replaceAll('stroke="white"', 'stroke="currentColor"');
   const src = "/icons/" + imagePath;
   const key = imagePath.replace('.svg', '');
   const widthMatch = contents.match(/(?<=\bwidth=")[^"]*/gm);

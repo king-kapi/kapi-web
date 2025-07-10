@@ -51,7 +51,9 @@ export default function GamesList({
               handleSelectGame(e, game);
             }}
           >
-            <div className={styles.GameImg}></div>
+            <div className={styles.GameImg} style={{
+              backgroundImage: `url(${game.image})`,
+            }}></div>
             <input type="checkbox" />
             <div className={styles.GameContent}>
               {game.name}

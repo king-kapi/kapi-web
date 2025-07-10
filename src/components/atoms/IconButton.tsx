@@ -6,18 +6,16 @@ import Icons from "@/src/components/icons/Icons";
 export interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
   buttonType?: "primary" | "secondary" | "transparent",
   buttonSize?: "small" | "large",
-  icon?: Icons,
-  className?: string,
+  icon: Icons,
 }
 
-const Button = ({
-                  children,
-                  buttonType = "primary",
-                  buttonSize = "small",
-                  icon,
-                  className,
-                  ...props
-                }: ButtonProps) => {
+const IconButton = ({
+                      buttonType = "transparent",
+                      buttonSize = "small",
+                      icon,
+                      className,
+                      ...props
+                    }: ButtonProps) => {
   const buttonTypeClass = useMemo(() => {
     switch (buttonType) {
       case "primary":
@@ -31,18 +29,16 @@ const Button = ({
 
   return (
     <button className={[
-      styles.Button,
       buttonSize === "small" ? styles.Small : styles.Large,
       buttonTypeClass,
-      "inline-flex items-center justify-center",
+      "inline-flex items-center justify-center rounded-full",
       className
     ].join(" ")}
             {...props}
     >
-      {icon && <Icon icon={icon} />}
-      {children}
+      <Icon icon={icon} />
     </button>
   );
 };
 
-export default Button;
+export default IconButton;

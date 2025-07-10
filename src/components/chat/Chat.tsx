@@ -11,16 +11,17 @@ import ReceiveBubble from "@/src/components/chat/ReceiveBubble";
 
 export interface ChatProps extends React.ComponentPropsWithoutRef<"div"> {
   chatId: string;
+  inParty?: boolean;
 }
 
-const Chat = ({ chatId, className, ...props }: ChatProps) => {
+const Chat = ({ chatId, inParty = true, className, ...props }: ChatProps) => {
   const user = useAtomValue(userAtom);
 
   const socketRef = useRef<Socket>();
   const [messages, setMessages] = useState<IMessagePopulated[]>([]);
 
   useEffect(() => {
-    if (!chatId) return;
+    if (!chatId || !inParty) return;
     const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
     socketRef.current = socket;
     fetch(`/api/chats/${chatId.toString()}/messages`)
@@ -42,10 +43,11 @@ const Chat = ({ chatId, className, ...props }: ChatProps) => {
     return () => {
       socket.disconnect();
     };
-  }, [chatId]);
+  }, [chatId, inParty]);
 
   const handleSendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!inParty) return;
 
     const formData = new FormData(e.currentTarget);
     const message = formData.get("message") as string;
@@ -68,14 +70,24 @@ const Chat = ({ chatId, className, ...props }: ChatProps) => {
 
   return (
     <div className={`flex flex-col ${className}`} {...props}>
-      <div className={"flex-auto flex flex-col-reverse gap-6 overflow-auto px-5 pb-6"}>
-        {messages.map((message, i) => {
-          if (message.sender._id.toString() === user._id.toString())
-            return <SenderBubble message={message} key={message._id.toString()} />;
-          return <ReceiveBubble message={message} key={message._id.toString()} />;
-        })}
-      </div>
-      <div className={"flex-shrink bg-dark-blue p-5"}>
+      {
+        inParty ? (
+          <div className={"flex-auto flex flex-col-reverse gap-6 overflow-auto px-5 pb-6"}>
+            {messages.map((message, i) => {
+              if (message.sender._id.toString() === user._id.toString())
+                return <SenderBubble message={message} key={message._id.toString()} />;
+              return <ReceiveBubble message={message} key={message._id.toString()} />;
+            })}
+          </div>
+        ) : (
+          <div className={`flex-auto flex flex-center text-center text-greyText`}>
+            Send a join request to talk to the lobby ;D
+          </div>
+        )
+      }
+      <div className={"flex-shrink bg-dark-blue p-5"} style={{
+        pointerEvents: inParty ? "auto" : "none"
+      }}>
         <form className={"bg-medium-blue flex rounded-lg"} onSubmit={handleSendMessage}>
           <Input className={"!bg-transparent flex-grow"} name={"message"} />
           <Button buttonType={"transparent"} type={"submit"}>Send</Button>

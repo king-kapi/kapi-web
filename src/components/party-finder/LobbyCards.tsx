@@ -1,5 +1,5 @@
 import React from "react";
-import { useAtomValue } from "jotai/index";
+import { useAtomValue } from "jotai";
 import { lobbiesAtom } from "@/src/atoms/lobbiesAtom";
 import Icon from "@/src/components/icons/Icon";
 import Button from "@/src/components/Button";

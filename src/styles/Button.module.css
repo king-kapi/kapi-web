@@ -1,4 +1,11 @@
 .Button {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+
+    @apply gap-x-2.5;
+
     @apply font-medium;
     font-family: 'Montserrat', sans-serif;
     font-size: 1rem;
